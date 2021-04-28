@@ -1,2 +1,2 @@
 # DCMIS
-This a web-based system for Dental Clinic, which can be use by all dental clinic anytime any where.
+This is a web-based system for Dental Clinic, which can be used by all dental clinic anytime any where.
