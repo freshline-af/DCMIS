@@ -18,6 +18,8 @@ const staffAll = require('./API/ReadStaffController');
 // Get a specific staff
 const sStaff = require('./API/SpecificStaff');
 const hashStaffPwd = require('./API/UpdatePasswordController');
+// staff login controller
+const staffLogin = require('./API/StaffLoginController');
 /* ---------------------------------/. import Staff --------------------------- */
 
 /* --------------------------------- import Patients ---------------------------- */
@@ -47,6 +49,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Staff page
 app.get("/staff", newStaffController);
 app.put("/staff/updatePassword/:id", hashStaffPwd) 
+// login route
+app.post("/staff/login", staffLogin);
 // Add new patient
 app.get("/patient/add", newPatientController);
 /* ------------------  Routes for Patients -------------------------- */
