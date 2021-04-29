@@ -47,7 +47,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // });
 
 // Staff page
-app.get("/staff", newStaffController);
+app.post("/staff/add", newStaffController);
 app.put("/staff/updatePassword/:id", hashStaffPwd) 
 // login route
 app.post("/staff/login", staffLogin);
