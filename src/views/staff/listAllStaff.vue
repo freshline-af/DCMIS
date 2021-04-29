@@ -20,7 +20,7 @@
           :footer-props="footer"
           class="elevation-1"
         >
-          <template v-slot:item.actions="{ item }">
+          <template v-slot:[`item.actions`]="{ item }">
             <v-btn x-small icon @click="ShowOneStaff(item)">
               <v-icon>mdi-text</v-icon>
             </v-btn>
@@ -84,19 +84,18 @@ export default {
     ...mapState(["employes"]),
   },
   mounted() {
-    
+   this.initialize()
   },
-  created() {
-    this.getAllStaff();
+ async created() {
+   await this.$store.dispatch("staff/setStaff");
   },
   methods: {
     ShowOneStaff(item) {
       this.dialog = true;
       this.employe = item;
     },
-    getAllStaff() {
-      this.$store.dispatch("staff/setStaff");
-      this.staffList = this.$store.state.staff.staff;
+    initialize() {
+       this.staffList = this.$store.state.staff.staff;
     },
   },
 };

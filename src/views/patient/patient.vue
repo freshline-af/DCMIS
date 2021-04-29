@@ -72,7 +72,7 @@
     </template>
 
     <!-- the CURD button -->
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:[`item.actions`]=" {item} ">
       <v-btn icon class="mr-2" @click="editItem(item)">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
@@ -112,12 +112,12 @@ export default {
         text: "آی دی",
         align: "start",
         sortable: false,
-        value: "id"
+        value: "_id"
       },
-      { text: "اسم", value: "name" },
-      { text: "اسم پدر", value: "fName" },
+      { text: "اسم", value: "fitstname" },
+      { text: "اسم پدر", value: "fathername" },
       { text: "شماره تماس", value: "phone" },
-      { text: "نوعیت بیماری", value: "" },
+      { text: "نوعیت بیماری", value: "disease" },
       { text: "Actions", value: "actions", sortable: false }
     ],
     patients_list: [],
@@ -151,7 +151,10 @@ export default {
     }
   },
 
-  created() {
+ async created() {
+  await this.$store.dispatch("patient/getListOfPatient");
+  },
+  mounted(){
     this.initialize();
   },
   updated() {
