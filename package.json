@@ -11,7 +11,11 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+<<<<<<< HEAD
     "bcrypt": "^5.0.1",
+=======
+    "bcryptjs": "^2.4.3",
+>>>>>>> 5fb28ddbb769a63b0a87cfe7548b88bc43af508f
     "body-parser": "^1.19.0",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",

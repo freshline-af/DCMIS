@@ -20,7 +20,11 @@
           :footer-props="footer"
           class="elevation-1"
         >
+<<<<<<< HEAD
           <template v-slot:[`item.actions`]="{ item }">
+=======
+          <template v-slot:item.actions="{ item }">
+>>>>>>> 5fb28ddbb769a63b0a87cfe7548b88bc43af508f
             <v-btn x-small icon @click="ShowOneStaff(item)">
               <v-icon>mdi-text</v-icon>
             </v-btn>
@@ -84,18 +88,31 @@ export default {
     ...mapState(["employes"]),
   },
   mounted() {
+<<<<<<< HEAD
    this.initialize()
   },
  async created() {
    await this.$store.dispatch("staff/setStaff");
+=======
+    
+  },
+  created() {
+    this.getAllStaff();
+>>>>>>> 5fb28ddbb769a63b0a87cfe7548b88bc43af508f
   },
   methods: {
     ShowOneStaff(item) {
       this.dialog = true;
       this.employe = item;
     },
+<<<<<<< HEAD
     initialize() {
        this.staffList = this.$store.state.staff.staff;
+=======
+    getAllStaff() {
+      this.$store.dispatch("staff/setStaff");
+      this.staffList = this.$store.state.staff.staff;
+>>>>>>> 5fb28ddbb769a63b0a87cfe7548b88bc43af508f
     },
   },
 };
