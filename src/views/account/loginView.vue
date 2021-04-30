@@ -3,7 +3,7 @@
     <v-row>
       <v-col align-center justify-center>
         <v-sheet elevation-1 height="100" rounded="" class="text-center">
-          <h1 class="pt-4">وٌرد به سیستم</h1>
+          <h1 class="pt-4">ورود به سیستم</h1>
         </v-sheet>
       </v-col>
     </v-row>
@@ -45,7 +45,7 @@
           >
             <v-btn rounded shaped width="200" @click="login">
               <v-icon left>mdi-login-variant</v-icon>
-              وٌرد
+              وٌرود
             </v-btn>
           </v-col>
         </v-row>
