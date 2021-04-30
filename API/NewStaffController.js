@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-// View page staff
-const newStaff = (req, res) => {
-  res.render("staff");
-=======
 const staffSchema = require('../API/models/Staff');
 // View page staff
 const newStaff = async (req, res) => {
@@ -19,7 +14,6 @@ const newStaff = async (req, res) => {
   //   res.json("Staff not inserted!");
   // }
 
->>>>>>> 5fb28ddbb769a63b0a87cfe7548b88bc43af508f
 }
 
 module.exports = newStaff;

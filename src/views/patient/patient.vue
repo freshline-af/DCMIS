@@ -72,11 +72,8 @@
     </template>
 
     <!-- the CURD button -->
-<<<<<<< HEAD
-    <template v-slot:[`item.actions`]=" {item} ">
-=======
+
     <template v-slot:item.actions="{ item }">
->>>>>>> 5fb28ddbb769a63b0a87cfe7548b88bc43af508f
       <v-btn icon class="mr-2" @click="editItem(item)">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
@@ -116,21 +113,12 @@ export default {
         text: "آی دی",
         align: "start",
         sortable: false,
-<<<<<<< HEAD
         value: "_id"
       },
       { text: "اسم", value: "fitstname" },
       { text: "اسم پدر", value: "fathername" },
       { text: "شماره تماس", value: "phone" },
       { text: "نوعیت بیماری", value: "disease" },
-=======
-        value: "id"
-      },
-      { text: "اسم", value: "name" },
-      { text: "اسم پدر", value: "fName" },
-      { text: "شماره تماس", value: "phone" },
-      { text: "نوعیت بیماری", value: "" },
->>>>>>> 5fb28ddbb769a63b0a87cfe7548b88bc43af508f
       { text: "Actions", value: "actions", sortable: false }
     ],
     patients_list: [],
@@ -164,16 +152,14 @@ export default {
     }
   },
 
-<<<<<<< HEAD
+  mounted(){
+    this.initialize();
+  },
+
  async created() {
   await this.$store.dispatch("patient/getListOfPatient");
   },
-  mounted(){
-=======
-  created() {
->>>>>>> 5fb28ddbb769a63b0a87cfe7548b88bc43af508f
-    this.initialize();
-  },
+
   updated() {
     this.initialize();
   },
