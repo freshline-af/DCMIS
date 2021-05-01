@@ -1,13 +1,14 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Login from "../views/account/loginView.vue";
-import Service from "../views/service/ServicePage.vue";
-import Staff from "../views/staff/StaffPage.vue";
 import AccountManagment from "../views/account/accountManagmentPage.vue";
 import FinaceManag from "../views/finace/finaceManagPage.vue";
-import Sitting from "../views/sitting/sittingPage.vue";
+import Home from "../views/Home.vue";
+import Login from "../views/account/loginView.vue";
+import NotFoundPage from "../views/NotFoundPage.vue"
 import Patient from "../views/patient/patient.vue";
+import Service from "../views/service/ServicePage.vue";
+import Sitting from "../views/sitting/sittingPage.vue";
+import Staff from "../views/staff/StaffPage.vue";
+import Vue from "vue";
+import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
@@ -51,6 +52,16 @@ const routes = [
     path: "/sitting",
     name: "sitting",
     component: Sitting
+  },
+  {
+    path: '/404',
+    name: 404,
+    component: NotFoundPage,
+    props: true
+  },
+  {
+    path: '*',
+    redirect: { name: '404', params: { resource: 'صفحه' } }
   }
 ];
 
