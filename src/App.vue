@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <appbar v-if="!login"></appbar>
+    <appbar v-if="logedin"></appbar>
     <v-main>
       <v-container>
         <router-view :key="$route.fullPath"> </router-view>
@@ -18,11 +18,16 @@ export default {
   name: "App",
   data() {
     return {
-      login: ""
+
     };
   },
   mounted() {
     this.login = mapState["login"];
+  },
+  computed:{
+   logedin() {
+     return this.$store.getters.logedin
+   }
   },
   components: {
     appbar,
