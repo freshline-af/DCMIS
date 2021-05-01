@@ -1,8 +1,9 @@
 <template>
   <v-app>
-    <appbar v-if="logedin"></appbar>
+    <appbar></appbar>
     <v-main>
       <v-container>
+        <notificationContainer/>
         <router-view :key="$route.fullPath"> </router-view>
       </v-container>
     </v-main>
@@ -13,6 +14,7 @@
 <script>
 import appbar from "./views/master-layout/app-bar/appBar";
 import footar from "./views/master-layout/footer/footer.vue";
+import notificationContainer from "./components/NotificationContainer"
 import { mapState } from "vuex";
 export default {
   name: "App",
@@ -31,7 +33,11 @@ export default {
   },
   components: {
     appbar,
-    footar
+    footar,
+    notificationContainer
   }
 };
 </script>
+<style>
+
+</style>

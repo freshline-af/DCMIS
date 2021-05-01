@@ -2,6 +2,8 @@ import AccountManagment from "../views/account/accountManagmentPage.vue";
 import FinaceManag from "../views/finace/finaceManagPage.vue";
 import Home from "../views/Home.vue";
 import Login from "../views/account/loginView.vue";
+import NProgress from "nprogress";
+import NetworkIssue from "../views/NetworkIssue.vue";
 import NotFoundPage from "../views/NotFoundPage.vue"
 import Patient from "../views/patient/patient.vue";
 import Service from "../views/service/ServicePage.vue";
@@ -54,6 +56,11 @@ const routes = [
     component: Sitting
   },
   {
+    path: "/network_issue",
+    name: "networkIssue",
+    component: NetworkIssue
+  },
+  {
     path: '/404',
     name: 404,
     component: NotFoundPage,
@@ -64,11 +71,18 @@ const routes = [
     redirect: { name: '404', params: { resource: 'صفحه' } }
   }
 ];
-
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((routeTo, routeFrom, next)=>{
+  NProgress.start();
+  next();
+});
+router.afterEach(()=>{
+  NProgress.done();
 });
 
 export default router;

@@ -1,10 +1,12 @@
-import Vue from "vue";
+import  "nprogress/nprogress.css"
+
 import App from "./App.vue";
+import Vue from "vue";
+import camelCase from "lodash/camelCase";
 import router from "./router";
 import store from "./store";
-import vuetify from "./plugins/vuetify";
 import upperFirst from "lodash/upperFirst";
-import camelCase from "lodash/camelCase";
+import vuetify from "./plugins/vuetify";
 
 const requireComponent = require.context(
   // The relative path of the components folder
