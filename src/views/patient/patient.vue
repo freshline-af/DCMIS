@@ -96,6 +96,7 @@
 
 <script>
 import Register from "./registarPatient";
+import Store from "../../store/index"
 export default {
   components: {
     Register
@@ -151,19 +152,15 @@ export default {
       val || this.closeDelete();
     }
   },
+  
+ async beforeRouteEnter(routeTo,routeFrom,next){
+ await Store.dispatch("patient/getListOfPatient");
+  next();
+ },
 
-  mounted(){
-    this.initialize();
+  created() {
+  this.initialize();
   },
-
- async created() {
-  await this.$store.dispatch("patient/getListOfPatient");
-  },
-
-  updated() {
-    this.initialize();
-  },
-
   methods: {
     initialize() {
       this.patients = this.$store.state.patient.patients;
