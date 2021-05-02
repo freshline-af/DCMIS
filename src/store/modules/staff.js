@@ -1,62 +1,39 @@
 import axios from 'axios';
+
 export const namespaced = true;
 export const state = {
+  // Array to store list of item which is show on tap in staff page
   items: [
     { id: "1", name: "لست کارمندان " },
     { id: "2", name: "راجستر کردن کارمند جدید" },
     { id: "3", name: "کارمندان حاضر" }
   ],
-  employes: [
-    {
-      id: "234567",
-      name: "غلی",
-      fName: "رسول",
-      job: "کارآموز",
-      tazkarahNum: "12123",
-      eduDegree: "لیسانس",
-      phone: "0748953964"
-    },
-    {
-      id: "234568",
-      name: "غلی",
-      fName: "رسول",
-      job: "کارآموز",
-      tazkarahNum: "12123",
-      eduDegree: "لیسانس",
-      phone: "0748953964"
-    },
-    {
-      id: "234562",
-      name: "غلی",
-      fName: "رسول",
-      job: "کارآموز",
-      tazkarahNum: "12123",
-      eduDegree: "لیسانس",
-      phone: "0748953964"
-    }
-  ],
-
+  // Array to store list of staff
   staff: []
 };
 export const mutations = {
-  SET_EMPLOYE(state, employe) {
-    state.employes.push(employe);
-  },
-  SET_TEST(state, staff) {
+  SET_STAFF(state, staff) {
     state.staff = staff
   }
 };
 export const actions = {
-  set_employe({ commit }, employe) {
-    commit("SET_EMPLOYE", employe);
+  // to set data into SET_STAFF mutations
+  set_staff({ commit }, staff) {
+    commit("SET_STAFF", staff);
   },
- async setStaff({commit}) {
+  // to get list of all staff from API
+ async getStaff({commit,dispatch}) {
    await axios.get('http://localhost:3000/staff/all')
       .then(response => {
-        commit("SET_TEST",  response.data);
+        commit("SET_STAFF",  response.data);
       })
       .catch(error => {
-        console.log(error);
+        const notification = {
+          type: 'error',
+          message: 'There was a problem creating your event: ' + error.message
+        }
+        dispatch('notification/add', notification, { root: true })
+        throw error
     })
   }
 };
