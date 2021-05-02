@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer temporary v-model="leftDrawer" app dark>
+  <v-navigation-drawer temporary v-model="drawer" app dark>
     <v-date-picker
       year-icon="mdi-calendar-blank"
       full-width
@@ -21,7 +21,17 @@ export default {
       default: false,
       required: true
     }
-  }
+  },
+  data() {
+    return {
+      drawer: this.leftDrawer
+    }
+  },
+  watch: {
+    leftDrawer() {
+      this.drawer = true;
+    }
+  },
 };
 </script>
 
