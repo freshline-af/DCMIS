@@ -74,7 +74,16 @@
               </v-icon>
             </v-btn>
           </v-card-title>
-          <v-card-text> </v-card-text>
+          <v-divider class="mt-4"></v-divider>
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" md="4" lg="4" sm="12" xl="4">
+              <v-autocomplete
+              label="انتخاب کردن بیمار."
+              ></v-autocomplete>
+              </v-col>
+            </v-row>
+          </v-card-text>
         </v-card>
       </v-dialog>
     </template>
@@ -87,9 +96,10 @@ export default {
   data() {
     return {
       dialog: false,
-      selectedService: {}
+      selectedService: {},
     };
   },
+ 
   computed: {
     ...mapState(["services"])
   },
@@ -100,8 +110,10 @@ export default {
     selectService(data) {
       this.selectedService = data;
       this.dialog = true;
-    }
-  }
+    },
+   
+      
+  },
 };
 </script>
 
