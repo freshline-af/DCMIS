@@ -44,16 +44,23 @@
 <script>
 //import staffAll from "../../../server"
 import ShowOneStaff from "./showOneStaff";
-import { mapState } from "vuex";
+
 export default {
+ 
   components: {
     ShowOneStaff,
+  },
+  props: {
+    staffs: {
+      type: Array,
+      required: true
+    },
   },
   data() {
     return {
       dialog: false,
       search: "",
-      staffList: [],
+      staffList: this.staffs,
       employe: {},
       footer: {
         itemsPerPageText: "تعداد کارمند در هر صفحه",
@@ -80,25 +87,12 @@ export default {
       ],
     };
   },
-  computed: {
-    ...mapState(["employes"]),
-  },
-  mounted() {
-    
-  },
-  created() {
-    this.getAllStaff();
-  },
   methods: {
     ShowOneStaff(item) {
       this.dialog = true;
       this.employe = item;
     },
-    getAllStaff() {
-      this.$store.dispatch("staff/setStaff");
-      this.staffList = this.$store.state.staff.staff;
-    },
-  },
+}
 };
 </script>
 <style lang="scss" scoped></style>

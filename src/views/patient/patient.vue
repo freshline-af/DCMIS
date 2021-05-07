@@ -72,6 +72,7 @@
     </template>
 
     <!-- the CURD button -->
+
     <template v-slot:item.actions="{ item }">
       <v-btn icon class="mr-2" @click="editItem(item)">
         <v-icon>mdi-pencil</v-icon>
@@ -95,6 +96,7 @@
 
 <script>
 import Register from "./registarPatient";
+import Store from "../../store/index"
 export default {
   components: {
     Register
@@ -112,12 +114,12 @@ export default {
         text: "آی دی",
         align: "start",
         sortable: false,
-        value: "id"
+        value: "_id"
       },
-      { text: "اسم", value: "name" },
-      { text: "اسم پدر", value: "fName" },
+      { text: "اسم", value: "fitstname" },
+      { text: "اسم پدر", value: "fathername" },
       { text: "شماره تماس", value: "phone" },
-      { text: "نوعیت بیماری", value: "" },
+      { text: "نوعیت بیماری", value: "disease" },
       { text: "Actions", value: "actions", sortable: false }
     ],
     patients_list: [],
@@ -150,14 +152,15 @@ export default {
       val || this.closeDelete();
     }
   },
+  
+ async beforeRouteEnter(routeTo,routeFrom,next){
+ await Store.dispatch("patient/getListOfPatient");
+  next();
+ },
 
   created() {
-    this.initialize();
+  this.initialize();
   },
-  updated() {
-    this.initialize();
-  },
-
   methods: {
     initialize() {
       this.patients = this.$store.state.patient.patients;

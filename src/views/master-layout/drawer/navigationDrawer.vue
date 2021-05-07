@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer app temporary right v-model="drawer">
+    <v-navigation-drawer app temporary right v-model="nav">
       <v-list>
         <v-list-item
           link
@@ -34,6 +34,7 @@ export default {
   },
   data() {
     return {
+      nav:this.drawer,
       items: [
         { id: "1", name: "داشبورد", icon: "mdi-home", link: "/" },
         { id: "2", name: "خدمات", icon: "mdi-medical-bag", link: "/service" },
@@ -60,7 +61,12 @@ export default {
         { id: "7", name: "خروج", icon: "mdi-logout" }
       ]
     };
-  }
+  },
+   watch: {
+      drawer() {
+        this.nav = true;
+      }
+    }
 };
 </script>
 
