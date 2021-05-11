@@ -7,7 +7,7 @@ var cors = require("cors");
 app.use(cors({ origin: "http://localhost:8080" }));
 
 app.use(express.json());
-const Staff = require("./API/models/Staff");
+const staffSchema = require("./API/models/Staff");
 
 // Import db connection
 require("./API/models/conn");
@@ -20,8 +20,6 @@ const sStaff = require("./API/SpecificStaff");
 const hashStaffPwd = require("./API/UpdatePasswordController");
 // staff login controller
 const staffLogin = require("./API/StaffLoginController");
-// upload a single file
-// const singleFileUpload = require('./API/UploadSingleFileController');
 /* ---------------------------------/. import Staff --------------------------- */
 
 /* --------------------------------- import Patients ---------------------------- */
@@ -56,30 +54,41 @@ app.post("/staff/login", staffLogin);
 app.get("/staff/:numOfEq", sStaff);
 
 // Upload Image
-/* ---------------------- CUSTOM Middleware ----------------------- */
-// const customMW = (req, res, next) => {
-//   if (req.files == null) {
-//     res.redirect("/");
-//     console.log("Sorry, no image chosen!");
-//   } else {
-//     app.post("/staff/image", (req, res) => {
-//       let image = req.files.photo;
-//       image.mv(
-//         path.resolve(__dirname, "public/img", image.name),
-//         async (error) => {
-//           await Staff.create({ photo: "/img/" + image.name });
-//           res.redirect("/");
-//         }
-//       );
-//     });
-//   }
-//   next();
-// };
-// app.use(customMW);
-/* ----------------------/. CUSTOM Middleware ----------------------- */
-
+/* ---------------------- Upload Staff Photo ----------------------- */
+app.put("/staff/photo/upload/:id", (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    res.end("No photo chosen.");
+  } else {
+   
+    let sPhoto = req.files.staffPhoto;
+     let imgTypes = path.extname(sPhoto.name).toLowerCase();
+    if (
+      imgTypes !== ".jpg" &&
+      imgTypes !== ".jpeg" &&
+      imgTypes !== ".png" &&
+      imgTypes !== ".gif"
+    ) {
+      res.end("Only images are allowed.");
+    } else {
+      sPhoto.mv(
+        path.resolve(__dirname, "public/uploads/docs/photo/", sPhoto.name),
+        async (error) => {
+          await staffSchema.updateOne(
+            { _id: req.params.id },
+            {
+              $set: { photo: sPhoto.name },
+            }
+          );
+          res.end("Photo updated.");
+        }
+      );
+    }
+  }
+});
+/* ----------------------/. Upload Staff Photo ----------------------- */
 /* -----------------------------/. Routes for Staff ------------------------ */
 
 // listen to port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
