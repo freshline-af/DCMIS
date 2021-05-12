@@ -5,6 +5,11 @@ const path = require("path");
 const app = express();
 var cors = require("cors");
 app.use(cors({ origin: "http://localhost:8080" }));
+/* -------------------- Express-Fileupload ------------------------- */
+const fileUpload = require("express-fileupload");
+app.use(fileUpload());
+/* --------------------/. Express-Fileupload ------------------------- */
+
 
 app.use(express.json());
 const staffSchema = require("./API/models/Staff");
@@ -31,6 +36,15 @@ const patientFormData = require("./API/SubmitPatientDataController");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// app.get("/", (req, res) => {
+//   res.render("index");
+// });
+
+// Staff page
+app.post("/staff/add", newStaffController);
+app.put("/staff/updatePassword/:id", hashStaffPwd);
+// login route
+app.post("/staff/login", staffLogin);
 // Add new patient
 app.get("/patient/add", newPatientController);
 /* ------------------  Routes for Patients -------------------------- */
@@ -91,4 +105,23 @@ app.put("/staff/photo/upload/:id", (req, res) => {
 // listen to port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// // this block of code added, beacuse of CORS error
+// app.use(function (req, res, next) {
+
+//   // Website you wish to allow to connect
+//   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+
+//   // Request methods you wish to allow
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+//   // Request headers you wish to allow
+//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+//   // Set to true if you need the website to include cookies in the requests sent
+//   // to the API (e.g. in case you use sessions)
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+
+//   // Pass to next layer of middleware
+//   next();
+// });
 
