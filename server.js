@@ -7,9 +7,13 @@ var cors = require("cors");
 app.use(cors({ origin: "http://localhost:8080" }));
 /* -------------------- Express-Fileupload ------------------------- */
 const fileUpload = require("express-fileupload");
-app.use(fileUpload());
+app.use(fileUpload({
+  limits: {
+    fileSize: 5000000
+  },
+  abortOnLimit: true
+}));
 /* --------------------/. Express-Fileupload ------------------------- */
-
 
 app.use(express.json());
 const staffSchema = require("./API/models/Staff");
@@ -73,9 +77,8 @@ app.put("/staff/photo/upload/:id", (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     res.end("No photo chosen.");
   } else {
-   
     let sPhoto = req.files.staffPhoto;
-     let imgTypes = path.extname(sPhoto.name).toLowerCase();
+    let imgTypes = path.extname(sPhoto.name).toLowerCase();
     if (
       imgTypes !== ".jpg" &&
       imgTypes !== ".jpeg" &&
@@ -100,6 +103,36 @@ app.put("/staff/photo/upload/:id", (req, res) => {
   }
 });
 /* ----------------------/. Upload Staff Photo ----------------------- */
+/*---------------------- Upload Staff Contract -------------------------------*/
+app.put("/staff/contract/upload/:id", (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    res.end("No file chosen.");
+  } else {
+    let sContract = req.files.staffContract;
+    let fileType = path.extname(sContract.name).toLowerCase();
+    if (fileType !== ".zip" && fileType !== ".pdf") {
+      res.end("Please select files with extension '.zip' or '.pdf'.");
+    } else {
+      sContract.mv(
+        path.resolve(
+          __dirname,
+          "public/uploads/docs/contract/",
+          sContract.name
+        ),
+        async (error) => {
+          await staffSchema.updateOne(
+            { _id: req.params.id },
+            {
+              $set: { contract: sContract.name },
+            }
+          );
+          res.end("Contract file updated.");
+        }
+      );
+    }
+  }
+});
+/*----------------------/. Upload Staff Contract -------------------------------*/
 /* -----------------------------/. Routes for Staff ------------------------ */
 
 // listen to port
@@ -124,4 +157,3 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //   // Pass to next layer of middleware
 //   next();
 // });
-
