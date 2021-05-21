@@ -7,12 +7,14 @@ var cors = require("cors");
 app.use(cors({ origin: "http://localhost:8080" }));
 /* -------------------- Express-Fileupload ------------------------- */
 const fileUpload = require("express-fileupload");
-app.use(fileUpload({
-  limits: {
-    fileSize: 5000000
-  },
-  abortOnLimit: true
-}));
+app.use(
+  fileUpload({
+    limits: {
+      fileSize: 5000000,
+    },
+    abortOnLimit: true,
+  })
+);
 /* --------------------/. Express-Fileupload ------------------------- */
 
 app.use(express.json());
@@ -36,6 +38,12 @@ const newPatientController = require("./API/NewPatientController");
 const PatientsController = require("./API/ReadPatientController");
 const patientFormData = require("./API/SubmitPatientDataController");
 /* --------------------------------- /. import Patients ------------------------- */
+// use public directory
+app.use(express.static("public"));
+// import EJS templating engine
+const ejs = require("ejs");
+// use it
+app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -133,9 +141,40 @@ app.put("/staff/contract/upload/:id", (req, res) => {
   }
 });
 /*----------------------/. Upload Staff Contract -------------------------------*/
+/* -------------------- Upload staffs' education docs ----------------- */
+app.put("/staff/education/upload/:id", (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    res.end("No file chosen.");
+  } else {
+    let sEduDocs = req.files.staffEduDocs;
+    let fileType = path.extname(sEduDocs.name).toLowerCase();
+    if (fileType !== ".zip") {
+      res.end("Please select files with extension '.zip'.");
+    } else {
+      sEduDocs.mv(
+        path.resolve(
+          __dirname,
+          "public/uploads/docs/education/",
+          sEduDocs.name
+        ),
+        async (error) => {
+          await staffSchema.updateOne(
+            { _id: req.params.id },
+            {
+              $set: { edu_docs: sEduDocs.name },
+            }
+          );
+
+          res.end("Education docs uploaded.");
+        }
+      );
+    }
+  }
+});
+/* --------------------/. Upload staffs' education docs ----------------- */
+
 /* -----------------------------/. Routes for Staff ------------------------ */
 
 // listen to port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
