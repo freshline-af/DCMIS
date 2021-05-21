@@ -101,6 +101,10 @@ app.put("/staff/photo/upload/:id", (req, res) => {
 });
 /* ----------------------/. Upload Staff Photo ----------------------- */
 
+/* -------------------- Upload staffs' education docs ----------------- */
+
+/* --------------------/. Upload staffs' education docs ----------------- */
+
 /* -----------------------------/. Routes for Staff ------------------------ */
 
 // listen to port
