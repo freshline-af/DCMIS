@@ -30,14 +30,7 @@ const patientFormData = require("./API/SubmitPatientDataController");
 
 /* ----------------------------- File Upload ----------------------------------- */
 const fileUpload = require("express-fileupload");
-app.use(
-  fileUpload({
-    limits: {
-      fileSize: 5000000,
-    },
-    abortOnLimit: true,
-  })
-);
+app.use(fileUpload());
 /* -----------------------------/. File Upload ----------------------------------- */
 // use public directory
 app.use(express.static("public"));
@@ -74,71 +67,36 @@ app.get("/staff/all", staffAll);
 // A specific staff
 app.get("/staff/:numOfEq", sStaff);
 
-// Upload Image
-/* ---------------------- Upload Staff Photo ----------------------- */
-app.put("/staff/photo/upload/:id", (req, res) => {
-  if (!req.files || Object.keys(req.files).length === 0) {
-    res.end("No photo chosen.");
-  } else {
-   
-    let sPhoto = req.files.staffPhoto;
-     let imgTypes = path.extname(sPhoto.name).toLowerCase();
-    if (
-      imgTypes !== ".jpg" &&
-      imgTypes !== ".jpeg" &&
-      imgTypes !== ".png" &&
-      imgTypes !== ".gif"
-    ) {
-      res.end("Only images are allowed.");
-    } else {
-      sPhoto.mv(
-        path.resolve(__dirname, "public/uploads/docs/photo/", sPhoto.name),
-        async (error) => {
-          await staffSchema.updateOne(
-            { _id: req.params.id },
-            {
-              $set: { photo: sPhoto.name },
-            }
-          );
-          res.end("Photo updated.");
-        }
-      );
-    }
-  }
-});
-/* ----------------------/. Upload Staff Photo ----------------------- */
-
-/* -------------------- Upload staffs' education docs ----------------- */
-app.put("/staff/education/upload/:id", (req, res) => {
+/* --------------------- Upload staff's Tazkira Copy ---------------------- */
+app.put("/staff/tazkira/upload/:id", (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     res.end("No file chosen.");
   } else {
-    let sEduDocs = req.files.staffEduDocs;
-    let fileType = path.extname(sEduDocs.name).toLowerCase();
+    let sTazkira = req.files.staffTazkira;
+    let fileType = path.extname(sTazkira.name).toLowerCase();
     if (fileType !== ".zip") {
       res.end("Please select files with extension '.zip'.");
     } else {
-      sEduDocs.mv(
+      sTazkira.mv(
         path.resolve(
           __dirname,
-          "public/uploads/docs/education/",
-          sEduDocs.name
+          "public/uploads/docs/tazkira/",
+          sTazkira.name
         ),
         async (error) => {
           await staffSchema.updateOne(
             { _id: req.params.id },
             {
-              $set: { edu_docs: sEduDocs.name },
+              $set: { tazkira_copy: sTazkira.name },
             }
           );
-          res.end("Education docs uploaded.");
+          res.end("Tazkira uploaded.");
         }
       );
     }
   }
 });
-
-/* --------------------/. Upload staffs' education docs ----------------- */
+/* ---------------------/. Upload staff's Tazkira Copy ---------------------- */
 
 /* -----------------------------/. Routes for Staff ------------------------ */
 
