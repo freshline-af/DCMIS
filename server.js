@@ -164,14 +164,44 @@ app.put("/staff/education/upload/:id", (req, res) => {
               $set: { edu_docs: sEduDocs.name },
             }
           );
+          res.end("Education docs updated.");
+        }
+      );
+    }
+  }
+}); 
+/* --------------------/. Upload staffs' education docs ----------------- */
 
-          res.end("Education docs uploaded.");
+/* --------------------- Upload staff's Tazkira Copy ---------------------- */
+app.put("/staff/tazkira/upload/:id", (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    res.end("No file chosen.");
+  } else {
+    let sTazkira = req.files.staffTazkira;
+    let fileType = path.extname(sTazkira.name).toLowerCase();
+    if (fileType !== ".zip") {
+      res.end("Please select files with extension '.zip'.");
+    } else {
+      sTazkira.mv(
+        path.resolve(
+          __dirname,
+          "public/uploads/docs/tazkira/",
+          sTazkira.name
+        ),
+        async (error) => {
+          await staffSchema.updateOne(
+            { _id: req.params.id },
+            {
+              $set: { tazkira_copy: sTazkira.name },
+            }
+          );
+          res.end("Tazkira uploaded.");
         }
       );
     }
   }
 });
-/* --------------------/. Upload staffs' education docs ----------------- */
+/* ---------------------/. Upload staff's Tazkira Copy ---------------------- */
 
 /* -----------------------------/. Routes for Staff ------------------------ */
 
