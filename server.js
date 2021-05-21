@@ -30,7 +30,14 @@ const patientFormData = require("./API/SubmitPatientDataController");
 
 /* ----------------------------- File Upload ----------------------------------- */
 const fileUpload = require("express-fileupload");
-app.use(fileUpload());
+app.use(
+  fileUpload({
+    limits: {
+      fileSize: 5000000,
+    },
+    abortOnLimit: true,
+  })
+);
 /* -----------------------------/. File Upload ----------------------------------- */
 // use public directory
 app.use(express.static("public"));
