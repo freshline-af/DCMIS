@@ -102,6 +102,34 @@ app.put("/staff/photo/upload/:id", (req, res) => {
 /* ----------------------/. Upload Staff Photo ----------------------- */
 
 /* -------------------- Upload staffs' education docs ----------------- */
+app.put("/staff/education/upload/:id", (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    res.end("No file chosen.");
+  } else {
+    let sEduDocs = req.files.staffEduDocs;
+    let fileType = path.extname(sEduDocs.name).toLowerCase();
+    if (fileType !== ".zip") {
+      res.end("Please select files with extension '.zip'.");
+    } else {
+      sEduDocs.mv(
+        path.resolve(
+          __dirname,
+          "public/uploads/docs/education/",
+          sEduDocs.name
+        ),
+        async (error) => {
+          await staffSchema.updateOne(
+            { _id: req.params.id },
+            {
+              $set: { edu_docs: sEduDocs.name },
+            }
+          );
+          res.end("Education docs uploaded.");
+        }
+      );
+    }
+  }
+});
 
 /* --------------------/. Upload staffs' education docs ----------------- */
 
