@@ -8,7 +8,7 @@ const editAStaff = async (req, res) => {
     },
     (err, result) => {
       if (err) {
-        res.end("an error occured:" + err);
+        res.end("an error occured: " + err);
       } else {
         res.end("Staff updated!");
       }

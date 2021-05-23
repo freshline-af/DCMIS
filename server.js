@@ -33,6 +33,8 @@ const hashStaffPwd = require("./API/UpdatePasswordController");
 const staffLogin = require("./API/StaffLoginController");
 // Import to edit a staff
 const editStaff = require("./API/EditStaffController");
+// Import to delete a staff
+const deletedStaff = require('./API/DeleteStaffController');
 /* ---------------------------------/. import Staff --------------------------- */
 
 /* --------------------------------- import Patients ---------------------------- */
@@ -79,6 +81,7 @@ app.post("/staff/login", staffLogin);
 app.get("/staff/:numOfEq", sStaff);
 // Edit a staff
 app.put("/staff/edit/:id", editStaff);
+app.put("/staff/delete/:id", deletedStaff);
 
 // Upload Image
 /* ---------------------- Upload Staff Photo ----------------------- */
