@@ -31,6 +31,8 @@ const sStaff = require("./API/SpecificStaff");
 const hashStaffPwd = require("./API/UpdatePasswordController");
 // staff login controller
 const staffLogin = require("./API/StaffLoginController");
+// Import to edit a staff
+const editStaff = require("./API/EditStaffController");
 /* ---------------------------------/. import Staff --------------------------- */
 
 /* --------------------------------- import Patients ---------------------------- */
@@ -57,9 +59,9 @@ app.post("/staff/add", newStaffController);
 app.put("/staff/updatePassword/:id", hashStaffPwd);
 // login route
 app.post("/staff/login", staffLogin);
+/* ------------------  Routes for Patients -------------------------- */
 // Add new patient
 app.get("/patient/add", newPatientController);
-/* ------------------  Routes for Patients -------------------------- */
 // Insert into patients the form data
 app.post("/patient/insert", patientFormData);
 
@@ -73,11 +75,10 @@ app.post("/staff/add", newStaffController);
 app.put("/staff/updatePassword/:id", hashStaffPwd);
 // login route
 app.post("/staff/login", staffLogin);
-// Single file upload
-// app.post('/staff/singleFile/upload/:id', singleFileUpload);
-
 // A specific staff
 app.get("/staff/:numOfEq", sStaff);
+// Edit a staff
+app.put("/staff/edit/:id", editStaff);
 
 // Upload Image
 /* ---------------------- Upload Staff Photo ----------------------- */
