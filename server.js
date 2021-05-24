@@ -40,6 +40,7 @@ const deletedStaff = require('./API/DeleteStaffController');
 /* --------------------------------- import Patients ---------------------------- */
 const PatientsController = require("./API/ReadPatientController");
 const addPatient = require("./API/NewPatientController");
+const editPatient = require('./API/EditPatientController');
 /* --------------------------------- /. import Patients ------------------------- */
 // use public directory
 app.use(express.static("public"));
@@ -63,8 +64,10 @@ app.post("/staff/login", staffLogin);
 /* ------------------  Routes for Patients -------------------------- */
 // Add a new patient
 app.post("/patient/add", addPatient);
-
+// Retrieve all patients
 app.get("/patient/all", PatientsController);
+// Edit a patient
+app.put("/patient/edit/:id", editPatient);
 
 /* ------------------ /. Routes for Patients -------------------------- */
 /* ----------------------------- Routes for Staff ------------------------ */
