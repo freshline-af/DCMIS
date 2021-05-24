@@ -8,12 +8,6 @@ const newStaff = async (req, res) => {
       res.json(result);
     }
   })
-  // if (inserted) {
-  //   res.json(staffSchema.find({})); 
-  // } else {
-  //   res.json("Staff not inserted!");
-  // }
-
 }
-
+// Export this file for using anywhere.
 module.exports = newStaff;
