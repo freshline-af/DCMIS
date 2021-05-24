@@ -88,7 +88,7 @@ app.post("/staff/login", staffLogin);
 app.get("/staff/:numOfEq", sStaff);
 // Edit a staff
 app.put("/staff/edit/:id", editStaff);
-app.put("/staff/delete/:id", deletedStaff);
+app.delete("/staff/delete/:id", deletedStaff);
 
 // Upload Image
 /* ---------------------- Upload Staff Photo ----------------------- */
