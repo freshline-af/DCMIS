@@ -16,7 +16,7 @@
                 type="text"
                 hint="وارد کردن اسم الزامی می باشد"
                 placeholder="لطفاً خود را وارد کنید"
-                v-model="new_patient.name"
+                v-model="new_patient.firstname"
                 picon="mdi-text"
               />
             </v-col>
@@ -26,7 +26,7 @@
                 hint="وارد کردن تخلص اختیاری می باشد"
                 placeholder="لطفاً تخلص خود را وارد کنید"
                 type="text"
-                v-model="new_patient.lName"
+                v-model="new_patient.lastname"
                 picon="mdi-text"
               />
             </v-col>
@@ -36,7 +36,7 @@
                 hint="وراد کردن اسم پدر اختیاری می باشد"
                 placeholder="لطفا اسم پدر خود را وارد کنید"
                 type="text"
-                v-model="new_patient.fName"
+                v-model="new_patient.fathername"
                 picon="mdi-text-short"
               />
             </v-col>
@@ -46,7 +46,7 @@
                 hint="وارد کردن سن الزامی می باشد"
                 placeholder="لطفا سن خود را وارد کنید"
                 type="number"
-                v-model="new_patient.phone"
+                v-model="new_patient.age"
                 picon="mdi-numeric-0"
               />
             </v-col>
@@ -71,24 +71,55 @@
               />
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
-              <BaseEdittext
-                label="شغل"
-                hint="وارد کردن شغل اختیاری میباشد"
-                placeholder="لطفاشغل خود را وارد کنید"
-                type="text"
-                v-model="new_patient.job"
-                picon="mdi-text-short"
-              />
+              <v-row>
+                <v-col>
+                  <BaseEdittext
+                    label="شغل"
+                    hint="وارد کردن شغل اختیاری میباشد"
+                    placeholder="لطفاشغل خود را وارد کنید"
+                    type="text"
+                    v-model="new_patient.occupation"
+                    picon="mdi-text-short"
+                  />
+                </v-col>
+                <v-col>
+                  <v-select
+                    label="جنسیت"
+                    :items="sex"
+                    outlined
+                    rounded
+                    required
+                    v-model="new_patient.sex"
+                  >
+                  </v-select>
+                </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
-              <BaseEdittext
-                label="گروپ خون"
-                hint="وارد کردن گروپ خون الزامی می باشد میباشد"
-                placeholder="لطفاشغل خود را وارد کنید"
-                type="text"
-                v-model="new_patient.bloodGroup"
-                picon="mdi-blood-bag"
-              />
+              <v-row>
+                <v-col>
+                  <v-select
+                    label="گروپ خون"
+                    hint="وارد کردن گروپ خون الزامی می باشد میباشد"
+                    v-model="new_patient.blood_group"
+                    outlined
+                    rounded
+                    :items="blood_gropu"
+                    prepend-icon="mdi-blood-bag"
+                  />
+                </v-col>
+                <v-col>
+                  <v-select
+                    label="نوعیت مریضی"
+                    :items="services"
+                    v-model="new_patient.disease"
+                    outlined
+                    rounded
+                    required
+                  >
+                  </v-select>
+                </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
               <v-file-input
@@ -106,6 +137,32 @@
         <v-col cols="6" md="6" sm="12" xs="12">
           <v-row class="mr-md-5">
             <v-col cols="12">
+              <h3>هزینه</h3>
+            </v-col>
+            <v-col cols="12">
+              <v-divider></v-divider>
+            </v-col>
+           <v-col>
+              <BaseEdittext
+              label="مصارف کل"
+              v-model="new_patient.fee"
+              type="number"
+              hint="وارد کردن مصرف الزامی می باشد"
+            />
+           </v-col>
+            <v-col>
+              <v-select
+                label="اقساط"
+                v-model="new_patient.installments"
+                :items="installments"
+                outlined
+                rounded
+              >
+              </v-select>
+            </v-col>
+          </v-row>
+          <v-row class="mr-md-5">
+            <v-col cols="12">
               <h3>تاریخچه مریض</h3>
             </v-col>
             <v-col>
@@ -117,11 +174,11 @@
                   <h3>{{ patient_caseHistory.heart }}</h3>
                 </v-col>
                 <v-radio-group v-model="heart" mandatory>
-               <v-row>
-                  <v-col><v-radio label="بلی" value="yes"></v-radio></v-col>
-                <v-col><v-radio label="نخیر" value="no"></v-radio></v-col>
-               </v-row>
-              </v-radio-group>
+                  <v-row>
+                    <v-col><v-radio label="بلی" value="بلی"></v-radio></v-col>
+                    <v-col><v-radio label="نخیر" value="نخیر"></v-radio></v-col>
+                  </v-row>
+                </v-radio-group>
               </v-row>
             </v-col>
             <v-col cols="12">
@@ -129,14 +186,12 @@
                 <v-col cols="12" md="4" sm="12">
                   <h3 class="mt-2">{{ patient_caseHistory.dieabet }}</h3>
                 </v-col>
-                  <v-radio-group v-model="dieabet" mandatory>
-                    <v-row>
-                      <v-col><v-radio label="بلی" value="بلی"></v-radio></v-col>
-                      <v-col
-                        ><v-radio label="نخیر" value="نخیر"></v-radio
-                      ></v-col>
-                    </v-row>
-                  </v-radio-group>
+                <v-radio-group v-model="dieabet" mandatory>
+                  <v-row>
+                    <v-col><v-radio label="بلی" value="بلی"></v-radio></v-col>
+                    <v-col><v-radio label="نخیر" value="نخیر"></v-radio></v-col>
+                  </v-row>
+                </v-radio-group>
               </v-row>
             </v-col>
             <v-col cols="12">
@@ -144,16 +199,16 @@
                 <v-col cols="12" sm="12" md="4">
                   <h3>{{ patient_caseHistory.blood }}</h3>
                 </v-col>
-              <v-radio-group v-model="blood" mandatory>
-                <v-row>
-                  <v-col>
-                    <v-radio label="بلی" value="بلی"></v-radio>
-                  </v-col>
-                  <v-col>
-                    <v-radio label="نخیر" value="نخیر"></v-radio>
-                  </v-col>
-                </v-row>
-              </v-radio-group>
+                <v-radio-group v-model="blood" mandatory>
+                  <v-row>
+                    <v-col>
+                      <v-radio label="بلی" value="بلی"></v-radio>
+                    </v-col>
+                    <v-col>
+                      <v-radio label="نخیر" value="نخیر"></v-radio>
+                    </v-col>
+                  </v-row>
+                </v-radio-group>
               </v-row>
             </v-col>
 
@@ -187,12 +242,27 @@ export default {
   data() {
     return {
       heart: "نخیر",
-      dieabet:"نخیر",
-      blood:"نخیر",
+      dieabet: "نخیر",
+      blood: "نخیر",
       new_patient: {},
+      sex: ["مذکر", "مونث"],
+      blood_gropu: ["A+", "B+", "AB+", "O+", "A-", "B-", "AB-", "O-"],
+      services: [
+        "پرکردن دندان",
+        "عصب کشی دندان",
+        "پوش کردن دندان",
+        "سفید کردن دندان",
+        "ارتودانسی",
+        "جراحی دندان",
+        "پروتیز دندان",
+        "معاینه دندان",
+        "نصب نگین ",
+        "امپلیت دندان",
+      ],
+      installments: ["تکمیل", "دو قسط", "سه فسط"],
+
       patient_label: {},
       patient_caseHistory: [],
-      
     };
   },
   mounted() {
@@ -202,28 +272,25 @@ export default {
   },
   methods: {
     AddPatient() {
-     let case_history =[
+      this.new_patient.case_history = [
         {
           disease: this.patient_caseHistory.heart,
-          result: this.heart
+          result: this.heart,
         },
         {
           disease: this.patient_caseHistory.blood,
-          result: this.blood
+          result: this.blood,
         },
         {
           disease: this.patient_caseHistory.dieabet,
-          result: this.dieabet
-        }
-
-      ]
+          result: this.dieabet,
+        },
+      ];
       //this.$store.dispatch("patient/add_patient", this.new_patient);
-      console.log(case_history)
+      console.log(this.new_patient);
     },
     skipCaseHistory() {
-      (this.dieabet = "نخیر"),
-        (this.blood = "نخیر"),
-        (this.heart = "نخیر");
+      (this.dieabet = "نخیر"), (this.blood = "نخیر"), (this.heart = "نخیر");
     },
   },
 };
