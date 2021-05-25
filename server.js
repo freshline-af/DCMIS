@@ -38,8 +38,14 @@ const deletedStaff = require('./API/DeleteStaffController');
 /* ---------------------------------/. import Staff --------------------------- */
 
 /* --------------------------------- import Patients ---------------------------- */
-const PatientsController = require("./API/ReadPatientController");
+// Retrieve patients
+const readPatient = require("./API/ReadPatientController");
+// Add a new patient
 const addPatient = require("./API/NewPatientController");
+// Edit a patient
+const editPatient = require('./API/EditPatientController');
+// Delete a patient
+const deletePatient = require('./API/DeletePatientController');
 /* --------------------------------- /. import Patients ------------------------- */
 // use public directory
 app.use(express.static("public"));
@@ -63,8 +69,12 @@ app.post("/staff/login", staffLogin);
 /* ------------------  Routes for Patients -------------------------- */
 // Add a new patient
 app.post("/patient/add", addPatient);
-
-app.get("/patient/all", PatientsController);
+// Retrieve all patients
+app.get("/patient/all", readPatient);
+// Edit a patient
+app.put("/patient/edit/:id", editPatient);
+// Delete a patient
+app.delete("/patient/delete/:id", deletePatient);
 
 /* ------------------ /. Routes for Patients -------------------------- */
 /* ----------------------------- Routes for Staff ------------------------ */
@@ -78,7 +88,7 @@ app.post("/staff/login", staffLogin);
 app.get("/staff/:numOfEq", sStaff);
 // Edit a staff
 app.put("/staff/edit/:id", editStaff);
-app.put("/staff/delete/:id", deletedStaff);
+app.delete("/staff/delete/:id", deletedStaff);
 
 // Upload Image
 /* ---------------------- Upload Staff Photo ----------------------- */
