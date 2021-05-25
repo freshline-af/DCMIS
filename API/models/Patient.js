@@ -7,10 +7,12 @@ const PatientSchema = new Schema({
   tazkira_id: Number,
   occupation: String,
   age: Number,
-  fee: String,
+  fee: Array,
   blood_group: String,
   marital_status: String,
+  case_history: Array,
   disease: String,
+  installments: String,
   registered_at: Date,
   phone: String,
   appointment: {
