@@ -222,7 +222,7 @@
                           <strong>دوره {{item.round}}</strong>
                        </v-col>
                        <v-col>
-                         <strong>تاریخ دوره {{item.meet_date}}</strong>
+                         <strong>تاریخ دوره {{getDate(item.meet_date)}}</strong>
                        </v-col>
                      </v-row>
                      </v-timeline-item>
@@ -286,6 +286,12 @@ export default {
       let patient = Object.values(Store.state.patient.patients);
       this.selectPatient = patient.find((e) => e.firstname == firstname);
     },
+    // format the timestamp date to day-month-year format
+    getDate(date){
+      let date_time = new Date(date);
+      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      return date_time.getFullYear() + " " + months[date_time.getMonth("MM")] + " "+  date_time.getDate() ;
+    }
   },
 };
 </script>
