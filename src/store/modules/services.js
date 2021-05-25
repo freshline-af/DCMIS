@@ -25,10 +25,11 @@ export const state = {
     occupation: "شغل",
     photo: "عکس"
   },
-  caseHistory: {
-    blood_pressure: "آیا فشار خون دارید؟",
-    diabetes: "آیا دیابیت داید؟",
-    heart_problem: "آیا مشکل قلبی دارید؟"
+  caseHistory:{
+    heart: "آیا مرض قلبی دارد ؟",
+    dieabet:"آیا قند خون دارد؟",
+    blood:"آیا  فشار خون بلند دارد؟"
+
   },
   finace: {
     total_amount: "مبلغ قابل برداخت",

@@ -7,9 +7,12 @@
             <v-col cols="12" md="12" sm="12" xs="12">
               <h3>معلومات شخصی</h3>
             </v-col>
+            <v-col cols="12">
+              <v-divider></v-divider>
+            </v-col>
             <v-col cols="12" md="6" sm="12" xs="12">
               <BaseEdittext
-                :label="patient_label.name"
+                label="اسم"
                 type="text"
                 hint="وارد کردن اسم الزامی می باشد"
                 placeholder="لطفاً خود را وارد کنید"
@@ -19,7 +22,7 @@
             </v-col>
             <v-col cols="12" md="6" sm="12" xs="12">
               <BaseEdittext
-                :label="patient_label.lastName"
+                label="تخلص"
                 hint="وارد کردن تخلص اختیاری می باشد"
                 placeholder="لطفاً تخلص خود را وارد کنید"
                 type="text"
@@ -29,7 +32,7 @@
             </v-col>
             <v-col cols="12" md="6" sm="12" xs="12">
               <BaseEdittext
-                :label="patient_label.fName"
+                label="نام پدر"
                 hint="وراد کردن اسم پدر اختیاری می باشد"
                 placeholder="لطفا اسم پدر خود را وارد کنید"
                 type="text"
@@ -39,7 +42,7 @@
             </v-col>
             <v-col cols="12" md="6" sm="12" xs="12">
               <BaseEdittext
-                :label="patient_label.age"
+                label="سن"
                 hint="وارد کردن سن الزامی می باشد"
                 placeholder="لطفا سن خود را وارد کنید"
                 type="number"
@@ -49,7 +52,7 @@
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
               <BaseEdittext
-                :label="patient_label.phone"
+                label="نمبر تماس"
                 hint="وارد کردن شماره تماس الزامی می باشد"
                 placeholder="لطفا شماره تماس خود را وارد کنید"
                 type="number"
@@ -59,7 +62,7 @@
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
               <BaseEdittext
-                :label="patient_label.address"
+                label="آدرس"
                 hint="وارد کردن آدرس الزامی میباشد"
                 placeholder="لطفا آدرس خود را وارد کنید"
                 type="text"
@@ -69,7 +72,7 @@
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
               <BaseEdittext
-                :label="patient_label.occupation"
+                label="شغل"
                 hint="وارد کردن شغل اختیاری میباشد"
                 placeholder="لطفاشغل خود را وارد کنید"
                 type="text"
@@ -79,7 +82,7 @@
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
               <BaseEdittext
-                :label="patient_label.bloodGroup"
+                label="گروپ خون"
                 hint="وارد کردن گروپ خون الزامی می باشد میباشد"
                 placeholder="لطفاشغل خود را وارد کنید"
                 type="text"
@@ -105,27 +108,55 @@
             <v-col cols="12">
               <h3>تاریخچه مریض</h3>
             </v-col>
-            <v-col cols="12">
-              <v-switch
-                :label="patient_caseHistory.blood_pressure"
-                v-model="new_patient.blood_pressure"
-                messages="در صورت داشتن فشار خون سویج را آن کنید"
-              ></v-switch>
+            <v-col>
+              <v-divider></v-divider>
             </v-col>
             <v-col cols="12">
-              <v-switch
-                :label="patient_caseHistory.heart_problem"
-                v-model="new_patient.heart_problem"
-                messages="در صورت داشتن مشکل فلبی سویج را آن کنید"
-              ></v-switch>
+              <v-row>
+                <v-col cols="12" md="4" sm="12">
+                  <h3>{{ patient_caseHistory.heart }}</h3>
+                </v-col>
+                <v-radio-group v-model="heart" mandatory>
+               <v-row>
+                  <v-col><v-radio label="بلی" value="yes"></v-radio></v-col>
+                <v-col><v-radio label="نخیر" value="no"></v-radio></v-col>
+               </v-row>
+              </v-radio-group>
+              </v-row>
             </v-col>
             <v-col cols="12">
-              <v-switch
-                :label="patient_caseHistory.diabetes"
-                v-model="new_patient.diabetes"
-                messages="در صورت داشتن دیابیت سویج را آن کنید"
-              ></v-switch>
+              <v-row>
+                <v-col cols="12" md="4" sm="12">
+                  <h3 class="mt-2">{{ patient_caseHistory.dieabet }}</h3>
+                </v-col>
+                  <v-radio-group v-model="dieabet" mandatory>
+                    <v-row>
+                      <v-col><v-radio label="بلی" value="بلی"></v-radio></v-col>
+                      <v-col
+                        ><v-radio label="نخیر" value="نخیر"></v-radio
+                      ></v-col>
+                    </v-row>
+                  </v-radio-group>
+              </v-row>
             </v-col>
+            <v-col cols="12">
+              <v-row>
+                <v-col cols="12" sm="12" md="4">
+                  <h3>{{ patient_caseHistory.blood }}</h3>
+                </v-col>
+              <v-radio-group v-model="blood" mandatory>
+                <v-row>
+                  <v-col>
+                    <v-radio label="بلی" value="بلی"></v-radio>
+                  </v-col>
+                  <v-col>
+                    <v-radio label="نخیر" value="نخیر"></v-radio>
+                  </v-col>
+                </v-row>
+              </v-radio-group>
+              </v-row>
+            </v-col>
+
             <v-col class="text-center mt-4">
               <v-btn rounded outlined elevation="2" @click="skipCaseHistory">
                 صرف نظر کردن از تاریخچه مریض
@@ -150,32 +181,51 @@
 export default {
   props: {
     patients: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
+      heart: "نخیر",
+      dieabet:"نخیر",
+      blood:"نخیر",
       new_patient: {},
       patient_label: {},
-      patient_caseHistory: {}
+      patient_caseHistory: [],
+      
     };
   },
   mounted() {
-    this.patient_label = this.$store.state.services.services_form_item;
+    //this.patient_label = this.$store.state.services.services_form_item;
     this.patient_caseHistory = this.$store.state.services.caseHistory;
     this.new_patient = this.patients;
-    console.log(this.new_patient);
   },
   methods: {
     AddPatient() {
-      this.$store.dispatch("patient/add_patient", this.new_patient);
+     let case_history =[
+        {
+          disease: this.patient_caseHistory.heart,
+          result: this.heart
+        },
+        {
+          disease: this.patient_caseHistory.blood,
+          result: this.blood
+        },
+        {
+          disease: this.patient_caseHistory.dieabet,
+          result: this.dieabet
+        }
+
+      ]
+      //this.$store.dispatch("patient/add_patient", this.new_patient);
+      console.log(case_history)
     },
     skipCaseHistory() {
-      (this.new_patient.blood_pressure = false),
-        (this.new_patient.heart_problem = false),
-        (this.new_patient.diabetes = false);
-    }
-  }
+      (this.dieabet = "نخیر"),
+        (this.blood = "نخیر"),
+        (this.heart = "نخیر");
+    },
+  },
 };
 </script>
 
