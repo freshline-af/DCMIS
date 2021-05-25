@@ -122,6 +122,30 @@
               </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row>
+                <v-col>
+                  <v-select
+                  label="حالت مدنی"
+                  v-model="new_patient.marital_status"
+                  outlined
+                  rounded
+                  required
+                  :items="marital_status">
+
+                  </v-select>
+                </v-col>
+                <v-col>
+                  <BaseEdittext
+                  label="نمبر تذکره"
+                  v-model="new_patient.tazkira_id"
+                  placeholder="نمبر تذکره خود را وارد کنید"
+                  type="number"
+                  picon="mdi-number"
+                  />
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col cols="12" md="12" sm="12" xs="12">
               <v-file-input
                 :label="patient_label.photo"
                 hint="وارد کردن عکس اختیاری می باشد میباشد"
@@ -145,7 +169,7 @@
            <v-col>
               <BaseEdittext
               label="مصارف کل"
-              v-model="new_patient.fee"
+              v-model="fee.total_amount"
               type="number"
               hint="وارد کردن مصرف الزامی می باشد"
             />
@@ -153,7 +177,7 @@
             <v-col>
               <v-select
                 label="اقساط"
-                v-model="new_patient.installments"
+                v-model="fee.installments"
                 :items="installments"
                 outlined
                 rounded
@@ -161,6 +185,19 @@
               </v-select>
             </v-col>
           </v-row>
+          <v-row class="mr-md-5">
+            <v-col cols="12" md="6">
+              <BaseEdittext
+              label="مبلغ قابل پرداخت"
+              v-model="fee.payiad"
+              type="number"
+              placeholder="مقدرا قابل پرداخت را وارد کنید"
+               />
+            </v-col>
+          </v-row>
+          <v-col>
+            <v-divider></v-divider>
+          </v-col>
           <v-row class="mr-md-5">
             <v-col cols="12">
               <h3>تاریخچه مریض</h3>
@@ -244,7 +281,19 @@ export default {
       heart: "نخیر",
       dieabet: "نخیر",
       blood: "نخیر",
+      fee:[
+        {
+          total_amount:"",
+          payiad: "",
+          installments:"",
+          date: ""
+        }
+      ],
       new_patient: {},
+      marital_status:[
+        "مجرد",
+        "متاهل"
+      ],
       sex: ["مذکر", "مونث"],
       blood_gropu: ["A+", "B+", "AB+", "O+", "A-", "B-", "AB-", "O-"],
       services: [
@@ -268,7 +317,6 @@ export default {
   mounted() {
     //this.patient_label = this.$store.state.services.services_form_item;
     this.patient_caseHistory = this.$store.state.services.caseHistory;
-    this.new_patient = this.patients;
   },
   methods: {
     AddPatient() {
@@ -286,8 +334,8 @@ export default {
           result: this.dieabet,
         },
       ];
-      //this.$store.dispatch("patient/add_patient", this.new_patient);
-      console.log(this.new_patient);
+      this.new_patient.fee = this.fee;
+      this.$store.dispatch("patient/addPatient", this.new_patient);
     },
     skipCaseHistory() {
       (this.dieabet = "نخیر"), (this.blood = "نخیر"), (this.heart = "نخیر");

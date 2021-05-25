@@ -29,5 +29,23 @@ export const actions = {
       dispatch('notification/add', notification, { root: true })
       throw error
     })
+  },
+  async addPatient({dispatch},patient){
+    axios.post("http://localhost:3000/patient/add",patient).then( (response =>{
+      if(response.status== 200){
+        const notification = {
+        type: 'error',
+        message: 'There was a problem creating your event: ' + response.data
+      }
+      dispatch('notification/add', notification, { root: true })
+      }
+    })).catch(error =>{
+      const notification = {
+        type: 'error',
+        message: 'There was a problem creating your event: ' + error.message
+      }
+      dispatch('notification/add', notification, { root: true })
+      throw error
+    })
   }
 };
