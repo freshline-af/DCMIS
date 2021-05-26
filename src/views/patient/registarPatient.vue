@@ -336,6 +336,8 @@ export default {
       ];
       this.new_patient.fee = this.fee;
       this.$store.dispatch("patient/addPatient", this.new_patient);
+      this.$store.dispatch("patient/getListOfPatient")
+      this.$refs.regis_patient.reset();
     },
     skipCaseHistory() {
       (this.dieabet = "نخیر"), (this.blood = "نخیر"), (this.heart = "نخیر");
