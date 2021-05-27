@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form ref="regis_patient" @submit.prevent="AddPatient" lazy-validation>
+    <v-form v-model="registarForm" ref="regis_patient" @submit.prevent="AddPatient" lazy-validation>
       <v-row class="mt-3">
         <v-col cols="6" md="6" sm="12" xs="12">
           <v-row>
@@ -18,6 +18,7 @@
                 placeholder="لطفاً خود را وارد کنید"
                 v-model="new_patient.firstname"
                 picon="mdi-text"
+                :rules="rule.rules.required_text"
               />
             </v-col>
             <v-col cols="12" md="6" sm="12" xs="12">
@@ -25,6 +26,7 @@
                 label="تخلص"
                 hint="وارد کردن تخلص اختیاری می باشد"
                 placeholder="لطفاً تخلص خود را وارد کنید"
+                :rules="rule.rules.text"
                 type="text"
                 v-model="new_patient.lastname"
                 picon="mdi-text"
@@ -36,6 +38,7 @@
                 hint="وراد کردن اسم پدر اختیاری می باشد"
                 placeholder="لطفا اسم پدر خود را وارد کنید"
                 type="text"
+                :rules="rule.rules.required_text"
                 v-model="new_patient.fathername"
                 picon="mdi-text-short"
               />
@@ -46,6 +49,7 @@
                 hint="وارد کردن سن الزامی می باشد"
                 placeholder="لطفا سن خود را وارد کنید"
                 type="number"
+                :rules="rule.rules.required_number"
                 v-model="new_patient.age"
                 picon="mdi-numeric-0"
               />
@@ -56,6 +60,7 @@
                 hint="وارد کردن شماره تماس الزامی می باشد"
                 placeholder="لطفا شماره تماس خود را وارد کنید"
                 type="number"
+                :rules="rule.rules.phone"
                 v-model="new_patient.phone"
                 picon="mdi-phone"
               />
@@ -66,6 +71,7 @@
                 hint="وارد کردن آدرس الزامی میباشد"
                 placeholder="لطفا آدرس خود را وارد کنید"
                 type="text"
+                :rules="rule.rules.text"
                 v-model="new_patient.address"
                 picon="mdi-map-marker-outline"
               />
@@ -78,6 +84,7 @@
                     hint="وارد کردن شغل اختیاری میباشد"
                     placeholder="لطفاشغل خود را وارد کنید"
                     type="text"
+                    :rules="rule.rules.text"
                     v-model="new_patient.occupation"
                     picon="mdi-text-short"
                   />
@@ -87,6 +94,7 @@
                     label="جنسیت"
                     :items="sex"
                     outlined
+                    :rules="rule.rules.select"
                     rounded
                     required
                     v-model="new_patient.sex"
@@ -104,6 +112,7 @@
                     v-model="new_patient.blood_group"
                     outlined
                     rounded
+                    :rules="rule.rules.select"
                     :items="blood_gropu"
                     prepend-icon="mdi-blood-bag"
                   />
@@ -113,6 +122,7 @@
                     label="نوعیت مریضی"
                     :items="services"
                     v-model="new_patient.disease"
+                    :rules="rule.rules.select"
                     outlined
                     rounded
                     required
@@ -130,6 +140,7 @@
                   outlined
                   rounded
                   required
+                  :rules="rule.rules.select"
                   :items="marital_status">
 
                   </v-select>
@@ -141,6 +152,7 @@
                   placeholder="نمبر تذکره خود را وارد کنید"
                   type="number"
                   picon="mdi-number"
+                  :rules="rule.rules.number"
                   />
                 </v-col>
               </v-row>
@@ -151,6 +163,7 @@
                 hint="وارد کردن عکس اختیاری می باشد میباشد"
                 placeholder="لطفاعکس خود را وارد کنید"
                 type="file"
+                :rules="rule.rules.file"
                 outlined
                 rounded
                 v-model="new_patient.photo"
@@ -170,6 +183,7 @@
               <BaseEdittext
               label="مصارف کل"
               v-model="fee.total_amount"
+              :rules="rule.rules.required_number"
               type="number"
               hint="وارد کردن مصرف الزامی می باشد"
             />
@@ -179,18 +193,20 @@
                 label="اقساط"
                 v-model="fee.installments"
                 :items="installments"
+                :rules="rule.rules.select"
                 outlined
                 rounded
               >
               </v-select>
             </v-col>
           </v-row>
-          <v-row class="mr-md-5">
+          <v-row v-if="fee.installments !='تکمیل'" class="mr-md-5">
             <v-col cols="12" md="6">
               <BaseEdittext
               label="مبلغ قابل پرداخت"
               v-model="fee.payiad"
               type="number"
+              :rules="rule.rules.number"
               placeholder="مقدرا قابل پرداخت را وارد کنید"
                />
             </v-col>
@@ -260,7 +276,7 @@
       <v-divider class="mt-3"></v-divider>
       <v-row class="mt-3">
         <v-col class="text-left">
-          <v-btn type="submit" outlined rounded>
+          <v-btn :disabled="!registarForm" type="submit" outlined rounded>
             ثبت کردن
           </v-btn>
         </v-col>
@@ -270,6 +286,7 @@
 </template>
 
 <script>
+import rules from "../../validation/validationRules.js";
 export default {
   props: {
     patients: {
@@ -278,6 +295,8 @@ export default {
   },
   data() {
     return {
+      rule:rules,
+      registarForm: null,
       heart: "نخیر",
       dieabet: "نخیر",
       blood: "نخیر",
@@ -320,7 +339,8 @@ export default {
   },
   methods: {
     AddPatient() {
-      this.new_patient.case_history = [
+      if(this.$refs.regis_patient.validate()){
+        this.new_patient.case_history = [
         {
           disease: this.patient_caseHistory.heart,
           result: this.heart,
@@ -336,8 +356,11 @@ export default {
       ];
       this.new_patient.fee = this.fee;
       this.$store.dispatch("patient/addPatient", this.new_patient);
-      this.$store.dispatch("patient/getListOfPatient")
+      //this.$store.dispatch("patient/getListOfPatient")
       this.$refs.regis_patient.reset();
+       this.reload();
+      }
+     
     },
     skipCaseHistory() {
       (this.dieabet = "نخیر"), (this.blood = "نخیر"), (this.heart = "نخیر");

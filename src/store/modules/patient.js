@@ -37,6 +37,7 @@ export const actions = {
         type: 'error',
         message: 'There was a problem creating your event: ' + response.data
       }
+      console.log(response.date)
       dispatch('notification/add', notification, { root: true })
       }
     })).catch(error =>{

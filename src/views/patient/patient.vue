@@ -41,8 +41,9 @@
           </template>
           <v-card>
             <v-card-title>
-              <v-btn icon @click="close"><v-icon>mdi-close</v-icon></v-btn>
               <span class="headline mr-3">{{ formTitle }}</span>
+              <v-spacer></v-spacer>
+               <v-btn icon @click="close" color="red"><v-icon>mdi-close</v-icon></v-btn>
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text class="mt-3">
