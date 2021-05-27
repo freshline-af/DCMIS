@@ -23,7 +23,7 @@ export const actions = {
       commit("ADD_PATIENT",response.data);
     }).catch(error =>{
       const notification = {
-        type: 'error',
+        type: 'red',
         message: 'There was a problem creating your event: ' + error.message
       }
       dispatch('notification/add', notification, { root: true })
@@ -34,15 +34,15 @@ export const actions = {
     axios.post("http://localhost:3000/patient/add",patient).then( (response =>{
       if(response.status== 200){
         const notification = {
-        type: 'error',
-        message: 'There was a problem creating your event: ' + response.data
+        type: 'success',
+        message: response.data +"sueccessfully"
       }
       console.log(response.date)
       dispatch('notification/add', notification, { root: true })
       }
     })).catch(error =>{
       const notification = {
-        type: 'error',
+        type: 'red',
         message: 'There was a problem creating your event: ' + error.message
       }
       dispatch('notification/add', notification, { root: true })

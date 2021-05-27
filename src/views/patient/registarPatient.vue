@@ -358,7 +358,7 @@ export default {
       this.$store.dispatch("patient/addPatient", this.new_patient);
       //this.$store.dispatch("patient/getListOfPatient")
       this.$refs.regis_patient.reset();
-       this.reload();
+       //window.location.reload();
       }
      
     },
