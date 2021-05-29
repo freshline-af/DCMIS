@@ -352,8 +352,7 @@ export default {
     editItem(item) {
       this.editedIndex = this.patients.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      //this.dialog = true;
-      this.$router.push({name: "editPatient", params:{patientss: this.patients}});
+      this.$router.push({name: "editPatient", params:{patients: this.editedItem}});
     },
     //  mthod for open the dialog to show the patient deatials
     showitem(item) {
@@ -406,7 +405,6 @@ export default {
     showname(firstname){
            let name = ""+firstname+"".split('');
            return name[0] + name[1]
-           //console.log(name.split(''))
     },
     getDate(date){
       let date_time = new Date(date);

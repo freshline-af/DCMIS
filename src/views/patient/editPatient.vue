@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form v-model="registarForm" ref="regis_patient" @submit.prevent="AddPatient" lazy-validation>
+    <v-form v-model="editForm" ref="edit_patient" @submit.prevent="EditPatient" lazy-validation>
       <v-row class="mt-3">
         <v-col cols="6" md="6" sm="12" xs="12">
           <v-row>
@@ -17,6 +17,7 @@
                 hint="وارد کردن اسم الزامی می باشد"
                 placeholder="لطفاً خود را وارد کنید"
                 v-model="new_patient.firstname"
+                :values="new_patient.firstname"
                 picon="mdi-text"
                 :rules="rule.rules.required_text"
               />
@@ -29,6 +30,7 @@
                 :rules="rule.rules.text"
                 type="text"
                 v-model="new_patient.lastname"
+                :values="new_patient.lastname"
                 picon="mdi-text"
               />
             </v-col>
@@ -40,6 +42,7 @@
                 type="text"
                 :rules="rule.rules.required_text"
                 v-model="new_patient.fathername"
+                :values="new_patient.fathername"
                 picon="mdi-text-short"
               />
             </v-col>
@@ -51,6 +54,7 @@
                 type="number"
                 :rules="rule.rules.required_number"
                 v-model="new_patient.age"
+                :values="new_patient.age"
                 picon="mdi-numeric-0"
               />
             </v-col>
@@ -62,6 +66,7 @@
                 type="number"
                 :rules="rule.rules.phone"
                 v-model="new_patient.phone"
+                :values="new_patient.phone"
                 picon="mdi-phone"
               />
             </v-col>
@@ -73,6 +78,7 @@
                 type="text"
                 :rules="rule.rules.text"
                 v-model="new_patient.address"
+                :values="new_patient.address"
                 picon="mdi-map-marker-outline"
               />
             </v-col>
@@ -86,6 +92,7 @@
                     type="text"
                     :rules="rule.rules.text"
                     v-model="new_patient.occupation"
+                    :values="new_patient.occupation"
                     picon="mdi-text-short"
                   />
                 </v-col>
@@ -98,6 +105,7 @@
                     rounded
                     required
                     v-model="new_patient.sex"
+                    :value="new_patient.sex"
                   >
                   </v-select>
                 </v-col>
@@ -113,6 +121,7 @@
                     outlined
                     rounded
                     :rules="rule.rules.select"
+                    :value="rule.rules.select"
                     :items="blood_gropu"
                     prepend-icon="mdi-blood-bag"
                   />
@@ -122,6 +131,7 @@
                     label="نوعیت مریضی"
                     :items="services"
                     v-model="new_patient.disease"
+                    :value="new_patient.disease"
                     :rules="rule.rules.select"
                     outlined
                     rounded
@@ -137,6 +147,7 @@
                   <v-select
                   label="حالت مدنی"
                   v-model="new_patient.marital_status"
+                  :value="new_patient.marital_status"
                   outlined
                   rounded
                   required
@@ -149,6 +160,7 @@
                   <BaseEdittext
                   label="نمبر تذکره"
                   v-model="new_patient.tazkira_id"
+                  :values="new_patient.tazkira_id"
                   placeholder="نمبر تذکره خود را وارد کنید"
                   type="number"
                   picon="mdi-number"
@@ -159,14 +171,13 @@
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
               <v-file-input
-                :label="patient_label.photo"
+                label="عکس"
                 hint="وارد کردن عکس اختیاری می باشد میباشد"
                 placeholder="لطفاعکس خود را وارد کنید"
                 type="file"
                 :rules="rule.rules.file"
                 outlined
                 rounded
-                v-model="new_patient.photo"
               ></v-file-input>
             </v-col>
           </v-row>
@@ -183,7 +194,9 @@
               <BaseEdittext
               label="مصارف کل"
               v-model="fee.total_amount"
+              :value="fee.total_amount"
               :rules="rule.rules.required_number"
+              :values="fee.total_amount"
               type="number"
               hint="وارد کردن مصرف الزامی می باشد"
             />
@@ -194,6 +207,7 @@
                 v-model="fee.installments"
                 :items="installments"
                 :rules="rule.rules.select"
+                :value="fee.installments"
                 outlined
                 rounded
               >
@@ -207,6 +221,7 @@
               v-model="fee.payiad"
               type="number"
               :rules="rule.rules.number"
+              :values="fee.payiad"
               placeholder="مقدرا قابل پرداخت را وارد کنید"
                />
             </v-col>
@@ -214,7 +229,7 @@
           <v-col>
             <v-divider></v-divider>
           </v-col>
-          <v-row class="mr-md-5">
+          <v-row class="mr-md-5 mt-4">
             <v-col cols="12">
               <h3>تاریخچه مریض</h3>
             </v-col>
@@ -222,62 +237,26 @@
               <v-divider></v-divider>
             </v-col>
             <v-col cols="12">
-              <v-row>
+              <v-row v-for="item in patient_caseHistory" :key="item.disease">
                 <v-col cols="12" md="4" sm="12">
-                  <h3>{{ patient_caseHistory.heart }}</h3>
+                  <h3>{{ item.disease }}</h3>
                 </v-col>
-                <v-radio-group v-model="heart" mandatory>
+                <v-radio-group v-model="item.result" :value="item.result" mandatory>
                   <v-row>
                     <v-col><v-radio label="بلی" value="بلی"></v-radio></v-col>
                     <v-col><v-radio label="نخیر" value="نخیر"></v-radio></v-col>
                   </v-row>
                 </v-radio-group>
               </v-row>
-            </v-col>
-            <v-col cols="12">
-              <v-row>
-                <v-col cols="12" md="4" sm="12">
-                  <h3 class="mt-2">{{ patient_caseHistory.dieabet }}</h3>
-                </v-col>
-                <v-radio-group v-model="dieabet" mandatory>
-                  <v-row>
-                    <v-col><v-radio label="بلی" value="بلی"></v-radio></v-col>
-                    <v-col><v-radio label="نخیر" value="نخیر"></v-radio></v-col>
-                  </v-row>
-                </v-radio-group>
-              </v-row>
-            </v-col>
-            <v-col cols="12">
-              <v-row>
-                <v-col cols="12" sm="12" md="4">
-                  <h3>{{ patient_caseHistory.blood }}</h3>
-                </v-col>
-                <v-radio-group v-model="blood" mandatory>
-                  <v-row>
-                    <v-col>
-                      <v-radio label="بلی" value="بلی"></v-radio>
-                    </v-col>
-                    <v-col>
-                      <v-radio label="نخیر" value="نخیر"></v-radio>
-                    </v-col>
-                  </v-row>
-                </v-radio-group>
-              </v-row>
-            </v-col>
-
-            <v-col class="text-center mt-4">
-              <v-btn rounded outlined elevation="2" @click="skipCaseHistory">
-                صرف نظر کردن از تاریخچه مریض
-              </v-btn>
             </v-col>
           </v-row>
         </v-col>
       </v-row>
       <v-divider class="mt-3"></v-divider>
       <v-row class="mt-3">
-        <v-col class="text-left">
-          <v-btn :disabled="!registarForm" type="submit" outlined rounded>
-            ثبت کردن
+        <v-col class="text-center">
+          <v-btn :disabled="!editForm" type="submit" width="200" class="mb-2" outlined color="success">
+            تغیر دادن
           </v-btn>
         </v-col>
       </v-row>
@@ -293,22 +272,13 @@ export default {
       type: Object,
     },
   },
+
   data() {
     return {
       rule:rules,
-      registarForm: null,
-      heart: "نخیر",
-      dieabet: "نخیر",
-      blood: "نخیر",
-      fee:[
-        {
-          total_amount:"",
-          payiad: "",
-          installments:"",
-          date: ""
-        }
-      ],
-      new_patient: {},
+      editForm: null,
+      fee:[],
+      new_patient:{},
       marital_status:[
         "مجرد",
         "متاهل"
@@ -328,47 +298,23 @@ export default {
         "امپلیت دندان",
       ],
       installments: ["تکمیل", "دو قسط", "سه فسط"],
-
-      patient_label: {},
       patient_caseHistory: [],
     };
   },
-  beforeRouteEnter(to, from,next){
-   
-   next()
-  },
   mounted() {
-    //this.patient_label = this.$store.state.services.services_form_item;
-    this.patient_caseHistory = this.$store.state.services.caseHistory;
-    console.log(this.patients)
+    this.new_patient = this.$route.params.patients;
+    this.patient_caseHistory = this.new_patient.case_history
+    this.fee = this.new_patient.fee
   },
   methods: {
-    AddPatient() {
-      if(this.$refs.regis_patient.validate()){
-        this.new_patient.case_history = [
-        {
-          disease: this.patient_caseHistory.heart,
-          result: this.heart,
-        },
-        {
-          disease: this.patient_caseHistory.blood,
-          result: this.blood,
-        },
-        {
-          disease: this.patient_caseHistory.dieabet,
-          result: this.dieabet,
-        },
-      ];
-      this.new_patient.fee = this.fee;
-      this.$store.dispatch("patient/addPatient", this.new_patient);
-      //this.$store.dispatch("patient/getListOfPatient")
-      this.$refs.regis_patient.reset();
-       //window.location.reload();
+    EditPatient() {
+      if(this.$refs.edit_patient.validate()){
+        this.new_patient.case_history = this.patient_caseHistory;
+        this.new_patient.fee = this.fee;
+        console.log(this.new_patient)
+ 
       }
      
-    },
-    skipCaseHistory() {
-      (this.dieabet = "نخیر"), (this.blood = "نخیر"), (this.heart = "نخیر");
     },
   },
 };
