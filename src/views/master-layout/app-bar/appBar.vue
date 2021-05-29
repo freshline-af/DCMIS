@@ -4,7 +4,7 @@
     <leftDrawer :leftDrawer="leftDrawer"></leftDrawer>
     <v-app-bar app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-app-bar-title> سیستم مدریت کلینک دندان</v-app-bar-title>
+      <v-card-title> سیستم مدریت کلینک دندان</v-card-title>
       <v-spacer></v-spacer>
       <v-col cols="4" v-if="search">
         <v-text-field
