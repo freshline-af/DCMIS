@@ -278,6 +278,7 @@
 <script>
 import Register from "./registarPatient";
 import Store from "../../store/index";
+
 export default {
   components: {
     Register,
@@ -334,7 +335,7 @@ export default {
       val || this.closeDelete();
     },
   },
-
+ 
   async beforeRouteEnter(routeTo, routeFrom, next) {
     await Store.dispatch("patient/getListOfPatient");
     next();
@@ -351,7 +352,8 @@ export default {
     editItem(item) {
       this.editedIndex = this.patients.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+      //this.dialog = true;
+      this.$router.push({name: "editPatient", params:{patientss: this.patients}});
     },
     //  mthod for open the dialog to show the patient deatials
     showitem(item) {

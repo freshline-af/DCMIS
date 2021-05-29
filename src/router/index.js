@@ -1,4 +1,5 @@
 import AccountManagment from "../views/account/accountManagmentPage.vue";
+import EditPatient from "../views/patient/editPatient.vue";
 import FinaceManag from "../views/finace/finaceManagPage.vue";
 import Home from "../views/Home.vue";
 import Login from "../views/account/loginView.vue";
@@ -34,6 +35,12 @@ const routes = [
     path: "/patient",
     name: "patient",
     component: Patient,
+  },
+  {
+    path: "/edit_patient",
+    name: "editPatient",
+    component: EditPatient,
+    probs: true
   },
   {
     path: "/staff",
