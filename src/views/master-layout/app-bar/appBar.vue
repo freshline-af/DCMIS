@@ -11,21 +11,22 @@
           max-width="80"
           prepend-icon="mdi-magnify"
           outlined
-          @click:prepend="searching = !searching"
-          @keyup.enter="searching = !searching"
+          append-icon="mdi-close"
+          @click:append="search = !search"
+          @click:prepend="dosearch"
+          @keyup.enter="keyEnterSearch"
+          :loading="searching"
           rounded
           height="40"
           class="mt-6 ml-8 pa-3"
           single-line
           type="text"
-          clearable
-          :loading="searching"
           placeholder="لطفاً کلمه جستجو خود را وارد کنید"
           dense
         >
         </v-text-field>
       </v-col>
-      <v-btn icon class="ml-1" @click="search = !search">
+      <v-btn v-if="!search" icon class="ml-1" @click="showsearch">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
       <v-avatar>
@@ -49,11 +50,24 @@ export default {
   },
   data() {
     return {
-      search: true,
+      search: false,
       searching: false,
       drawer: false,
       leftDrawer: false
     };
+  },
+  methods:{
+    showsearch(){
+      this.search = !this.search
+
+    },
+    dosearch(){
+      this.searching = !this.searching
+    },
+    keyEnterSearch(){
+      this.searching = !this.searching
+      
+    }
   }
 };
 </script>
