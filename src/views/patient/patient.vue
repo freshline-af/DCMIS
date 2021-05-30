@@ -374,6 +374,7 @@ export default {
     },
 
     deleteItemConfirm() {
+      Store.dispatch("patient/deletePatient", this.editedItem._id);
       this.patients.splice(this.editedIndex, 1);
       this.closeDelete();
     },
@@ -382,7 +383,7 @@ export default {
       this.dialog = false;
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
+        this.dialogDelete = false
       });
     },
 

@@ -66,5 +66,25 @@ export const actions = {
       dispatch('notification/add', notification, { root: true })
       throw error
     })
+  },
+  async deletePatient({dispatch}, id){
+    axios.delete("http://localhost:3000/patient/delete/"+id).then(response =>{
+      if(response.status == 200){
+        const notification ={
+          type:'success',
+          message: 'بیمار مورد نظر موفقانه از سیستم هذف کردید.' 
+        };
+        dispatch('notification/add', notification, {root: true});
+        dispatch("getListOfPatient");
+      }
+      
+    }).catch(error =>{
+      const notification ={
+        type:'warning',
+        message: 'در قسمت پاک کردن بیمار مورد نظر مشکل روخ داده است' + error.message
+      };
+      dispatch('notification/add', notification, {root: true});
+      throw error;
+    });
   }
 };
