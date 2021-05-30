@@ -48,5 +48,23 @@ export const actions = {
       dispatch('notification/add', notification, { root: true })
       throw error
     })
+  },
+  async editPatient({dispatch} ,patient){
+    axios.put("http://localhost:3000/patient/edit/"+patient._id, patient).then( response =>{
+      if(response.status == 200){
+        const notification = {
+          type: 'success',
+          message: 'بیمار مورد نظر موفقانه تغیر داده شد.'
+        }
+        dispatch('notification/add', notification, { root: true })
+      }
+    }).catch(error =>{
+      const notification = {
+        type: 'warning',
+        message: 'There was a problem editing your event: ' + error.message
+      }
+      dispatch('notification/add', notification, { root: true })
+      throw error
+    })
   }
 };

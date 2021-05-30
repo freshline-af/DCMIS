@@ -232,7 +232,7 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="headline"
-              >آیا می خواهد این بیمار را از سیتم حذف کنید؟</v-card-title
+              >آیا می خواهد این بیمار را از سیستم حذف کنید؟</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>

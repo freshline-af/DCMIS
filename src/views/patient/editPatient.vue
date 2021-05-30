@@ -266,6 +266,7 @@
 
 <script>
 import rules from "../../validation/validationRules"
+import Store from "../../store/index"
 export default {
   props: {
     patients: {
@@ -311,7 +312,9 @@ export default {
       if(this.$refs.edit_patient.validate()){
         this.new_patient.case_history = this.patient_caseHistory;
         this.new_patient.fee = this.fee;
-        console.log(this.new_patient)
+        Store.dispatch("patient/editPatient",this.new_patient);
+        this.$router.go(-1);
+        
  
       }
      
