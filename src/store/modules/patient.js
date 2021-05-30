@@ -54,7 +54,7 @@ export const actions = {
       if(response.status == 200){
         const notification = {
           type: 'success',
-          message: 'بیمار مورد نظر موفقانه تغیر داده شد.'
+          message: 'معلومات بیمار مورد نظر موفقانه تغیر داده شد.'
         }
         dispatch('notification/add', notification, { root: true })
       }
@@ -72,7 +72,7 @@ export const actions = {
       if(response.status == 200){
         const notification ={
           type:'success',
-          message: 'بیمار مورد نظر موفقانه از سیستم هذف کردید.' 
+          message: 'معلومات بیمار مورد نظر موفقانه از سیستم هذف کردید.' 
         };
         dispatch('notification/add', notification, {root: true});
         dispatch("getListOfPatient");
@@ -81,7 +81,7 @@ export const actions = {
     }).catch(error =>{
       const notification ={
         type:'warning',
-        message: 'در قسمت پاک کردن بیمار مورد نظر مشکل روخ داده است' + error.message
+        message: 'در قسمت پاک کردن معلومات بیمار مورد نظر مشکل روخ داده است' + error.message
       };
       dispatch('notification/add', notification, {root: true});
       throw error;
