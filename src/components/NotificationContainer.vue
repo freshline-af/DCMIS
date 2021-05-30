@@ -1,10 +1,12 @@
 <template>
   <div class="notification-container">
-    <NotificationBar
+    <v-sheet shaped>
+      <NotificationBar
       v-for="notification in notifications"
       :key="notification.id"
       :notification="notification"
     />
+    </v-sheet>
   </div>
 </template>
 
@@ -25,6 +27,7 @@ export default {
   position: fixed;
   bottom: 0;
   right: 0;
-  padding-right: 40px;
+  padding-right: 20px;
+  padding-bottom: 30px;
 }
 </style>

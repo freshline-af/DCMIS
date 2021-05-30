@@ -1,7 +1,9 @@
 <template>
-  <div class="notification-bar" :class="notificationTypeClass">
+  <v-alert text elevation="3" :color="notificationTypeClass" shaped :type="notificationTypeClass">
+    <div>
     <p>{{ notification.message }}</p>
   </div>
+  </v-alert>
 </template>
 
 <script>
@@ -27,7 +29,7 @@ export default {
   },
   computed: {
     notificationTypeClass() {
-      return `${this.notification.type}--text`
+      return this.notification.type
     }
   },
   methods: mapActions('notification', ['remove'])
