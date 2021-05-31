@@ -35,5 +35,23 @@ export const actions = {
         dispatch('notification/add', notification, { root: true })
         throw error
     })
+  },
+  async addEmploye({dispatch},employe){
+    axios.post("http://localhost:3000/staff/add",employe).then( response =>{
+      if(response.status == 200){
+        let notification ={
+          type: "success",
+          message: "کارمند جدید موفقانه در سیستم ثبت گردید."
+        };
+        dispatch("notification/add", notification, {root: true});
+      }
+    }).catch( error => {
+      let notification = {
+        type: "warning",
+        message: "در قستمت ثبت کردن کارمند جدید مشکل وجود دارد" +error.message
+      };
+      dispatch("notification/add", notification, {root: true});
+      throw error;
+    })
   }
 };

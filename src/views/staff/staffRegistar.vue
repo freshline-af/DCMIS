@@ -270,9 +270,10 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-row class="mt-5 pa-4">
+    </v-row>
+     <v-row class="mt-5 pa-4">
         <v-col class="text-right text-xs-center" cols="6" md="6" sm="6" xs="6">
-          <v-btn @click="reset" width="300" color="red" outlined elevation="1">هذف کردن</v-btn>
+          <v-btn @click="reset" color="red" outlined>هذف کردن</v-btn>
         </v-col>
         <v-spacer></v-spacer>
         <v-col class="text-left" cols="6" sm="6" xs="6" md="6">
@@ -287,12 +288,12 @@
           >
         </v-col>
       </v-row>
-    </v-row>
   </v-form>
 </template>
 
 <script>
 import Rules from "../../validation/validationRules";
+import Store from "../../store/index"
 export default {
   data() {
     return {
@@ -325,9 +326,8 @@ export default {
     },
     submitInfo() {
       if (this.$refs.employRegistar.validate()) {
-        this.$store.dispatch("staff/set_employe", this.employe).then(() => {
-          this.reset();
-        });
+        Store.dispatch("staff/addEmploye", this.employe)
+        console.log(this.employe)
       }
     },
   },
