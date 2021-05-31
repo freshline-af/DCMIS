@@ -7,7 +7,7 @@ const StaffSchema = new Schema({
   firstname: String,
   lastname: String,
   fathername:String,
-  tazkira_id: Number,
+  tazkira_id: String,
   address: String,
   edu_level: String,
   edu_start_date:Date,
