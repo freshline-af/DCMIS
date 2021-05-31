@@ -5,7 +5,7 @@ const newStaff = async (req, res) => {
     if (err) {
       res.json(err);
     } else {
-      res.json(result);
+      res.json("Staff added!");
     }
   })
 }
