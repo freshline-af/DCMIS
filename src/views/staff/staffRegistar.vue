@@ -91,8 +91,8 @@
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
               <v-file-input
-                label="گاپی تذکره"
-                placeholder="گاپی تذکره خود را وارد کنید"
+                label="کاپی تذکره"
+                placeholder="کاپی تذکره خود را وارد کنید"
                 outlined
                 rounded
                 prepend-icon="mdi-file"
@@ -327,6 +327,7 @@ export default {
     submitInfo() {
       if (this.$refs.employRegistar.validate()) {
         Store.dispatch("staff/addEmploye", this.employe)
+        window.scrollTo(0,0)
         console.log(this.employe)
       }
     },

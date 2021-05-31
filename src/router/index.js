@@ -8,6 +8,7 @@ import NetworkIssue from "../views/NetworkIssue.vue";
 import NotFoundPage from "../views/NotFoundPage.vue";
 import Patient from "../views/patient/patient.vue";
 import Service from "../views/service/ServicePage.vue";
+import ShowStaff from "../views/staff/showOneStaff.vue"
 import Sitting from "../views/sitting/sittingPage.vue";
 import Staff from "../views/staff/StaffPage.vue";
 import Vue from "vue";
@@ -46,6 +47,12 @@ const routes = [
     path: "/staff",
     name: "staff",
     component: Staff,
+  },
+  {
+    path: "/show_staff",
+    name: "ShowStaff",
+    component: ShowStaff,
+    probs: true
   },
   {
     path: "/account_managment",

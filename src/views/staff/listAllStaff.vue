@@ -33,23 +33,13 @@
           </template>
         </v-data-table>
       </v-col>
-      <ShowOneStaff :employInfo="employe" :dialog.sync="dialog">
-        <v-btn slot="close" @click="dialog = !dialog" icon
-          ><v-icon>mdi-close</v-icon></v-btn
-        >
-      </ShowOneStaff>
     </v-row>
   </v-container>
 </template>
 <script>
 //import staffAll from "../../../server"
-import ShowOneStaff from "./showOneStaff";
-
 export default {
  
-  components: {
-    ShowOneStaff,
-  },
   props: {
     staffs: {
       type: Array,
@@ -58,7 +48,6 @@ export default {
   },
   data() {
     return {
-      dialog: false,
       search: "",
       staffList: this.staffs,
       employe: {},
@@ -89,8 +78,8 @@ export default {
   },
   methods: {
     ShowOneStaff(item) {
-      this.dialog = true;
       this.employe = item;
+      this.$router.push({name:"ShowStaff", params:{employe: this.employe}});
     },
 }
 };
