@@ -1,4 +1,9 @@
 const mongoose = require("mongoose");
+// Import Timezone module
+const momentTZ = require('moment-timezone');
+// Set timezone for Kabul
+const dateKabul = momentTZ.tz(Date.now(), "Asia/Kabul");
+
 const Schema = mongoose.Schema;
 const PatientSchema = new Schema({
   firstname: String,
@@ -13,11 +18,11 @@ const PatientSchema = new Schema({
   case_history: Array,
   disease: String,
   installments: String,
-  registered_at: { type: Date, default: Date.now},
+  registered_at: { type: Date, default: dateKabul},
   phone: String,
   appointment: {
     round: Number,
-    meet_date: { type: Date, default: Date.now},
+    meet_date: { type: Date, default: dateKabul},
     description: String
   },
   address: String,
