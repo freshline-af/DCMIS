@@ -12,7 +12,14 @@ const PatientSchema = new Schema({
   tazkira_id: String,
   occupation: String,
   age: Number,
-  fee: Array,
+  fee: [
+    {
+      total_amount: Number,
+      installment: Number,
+      paid_amount: Number,
+      paid_at: { type: Date, default: dateKabul },
+    }
+  ],
   blood_group: String,
   marital_status: String,
   case_history: Array,
