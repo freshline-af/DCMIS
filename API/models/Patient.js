@@ -4,7 +4,7 @@ const PatientSchema = new Schema({
   firstname: String,
   lastname: String,
   fathername: String,
-  tazkira_id: Number,
+  tazkira_id: String,
   occupation: String,
   age: Number,
   fee: Array,
