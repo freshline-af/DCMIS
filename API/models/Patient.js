@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const PatientSchema = new Schema({
@@ -13,11 +14,12 @@ const PatientSchema = new Schema({
   case_history: Array,
   disease: String,
   installments: String,
-  registered_at: Date,
+  registered_at: { type: Date, default: Date.now},
   phone: String,
   appointment: {
     round: Number,
-    meet_date: Date,
+    meet_date: { type: Date, default: Date.now},
+    description: String
   },
   address: String,
   sex: String,
