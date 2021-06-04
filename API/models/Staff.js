@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+// import moment-timezone
+const momentTZ = require('moment-timezone');
+// Set timezone for Kabul
+const dateKabul = momentTZ.tz(Date.now(), "Asia/Kabul");
 const Schema = mongoose.Schema;
 const StaffSchema = new Schema({
   username: String,
