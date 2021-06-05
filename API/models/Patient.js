@@ -22,7 +22,7 @@ const PatientSchema = new Schema({
   ],
   blood_group: String,
   marital_status: String,
-  case_history: Array,
+  case_history: [{disease: String, result: String}],
   disease: String,
   installments: String,
   registered_at: { type: Date, default: dateKabul},
