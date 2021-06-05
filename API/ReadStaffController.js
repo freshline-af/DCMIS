@@ -2,7 +2,7 @@
 // import model
 const Staff = require('./models/Staff');
 const staffAll = async (req, res) => {
-    const staff = await Staff.find();
+    const staff = await Staff.find().sort('-hired_at');
     res.json(staff);
     // res.send(staff);
 }
