@@ -19,6 +19,7 @@ app.use(
 
 app.use(express.json());
 const staffSchema = require("./API/models/Staff");
+const patientSchema = require("./API/models/Patient");
 
 // Import db connection
 require("./API/models/conn");
@@ -75,6 +76,37 @@ app.get("/patient/all", readPatient);
 app.put("/patient/edit/:id", editPatient);
 // Delete a patient
 app.delete("/patient/delete/:id", deletePatient);
+
+// upload patients' photos
+app.put("/patient/photo/upload/:id", (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    res.end("No photo chosen.");
+  } else {
+    let pPhoto = req.files.patientPhoto;
+    let imgTypes = path.extname(pPhoto.name).toLowerCase();
+    if (
+      imgTypes !== ".jpg" &&
+      imgTypes !== ".jpeg" &&
+      imgTypes !== ".png" &&
+      imgTypes !== ".gif"
+    ) {
+      res.end("Only images are allowed.");
+    } else {
+      pPhoto.mv(
+        path.resolve(__dirname, "public/uploads/docs/patient-photo/", pPhoto.name),
+        async (error) => {
+          await patientSchema.updateOne(
+            { _id: req.params.id },
+            {
+              $set: { photo: pPhoto.name },
+            }
+          );
+          res.end("Photo updated.");
+        }
+      );
+    }
+  }
+});
 
 /* ------------------ /. Routes for Patients -------------------------- */
 /* ----------------------------- Routes for Staff ------------------------ */

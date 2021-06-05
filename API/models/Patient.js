@@ -6,6 +6,7 @@ const dateKabul = momentTZ.tz(Date.now(), "Asia/Kabul");
 
 const Schema = mongoose.Schema;
 const PatientSchema = new Schema({
+  photo: String,
   firstname: String,
   lastname: String,
   fathername: String,
