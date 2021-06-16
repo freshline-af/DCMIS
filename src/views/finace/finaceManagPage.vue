@@ -19,7 +19,7 @@
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        
+        <CreateInvoce></CreateInvoce>
       </v-tab-item>
       <v-tab-item>
         <DayliReport></DayliReport>
@@ -30,6 +30,7 @@
 
 <script>
 import DayliReport from "./daylyReport";
+import CreateInvoce from "./CreateInvoice.vue"
 export default {
   data() {
     return {
@@ -37,7 +38,8 @@ export default {
     };
   },
   components: {
-    DayliReport
+    DayliReport,
+    CreateInvoce
   }
 };
 </script>
