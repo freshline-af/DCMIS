@@ -22,15 +22,15 @@
         <CreateInvoce></CreateInvoce>
       </v-tab-item>
       <v-tab-item>
-        <DayliReport></DayliReport>
+        <DailyReport></DailyReport>
       </v-tab-item>
     </v-tabs-items>
   </div>
 </template>
 
 <script>
-import DayliReport from "./daylyReport";
 import CreateInvoce from "./CreateInvoice.vue"
+import DailyReport from "./DailyReport.vue"
 export default {
   data() {
     return {
@@ -38,8 +38,8 @@ export default {
     };
   },
   components: {
-    DayliReport,
-    CreateInvoce
+    CreateInvoce,
+    DailyReport
   }
 };
 </script>

@@ -99,6 +99,24 @@
                        <v-col cols="12" class="mt-n4">
                            <v-row justify="center">
                                <v-col cols="12" md="6" lg="6" xl="6" sm="12">
+                               <v-textarea
+                               rounded
+                               outlined
+                               no-resize
+                               label="توضیحات"
+                               type="text"
+                               prepend-icon="mdi-text"
+                               placeholder="لطفا در باره خریداری تان توضیحات ارایه کنید"
+                               :rules="rules.rules.text"
+                               v-model="Invoces.description"
+                               hint="وارد کردن این فیلد اختیاری می باشد"
+                               />
+                               </v-col>
+                           </v-row>
+                       </v-col>
+                       <v-col cols="12" class="mt-n4">
+                           <v-row justify="center">
+                               <v-col cols="12" md="6" lg="6" xl="6" sm="12">
                                <v-file-input
                                outlined
                                rounded
