@@ -31,6 +31,7 @@
                     label="اسم"
                     :value="employe.firstname"
                     readonly
+                    rounded
                     prepend-icon="mdi-text"
                   />
                 </v-col>
@@ -39,6 +40,7 @@
                     label="تخلص"
                     readonly
                     outlined
+                    rounded
                     :value="employe.lastname"
                     prepend-icon="mdi-text"
                   >
@@ -50,6 +52,7 @@
               <v-text-field
                 label=""
                 readonly
+                rounded
                 :value="employe.fathername"
                 outlined
                 prepend-icon="mdi-text"
@@ -62,6 +65,7 @@
                 prepend-icon="mdi-map"
                 :value="employe.address"
                 outlined
+                rounded
                 label="آدرس"
               ></v-text-field>
             </v-col>
@@ -72,6 +76,7 @@
                 :value="employe.phone1"
                 prepend-icon="mdi-phone"
                 readonly
+                rounded
               >
               </v-text-field>
             </v-col>
@@ -82,6 +87,7 @@
                 :value="employe.phone2"
                 prepend-icon="mdi-phone"
                 readonly
+                rounded
               >
               </v-text-field>
             </v-col>
@@ -130,6 +136,7 @@
                     :value="employe.edu_level"
                     outlined
                     readonly
+                    rounded
                     prepend-icon="mdi-school"
                   >
                   </v-text-field>
@@ -139,6 +146,7 @@
                     label="رشته تحصیلی"
                     outlined
                     readonly
+                    rounded
                     prepend-icon="mdi-school"
                     :value="employe.edu_field"
                   >
@@ -175,6 +183,7 @@
                 label="پوهنتون"
                 outlined
                 readonly
+                rounded
                 :value="employe_university"
                 prepend-icon="mdi-school-outline"
               >

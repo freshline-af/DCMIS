@@ -5,7 +5,7 @@
   </div>
   </v-alert>
 </template>
-
+  
 <script>
 import { mapActions } from 'vuex'
 
