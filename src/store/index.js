@@ -1,3 +1,4 @@
+import * as finances from "./modules/finances"
 import * as notification from "./modules/notification"
 import * as patient from "./modules/patient";
 import * as services from "./modules/services";
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     staff,
     patient,
     userInfo,
-    notification
+    notification,
+    finances
   }
 });

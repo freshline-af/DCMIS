@@ -56,7 +56,7 @@
                                :rules="rules.rules.required_number"
                                hint="وارد کردن این فیلد الزامی می باشد"
                                prepend-icon="mdi-counter"
-                               v-model="Invoces.totle_number"
+                               v-model="Invoces.total_number"
                                type="number"
                                />
                                </v-col>
@@ -149,11 +149,12 @@
 
 <script>
 import rules from "../../validation/validationRules"
+import Store from "../../store/index";
     export default {
         data() {
             return {
                 InvoceType: [
-                    "مواد غذایی",
+                    "foot",
                     "تجهیزات جدید",
                     "داروهای جدید",
 
@@ -166,7 +167,8 @@ import rules from "../../validation/validationRules"
         methods:{
             submitInvoceFrom(){
             if(this.$refs.NewInvoce_form.validate()){
-                console.log(this.Invoces);  
+               Store.dispatch("finances/add_daily_report",this.Invoces,{root:true});
+               window.scrollTo(0,0);
                 //this.$refs.NewInvoce_form.reset();
             }
             }

@@ -32,7 +32,11 @@
         <strong>راپور تجهیزات</strong>
       <v-row>
         <v-col cols="12">
-          <v-data-table></v-data-table>
+          <v-data-table
+          :headers="equipmentheaders"
+          :items="equipmentItem"
+          class="elevation-3"
+          ></v-data-table>
         </v-col>
       </v-row>
     </v-col>
@@ -40,9 +44,11 @@
 </template>
 
 <script>
+import Store from "../../store/index";
 export default {
   data() {
     return {
+      dailyR :[],
       foodheader: [
         {
           text: "اسم",
@@ -54,7 +60,7 @@ export default {
           text: "توضیحات",
           align: "start",
           sortable: true,
-          value: "Description",
+          value: "description",
         },
         {
           text: "تعداد",
@@ -66,10 +72,10 @@ export default {
           text: "قیمت فی واحد",
           align: "start",
           sortable: true,
-          value: "unitPer_price",
+          value: "perunit_price",
         },
         {
-          text: "قیمت مجموعی",
+          text: " مجموعی",
           align: "start",
           sortable: true,
           value: "total_price",
@@ -101,15 +107,64 @@ export default {
               value:"medicin_uniper_price"
           },
            {
-              text: "قیمت مجموعی",
+              text: " مجموعی",
               align:"start",
               sortable: true,
               value:"medicin_total_price"
           }
       ],
+      medicineItems:[],
       foodItems: [],
+      equipmentheaders:[
+        {
+          text: "اسم تجهیز",
+          sortable:true,
+          align: "start",
+          value: "equi_name"
+        },
+        {
+          text: "توضیحات",
+          sortable: true,
+          align: "start",
+          value:"equi_description",
+        },
+        {
+          text: "تعداد",
+          sortable: true,
+          align: "start",
+          value:"equi_total_number",
+        },
+        {
+          text: "قیمت فی واحد",
+          sortable: true,
+          align: "start",
+          value:"equi_perunit_price",
+        },
+        {
+          text: "مجموعه ",
+          sortable: true,
+          align: "start",
+          value:"equi_total_price",
+        }
+      ],
+      equipmentItem:[]
     };
   },
+  mounted(){
+  this.initialize();
+  },
+  updated(){
+    this.initialize();
+  },
+  methods:{
+    initialize(){
+      //var data = [];
+      this.dailyR= Store.state.finances.dailyReport
+      this.foodItems = this.dailyR;
+      console.log(this.foodItems);
+
+    }
+  }
 };
 </script>
 
