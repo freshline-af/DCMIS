@@ -19,7 +19,11 @@
         <strong>راپور داروها</strong>
       <v-row>
         <v-col cols="12">
-          <v-data-table></v-data-table>
+          <v-data-table
+          :headers="medicineheader"
+          :items="medicineItems"
+          class="elevation-1"
+          ></v-data-table>
         </v-col>
       </v-row>
     </v-col>
@@ -70,6 +74,38 @@ export default {
           sortable: true,
           value: "total_price",
         },
+      ],
+      medicineheader:[
+          {
+              text: "اسم دارو",
+              align:"start",
+              sortable: true,
+              value:"medicin_name"
+          },
+           {
+              text: "توضیحات",
+              align:"start",
+              sortable: true,
+              value:"medicin_description"
+          },
+           {
+              text: "تعداد",
+              align:"start",
+              sortable: true,
+              value:"medicin_total_number"
+          },
+           {
+              text: "قیمت فی واحد",
+              align:"start",
+              sortable: true,
+              value:"medicin_uniper_price"
+          },
+           {
+              text: "قیمت مجموعی",
+              align:"start",
+              sortable: true,
+              value:"medicin_total_price"
+          }
       ],
       foodItems: [],
     };
