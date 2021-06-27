@@ -154,7 +154,7 @@ import Store from "../../store/index";
         data() {
             return {
                 InvoceType: [
-                    "foot",
+                    "مواد غذایی",
                     "تجهیزات جدید",
                     "داروهای جدید",
 

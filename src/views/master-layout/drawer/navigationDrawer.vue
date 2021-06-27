@@ -47,7 +47,7 @@ export default {
         { id: "3", name: "کارمندان", icon: "mdi-account-tie", link: "/staff" },
         {
           id: "4",
-          name: "مدیریت حساب",
+          name: "پروفایل",
           icon: "mdi-account-cog-outline",
           link: "/account_managment"
         },
