@@ -21,6 +21,9 @@
       <v-tab-item>
         <DailyReport></DailyReport>
       </v-tab-item>
+      <v-tab-item>
+        <EquepmentList></EquepmentList>
+      </v-tab-item>
     </v-tabs-items>
   </div>
 </template>
@@ -28,6 +31,7 @@
 <script>
 import CreateInvoce from "./CreateInvoice.vue"
 import DailyReport from "./DailyReport.vue"
+import EquepmentList from "./EquepmentList"
 export default {
   data() {
     return {
@@ -36,7 +40,8 @@ export default {
   },
   components: {
     CreateInvoce,
-    DailyReport
+    DailyReport,
+    EquepmentList
   }
 };
 </script>
