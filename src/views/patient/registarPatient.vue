@@ -8,7 +8,7 @@
     >
       <v-row class="mt-3" justify="center">
         <v-col align="center" cols="12" md="12" sm="12" xs="12">
-          <h3>معلومات شخصی</h3>
+          <h1>معلومات شخصی</h1>
         </v-col>
         <v-col cols="12" align="center">
           <v-row justify="center">
@@ -26,13 +26,13 @@
                 hint="وارد کردن اسم الزامی می باشد"
                 placeholder="لطفاً خود را وارد کنید"
                 v-model="new_patient.firstname"
-                picon="mdi-text"
+                picon="mdi-account"
                 :rules="rule.rules.required_text"
               />
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="12" md="6" sm="12" xs="12">
               <BaseEdittext
@@ -42,12 +42,12 @@
                 :rules="rule.rules.text"
                 type="text"
                 v-model="new_patient.lastname"
-                picon="mdi-text"
+                picon="mdi-account"
               />
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="12" md="6" sm="12" xs="12">
               <BaseEdittext
@@ -57,12 +57,12 @@
                 type="text"
                 :rules="rule.rules.required_text"
                 v-model="new_patient.fathername"
-                picon="mdi-text-short"
+                picon="mdi-account"
               />
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="12" md="6" sm="12" xs="12">
               <BaseEdittext
@@ -77,7 +77,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="12" md="6" xl="6" lg="6" sm="12" xs="12">
               <BaseEdittext
@@ -92,7 +92,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="12" md="6" lg="6" xl="6" sm="12" xs="12">
               <BaseEdittext
@@ -107,7 +107,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="6" md="6" sm="12" xs="12">
               <BaseEdittext
@@ -122,7 +122,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="6" md="6" sm="12" xs="12">
               <v-select
@@ -138,7 +138,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="6" md="6" sm="12" xs="12">
               <v-select
@@ -154,7 +154,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="6" md="6" sm="12" xs="12">
               <v-select
@@ -170,7 +170,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="6" md="6" sm="12" xs="12">
               <v-select
@@ -186,7 +186,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="6" md="6" sm="12" xs="12">
               <BaseEdittext
@@ -200,7 +200,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-n4">
+        <v-col cols="12" class="mt-n2">
           <v-row justify="center">
             <v-col cols="12" md="6" xl="6" lg="6" sm="12" xs="12">
               <v-file-input
@@ -219,7 +219,7 @@
             <v-col cols="12" >
              <v-row justify="center">
                <v-col align="center" cols="12" md="6" sm="12" lg="6">
-                  <h3>هزینه</h3>
+                  <h1>هزینه</h1>
                </v-col>
              </v-row>
             </v-col>
@@ -243,7 +243,7 @@
             </v-col>
              </v-row>
            </v-col>
-            <v-col cols="12" class="mt-n4">
+            <v-col cols="12" class="mt-n2">
               <v-row justify="center">
                 <v-col cols="6" md="6" sm="12" xs="12">
               <v-select
@@ -258,7 +258,7 @@
             </v-col>
               </v-row>
             </v-col>
-          <v-col cols="12" class="mt-n4">
+          <v-col cols="12" class="mt-n2">
              <v-row justify="center" v-if="fee.installments != 'تکمیل'" >
             <v-col cols="12" md="6">
               <BaseEdittext
@@ -273,7 +273,7 @@
           </v-col>
 
             <v-col cols="12" align="center">
-              <h3>تاریخچه مریض</h3>
+              <h1>تاریخچه مریض</h1>
             </v-col>
             <v-col cols="12">
              <v-row justify="center">
@@ -295,7 +295,7 @@
                 </v-radio-group>
               </v-row>
             </v-col>
-            <v-col cols="12" class="mt-n4">
+            <v-col cols="12" class="mt-n2">
               <v-row justify="center">
                 <v-col cols="12" md="4" sm="12">
                   <h3 class="mt-2">{{ patient_caseHistory.dieabet }}</h3>
@@ -308,7 +308,7 @@
                 </v-radio-group>
               </v-row>
             </v-col>
-            <v-col cols="12" class="mt-n4">
+            <v-col cols="12" class="mt-n2">
               <v-row justify="center">
                 <v-col cols="12" sm="12" md="4">
                   <h3>{{ patient_caseHistory.blood }}</h3>
@@ -326,7 +326,7 @@
               </v-row>
             </v-col>
 
-            <v-col class="text-center mt-4">
+            <v-col class="text-center mt-2">
               <v-btn rounded outlined elevation="2" @click="skipCaseHistory">
                 صرف نظر کردن از تاریخچه مریض
               </v-btn>

@@ -41,7 +41,7 @@
           </template>
           <v-card>
             <v-card-title>
-              <span class="headline mr-3">{{ formTitle }}</span>
+              <h2 class="headline mr-3">راجستر کردن بیمار جدید</h2>
               <v-spacer></v-spacer>
                <v-btn icon @click="close" color="red"><v-icon>mdi-close</v-icon></v-btn>
             </v-card-title>
@@ -320,12 +320,6 @@ export default {
       photoUrl: "",
     },
   }),
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "ثبت بیمار جدید" : "Edit Item";
-    },
-  },
 
   watch: {
     dialog(val) {
