@@ -84,7 +84,7 @@ export default {
   methods: {
     login() {
       if(this.$refs.user_login.validate()){
-        alert("Success")
+        this.$store.dispatch("login_staff",this.user);
       }
     },
   },
