@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="elevation-2">
     <v-form
       v-model="registarForm"
       ref="regis_patient"
       @submit.prevent="AddPatient"
       lazy-validation
     >
-      <v-row class="mt-3" justify="center">
-        <v-col align="center" cols="12" md="12" sm="12" xs="12">
-          <h1>معلومات شخصی</h1>
+      <v-row class="mt-4"  justify="center">
+        <v-col align="start" cols="12" md="6" sm="12" xs="12">
+          <h2 class="mt-2">معلومات شخصی</h2>
         </v-col>
         <v-col cols="12" align="center">
           <v-row justify="center">
@@ -218,8 +218,8 @@
         </v-col>
             <v-col cols="12" >
              <v-row justify="center">
-               <v-col align="center" cols="12" md="6" sm="12" lg="6">
-                  <h1>هزینه</h1>
+               <v-col align="start" cols="12" md="6" sm="12" lg="6">
+                  <h2> هزینه ها</h2>
                </v-col>
              </v-row>
             </v-col>
@@ -272,8 +272,8 @@
           </v-row>
           </v-col>
 
-            <v-col cols="12" align="center">
-              <h1>تاریخچه مریض</h1>
+            <v-col cols="12" md="6">
+              <h2>تاریخچه مریض</h2>
             </v-col>
             <v-col cols="12">
              <v-row justify="center">
@@ -326,17 +326,22 @@
               </v-row>
             </v-col>
 
-            <v-col class="text-center mt-2">
-              <v-btn rounded outlined elevation="2" @click="skipCaseHistory">
+            <v-col cols="12" md="6" class="text-start mt-2">
+              <v-btn large color="primary" width="300" rounded outlined elevation="2" @click="skipCaseHistory">
                 صرف نظر کردن از تاریخچه مریض
               </v-btn>
             </v-col>
           </v-row>
-      <v-divider class="mt-3"></v-divider>
+      <v-divider class="mt-4"></v-divider>
       <v-row class="mt-3">
+        <v-col class="text-right">
+          <v-btn outlined color="warning" large width="300" elevation="3" >
+            حذف کردن
+          </v-btn>
+        </v-col>
         <v-col class="text-left">
-          <v-btn :disabled="!registarForm" type="submit" outlined rounded>
-            ثبت کردن
+          <v-btn color="primary"  elevation="3" :disabled="!registarForm" large width="300" type="submit" outlined>
+           راجستر کردن 
           </v-btn>
         </v-col>
       </v-row>
