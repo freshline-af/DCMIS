@@ -1,13 +1,13 @@
 <template>
   <v-app>
-    <appbar></appbar>
+    <appbar v-if="!!login"></appbar>
     <v-main>
       <v-container>
         <notificationContainer/>
         <router-view :key="$route.fullPath"> </router-view>
       </v-container>
     </v-main>
-    <footar v-if="!login"></footar>
+    <footar v-if="!!login"></footar>
   </v-app>
 </template>
 
@@ -24,7 +24,7 @@ export default {
     };
   },
   mounted() {
-    this.login = mapState["login"];
+    this.login = mapState["logined"];
   },
   computed:{
    logedin() {
