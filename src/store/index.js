@@ -12,13 +12,22 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    logined: false,
     user: null
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    ADD_USER(state, data){
+      state.user = data
+    }
+  },
+  actions: {
+    add_user({commit},data){
+      commit("ADD_USER",data)
+    }
+  },
   getters: {
     loggedIn (state) {
-      return !!state.user
+      return !! state.user
     }
   }, 
   modules: {
