@@ -8,6 +8,7 @@
           v-for="item in items"
           :key="item.id"
           :to="item.link"
+          @click="item.fun"
         >
           <v-list-item-content>
             <v-list-item-title>
@@ -36,29 +37,32 @@ export default {
     return {
       nav:this.drawer,
       items: [
-        { id: "1", name: "داشبورد", icon: "mdi-home", link: "/" },
-        { id: "2", name: "خدمات", icon: "mdi-medical-bag", link: "/service" },
+        { id: "1", name: "داشبورد", icon: "mdi-home", link: "/dashboard" ,fun:this.goHome},
+        { id: "2", name: "خدمات", icon: "mdi-medical-bag", link: "/service", fun:this.goService },
         {
           id: "8",
           name: "بیماران",
           icon: "mdi-doctor",
-          link: "/patient"
+          link: "/patient",
+          fun: this.goPatient
         },
-        { id: "3", name: "کارمندان", icon: "mdi-account-tie", link: "/staff" },
+        { id: "3", name: "کارمندان", icon: "mdi-account-tie", link: "/staff", fun:this.goStaff },
         {
           id: "4",
           name: "پروفایل",
           icon: "mdi-account-cog-outline",
-          link: "/account_managment"
+          link: "/account_managment",
+          fun: this.goProfile
         },
         {
           id: "5",
           name: "مدیریت مالی",
           icon: "mdi-finance",
-          link: "/finace_manag"
+          link: "/finace_manag",
+          fun:this.goFinance
         },
-        { id: "6", name: "تنظیمات", icon: "mdi-cog", link: "/sitting" },
-        { id: "7", name: "خروج", icon: "mdi-logout" }
+        { id: "6", name: "تنظیمات", icon: "mdi-cog", link: "/sitting" ,fun:this.goSitting},
+        { id: "7", name: "خروج", icon: "mdi-logout", fun:this.logout}
       ]
     };
   },
@@ -66,6 +70,19 @@ export default {
       drawer() {
         this.nav = true;
       }
+    },
+    methods:{
+      logout(){
+        localStorage.removeItem('user');
+        window.location.reload();
+      },
+      goHome(){},
+      goService(){},
+      goPatient(){},
+      goStaff(){},
+      goProfile(){},
+      goFinance(){},
+      goSitting(){}
     }
 };
 </script>

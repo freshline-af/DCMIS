@@ -15,7 +15,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     logined: false,
-    user: null,
+    user: {}
   },
   mutations: {
     ADD_USER(state, data) {
@@ -33,14 +33,18 @@ export default new Vuex.Store({
             type: "error",
             message: ".لطفا پسورد و یا توزرنیم خود را چک نماید که درست باشد",
           };
-          dispatch("notification/add", notification, { root: true });
           const user ={
+            id:"60bb22439734f8238caa8405",
             username:"Basir",
+            roll: "Admin",
+            position: "position",
             photoUrl: "../assets/face.png"
           }
           commit("ADD_USER",user)
-          localStorage.setItem("user","Basir")
+          localStorage.setItem("user", JSON.stringify(user))
           router.push({name: "Home"})
+          window.location.reload();
+          dispatch("notification/add", notification, { root: true });
           
         } else {
           const notification = {

@@ -1,42 +1,39 @@
 <template>
   <v-app>
-    <appbar v-if="!!login"></appbar>
+    <Appbar v-if="logedin"></Appbar>
     <v-main>
       <v-container>
-        <notificationContainer/>
+        <Notification></Notification>
         <router-view :key="$route.fullPath"> </router-view>
       </v-container>
     </v-main>
-    <footar v-if="!!login"></footar>
+    <Footar v-if="logedin"></Footar>
   </v-app>
 </template>
 
 <script>
-import appbar from "./views/master-layout/app-bar/appBar";
-import footar from "./views/master-layout/footer/footer.vue";
-import notificationContainer from "./components/NotificationContainer"
-import { mapState } from "vuex";
+import Appbar from "./views/master-layout/app-bar/appBar";
+import Footar from "./views/master-layout/footer/footer.vue";
+import Notification from "./components/NotificationContainer";
 export default {
   name: "App",
-  data() {
-    return {
-
-    };
-  },
-  mounted() {
-    this.login = mapState["logined"];
-  },
   computed:{
    logedin() {
-     return this.$store.getters.logedin
-   }
+     if(JSON.parse(localStorage.getItem('user'))){
+      return true;
+     } else{
+       return false
+     }
+   
+  },
   },
   components: {
-    appbar,
-    footar,
-    notificationContainer
+    Appbar,
+    Footar,
+    Notification
   }
-};
+  
+}
 </script>
 <style>
 

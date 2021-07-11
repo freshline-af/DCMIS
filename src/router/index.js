@@ -19,7 +19,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Lgoin",
+    name: "Login",
     component: Login,
   },
   {
@@ -93,7 +93,11 @@ const router = new VueRouter({
 
 router.beforeEach((routeTo, routeFrom, next) => {
   NProgress.start();
-  next();
+  if(!JSON.parse(localStorage.getItem('user')) && routeTo.path !== "/") {
+    next({name: "Login"})
+  } else{
+    next();
+  }
 });
 router.afterEach(() => {
   NProgress.done();
