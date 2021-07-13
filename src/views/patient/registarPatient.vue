@@ -132,21 +132,16 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" md="12" sm="12" lg="12" xl="12">
+                <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
-                    <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn text>
-                        برگشت
-                      </v-btn>
-                    </v-col>
                     <v-col
                       class="text-end"
                       cols="12"
-                      md="6"
-                      lg="6"
-                      xl="6"
+                      md="12"
+                      lg="12"
+                      xl="12"
                       sm="12"
-                      ><v-btn color="primary" @click="step = 2">
+                      ><v-btn :disabled="!registarForm" elevation="3" large width="200" color="primary" @click="step = 2">
                         بعدی
                       </v-btn>
                     </v-col>
@@ -156,7 +151,7 @@
             </v-form>
           </v-stepper-content>
           <v-stepper-content step="2">
-            <v-form>
+            <v-form v-model="case_history_form">
               <v-row justify="center">
                 <v-col cols="12" md="6">
                   <h2>لطفا تاریخجه بیمار را وارد کیند</h2>
@@ -219,10 +214,10 @@
                     </v-radio-group>
                   </v-row>
                 </v-col>
-                <v-col cols="12" md="12" sm="12" lg="12" xl="12">
+                <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
                     <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn @click="step = 1" text>
+                      <v-btn width="200" large @click="step = 1" >
                         برگشت
                       </v-btn>
                     </v-col>
@@ -233,7 +228,7 @@
                       lg="6"
                       xl="6"
                       sm="12"
-                      ><v-btn color="primary" @click="step = 3">
+                      ><v-btn :disabled="!case_history_form" elevation="3" large width="200"  color="primary" @click="step = 3">
                         بعدی
                       </v-btn>
                     </v-col>
@@ -243,7 +238,7 @@
             </v-form>
           </v-stepper-content>
           <v-stepper-content step="3">
-            <v-form>
+            <v-form v-model="form_3">
               <v-row justify="center">
                 <v-col cols="12" md="6">
                   <h2>لطفا نوعیت و جزییات بیماری را وارد کنید</h2>
@@ -462,10 +457,10 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" md="12" sm="12" lg="12" xl="12">
+                <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
                     <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn @click="step = 2" text>
+                      <v-btn width="200" large  @click="step = 2">
                        برگشت
                       </v-btn>
                     </v-col>
@@ -476,7 +471,7 @@
                       lg="6"
                       xl="6"
                       sm="12"
-                      ><v-btn color="primary" @click="step = 4">
+                      ><v-btn :disabled="!form_3" elevation="3" large width="200" color="primary" @click="step = 4">
                         بعدی
                       </v-btn>
                     </v-col>
@@ -486,7 +481,7 @@
             </v-form>
           </v-stepper-content>
           <v-stepper-content step="4">
-            <v-form>
+            <v-form v-model="form_4" @click.prevent="PatientRagistar">
               <v-row justify="center">
                 <v-col cols="12">
                   <v-row justify="center">
@@ -531,7 +526,7 @@
                   </v-row>
                 </v-col>
                 <v-col cols="12" class="mt-n2">
-                  <v-row justify="center" v-if="fee.installments != 'تکمیل'">
+                  <v-row justify="center"  v-if="fee.installments != 'تکمیل'">
                     <v-col cols="12" md="6">
                       <BaseEdittext
                         label="مبلغ قابل پرداخت"
@@ -543,10 +538,10 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" md="12" sm="12" lg="12" xl="12">
+                <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
                     <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn @click="step = 3" text>
+                      <v-btn width="200" large  @click="step = 3" >
                        برگشت
                       </v-btn>
                     </v-col>
@@ -557,7 +552,7 @@
                       lg="6"
                       xl="6"
                       sm="12"
-                      ><v-btn color="primary" @click="step = 4">
+                      ><v-btn :disabled="!form_4" elevation="3" large width="200" color="primary" >
                         ثبت کردن
                       </v-btn>
                     </v-col>
@@ -690,6 +685,9 @@ export default {
         "114",
         "115",
       ],
+      case_history_form: null,
+      form_3: null,
+      form_4:null,
       rule: rules,
       step: 1,
       registarForm: null,
@@ -771,6 +769,9 @@ export default {
         this.$refs.regis_patient.reset();
         //window.location.reload();
       }
+    },
+    PatientRagistar(){
+
     },
     skipCaseHistory() {
       (this.dieabet = "نخیر"), (this.blood = "نخیر"), (this.heart = "نخیر");
