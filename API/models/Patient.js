@@ -53,7 +53,6 @@ const teethCoverSchema = Schema({
         max: 5,
       },
       material: String,
-      description: String,
       tooth: {
         gum: String,
         type: { type: String },
@@ -62,11 +61,11 @@ const teethCoverSchema = Schema({
         installment: { type: Number, min: 1, max: 3 },
         amount_received: Schema.Types.Decimal128,
         amount_due: Schema.Types.Decimal128,
-        dentist: mongoose.ObjectId,
+        dentist: mongoose.ObjectId
       },
       total_received: Schema.Types.Decimal128,
-    },
-  ],
+    }
+  ]
 });
 
 // 3. Orthodoncy
@@ -96,8 +95,8 @@ const orthodoncySchema = Schema({
         dentist: mongoose.ObjectId,
       },
       total_received: Schema.Types.Decimal128,
-    },
-  ],
+    }
+  ]
 });
 
 // 4. Teeth Remove
@@ -126,8 +125,8 @@ const teethRemoveSchema = Schema({
         dentist: mongoose.ObjectId,
       },
       total_received: Schema.Types.Decimal128,
-    },
-  ],
+    }
+  ]
 });
 
 // 5. Gum Surgery
@@ -156,8 +155,8 @@ const gumSurgerySchema = Schema({
         dentist: mongoose.ObjectId,
       },
       total_received: Schema.Types.Decimal128,
-    },
-  ],
+    }
+  ]
 });
 
 // 6. Root Surgery
@@ -186,8 +185,8 @@ const rootSurgerySchema = Schema({
         dentist: mongoose.ObjectId,
       },
       total_received: Schema.Types.Decimal128,
-    },
-  ],
+    }
+  ]
 });
 
 // 7. Teeth Protice
@@ -217,8 +216,8 @@ const teethProticeSchema = Schema({
         dentist: mongoose.ObjectId,
       },
       total_received: Schema.Types.Decimal128,
-    },
-  ],
+    }
+  ]
 });
 
 // 8. Teeth Bleaching
@@ -248,8 +247,8 @@ const teethBleachingSchema = Schema({
         dentist: mongoose.ObjectId,
       },
       total_received: Schema.Types.Decimal128,
-    },
-  ],
+    }
+  ]
 });
 
 // 9. Teeth Scaling
@@ -278,8 +277,8 @@ const teethScalingSchema = Schema({
         dentist: mongoose.ObjectId,
       },
       total_received: Schema.Types.Decimal128,
-    },
-  ],
+    }
+  ]
 });
 
 /* -----------------------/. Sub-schemas of services for patients ---------------------- */
@@ -300,7 +299,7 @@ const patientMainSchema = new Schema({
   phone: { type: String, required: true },
   address: String,
   sex: { type: String, required: true },
-  appointment: [
+  appointment: {
     teethFillingSchema,
     teethCoverSchema,
     orthodoncySchema,
@@ -310,7 +309,7 @@ const patientMainSchema = new Schema({
     teethProticeSchema,
     teethBleachingSchema,
     teethScalingSchema
-  ],
+  }
 });
 // access the database collection
 const patient = mongoose.model("patient", patientMainSchema);
