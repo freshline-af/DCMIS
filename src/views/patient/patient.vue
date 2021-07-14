@@ -25,32 +25,17 @@
         </v-col>
         <v-spacer></v-spacer>
         <!-- dialog for registar patient -->
-        <v-dialog fullscreen v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="primary"
               dark
               class="mb-2"
               rounded
+              elevation="2"
               outlined
-              v-bind="attrs"
-              v-on="on"
+              @click="goRegistarPatient"
             >
               ثبت کردن بیمار جدید
             </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline mr-3">{{ formTitle }}</span>
-              <v-spacer></v-spacer>
-               <v-btn icon @click="close" color="red"><v-icon>mdi-close</v-icon></v-btn>
-            </v-card-title>
-            <v-divider></v-divider>
-            <v-card-text class="mt-3">
-              <Register :patients="editedItem"></Register>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
         <!-- dialog for show patient deatials -->
         <v-dialog v-model="showDialog" max-width="500px" fullscreen>
           <v-app>
@@ -276,13 +261,9 @@
 </template>
 
 <script>
-import Register from "./registarPatient";
 import Store from "../../store/index";
 
 export default {
-  components: {
-    Register,
-  },
   data: () => ({
     dialog: false,
     showDialog: false,
@@ -320,12 +301,6 @@ export default {
       photoUrl: "",
     },
   }),
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "ثبت بیمار جدید" : "Edit Item";
-    },
-  },
 
   watch: {
     dialog(val) {
@@ -378,15 +353,6 @@ export default {
       this.patients.splice(this.editedIndex, 1);
       this.closeDelete();
     },
-
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.dialogDelete = false
-      });
-    },
-
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
@@ -412,7 +378,9 @@ export default {
       var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       return months[date_time.getMonth("MM")]  + " " +  date_time.getDate()  + " "+ date_time.getFullYear()    ;
     },
-    
+    goRegistarPatient(){
+      this.$router.push({name: "PatientRegistar"});
+    }
   },
 };
 </script>

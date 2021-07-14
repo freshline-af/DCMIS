@@ -1,42 +1,28 @@
 <template>
-  <v-row>
-    <!-- Daily food report -->
+  <v-row class="mt-7">
+    <v-col cols="12" md="4" lg="4" sm="8">
+       <v-select
+      :items="reportType"
+      rounded
+      outlined
+      label="انتخاب کردن عنوان راپور"
+      v-model="search"
+      >
+      </v-select>
+    </v-col>
     <v-col cols="12">
-        <strong>راپور مواد خوراکی </strong>
       <v-row>
         <v-col cols="12">
           <v-data-table
-            :headers="foodheader"
-            :items="foodItems"
-            class="elevation-1"
+            :headers="reportheader"
+            :items="reportItems"
+            :search="search"
+            class="elevation-2"
           >
+          <template v-slot:no-data>
+            <span> هیچ رقم تا فعلا وارد نشده است</span>
+          </template>
           </v-data-table>
-        </v-col>
-      </v-row>
-    </v-col>
-    <!-- Midison Daily Report -->
-    <v-col cols="12" class="mt-5">
-        <strong>راپور داروها</strong>
-      <v-row>
-        <v-col cols="12">
-          <v-data-table
-          :headers="medicineheader"
-          :items="medicineItems"
-          class="elevation-1"
-          ></v-data-table>
-        </v-col>
-      </v-row>
-    </v-col>
-    <!-- Equepment Daily Report -->
-    <v-col cols="12" class="mt-5">
-        <strong>راپور تجهیزات</strong>
-      <v-row>
-        <v-col cols="12">
-          <v-data-table
-          :headers="equipmentheaders"
-          :items="equipmentItem"
-          class="elevation-3"
-          ></v-data-table>
         </v-col>
       </v-row>
     </v-col>
@@ -48,8 +34,8 @@ import Store from "../../store/index";
 export default {
   data() {
     return {
-      dailyR :[],
-      foodheader: [
+      search:"مواد غذایی",
+    reportheader: [
         {
           text: "اسم",
           align: "start",
@@ -80,74 +66,19 @@ export default {
           sortable: true,
           value: "total_price",
         },
+        {
+          text: " نوعیت",
+          align: "start",
+          sortable: true,
+          value: "type",
+        },
       ],
-      medicineheader:[
-          {
-              text: "اسم دارو",
-              align:"start",
-              sortable: true,
-              value:"medicin_name"
-          },
-           {
-              text: "توضیحات",
-              align:"start",
-              sortable: true,
-              value:"medicin_description"
-          },
-           {
-              text: "تعداد",
-              align:"start",
-              sortable: true,
-              value:"medicin_total_number"
-          },
-           {
-              text: "قیمت فی واحد",
-              align:"start",
-              sortable: true,
-              value:"medicin_uniper_price"
-          },
-           {
-              text: " مجموعی",
-              align:"start",
-              sortable: true,
-              value:"medicin_total_price"
-          }
+      reportType:[
+         "مواد غذایی",
+         "تجهیزات جدید",
+          "داروهای جدید",
       ],
-      medicineItems:[],
-      foodItems: [],
-      equipmentheaders:[
-        {
-          text: "اسم تجهیز",
-          sortable:true,
-          align: "start",
-          value: "equi_name"
-        },
-        {
-          text: "توضیحات",
-          sortable: true,
-          align: "start",
-          value:"equi_description",
-        },
-        {
-          text: "تعداد",
-          sortable: true,
-          align: "start",
-          value:"equi_total_number",
-        },
-        {
-          text: "قیمت فی واحد",
-          sortable: true,
-          align: "start",
-          value:"equi_perunit_price",
-        },
-        {
-          text: "مجموعه ",
-          sortable: true,
-          align: "start",
-          value:"equi_total_price",
-        }
-      ],
-      equipmentItem:[]
+      reportItems:[]
     };
   },
   mounted(){
@@ -158,11 +89,8 @@ export default {
   },
   methods:{
     initialize(){
-      //var data = [];
-      this.dailyR= Store.state.finances.dailyReport
-      this.foodItems = this.dailyR;
-      console.log(this.foodItems);
-
+      this.reportItems= Store.state.finances.dailyReport
+      console.log(this.reportItems)
     }
   }
 };

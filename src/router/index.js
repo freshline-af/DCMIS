@@ -7,6 +7,7 @@ import NProgress from "nprogress";
 import NetworkIssue from "../views/NetworkIssue.vue";
 import NotFoundPage from "../views/NotFoundPage.vue";
 import Patient from "../views/patient/patient.vue";
+import PatientRegistar from "../views/patient/registarPatient.vue"
 import Service from "../views/service/ServicePage.vue";
 import ShowStaff from "../views/staff/showOneStaff.vue"
 import Sitting from "../views/sitting/sittingPage.vue";
@@ -19,13 +20,13 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "Login",
+    component: Login,
   },
   {
-    path: "/login_view",
-    name: "login",
-    component: Login,
+    path: "/dashboard",
+    name: "Home",
+    component: Home,
   },
   {
     path: "/service",
@@ -36,6 +37,11 @@ const routes = [
     path: "/patient",
     name: "patient",
     component: Patient,
+  },
+  {
+    path: "/patient-registar",
+    name: "PatientRegistar",
+    component: PatientRegistar
   },
   {
     path: "/edit_patient",
@@ -93,7 +99,11 @@ const router = new VueRouter({
 
 router.beforeEach((routeTo, routeFrom, next) => {
   NProgress.start();
-  next();
+  if(!JSON.parse(localStorage.getItem('user')) && routeTo.path !== "/") {
+    next({name: "Login"})
+  } else{
+    next();
+  }
 });
 router.afterEach(() => {
   NProgress.done();
