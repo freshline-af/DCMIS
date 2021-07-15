@@ -1,45 +1,16 @@
 const mongoose = require("mongoose");
 // Import Timezone module
-const momentTZ = require('moment-timezone');
+const momentTZ = require("moment-timezone");
 // Set timezone for Kabul
 const dateKabul = momentTZ.tz(Date.now(), "Asia/Kabul");
 // Declare a variable for schema
 const Schema = mongoose.Schema;
+/* ----------------------- Sub-schemas of services for patients ---------------------- */
 
-/* --------------------- Services for patient ---------------------- */
-var enumValue = 1;
-var service = "";
-switch (enumValue) {
-  case 2:
-    service = "teeth_cover";
-    break;
-  case 3:
-    service = "orthdoncy";
-    break;
-  case 4:
-    service = "teeth_remove";
-    break;
-  case 5:
-    service = "gum_surgery";
-    break;
-  case 6:
-    service = "root_surgery";
-    break;
-  case 7:
-    service = "teeth_protice";
-    break;
-  case 8:
-    service = "teeth_bleaching";
-    break;
-  default:
-    service = "teeth_filling";
-    break;
-}
-
-// Appointment schema
-var aptObject = {
-  enum: Number,
-  [service]: [
+// 1. Teeth Filling
+const teethFillingSchema = Schema({
+  stag: Number,
+  teeth_filling: [
     {
       meet_at: {
         type: Date,
@@ -52,8 +23,6 @@ var aptObject = {
       },
       initial_services: String,
       description: String,
-      material: String,
-      image: String,
       tooth: {
         gum: String,
         type: { type: String },
@@ -67,9 +36,254 @@ var aptObject = {
       total_received: Schema.Types.Decimal128,
     },
   ],
-};
-// appointment SCHEMA
-const appointmentSchema = new Schema(aptObject);
+});
+
+// 2. Teeth Cover
+const teethCoverSchema = Schema({
+  stag: Number,
+  teeth_cover: [
+    {
+      meet_at: {
+        type: Date,
+        default: Date.now,
+      },
+      round: {
+        type: Number,
+        min: 1,
+        max: 5,
+      },
+      material: String,
+      tooth: {
+        gum: String,
+        type: { type: String },
+      },
+      fee: {
+        installment: { type: Number, min: 1, max: 3 },
+        amount_received: Schema.Types.Decimal128,
+        amount_due: Schema.Types.Decimal128,
+        dentist: mongoose.ObjectId
+      },
+      total_received: Schema.Types.Decimal128,
+    }
+  ]
+});
+
+// 3. Orthodoncy
+const orthodoncySchema = Schema({
+  stag: Number,
+  orthodoncy: [
+    {
+      meet_at: {
+        type: Date,
+        default: Date.now,
+      },
+      round: {
+        type: Number,
+        min: 1,
+        max: 5,
+      },
+      image: String,
+      description: String,
+      tooth: {
+        gum: String,
+        type: { type: String },
+      },
+      fee: {
+        installment: { type: Number, min: 1, max: 3 },
+        amount_received: Schema.Types.Decimal128,
+        amount_due: Schema.Types.Decimal128,
+        dentist: mongoose.ObjectId,
+      },
+      total_received: Schema.Types.Decimal128,
+    }
+  ]
+});
+
+// 4. Teeth Remove
+const teethRemoveSchema = Schema({
+  stag: Number,
+  teeth_remove: [
+    {
+      meet_at: {
+        type: Date,
+        default: Date.now,
+      },
+      round: {
+        type: Number,
+        min: 1,
+        max: 5,
+      },
+      description: String,
+      tooth: {
+        gum: String,
+        type: { type: String },
+      },
+      fee: {
+        installment: { type: Number, min: 1, max: 3 },
+        amount_received: Schema.Types.Decimal128,
+        amount_due: Schema.Types.Decimal128,
+        dentist: mongoose.ObjectId,
+      },
+      total_received: Schema.Types.Decimal128,
+    }
+  ]
+});
+
+// 5. Gum Surgery
+const gumSurgerySchema = Schema({
+  stag: Number,
+  teeth_surgery: [
+    {
+      meet_at: {
+        type: Date,
+        default: Date.now,
+      },
+      round: {
+        type: Number,
+        min: 1,
+        max: 5,
+      },
+      description: String,
+      tooth: {
+        gum: String,
+        type: { type: String },
+      },
+      fee: {
+        installment: { type: Number, min: 1, max: 3 },
+        amount_received: Schema.Types.Decimal128,
+        amount_due: Schema.Types.Decimal128,
+        dentist: mongoose.ObjectId,
+      },
+      total_received: Schema.Types.Decimal128,
+    }
+  ]
+});
+
+// 6. Root Surgery
+const rootSurgerySchema = Schema({
+  stag: Number,
+  root_surgery: [
+    {
+      meet_at: {
+        type: Date,
+        default: Date.now,
+      },
+      round: {
+        type: Number,
+        min: 1,
+        max: 5,
+      },
+      description: String,
+      tooth: {
+        gum: String,
+        type: { type: String },
+      },
+      fee: {
+        installment: { type: Number, min: 1, max: 3 },
+        amount_received: Schema.Types.Decimal128,
+        amount_due: Schema.Types.Decimal128,
+        dentist: mongoose.ObjectId,
+      },
+      total_received: Schema.Types.Decimal128,
+    }
+  ]
+});
+
+// 7. Teeth Protice
+const teethProticeSchema = Schema({
+  stag: Number,
+  teeth_protice: [
+    {
+      meet_at: {
+        type: Date,
+        default: Date.now,
+      },
+      round: {
+        type: Number,
+        min: 1,
+        max: 5,
+      },
+      material: String,
+      description: String,
+      tooth: {
+        gum: String,
+        type: { type: String },
+      },
+      fee: {
+        installment: { type: Number, min: 1, max: 3 },
+        amount_received: Schema.Types.Decimal128,
+        amount_due: Schema.Types.Decimal128,
+        dentist: mongoose.ObjectId,
+      },
+      total_received: Schema.Types.Decimal128,
+    }
+  ]
+});
+
+// 8. Teeth Bleaching
+const teethBleachingSchema = Schema({
+  stag: Number,
+  teeth_bleaching: [
+    {
+      meet_at: {
+        type: Date,
+        default: Date.now,
+      },
+      round: {
+        type: Number,
+        min: 1,
+        max: 5,
+      },
+      material: String,
+      description: String,
+      tooth: {
+        gum: String,
+        type: { type: String },
+      },
+      fee: {
+        installment: { type: Number, min: 1, max: 3 },
+        amount_received: Schema.Types.Decimal128,
+        amount_due: Schema.Types.Decimal128,
+        dentist: mongoose.ObjectId,
+      },
+      total_received: Schema.Types.Decimal128,
+    }
+  ]
+});
+
+// 9. Teeth Scaling
+const teethScalingSchema = Schema({
+  stag: Number,
+  scaling: [
+    {
+      meet_at: {
+        type: Date,
+        default: Date.now,
+      },
+      round: {
+        type: Number,
+        min: 1,
+        max: 5,
+      },
+      description: String,
+      tooth: {
+        gum: String,
+        type: { type: String },
+      },
+      fee: {
+        installment: { type: Number, min: 1, max: 3 },
+        amount_received: Schema.Types.Decimal128,
+        amount_due: Schema.Types.Decimal128,
+        dentist: mongoose.ObjectId,
+      },
+      total_received: Schema.Types.Decimal128,
+    }
+  ]
+});
+
+/* -----------------------/. Sub-schemas of services for patients ---------------------- */
+
+/* --------------------- Services for patient ---------------------- */
 // Patient main schema
 const patientMainSchema = new Schema({
   firstname: { type: String, required: true },
@@ -86,10 +300,18 @@ const patientMainSchema = new Schema({
   address: String,
   sex: { type: String, required: true },
   appointment: {
-    type: appointmentSchema
-  },
+    teethFillingSchema,
+    teethCoverSchema,
+    orthodoncySchema,
+    teethRemoveSchema,
+    gumSurgerySchema,
+    rootSurgerySchema,
+    teethProticeSchema,
+    teethBleachingSchema,
+    teethScalingSchema
+  }
 });
 // access the database collection
 const patient = mongoose.model("patient", patientMainSchema);
 // export it to be use later
-module.exports = patient
+module.exports = patient;
