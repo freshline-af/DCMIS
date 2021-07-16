@@ -1,5 +1,7 @@
-// import patient model
-const patientSchema = require('./models/Patient');
+/* ------------------ 9 data models for patient services --------------------- */
+const TeethFilling
+/* ------------------/. 9 data models for patient services --------------------- */
+
 
 // Insert a patient
 const insertPatient = async (req, res) => {
