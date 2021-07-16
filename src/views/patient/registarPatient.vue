@@ -132,21 +132,16 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" md="12" sm="12" lg="12" xl="12">
+                <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
-                    <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn text>
-                        برگشت
-                      </v-btn>
-                    </v-col>
                     <v-col
                       class="text-end"
                       cols="12"
-                      md="6"
-                      lg="6"
-                      xl="6"
+                      md="12"
+                      lg="12"
+                      xl="12"
                       sm="12"
-                      ><v-btn color="primary" @click="step = 2">
+                      ><v-btn :disabled="!registarForm" elevation="3" large width="200" color="primary" @click="step = 2">
                         بعدی
                       </v-btn>
                     </v-col>
@@ -156,7 +151,7 @@
             </v-form>
           </v-stepper-content>
           <v-stepper-content step="2">
-            <v-form>
+            <v-form v-model="case_history_form">
               <v-row justify="center">
                 <v-col cols="12" md="6">
                   <h2>لطفا تاریخجه بیمار را وارد کیند</h2>
@@ -219,10 +214,10 @@
                     </v-radio-group>
                   </v-row>
                 </v-col>
-                <v-col cols="12" md="12" sm="12" lg="12" xl="12">
+                <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
                     <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn @click="step = 1" text>
+                      <v-btn width="200" large @click="step = 1" >
                         برگشت
                       </v-btn>
                     </v-col>
@@ -233,7 +228,7 @@
                       lg="6"
                       xl="6"
                       sm="12"
-                      ><v-btn color="primary" @click="step = 3">
+                      ><v-btn :disabled="!case_history_form" elevation="3" large width="200"  color="primary" @click="step = 3">
                         بعدی
                       </v-btn>
                     </v-col>
@@ -243,7 +238,7 @@
             </v-form>
           </v-stepper-content>
           <v-stepper-content step="3">
-            <v-form>
+            <v-form v-model="form_3">
               <v-row justify="center">
                 <v-col cols="12" md="6">
                   <h2>لطفا نوعیت و جزییات بیماری را وارد کنید</h2>
@@ -261,7 +256,7 @@
                       <v-autocomplete
                         label="نوعیت مریضی"
                         :items="services"
-                        v-model="new_patient.disease"
+                        v-model="apointment.disease"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -272,7 +267,7 @@
                   </v-row>
                 </v-col>
                 <v-col
-                  v-if="new_patient.disease === 'پور کاری دندان'"
+                  v-if="apointment.disease === 'پور کاری دندان'"
                   cols="12"
                   class="mt-n2"
                 >
@@ -281,7 +276,7 @@
                       <v-autocomplete
                         label=" نوعیت مواد"
                         :items="theet_filling_matieral"
-                        v-model="new_patient.matiral"
+                        v-model="apointment.material"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -292,7 +287,7 @@
                   </v-row>
                 </v-col>
                 <v-col
-                  v-if="new_patient.disease === 'پوش کردن دندان ها'"
+                  v-if="apointment.disease === 'پوش کردن دندان ها'"
                   cols="12"
                   class="mt-n2"
                 >
@@ -301,7 +296,7 @@
                       <v-autocomplete
                         label=" نوعیت مواد"
                         :items="theet_cover_matieral"
-                        v-model="new_patient.matiral"
+                        v-model="apointment.material"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -311,28 +306,9 @@
                     </v-col>
                   </v-row>
                 </v-col>
+                
                 <v-col
-                  v-if="new_patient.type_surgary === 'کشیدن دندان ها'"
-                  cols="12"
-                  class="mt-n2"
-                >
-                  <v-row justify="center">
-                    <v-col cols="6" md="6" sm="12" xs="12">
-                      <v-autocomplete
-                        label="نوعیت دندان"
-                        :items="type_pull_out_theeth"
-                        v-model="new_patient.type_pull_out"
-                        :rules="rule.rules.select"
-                        outlined
-                        rounded
-                        required
-                      >
-                      </v-autocomplete>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col
-                  v-if="new_patient.disease === 'جراحی دندان'"
+                  v-if="apointment.disease === 'جراحی دندان'"
                   cols="12"
                   class="mt-n2"
                 >
@@ -341,7 +317,7 @@
                       <v-autocomplete
                         label=" نوعیت جراحی"
                         :items="type_surgary"
-                        v-model="new_patient.type_surgary"
+                        v-model="apointment.initial_services"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -352,7 +328,27 @@
                   </v-row>
                 </v-col>
                 <v-col
-                  v-if="new_patient.disease === 'پروتیز دندان'"
+                  v-if="apointment.initial_services === 'کشیدن دندان ها'"
+                  cols="12"
+                  class="mt-n2"
+                >
+                  <v-row justify="center">
+                    <v-col cols="6" md="6" sm="12" xs="12">
+                      <v-autocomplete
+                        label="نوعیت دندان"
+                        :items="type_pull_out_theeth"
+                        v-model="apointment.tooth.type"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col
+                  v-if="apointment.disease === 'پروتیز دندان'"
                   cols="12"
                   class="mt-n2"
                 >
@@ -361,7 +357,7 @@
                       <v-autocomplete
                         label="نوعیت پروتیز"
                         :items="type_protis"
-                        v-model="new_patient.prutise"
+                        v-model="apointment.initial_services"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -372,7 +368,7 @@
                   </v-row>
                 </v-col>
                 <v-col
-                  v-if="new_patient.type_surgary === 'جراحی لثه'"
+                  v-if="apointment.initial_services === 'جراحی لثه'"
                   cols="12"
                   class="mt-n2"
                 >
@@ -381,7 +377,7 @@
                       <v-autocomplete
                         label="گواردینات"
                         :items="type_quardinat"
-                        v-model="new_patient.type_pull_out"
+                        v-model="apointment.initial_services"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -395,10 +391,15 @@
                   cols="12"
                   class="mt-n2"
                   v-if="
-                    new_patient.disease === 'پور کاری دندان' ||
-                      new_patient.disease === 'پوش کردن دندان ها' ||
-                      new_patient.disease === 'ارتودانسی' ||
-                      new_patient.disease === 'پروتیز دندان'
+                      apointment.disease === 'پور کاری دندان' ||
+                      apointment.disease === 'پوش کردن دندان ها' ||
+                      apointment.disease === 'ارتودانسی' ||
+                      apointment.disease === 'نصب نگین '||
+                      apointment.initial_services==='کشیدن دندان ها'||
+                      apointment.initial_services==='جراحی ریشه'||
+                      apointment.initial_services==='پروتیز کامل'||
+                      apointment.initial_services==='پروتیز قسمی'
+
                   "
                 >
                   <v-row justify="center">
@@ -406,7 +407,7 @@
                       <v-autocomplete
                         label="فک"
                         :items="type_fack"
-                        v-model="new_patient.top_right"
+                        v-model="apointment.tooth.gum"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -416,13 +417,22 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" class="mt-n2">
+                <v-col cols="12" class="mt-n2"
+                v-if="
+                    apointment.disease === 'پور کاری دندان' ||
+                      apointment.disease === 'پوش کردن دندان ها' ||
+                       apointment.initial_services==='پروتیز قسمی'
+                       || apointment.disease === 'نصب نگین' ||
+                       apointment.initial_services==='کشیدن دندان ها'||
+                      apointment.initial_services==='جراحی ریشه'
+                  "
+                >
                   <v-row justify="center">
                     <v-col cols="6" md="6" sm="6" xs="12">
                       <v-autocomplete
                         label="چپ و یا راست"
                         :items="direction"
-                        v-model="new_patient.direction"
+                        v-model="apointment.tooth.gum"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -432,13 +442,22 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" class="mt-n2">
+                <v-col cols="12" class="mt-n2"
+                v-if="
+                    apointment.disease === 'پور کاری دندان' ||
+                      apointment.disease === 'پوش کردن دندان ها' ||
+                       apointment.initial_services==='پروتیز قسمی'
+                       || apointment.disease === 'نصب نگین'||
+                       apointment.initial_services==='کشیدن دندان ها'||
+                      apointment.initial_services==='جراحی ریشه'
+                  "
+                >
                   <v-row justify="center">
                     <v-col cols="6" md="6" sm="6" xs="12">
                       <v-autocomplete
                         label="دندان"
                         :items="theeths"
-                        v-model="new_patient.direction"
+                        v-model="apointment.tooth.type"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -453,7 +472,7 @@
                     <v-col cols="6" md="6" sm="6" xs="12">
                       <v-textarea
                         label="نوت"
-                        v-model="new_patient.description"
+                        v-model="apointment.description"
                         outlined
                         rounded
                         required
@@ -462,10 +481,10 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" md="12" sm="12" lg="12" xl="12">
+                <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
                     <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn @click="step = 2" text>
+                      <v-btn width="200" large  @click="step = 2">
                        برگشت
                       </v-btn>
                     </v-col>
@@ -476,7 +495,7 @@
                       lg="6"
                       xl="6"
                       sm="12"
-                      ><v-btn color="primary" @click="step = 4">
+                      ><v-btn :disabled="!form_3" elevation="3" large width="200" color="primary" @click="step = 4">
                         بعدی
                       </v-btn>
                     </v-col>
@@ -486,7 +505,7 @@
             </v-form>
           </v-stepper-content>
           <v-stepper-content step="4">
-            <v-form>
+            <v-form v-model="form_4" @click.prevent="PatientRagistar">
               <v-row justify="center">
                 <v-col cols="12">
                   <v-row justify="center">
@@ -507,7 +526,7 @@
                     <v-col cols="6" md="6" sm="12" xs="12">
                       <BaseEdittext
                         label="مصارف کل"
-                        v-model="fee.total_amount"
+                        v-model="apointment.total_received"
                         :rules="rule.rules.required_number"
                         type="number"
                         hint="وارد کردن مصرف الزامی می باشد"
@@ -520,7 +539,7 @@
                     <v-col cols="6" md="6" sm="12" xs="12">
                       <v-select
                         label="اقساط"
-                        v-model="fee.installments"
+                        v-model="apointment.fee.installment"
                         :items="installments"
                         :rules="rule.rules.select"
                         outlined
@@ -531,11 +550,11 @@
                   </v-row>
                 </v-col>
                 <v-col cols="12" class="mt-n2">
-                  <v-row justify="center" v-if="fee.installments != 'تکمیل'">
+                  <v-row justify="center"  v-if="apointment.fee.installment != 'تکمیل'">
                     <v-col cols="12" md="6">
                       <BaseEdittext
                         label="مبلغ قابل پرداخت"
-                        v-model="fee.payiad"
+                        v-model="apointment.fee.amount_received"
                         type="number"
                         :rules="rule.rules.number"
                         placeholder="مقدرا قابل پرداخت را وارد کنید"
@@ -543,10 +562,10 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col cols="12" md="12" sm="12" lg="12" xl="12">
+                <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
                     <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn @click="step = 3" text>
+                      <v-btn width="200" large  @click="step = 3" >
                        برگشت
                       </v-btn>
                     </v-col>
@@ -557,7 +576,7 @@
                       lg="6"
                       xl="6"
                       sm="12"
-                      ><v-btn color="primary" @click="step = 4">
+                      ><v-btn :disabled="!form_4" elevation="3" large width="200" color="primary" >
                         ثبت کردن
                       </v-btn>
                     </v-col>
@@ -690,6 +709,9 @@ export default {
         "114",
         "115",
       ],
+      case_history_form: null,
+      form_3: null,
+      form_4:null,
       rule: rules,
       step: 1,
       registarForm: null,
@@ -742,6 +764,11 @@ export default {
 
       patient_label: {},
       patient_caseHistory: [],
+      apointment:{
+        meat_at:{},
+        tooth:{},
+        fee:{}
+      }
     };
   },
   mounted() {
@@ -771,6 +798,9 @@ export default {
         this.$refs.regis_patient.reset();
         //window.location.reload();
       }
+    },
+    PatientRagistar(){
+
     },
     skipCaseHistory() {
       (this.dieabet = "نخیر"), (this.blood = "نخیر"), (this.heart = "نخیر");
