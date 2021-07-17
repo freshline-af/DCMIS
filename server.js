@@ -48,6 +48,11 @@ const editPatient = require("./API/EditPatientController");
 // Delete a patient
 const deletePatient = require("./API/DeletePatientController");
 /* --------------------------------- /. import Patients ------------------------- */
+
+/* ------------------------------- Import Expenses ------------------------------ */
+// 1. Retrieve expenses
+const readExpense = require('./API/ReadExpensesController');
+/* -------------------------------/. Import Expenses ------------------------------ */
 // use public directory
 app.use(express.static("public"));
 // import EJS templating engine
@@ -247,6 +252,12 @@ app.put("/staff/tazkira/upload/:id", (req, res) => {
 /* ---------------------/. Upload staff's Tazkira Copy ---------------------- */
 
 /* -----------------------------/. Routes for Staff ------------------------ */
+
+/* -------------------------- Routes for Expenses -------------------------- */
+// 1. Retrieve
+app.get('/expenses/all', readExpense);
+/* --------------------------/. Routes for Expenses -------------------------- */
+
 
 // listen to port
 const PORT = process.env.PORT || 3000;
