@@ -14,11 +14,11 @@ const ExpenseSchema = new Schema({
       name: { type: String, required: true },
       number: { type: Number, default: 0 },
       description: String,
-      unit_price: { type: Schema.Types.Decimal128, default: 0 },
-      total: { type: Schema.Types.Decimal128, default: 0 },
+      unit_price: { type: Number, default: 0 },
+      total: { type: Number, default: 0 },
     },
   ],
-  grand_total: { type: Schema.Types.Decimal128, default: 0 },
+  grand_total: { type: Number, default: 0 },
   invoice: String,
 });
 
