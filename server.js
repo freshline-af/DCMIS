@@ -19,7 +19,7 @@ app.use(
 
 app.use(express.json());
 const staffSchema = require("./API/models/Staff");
-const patientSchema = require("./API/models/Patient");
+const patientSchema = require("./API/models/patients/TeethFillingModel");
 
 // Import db connection
 require("./API/models/conn");
@@ -35,7 +35,7 @@ const staffLogin = require("./API/StaffLoginController");
 // Import to edit a staff
 const editStaff = require("./API/EditStaffController");
 // Import to delete a staff
-const deletedStaff = require('./API/DeleteStaffController');
+const deletedStaff = require("./API/DeleteStaffController");
 /* ---------------------------------/. import Staff --------------------------- */
 
 /* --------------------------------- import Patients ---------------------------- */
@@ -44,9 +44,9 @@ const readPatient = require("./API/ReadPatientController");
 // Add a new patient
 const addPatient = require("./API/NewPatientController");
 // Edit a patient
-const editPatient = require('./API/EditPatientController');
+const editPatient = require("./API/EditPatientController");
 // Delete a patient
-const deletePatient = require('./API/DeletePatientController');
+const deletePatient = require("./API/DeletePatientController");
 /* --------------------------------- /. import Patients ------------------------- */
 // use public directory
 app.use(express.static("public"));
@@ -93,7 +93,11 @@ app.put("/patient/photo/upload/:id", (req, res) => {
       res.end("Only images are allowed.");
     } else {
       pPhoto.mv(
-        path.resolve(__dirname, "public/uploads/docs/patient-photo/", pPhoto.name),
+        path.resolve(
+          __dirname,
+          "public/uploads/docs/patient-photo/",
+          pPhoto.name
+        ),
         async (error) => {
           await patientSchema.updateOne(
             { _id: req.params.id },
@@ -212,7 +216,7 @@ app.put("/staff/education/upload/:id", (req, res) => {
       );
     }
   }
-}); 
+});
 /* --------------------/. Upload staffs' education docs ----------------- */
 
 /* --------------------- Upload staff's Tazkira Copy ---------------------- */
@@ -226,11 +230,7 @@ app.put("/staff/tazkira/upload/:id", (req, res) => {
       res.end("Please select files with extension '.zip'.");
     } else {
       sTazkira.mv(
-        path.resolve(
-          __dirname,
-          "public/uploads/docs/tazkira/",
-          sTazkira.name
-        ),
+        path.resolve(__dirname, "public/uploads/docs/tazkira/", sTazkira.name),
         async (error) => {
           await staffSchema.updateOne(
             { _id: req.params.id },

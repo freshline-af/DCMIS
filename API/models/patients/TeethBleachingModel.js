@@ -21,6 +21,7 @@ const pTeethBleachingSchema = new Schema({
   phone: { type: String, required: true },
   address: String,
   sex: { type: String, required: true },
+  photo: String,
   appointment: {
     stag: Number,
     teeth_bleaching: [

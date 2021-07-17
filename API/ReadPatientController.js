@@ -11,7 +11,7 @@ const Orthodoncy = require('./models/patients/OrthodoncyModel');
 /* ------------------/. 9 data models for patient services --------------------- */
 
 const patientsController = async (req, res) => {
-  var stag = 1;
+  const stag = 1;
   let patient = "";
   switch (stag) {
     case 2:
