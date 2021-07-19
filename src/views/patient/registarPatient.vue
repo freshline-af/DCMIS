@@ -799,6 +799,7 @@ export default {
         //window.location.reload();
       }
     },
+    
     PatientRagistar(){
 
     },
