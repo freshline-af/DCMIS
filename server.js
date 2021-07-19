@@ -52,6 +52,8 @@ const deletePatient = require("./API/DeletePatientController");
 /* ------------------------------- Import Expenses ------------------------------ */
 // 1. Retrieve expenses
 const readExpense = require('./API/ReadExpensesController');
+// 2. Create expenses 
+const createExpense = require('./API/NewExpensesController');
 /* -------------------------------/. Import Expenses ------------------------------ */
 // use public directory
 app.use(express.static("public"));
@@ -256,6 +258,8 @@ app.put("/staff/tazkira/upload/:id", (req, res) => {
 /* -------------------------- Routes for Expenses -------------------------- */
 // 1. Retrieve
 app.get('/expenses/all', readExpense);
+// 2. Create
+app.post("/expenses/new", createExpense);
 /* --------------------------/. Routes for Expenses -------------------------- */
 
 
