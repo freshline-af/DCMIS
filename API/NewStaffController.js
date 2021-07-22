@@ -1,6 +1,6 @@
-const staffSchema = require('../API/models/Staff');
+const staffSchema = require('../API/models/staff/Staff');
 // View page staff
-const newStaff = async (req, res) => {
+const staffRequest = async (req, res) => {
    await staffSchema.create(req.body, (err, result) => {
     if (err) {
       res.json(err);
@@ -10,4 +10,4 @@ const newStaff = async (req, res) => {
   })
 }
 // Export this file for using anywhere.
-module.exports = newStaff;
+module.exports = staffRequest;
