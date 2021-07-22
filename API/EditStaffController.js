@@ -1,6 +1,6 @@
 // import staff schema
-const staffSchema = require('../API/models/Staff');
-const editAStaff = async (req, res) => {
+const staffSchema = require('../API/models/staff/Staff');
+const staffRquest = async (req, res) => {
   await staffSchema.updateOne(
     { _id: req.params.id },
     {
@@ -16,4 +16,4 @@ const editAStaff = async (req, res) => {
   );
 }
 // Export it anywhere to be used.
-module.exports = editAStaff;
+module.exports = staffRquest;
