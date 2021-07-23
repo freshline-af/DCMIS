@@ -20,8 +20,9 @@ const teethFillingSchema = Schema({
         type: Number,
         min: 1,
         max: 5,
+        default: 1
       },
-      initial_services: String,
+      material: String,
       description: String,
       tooth: {
         gum: String,
@@ -51,6 +52,7 @@ const teethCoverSchema = Schema({
         type: Number,
         min: 1,
         max: 5,
+        default: 1
       },
       material: String,
       tooth: {
@@ -81,6 +83,7 @@ const orthodoncySchema = Schema({
         type: Number,
         min: 1,
         max: 5,
+        default: 1
       },
       image: String,
       description: String,
@@ -112,6 +115,7 @@ const teethRemoveSchema = Schema({
         type: Number,
         min: 1,
         max: 5,
+        default: 1
       },
       description: String,
       tooth: {
@@ -142,6 +146,7 @@ const gumSurgerySchema = Schema({
         type: Number,
         min: 1,
         max: 5,
+        default: 1
       },
       description: String,
       tooth: {
@@ -172,6 +177,7 @@ const rootSurgerySchema = Schema({
         type: Number,
         min: 1,
         max: 5,
+        default: 1
       },
       description: String,
       tooth: {
@@ -202,8 +208,9 @@ const teethProticeSchema = Schema({
         type: Number,
         min: 1,
         max: 5,
+        default: 1
       },
-      material: String,
+      initail_services: String,
       description: String,
       tooth: {
         gum: String,
@@ -233,6 +240,7 @@ const teethBleachingSchema = Schema({
         type: Number,
         min: 1,
         max: 5,
+        default: 1
       },
       material: String,
       description: String,
@@ -264,6 +272,7 @@ const teethScalingSchema = Schema({
         type: Number,
         min: 1,
         max: 5,
+        default: 1
       },
       description: String,
       tooth: {
@@ -294,7 +303,7 @@ const patientMainSchema = new Schema({
   age: { type: Number, required: true },
   blood_group: String,
   marital_status: { type: String, required: true },
-  case_history: [{ disease: String, result: Boolean }],
+  case_history: [{ disease: String, result: String }],
   registered_at: { type: Date, default: dateKabul },
   phone: { type: String, required: true },
   address: String,
