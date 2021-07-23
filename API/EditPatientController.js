@@ -1,7 +1,49 @@
-// import patient schema
-const patientSchema = require('./models/Patient');
+/* ------------------ 9 data models for patient services --------------------- */
+const TeethFilling = require('./models/patients/TeethFillingModel');
+const TeethRemove = require('./models/patients/TeethRemoveModel');
+const TeethCover = require('./models/patients/TeethCoverModel');
+const TeethProtice = require('./models/patients/TeethProticeModel');
+const TeethBleaching = require('./models/patients/TeethBleachingModel');
+const TeethScaling = require('./models/patients/TeethScalingModel');
+const GumSurgery = require('./models/patients/GumSurgeryModel');
+const RootSurgery = require('./models/patients/RootSurgeryModel');
+const Orthodoncy = require('./models/patients/OrthodoncyModel');
+/* ------------------/. 9 data models for patient services --------------------- */
+
 const editAPient = async (req, res) => {
-  await patientSchema.updateOne(
+  const stag = 1;
+  let patient = "";
+  switch (stag) {
+    case 2:
+      patient = TeethCover;
+      break;
+    case 3:
+      patient = Orthodoncy;
+      break;
+    case 4:
+      patient = TeethRemove;
+      break;
+    case 5:
+      patient = GumSurgery;
+      break;
+    case 6:
+      patient = RootSurgery;
+      break;
+    case 7:
+      patient = TeethProtice;
+      break;
+    case 8:
+      patient = TeethBleaching;
+      break;
+    case 9:
+      patient = TeethScaling;
+      break;
+    default:
+      patient = TeethFilling;
+      break;
+  }
+
+  await patient.updateOne(
     { _id: req.params.id },
     {
       $set: req.body,

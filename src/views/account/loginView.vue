@@ -25,7 +25,7 @@
                   icon="mdi-email"
                   v-model="user.username"
                   label="یوزرنیم"
-                  placeholder="لطفاً یوزر نیم و یا ایمل خود را وارد کنید"
+                  placeholder=".لطفاً یوزر نیم و یا ایمل خود را وارد کنید"
                   required
                   :rules="rules.auth_rules.username"
                 />
@@ -42,7 +42,7 @@
                   v-model="user.password"
                   :type="show_pass ? 'password' : 'text'"
                   :icon="show_pass ? 'mdi-eye-off' : 'mdi-eye'"
-                  placeholder="لطفاً  پسورد خود را وارد کنید"
+                  placeholder=".لطفاً  پسورد خود را وارد کنید"
                   @click:append="show_pass = !show_pass"
                   required
                   :rules="rules.auth_rules.password"

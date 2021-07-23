@@ -32,7 +32,7 @@
             >
               <v-row class="mt-4" justify="center">
                 <v-col align="start" cols="12" md="6" sm="12" xs="12">
-                  <h2 class="mt-2">لطفا معلومات شخصی خود را وارد کنید</h2>
+                  <h2 class="mt-2">.لطفا معلومات شخصی خود را وارد کنید</h2>
                 </v-col>
                 <v-col cols="12" align="center">
                   <v-row justify="center">
@@ -47,8 +47,8 @@
                       <BaseEdittext
                         label="اسم"
                         type="text"
-                        hint="وارد کردن اسم الزامی می باشد"
-                        placeholder="لطفاً خود را وارد کنید"
+                        hint=".وارد کردن اسم الزامی می باشد"
+                        placeholder=".لطفاًاسم خود را وارد کنید"
                         v-model="new_patient.firstname"
                         picon="mdi-account"
                         :rules="rule.rules.required_text"
@@ -143,7 +143,7 @@
                           <BaseEdittext
                             label="نمبر تذکره"
                             v-model="new_patient.tazkira_id"
-                            placeholder="نمبر تذکره خود را وارد کنید"
+                            placeholder=".نمبر تذکره خود را وارد کنید"
                             type="number"
                             picon="mdi-numeric"
                             :rules="rule.rules.number"
@@ -156,7 +156,7 @@
                         <v-col cols="6" md="6" sm="12" xs="12">
                           <v-select
                             label="گروپ خون"
-                            hint="وارد کردن گروپ خون الزامی می باشد میباشد"
+                            hint=".وارد کردن گروپ خون الزامی می باشد میباشد"
                             v-model="new_patient.blood_group"
                             outlined
                             rounded
@@ -172,8 +172,8 @@
                         <v-col cols="12" md="6" xl="6" lg="6" sm="12" xs="12">
                           <BaseEdittext
                             label="نمبر تماس"
-                            hint="وارد کردن شماره تماس الزامی می باشد"
-                            placeholder="لطفا شماره تماس خود را وارد کنید"
+                            hint=".وارد کردن شماره تماس الزامی می باشد"
+                            placeholder=".لطفا شماره تماس خود را وارد کنید"
                             type="number"
                             :rules="rule.rules.phone"
                             v-model="new_patient.phone"
@@ -218,7 +218,7 @@
             >
               <v-row justify="center">
                 <v-col cols="12" md="6">
-                  <h2>لطفا تاریخجه بیمار را وارد کیند</h2>
+                  <h2>.لطفا تاریخجه بیمار را وارد کیند</h2>
                 </v-col>
                 <v-col cols="12">
                   <v-row justify="center">
@@ -318,7 +318,7 @@
             >
               <v-row justify="center">
                 <v-col cols="12" md="6">
-                  <h2>لطفا نوعیت و جزییات بیماری را وارد کنید</h2>
+                  <h2>.لطفا نوعیت و جزییات بیماری را وارد کنید</h2>
                 </v-col>
                 <v-col cols="12">
                   <v-row justify="center">
