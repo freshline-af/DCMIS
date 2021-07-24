@@ -209,7 +209,7 @@
 
 <script>
 import rules from "../../validation/validationRules"
-//import Store from "../../store/index";
+import Store from "../../store/index";
     export default {
         data() {
             return {
@@ -241,10 +241,12 @@ import rules from "../../validation/validationRules"
             if(this.$refs.NewInvoce_form.validate()){
                 this.Invocies.invoice = JSON.stringify(this.file_image),
                  this.Invocies.grand_total = this.FindeGrantTotal();
-               //Store.dispatch("finances/add_daily_report",this.Invoces,{root:true});
+               Store.dispatch("finances/add_daily_report",this.Invoces,{root:true});
                window.scrollTo(0,0);
-                //this.$refs.NewInvoce_form.reset();
-                console.log(this.Invocies)
+                this.$refs.NewInvoce_form.reset();
+               this.file_image = null;
+               this.item_number=0;
+               this.number_item = [];
             }
             },
             AddItem(){
