@@ -1,5 +1,5 @@
 // Import staff schema to be able query staff collection
-const staffSchema = require("../API/models/Staff");
+const staffSchema = require("../API/models/staff/Staff");
 // Import this module to hash password
 const bcrypt = require("bcryptjs");
 
