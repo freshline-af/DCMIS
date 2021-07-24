@@ -235,10 +235,10 @@
                     <v-radio-group v-model="heart" mandatory>
                       <v-row>
                         <v-col
-                          ><v-radio label="بلی" value="بلی"></v-radio
+                          ><v-radio label="بلی" value="true"></v-radio
                         ></v-col>
                         <v-col
-                          ><v-radio label="نخیر" value="نخیر"></v-radio
+                          ><v-radio label="نخیر" value="false"></v-radio
                         ></v-col>
                       </v-row>
                     </v-radio-group>
@@ -252,10 +252,10 @@
                     <v-radio-group v-model="dieabet" mandatory>
                       <v-row>
                         <v-col
-                          ><v-radio label="بلی" value="بلی"></v-radio
+                          ><v-radio label="بلی" value="true"></v-radio
                         ></v-col>
                         <v-col
-                          ><v-radio label="نخیر" value="نخیر"></v-radio
+                          ><v-radio label="نخیر" value="false"></v-radio
                         ></v-col>
                       </v-row>
                     </v-radio-group>
@@ -269,10 +269,10 @@
                     <v-radio-group v-model="blood" mandatory>
                       <v-row>
                         <v-col>
-                          <v-radio label="بلی" value="بلی"></v-radio>
+                          <v-radio label="بلی" value="true"></v-radio>
                         </v-col>
                         <v-col>
-                          <v-radio label="نخیر" value="نخیر"></v-radio>
+                          <v-radio label="نخیر" value="false"></v-radio>
                         </v-col>
                       </v-row>
                     </v-radio-group>
@@ -857,6 +857,8 @@
                         v-model="fee.installment"
                         :items="installments"
                         :rules="rule.rules.select"
+                        item-text="text"
+                        item-value="value"
                         outlined
                         rounded
                       >
@@ -865,7 +867,7 @@
                   </v-row>
                 </v-col>
                 <v-col cols="12" class="mt-n2">
-                  <v-row justify="center" v-if="fee.installment != 'تکمیل'">
+                  <v-row justify="center" v-if="fee.installment != 0">
                     <v-col cols="12" md="6">
                       <BaseEdittext
                         label="مبلغ قابل پرداخت"
@@ -1043,9 +1045,9 @@ export default {
       amount_due: "",
       step: 1,
       rule: rules,
-      heart: "نخیر",
-      dieabet: "نخیر",
-      blood: "نخیر",
+      heart: "false",
+      dieabet: "false",
+      blood: "false",
       type_pull_out_theeth: ["ساده", "عقلی", "امپکت"],
       type_surgary: ["کشیدن دندان ها", "جراحی لثه", "جراحی ریشه"],
       type_quardinat: ["1", "2", "3", "4"],
@@ -1070,15 +1072,14 @@ export default {
         appointment: {
           stage: "",
           teeth_filling: [],
-          teeth_cover:[],
-          orthodoncy:[],
-          teeth_remove:[],
-          teeth_surgery:[],
-          root_surgery:[],
-          teeth_protice:[],
-          teeth_bleaching:[],
-          scaling:[]
-
+          teeth_cover: [],
+          orthodoncy: [],
+          teeth_remove: [],
+          teeth_surgery: [],
+          root_surgery: [],
+          teeth_protice: [],
+          teeth_bleaching: [],
+          scaling: [],
         },
       },
       marital_status: ["مجرد", "متاهل"],
@@ -1139,7 +1140,14 @@ export default {
         "هردو",
       ],
       type_fack_orthodoncy: ["بالا", "پایین", "هردو"],
-      installments: ["تکمیل", "دو قسط", "سه فسط"],
+      installments: [
+        { text: "تکمیل", value: 0 },
+        {
+          text: "دو قسط",
+          value: "2",
+        },
+        { text: "سه فسط", value: 3 },
+      ],
       patient_caseHistory: [],
       appointment: {
         stag: "",
@@ -1247,7 +1255,7 @@ export default {
                 installment: this.fee.installment,
                 amount_received: this.fee.amount_received,
                 amount_due: this.fee.total_received - this.fee.amount_received,
-                dentist: "12345678"
+                dentist: "60b9c344fdfcff1cb464e52b",
               },
               total_received: this.fee.total_received,
             },
@@ -1266,14 +1274,13 @@ export default {
                 installment: this.fee.installment,
                 amount_received: this.fee.amount_received,
                 amount_due: this.fee.total_received - this.fee.amount_received,
-                 dentist: "12345678"
+                dentist: "60b9c344fdfcff1cb464e52b",
               },
               total_received: this.fee.total_received,
             },
           ];
-         
         } else if (this.appointment.stag === 3) {
-           this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.stag = this.appointment.stag;
           this.new_patient.appointment.orthodoncy = [
             {
               tooth: {
@@ -1285,14 +1292,14 @@ export default {
                 installment: this.fee.installment,
                 amount_received: this.fee.amount_received,
                 amount_due: this.fee.total_received - this.fee.amount_received,
-                 dentist: "12345678"
+                dentist: "60b9c344fdfcff1cb464e52b",
               },
               total_received: this.fee.total_received,
-              image: this.appointment.orthodoncy.image
+              image: this.appointment.orthodoncy.image,
             },
           ];
         } else if (this.appointment.stag === 4) {
-           this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.stag = this.appointment.stag;
           this.new_patient.appointment.teeth_remove = [
             {
               tooth: {
@@ -1304,14 +1311,13 @@ export default {
                 installment: this.fee.installment,
                 amount_received: this.fee.amount_received,
                 amount_due: this.fee.total_received - this.fee.amount_received,
-                 dentist: "12345678"
+                dentist: "60b9c344fdfcff1cb464e52b",
               },
               total_received: this.fee.total_received,
             },
           ];
-      
         } else if (this.appointment.stag === 5) {
-           this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.stag = this.appointment.stag;
           this.new_patient.appointment.teeth_surgery = [
             {
               tooth: {
@@ -1323,12 +1329,11 @@ export default {
                 installment: this.fee.installment,
                 amount_received: this.fee.amount_received,
                 amount_due: this.fee.total_received - this.fee.amount_received,
-                 dentist: "12345678"
+                dentist: "60b9c344fdfcff1cb464e52b",
               },
               total_received: this.fee.total_received,
             },
           ];
-          
         } else if (this.appointment.stag === 6) {
           this.new_patient.appointment.stag = this.appointment.stag;
           this.new_patient.appointment.root_surgery = [
@@ -1342,12 +1347,11 @@ export default {
                 installment: this.fee.installment,
                 amount_received: this.fee.amount_received,
                 amount_due: this.fee.total_received - this.fee.amount_received,
-                 dentist: "12345678"
+                dentist: "60b9c344fdfcff1cb464e52b",
               },
               total_received: this.fee.total_received,
             },
           ];
-
         } else if (this.appointment.stag === 7) {
           this.new_patient.appointment.stag = this.appointment.stag;
           this.new_patient.appointment.teeth_protice = [
@@ -1362,14 +1366,13 @@ export default {
                 installment: this.fee.installment,
                 amount_received: this.fee.amount_received,
                 amount_due: this.fee.total_received - this.fee.amount_received,
-                 dentist: "12345678"
+                dentist: "60b9c344fdfcff1cb464e52b",
               },
               total_received: this.fee.total_received,
             },
           ];
-         
         } else if (this.appointment.stag === 8) {
-           this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.stag = this.appointment.stag;
           this.new_patient.appointment.teeth_bleaching = [
             {
               tooth: {
@@ -1382,15 +1385,14 @@ export default {
                 installment: this.fee.installment,
                 amount_received: this.fee.amount_received,
                 amount_due: this.fee.total_received - this.fee.amount_received,
-                 dentist: "12345678"
+                dentist: "",
               },
               total_received: this.fee.total_received,
             },
           ];
-        
         } else if (this.appointment.stag === 9) {
           this.new_patient.appointment.stag = this.appointment.stag;
-          this.new_patient.appointment.scaling= [
+          this.new_patient.appointment.scaling = [
             {
               tooth: {
                 gum: this.appointment.scaling.tooth.gum,
@@ -1402,12 +1404,11 @@ export default {
                 installment: this.fee.installment,
                 amount_received: this.fee.amount_received,
                 amount_due: this.fee.total_received - this.fee.amount_received,
-                 dentist: "12345678"
+                dentist: "60b9c344fdfcff1cb464e52b",
               },
               total_received: this.fee.total_received,
             },
           ];
-
         }
         this.$store.dispatch("patient/addPatient", this.new_patient);
         this.$store.dispatch("patient/getListOfPatient");
