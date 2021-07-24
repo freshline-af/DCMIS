@@ -1,5 +1,5 @@
 // import staff schema
-const staffSchema = require('./models/Staff');
+const staffSchema = require('./models/staff/Staff');
 // Delete a staff based on a specific ID
 const deleteStaff = async (req, res) => {
   await staffSchema.remove(
