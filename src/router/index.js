@@ -7,9 +7,9 @@ import NProgress from "nprogress";
 import NetworkIssue from "../views/NetworkIssue.vue";
 import NotFoundPage from "../views/NotFoundPage.vue";
 import Patient from "../views/patient/patient.vue";
-import PatientRegistar from "../views/patient/registarPatient.vue"
+import PatientRegistar from "../views/patient/registarPatient.vue";
 import Service from "../views/service/ServicePage.vue";
-import ShowStaff from "../views/staff/showOneStaff.vue"
+import ShowStaff from "../views/staff/showOneStaff.vue";
 import Sitting from "../views/sitting/sittingPage.vue";
 import Staff from "../views/staff/StaffPage.vue";
 import Vue from "vue";
@@ -41,13 +41,13 @@ const routes = [
   {
     path: "/patient-registar",
     name: "PatientRegistar",
-    component: PatientRegistar
+    component: PatientRegistar,
   },
   {
     path: "/edit_patient",
     name: "editPatient",
     component: EditPatient,
-    probs: true
+    probs: true,
   },
   {
     path: "/staff",
@@ -58,7 +58,7 @@ const routes = [
     path: "/show_staff",
     name: "ShowStaff",
     component: ShowStaff,
-    probs: true
+    probs: true,
   },
   {
     path: "/account_managment",
@@ -99,9 +99,11 @@ const router = new VueRouter({
 
 router.beforeEach((routeTo, routeFrom, next) => {
   NProgress.start();
-  if(!JSON.parse(localStorage.getItem('user')) && routeTo.path !== "/") {
-    next({name: "Login"})
-  } else{
+  if (!JSON.parse(localStorage.getItem("user")) && routeTo.path !== "/") {
+    next({ name: "Login" });
+  } else if (JSON.parse(localStorage.getItem("user")) && routeTo.path == "/") {
+    next({ name: "Home" });
+  } else {
     next();
   }
 });

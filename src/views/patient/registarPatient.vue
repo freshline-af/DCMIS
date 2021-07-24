@@ -5,6 +5,7 @@
     </v-col>
     <v-col cols="12" xl="12" md="12" sm="12">
       <v-stepper v-model="step">
+        <!-- header of steper------------------------------- -->
         <v-stepper-header>
           <v-stepper-step step="1" :complete="step > 1">
             معلومات شخصی
@@ -19,17 +20,19 @@
             هزینه
           </v-stepper-step>
         </v-stepper-header>
+
         <v-stepper-items>
+          <!-- step 1 parsonal information form----------------------------- -->
           <v-stepper-content step="1">
             <v-form
               v-model="registarForm"
               ref="regis_patient"
-              @submit.prevent="AddPatient"
+              @submit.prevent="step1_parsonal"
               lazy-validation
             >
               <v-row class="mt-4" justify="center">
                 <v-col align="start" cols="12" md="6" sm="12" xs="12">
-                  <h2 class="mt-2">لطفا معلومات شخصی خود را وارد کنید</h2>
+                  <h2 class="mt-2">.لطفا معلومات شخصی خود را وارد کنید</h2>
                 </v-col>
                 <v-col cols="12" align="center">
                   <v-row justify="center">
@@ -44,9 +47,41 @@
                       <BaseEdittext
                         label="اسم"
                         type="text"
-                        hint="وارد کردن اسم الزامی می باشد"
-                        placeholder="لطفاً خود را وارد کنید"
+                        hint=".وارد کردن اسم الزامی می باشد"
+                        placeholder=".لطفاًاسم خود را وارد کنید"
                         v-model="new_patient.firstname"
+                        picon="mdi-account"
+                        :rules="rule.rules.required_text"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-col>
+
+                <v-col cols="12" class="mt-3">
+                  <v-row justify="center">
+                    <v-col cols="12" md="6" sm="12" xs="12">
+                      <BaseEdittext
+                        label=" اسم پدر"
+                        type="text"
+                        hint=".وارد کردن اسم پدر الزامی می باشد"
+                        placeholder=".لطفاً خود اسم پدر خود را وارد کنید"
+                        v-model="new_patient.fathername"
+                        picon="mdi-account"
+                        :rules="rule.rules.required_text"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-col>
+
+                <v-col cols="12" class="mt-3">
+                  <v-row justify="center">
+                    <v-col cols="12" md="6" sm="12" xs="12">
+                      <BaseEdittext
+                        label=" شغل"
+                        type="text"
+                        hint=".وارد کردن شغل الزامی می باشد"
+                        placeholder=".لطفاً خود شغل خود را وارد کنید"
+                        v-model="new_patient.occupation"
                         picon="mdi-account"
                         :rules="rule.rules.required_text"
                       />
@@ -88,10 +123,27 @@
                     <v-col cols="12" class="mt-n2">
                       <v-row justify="center">
                         <v-col cols="6" md="6" sm="12" xs="12">
+                          <v-select
+                            label="جنسیت"
+                            v-model="new_patient.sex"
+                            outlined
+                            rounded
+                            required
+                            prepend-icon="mdi-account"
+                            :rules="rule.rules.select"
+                            :items="six"
+                          >
+                          </v-select>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12" class="mt-n2">
+                      <v-row justify="center">
+                        <v-col cols="6" md="6" sm="12" xs="12">
                           <BaseEdittext
                             label="نمبر تذکره"
                             v-model="new_patient.tazkira_id"
-                            placeholder="نمبر تذکره خود را وارد کنید"
+                            placeholder=".نمبر تذکره خود را وارد کنید"
                             type="number"
                             picon="mdi-numeric"
                             :rules="rule.rules.number"
@@ -104,7 +156,7 @@
                         <v-col cols="6" md="6" sm="12" xs="12">
                           <v-select
                             label="گروپ خون"
-                            hint="وارد کردن گروپ خون الزامی می باشد میباشد"
+                            hint=".وارد کردن گروپ خون الزامی می باشد میباشد"
                             v-model="new_patient.blood_group"
                             outlined
                             rounded
@@ -120,8 +172,8 @@
                         <v-col cols="12" md="6" xl="6" lg="6" sm="12" xs="12">
                           <BaseEdittext
                             label="نمبر تماس"
-                            hint="وارد کردن شماره تماس الزامی می باشد"
-                            placeholder="لطفا شماره تماس خود را وارد کنید"
+                            hint=".وارد کردن شماره تماس الزامی می باشد"
+                            placeholder=".لطفا شماره تماس خود را وارد کنید"
                             type="number"
                             :rules="rule.rules.phone"
                             v-model="new_patient.phone"
@@ -141,7 +193,14 @@
                       lg="12"
                       xl="12"
                       sm="12"
-                      ><v-btn :disabled="!registarForm" elevation="3" large width="200" color="primary" @click="step = 2">
+                      ><v-btn
+                        :disabled="!registarForm"
+                        elevation="3"
+                        large
+                        type="sebmit"
+                        width="200"
+                        color="primary"
+                      >
                         بعدی
                       </v-btn>
                     </v-col>
@@ -150,11 +209,16 @@
               </v-row>
             </v-form>
           </v-stepper-content>
+          <!-- step 2 Case history of patients-------------------------------- -->
           <v-stepper-content step="2">
-            <v-form v-model="case_history_form">
+            <v-form
+              v-model="case_history_form"
+              ref="case_history_form"
+              @submit.prevent="step2_case_history"
+            >
               <v-row justify="center">
                 <v-col cols="12" md="6">
-                  <h2>لطفا تاریخجه بیمار را وارد کیند</h2>
+                  <h2>.لطفا تاریخجه بیمار را وارد کیند</h2>
                 </v-col>
                 <v-col cols="12">
                   <v-row justify="center">
@@ -217,7 +281,7 @@
                 <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
                     <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn width="200" large @click="step = 1" >
+                      <v-btn width="200" large @click="step = 1">
                         برگشت
                       </v-btn>
                     </v-col>
@@ -228,7 +292,14 @@
                       lg="6"
                       xl="6"
                       sm="12"
-                      ><v-btn :disabled="!case_history_form" elevation="3" large width="200"  color="primary" @click="step = 3">
+                      ><v-btn
+                        :disabled="!case_history_form"
+                        elevation="3"
+                        large
+                        width="200"
+                        color="primary"
+                        type="submit"
+                      >
                         بعدی
                       </v-btn>
                     </v-col>
@@ -237,11 +308,17 @@
               </v-row>
             </v-form>
           </v-stepper-content>
+
+          <!-- step 3 disease type selection------------------------------------ -->
           <v-stepper-content step="3">
-            <v-form v-model="form_3">
+            <v-form
+              v-model="disease_type_3"
+              ref="disease_type_form"
+              @submit.prevent="step3_disease_type"
+            >
               <v-row justify="center">
                 <v-col cols="12" md="6">
-                  <h2>لطفا نوعیت و جزییات بیماری را وارد کنید</h2>
+                  <h2>.لطفا نوعیت و جزییات بیماری را وارد کنید</h2>
                 </v-col>
                 <v-col cols="12">
                   <v-row justify="center">
@@ -256,7 +333,9 @@
                       <v-autocomplete
                         label="نوعیت مریضی"
                         :items="services"
-                        v-model="apointment.disease"
+                        item-value="value"
+                        item-text="text"
+                        v-model="appointment.stag"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -266,17 +345,20 @@
                     </v-col>
                   </v-row>
                 </v-col>
+                <!-- teeth filling services 1 -->
                 <v-col
-                  v-if="apointment.disease === 'پور کاری دندان'"
-                  cols="12"
-                  class="mt-n2"
+                  v-if="appointment.stag === 1"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
                 >
                   <v-row justify="center">
-                    <v-col cols="6" md="6" sm="12" xs="12">
+                    <v-col cols="12" md="12" sm="12" xs="12">
                       <v-autocomplete
                         label=" نوعیت مواد"
                         :items="theet_filling_matieral"
-                        v-model="apointment.material"
+                        v-model="appointment.teeth_filling.material"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -284,130 +366,12 @@
                       >
                       </v-autocomplete>
                     </v-col>
-                  </v-row>
-                </v-col>
-                <v-col
-                  v-if="apointment.disease === 'پوش کردن دندان ها'"
-                  cols="12"
-                  class="mt-n2"
-                >
-                  <v-row justify="center">
-                    <v-col cols="6" md="6" sm="12" xs="12">
-                      <v-autocomplete
-                        label=" نوعیت مواد"
-                        :items="theet_cover_matieral"
-                        v-model="apointment.material"
-                        :rules="rule.rules.select"
-                        outlined
-                        rounded
-                        required
-                      >
-                      </v-autocomplete>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                
-                <v-col
-                  v-if="apointment.disease === 'جراحی دندان'"
-                  cols="12"
-                  class="mt-n2"
-                >
-                  <v-row justify="center">
-                    <v-col cols="6" md="6" sm="12" xs="12">
-                      <v-autocomplete
-                        label=" نوعیت جراحی"
-                        :items="type_surgary"
-                        v-model="apointment.initial_services"
-                        :rules="rule.rules.select"
-                        outlined
-                        rounded
-                        required
-                      >
-                      </v-autocomplete>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col
-                  v-if="apointment.initial_services === 'کشیدن دندان ها'"
-                  cols="12"
-                  class="mt-n2"
-                >
-                  <v-row justify="center">
-                    <v-col cols="6" md="6" sm="12" xs="12">
-                      <v-autocomplete
-                        label="نوعیت دندان"
-                        :items="type_pull_out_theeth"
-                        v-model="apointment.tooth.type"
-                        :rules="rule.rules.select"
-                        outlined
-                        rounded
-                        required
-                      >
-                      </v-autocomplete>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col
-                  v-if="apointment.disease === 'پروتیز دندان'"
-                  cols="12"
-                  class="mt-n2"
-                >
-                  <v-row justify="center">
-                    <v-col cols="6" md="6" sm="12" xs="12">
-                      <v-autocomplete
-                        label="نوعیت پروتیز"
-                        :items="type_protis"
-                        v-model="apointment.initial_services"
-                        :rules="rule.rules.select"
-                        outlined
-                        rounded
-                        required
-                      >
-                      </v-autocomplete>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col
-                  v-if="apointment.initial_services === 'جراحی لثه'"
-                  cols="12"
-                  class="mt-n2"
-                >
-                  <v-row justify="center">
-                    <v-col cols="6" md="6" sm="12" xs="12">
-                      <v-autocomplete
-                        label="گواردینات"
-                        :items="type_quardinat"
-                        v-model="apointment.initial_services"
-                        :rules="rule.rules.select"
-                        outlined
-                        rounded
-                        required
-                      >
-                      </v-autocomplete>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col
-                  cols="12"
-                  class="mt-n2"
-                  v-if="
-                      apointment.disease === 'پور کاری دندان' ||
-                      apointment.disease === 'پوش کردن دندان ها' ||
-                      apointment.disease === 'ارتودانسی' ||
-                      apointment.disease === 'نصب نگین '||
-                      apointment.initial_services==='کشیدن دندان ها'||
-                      apointment.initial_services==='جراحی ریشه'||
-                      apointment.initial_services==='پروتیز کامل'||
-                      apointment.initial_services==='پروتیز قسمی'
 
-                  "
-                >
-                  <v-row justify="center">
-                    <v-col cols="6" md="6" sm="6" xs="12">
+                    <v-col cols="12" md="12" sm="12" xs="12">
                       <v-autocomplete
                         label="فک"
                         :items="type_fack"
-                        v-model="apointment.tooth.gum"
+                        v-model="appointment.teeth_filling.tooth.gum"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -415,49 +379,12 @@
                       >
                       </v-autocomplete>
                     </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="12" class="mt-n2"
-                v-if="
-                    apointment.disease === 'پور کاری دندان' ||
-                      apointment.disease === 'پوش کردن دندان ها' ||
-                       apointment.initial_services==='پروتیز قسمی'
-                       || apointment.disease === 'نصب نگین' ||
-                       apointment.initial_services==='کشیدن دندان ها'||
-                      apointment.initial_services==='جراحی ریشه'
-                  "
-                >
-                  <v-row justify="center">
-                    <v-col cols="6" md="6" sm="6" xs="12">
-                      <v-autocomplete
-                        label="چپ و یا راست"
-                        :items="direction"
-                        v-model="apointment.tooth.gum"
-                        :rules="rule.rules.select"
-                        outlined
-                        rounded
-                        required
-                      >
-                      </v-autocomplete>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="12" class="mt-n2"
-                v-if="
-                    apointment.disease === 'پور کاری دندان' ||
-                      apointment.disease === 'پوش کردن دندان ها' ||
-                       apointment.initial_services==='پروتیز قسمی'
-                       || apointment.disease === 'نصب نگین'||
-                       apointment.initial_services==='کشیدن دندان ها'||
-                      apointment.initial_services==='جراحی ریشه'
-                  "
-                >
-                  <v-row justify="center">
-                    <v-col cols="6" md="6" sm="6" xs="12">
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
                       <v-autocomplete
                         label="دندان"
-                        :items="theeths"
-                        v-model="apointment.tooth.type"
+                        :items="teeths"
+                        v-model="appointment.teeth_filling.tooth.type"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -465,14 +392,391 @@
                       >
                       </v-autocomplete>
                     </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="12" class="mt-n2">
-                  <v-row justify="center">
-                    <v-col cols="6" md="6" sm="6" xs="12">
+                    <v-col cols="12" md="12" sm="12" xs="12">
                       <v-textarea
                         label="نوت"
-                        v-model="apointment.description"
+                        v-model="appointment.teeth_filling.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- teeth cover services 2 -->
+                <v-col
+                  v-if="appointment.stag === 2"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label=" نوعیت مواد"
+                        :items="theet_cover_matieral"
+                        v-model="appointment.teeth_cover.material"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack"
+                        v-model="appointment.teeth_cover.tooth.gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="دندان"
+                        :items="teeths"
+                        v-model="appointment.teeth_cover.tooth.type"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointment.teeth_cover.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- teeth orthodoncy services 3  -->
+                <v-col
+                  v-if="appointment.stag === 3"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack_orthodoncy"
+                        v-model="appointment.orthodoncy.tooth.gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" lg="12" xl="12" sm="12">
+                      <v-file-input
+                        label="عکس از دندان ها"
+                        outlined
+                        v-model="appointment.orthodoncy.image"
+                        :rules="rule.rules.file"
+                        rounded
+                        required
+                      ></v-file-input>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointment.orthodoncy.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- Teeth remove services 4 -->
+                <v-col
+                  v-if="appointment.stag === 4"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack"
+                        v-model="appointment.teeth_remove.tooth.gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="دندان"
+                        :items="type_pull_out_theeth"
+                        v-model="appointment.teeth_remove.tooth.type"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointment.teeth_remove.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- Teeth Gum Surgery services 5---------- -->
+                <v-col
+                  v-if="appointment.stag === 5"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="گواردینات"
+                        :items="type_quardinat"
+                        v-model="appointment.teeth_surgery.tooth.gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointment.teeth_surgery.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- Teeth Root Surgery services 6 -->
+                <v-col
+                  v-if="appointment.stag === 6"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack"
+                        v-model="appointment.root_surgery.tooth.gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="دندان"
+                        :items="teeths"
+                        v-model="appointment.root_surgery.tooth.type"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointment.root_surgery.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- Teeth protices services 7 -->
+                <v-col
+                  v-if="appointment.stag === 7"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="نوعیت پروتیز"
+                        :items="type_protis"
+                        v-model="appointment.teeth_protice.initail_services"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack"
+                        v-model="appointment.teeth_protice.tooth.gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col
+                      v-if="
+                        appointment.teeth_protice.initail_services ===
+                          'پروتیز قسمی'
+                      "
+                      cols="12"
+                      md="12"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-autocomplete
+                        label="دندان"
+                        :items="teeths"
+                        v-model="appointment.teeth_protice.tooth.type"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointment.teeth_protice.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- ،Teeth bleaching services 8--- -->
+                <v-col
+                  v-if="appointment.stag === 8"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="نوعیت سفید کردن دندان ها"
+                        :items="type_teeth_bleaching"
+                        v-model="appointment.teeth_bleaching.material"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointment.teeth_bleaching.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col
+                  v-if="appointment.stag === 9"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack_orthodoncy"
+                        v-model="appointment.scaling.tooth.gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointment.scaling.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col
+                  v-if="appointment.stag === 10"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointment.mounth_testing.description"
                         outlined
                         rounded
                         required
@@ -484,8 +788,8 @@
                 <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
                     <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn width="200" large  @click="step = 2">
-                       برگشت
+                      <v-btn width="200" large @click="step = 2">
+                        برگشت
                       </v-btn>
                     </v-col>
                     <v-col
@@ -495,7 +799,13 @@
                       lg="6"
                       xl="6"
                       sm="12"
-                      ><v-btn :disabled="!form_3" elevation="3" large width="200" color="primary" @click="step = 4">
+                      ><v-btn
+                        elevation="3"
+                        large
+                        width="200"
+                        color="primary"
+                        type="submit"
+                      >
                         بعدی
                       </v-btn>
                     </v-col>
@@ -504,8 +814,13 @@
               </v-row>
             </v-form>
           </v-stepper-content>
+          <!-- step 4 finaces -->
           <v-stepper-content step="4">
-            <v-form v-model="form_4" @click.prevent="PatientRagistar">
+            <v-form
+              v-model="form_4"
+              ref="submit_new_patient_form"
+              @submit.prevent="PatientRagistar"
+            >
               <v-row justify="center">
                 <v-col cols="12">
                   <v-row justify="center">
@@ -526,7 +841,7 @@
                     <v-col cols="6" md="6" sm="12" xs="12">
                       <BaseEdittext
                         label="مصارف کل"
-                        v-model="apointment.total_received"
+                        v-model="fee.total_received"
                         :rules="rule.rules.required_number"
                         type="number"
                         hint="وارد کردن مصرف الزامی می باشد"
@@ -539,7 +854,7 @@
                     <v-col cols="6" md="6" sm="12" xs="12">
                       <v-select
                         label="اقساط"
-                        v-model="apointment.fee.installment"
+                        v-model="fee.installment"
                         :items="installments"
                         :rules="rule.rules.select"
                         outlined
@@ -550,11 +865,11 @@
                   </v-row>
                 </v-col>
                 <v-col cols="12" class="mt-n2">
-                  <v-row justify="center"  v-if="apointment.fee.installment != 'تکمیل'">
+                  <v-row justify="center" v-if="fee.installment != 'تکمیل'">
                     <v-col cols="12" md="6">
                       <BaseEdittext
                         label="مبلغ قابل پرداخت"
-                        v-model="apointment.fee.amount_received"
+                        v-model="fee.amount_received"
                         type="number"
                         :rules="rule.rules.number"
                         placeholder="مقدرا قابل پرداخت را وارد کنید"
@@ -562,11 +877,16 @@
                     </v-col>
                   </v-row>
                 </v-col>
+                <v-col cols="12" class="mt-n2">
+                  <v-row justify="center">
+                    <span class="red--text">{{ amount_due }}</span>
+                  </v-row>
+                </v-col>
                 <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
                     <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn width="200" large  @click="step = 3" >
-                       برگشت
+                      <v-btn width="200" large @click="step = 3">
+                        برگشت
                       </v-btn>
                     </v-col>
                     <v-col
@@ -576,7 +896,14 @@
                       lg="6"
                       xl="6"
                       sm="12"
-                      ><v-btn :disabled="!form_4" elevation="3" large width="200" color="primary" >
+                      ><v-btn
+                        :disabled="!form_4"
+                        elevation="3"
+                        large
+                        type="submit"
+                        width="200"
+                        color="primary"
+                      >
                         ثبت کردن
                       </v-btn>
                     </v-col>
@@ -710,31 +1037,52 @@ export default {
         "115",
       ],
       case_history_form: null,
-      form_3: null,
-      form_4:null,
-      rule: rules,
-      step: 1,
+      disease_type_3: null,
+      form_4: null,
       registarForm: null,
+      amount_due: "",
+      step: 1,
+      rule: rules,
       heart: "نخیر",
       dieabet: "نخیر",
       blood: "نخیر",
       type_pull_out_theeth: ["ساده", "عقلی", "امپکت"],
       type_surgary: ["کشیدن دندان ها", "جراحی لثه", "جراحی ریشه"],
       type_quardinat: ["1", "2", "3", "4"],
-      theeths: ["1", "2", "3", "4", "5", "6", "7", "8"],
+      teeths: ["1", "2", "3", "4", "5", "6", "7", "8"],
       fee: [
         {
-          total_amount: "",
-          payiad: "",
-          installments: "",
-          date: "",
+          installment: "",
+          amount_received: "",
+          amount_due: "",
+          dentist: "",
         },
       ],
       theet_filling_matieral: ["کامپوزیت", "املگم", "سایر مواد"],
       theet_cover_matieral: ["پورسلن", "میتل", "زرگونیم", "گیگم"],
-      new_patient: {},
+      type_teeth_bleaching: [
+        "یک مرحله یی",
+        "دو مرحله یی",
+        "سه مرحله یی",
+        "چهار مرحله یی",
+      ],
+      new_patient: {
+        appointment: {
+          stage: "",
+          teeth_filling: [],
+          teeth_cover:[],
+          orthodoncy:[],
+          teeth_remove:[],
+          teeth_surgery:[],
+          root_surgery:[],
+          teeth_protice:[],
+          teeth_bleaching:[],
+          scaling:[]
+
+        },
+      },
       marital_status: ["مجرد", "متاهل"],
-      sex: ["مذکر", "مونث"],
+      six: ["مذکر", "مونث"],
       blood_gropu: [
         "A+",
         "B+",
@@ -747,28 +1095,105 @@ export default {
         "نمی دانم",
       ],
       services: [
-        "پور کاری دندان",
-        "پوش کردن دندان ها",
-        "سفید کردن دندان",
-        "ارتودانسی",
-        "جراحی دندان",
-        "پروتیز دندان",
-        "معاینه دندان",
-        "نصب نگین ",
-        "امپلیت دندان",
+        { text: "معاینه دندان", value: 10 },
+        {
+          text: "پر کاری دندان",
+          value: 1,
+        },
+        {
+          text: "پوش کردن دندان ها",
+          value: 2,
+        },
+        {
+          text: "ارتودانسی",
+          value: 3,
+        },
+        {
+          text: "کشیدن دندان ها",
+          value: 4,
+        },
+        {
+          text: "جراحی ریشه دندان ها",
+          value: 5,
+        },
+        {
+          text: "حراحی لثه",
+          value: 6,
+        },
+        { text: "پروتیز دندان", value: 7 },
+        {
+          text: "سفید کردن دندان",
+          value: 8,
+        },
+        {
+          text: "جرم گیری دندان ها",
+          value: 9,
+        },
       ],
       type_protis: ["پروتیز قسمی", "پروتیز کامل"],
-      type_fack: ["بالا", "پایین", "هردو"],
-      direction: ["راست", "چپ"],
+      type_fack: [
+        "بالا - راست",
+        "بالا - چپ",
+        "پایین - راست",
+        "پایین - چپ",
+        "هردو",
+      ],
+      type_fack_orthodoncy: ["بالا", "پایین", "هردو"],
       installments: ["تکمیل", "دو قسط", "سه فسط"],
-
-      patient_label: {},
       patient_caseHistory: [],
-      apointment:{
-        meat_at:{},
-        tooth:{},
-        fee:{}
-      }
+      appointment: {
+        stag: "",
+        teeth_filling: {
+          tooth: {},
+          fee: {},
+          total_received: "",
+        },
+        teeth_cover: {
+          tooth: {},
+          fee: {},
+          total_received: "",
+        },
+        orthodoncy: {
+          tooth: {},
+          fee: {},
+          total_received: "",
+        },
+        teeth_remove: {
+          tooth: {},
+          fee: {},
+          total_received: "",
+        },
+        teeth_surgery: {
+          tooth: {},
+          fee: {},
+          total_received: "",
+        },
+        root_surgery: {
+          tooth: {},
+          fee: {},
+          total_received: "",
+        },
+        teeth_protice: {
+          tooth: {},
+          fee: {},
+          total_received: "",
+        },
+        teeth_bleaching: {
+          tooth: {},
+          fee: {},
+          total_received: "",
+        },
+        scaling: {
+          tooth: {},
+          fee: {},
+          total_received: "",
+        },
+        mounth_testing: {
+          tooth: {},
+          fee: {},
+          total_received: "",
+        },
+      },
     };
   },
   mounted() {
@@ -776,8 +1201,14 @@ export default {
     this.patient_caseHistory = this.$store.state.services.caseHistory;
   },
   methods: {
-    AddPatient() {
+    step1_parsonal() {
       if (this.$refs.regis_patient.validate()) {
+        this.step = 2;
+      }
+    },
+    step2_case_history() {
+      if (this.$refs.case_history_form.validate()) {
+        this.step = 3;
         this.new_patient.case_history = [
           {
             disease: this.patient_caseHistory.heart,
@@ -792,18 +1223,197 @@ export default {
             result: this.dieabet,
           },
         ];
-        this.new_patient.fee = this.fee;
-        this.$store.dispatch("patient/addPatient", this.new_patient);
-        //this.$store.dispatch("patient/getListOfPatient")
-        this.$refs.regis_patient.reset();
-        //window.location.reload();
       }
     },
-    PatientRagistar(){
-
+    step3_disease_type() {
+      if (this.$refs.disease_type_form.validate()) {
+        this.step = 4;
+      }
     },
-    skipCaseHistory() {
-      (this.dieabet = "نخیر"), (this.blood = "نخیر"), (this.heart = "نخیر");
+
+    PatientRagistar() {
+      if (this.$refs.submit_new_patient_form.validate()) {
+        if (this.appointment.stag === 1) {
+          this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.teeth_filling = [
+            {
+              tooth: {
+                gum: this.appointment.teeth_filling.tooth.gum,
+                type: this.appointment.teeth_filling.tooth.type,
+              },
+              material: this.appointment.teeth_filling.material,
+              description: this.appointment.teeth_filling.description,
+              fee: {
+                installment: this.fee.installment,
+                amount_received: this.fee.amount_received,
+                amount_due: this.fee.total_received - this.fee.amount_received,
+                dentist: "12345678"
+              },
+              total_received: this.fee.total_received,
+            },
+          ];
+        } else if (this.appointment.stag === 2) {
+          this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.teeth_cover = [
+            {
+              tooth: {
+                gum: this.appointment.teeth_cover.tooth.gum,
+                type: this.appointment.teeth_cover.tooth.type,
+              },
+              material: this.appointment.teeth_cover.material,
+              description: this.appointment.teeth_cover.description,
+              fee: {
+                installment: this.fee.installment,
+                amount_received: this.fee.amount_received,
+                amount_due: this.fee.total_received - this.fee.amount_received,
+                 dentist: "12345678"
+              },
+              total_received: this.fee.total_received,
+            },
+          ];
+         
+        } else if (this.appointment.stag === 3) {
+           this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.orthodoncy = [
+            {
+              tooth: {
+                gum: this.appointment.orthodoncy.tooth.gum,
+                type: this.appointment.orthodoncy.tooth.type,
+              },
+              description: this.appointment.orthodoncy.description,
+              fee: {
+                installment: this.fee.installment,
+                amount_received: this.fee.amount_received,
+                amount_due: this.fee.total_received - this.fee.amount_received,
+                 dentist: "12345678"
+              },
+              total_received: this.fee.total_received,
+              image: this.appointment.orthodoncy.image
+            },
+          ];
+        } else if (this.appointment.stag === 4) {
+           this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.teeth_remove = [
+            {
+              tooth: {
+                gum: this.appointment.teeth_remove.tooth.gum,
+                type: this.appointment.teeth_remove.tooth.type,
+              },
+              description: this.appointment.teeth_remove.description,
+              fee: {
+                installment: this.fee.installment,
+                amount_received: this.fee.amount_received,
+                amount_due: this.fee.total_received - this.fee.amount_received,
+                 dentist: "12345678"
+              },
+              total_received: this.fee.total_received,
+            },
+          ];
+      
+        } else if (this.appointment.stag === 5) {
+           this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.teeth_surgery = [
+            {
+              tooth: {
+                gum: this.appointment.teeth_surgery.tooth.gum,
+                type: this.appointment.teeth_surgery.tooth.type,
+              },
+              description: this.appointment.teeth_surgery.description,
+              fee: {
+                installment: this.fee.installment,
+                amount_received: this.fee.amount_received,
+                amount_due: this.fee.total_received - this.fee.amount_received,
+                 dentist: "12345678"
+              },
+              total_received: this.fee.total_received,
+            },
+          ];
+          
+        } else if (this.appointment.stag === 6) {
+          this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.root_surgery = [
+            {
+              tooth: {
+                gum: this.appointment.root_surgery.tooth.gum,
+                type: this.appointment.root_surgery.tooth.type,
+              },
+              description: this.appointment.root_surgery.description,
+              fee: {
+                installment: this.fee.installment,
+                amount_received: this.fee.amount_received,
+                amount_due: this.fee.total_received - this.fee.amount_received,
+                 dentist: "12345678"
+              },
+              total_received: this.fee.total_received,
+            },
+          ];
+
+        } else if (this.appointment.stag === 7) {
+          this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.teeth_protice = [
+            {
+              tooth: {
+                gum: this.appointment.teeth_protice.tooth.gum,
+                type: this.appointment.teeth_protice.tooth.type,
+              },
+              initail_services: this.appointment.teeth_protice.initail_services,
+              description: this.appointment.teeth_protice.description,
+              fee: {
+                installment: this.fee.installment,
+                amount_received: this.fee.amount_received,
+                amount_due: this.fee.total_received - this.fee.amount_received,
+                 dentist: "12345678"
+              },
+              total_received: this.fee.total_received,
+            },
+          ];
+         
+        } else if (this.appointment.stag === 8) {
+           this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.teeth_bleaching = [
+            {
+              tooth: {
+                gum: this.appointment.teeth_bleaching.tooth.gum,
+                type: this.appointment.teeth_bleaching.tooth.type,
+              },
+              material: this.appointment.teeth_bleaching.material,
+              description: this.appointment.teeth_bleaching.description,
+              fee: {
+                installment: this.fee.installment,
+                amount_received: this.fee.amount_received,
+                amount_due: this.fee.total_received - this.fee.amount_received,
+                 dentist: "12345678"
+              },
+              total_received: this.fee.total_received,
+            },
+          ];
+        
+        } else if (this.appointment.stag === 9) {
+          this.new_patient.appointment.stag = this.appointment.stag;
+          this.new_patient.appointment.scaling= [
+            {
+              tooth: {
+                gum: this.appointment.scaling.tooth.gum,
+                type: this.appointment.scaling.tooth.type,
+              },
+              material: this.appointment.scaling.material,
+              description: this.appointment.scaling.description,
+              fee: {
+                installment: this.fee.installment,
+                amount_received: this.fee.amount_received,
+                amount_due: this.fee.total_received - this.fee.amount_received,
+                 dentist: "12345678"
+              },
+              total_received: this.fee.total_received,
+            },
+          ];
+
+        }
+        this.$store.dispatch("patient/addPatient", this.new_patient);
+        this.$store.dispatch("patient/getListOfPatient");
+        // this.$refs.regis_patient.reset();
+        console.log(this.new_patient);
+      }
     },
   },
 };

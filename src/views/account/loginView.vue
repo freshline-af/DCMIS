@@ -25,7 +25,7 @@
                   icon="mdi-email"
                   v-model="user.username"
                   label="یوزرنیم"
-                  placeholder="لطفاً یوزر نیم و یا ایمل خود را وارد کنید"
+                  placeholder=".لطفاً یوزر نیم و یا ایمل خود را وارد کنید"
                   required
                   :rules="rules.auth_rules.username"
                 />
@@ -33,16 +33,16 @@
             </v-row>
           </v-col>
 
-          <v-col class="mt-n2" cols="12" md="12" sm="12" xs="12">
+          <v-col class="mt-n2" cols="12" md="12"  sm="12" xs="12">
             <v-row justify="center">
-              <v-col cols="12" xl="6" lg="4" md="4" sm="12">
+              <v-col cols="12" xl="4" lg="4"  md="6" sm="12">
                 <BaseEdittext
                   single-line
                   label="پسورد"
                   v-model="user.password"
                   :type="show_pass ? 'password' : 'text'"
                   :icon="show_pass ? 'mdi-eye-off' : 'mdi-eye'"
-                  placeholder="لطفاً  پسورد خود را وارد کنید"
+                  placeholder=".لطفاً  پسورد خود را وارد کنید"
                   @click:append="show_pass = !show_pass"
                   required
                   :rules="rules.auth_rules.password"

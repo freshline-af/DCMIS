@@ -33,6 +33,13 @@ export default new Vuex.Store({
             type: "error",
             message: ".لطفا پسورد و یا توزرنیم خود را چک نماید که درست باشد",
           };
+          dispatch("notification/add", notification, { root: true });
+          
+        } else {
+          const notification = {
+            type: "success",
+            message: "به سیستم خوش آمدید.",
+          };
           const user ={
             id:"60bb22439734f8238caa8405",
             username:"Basir",
@@ -44,13 +51,6 @@ export default new Vuex.Store({
           localStorage.setItem("user", JSON.stringify(user))
           router.push({name: "Home"})
           window.location.reload();
-          dispatch("notification/add", notification, { root: true });
-          
-        } else {
-          const notification = {
-            type: "sucess",
-            message: "به سیستم خوش آمدید.",
-          };
           dispatch("notification/add", notification, { root: true });
         }
       }).catch(error =>{
