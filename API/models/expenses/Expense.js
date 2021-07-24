@@ -19,6 +19,7 @@ const ExpenseSchema = new Schema({
       total: { type: Number, default: 0 },
     },
   ],
+  description:String,
   grand_total: { type: Number, default: 0 },
   invoice: String,
 });
