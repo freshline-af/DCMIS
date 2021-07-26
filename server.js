@@ -18,7 +18,7 @@ app.use(
 /* --------------------/. Express-Fileupload ------------------------- */
 
 app.use(express.json());
-const staffSchema = require("./API/models/Staff");
+const staffSchema = require("./API/models/staff/Staff");
 const patientSchema = require("./API/models/patients/TeethFillingModel");
 
 // Import db connection
@@ -27,8 +27,6 @@ require("./API/models/conn");
 /* --------------------------------- import Staff --------------------------- */
 const newStaffController = require("./API/NewStaffController");
 const staffAll = require("./API/ReadStaffController");
-// Get a specific staff
-const sStaff = require("./API/SpecificStaff");
 const hashStaffPwd = require("./API/UpdatePasswordController");
 // staff login controller
 const staffLogin = require("./API/StaffLoginController");
@@ -134,7 +132,6 @@ app.post("/staff/login", staffLogin);
 // A specific staff
 app.get("/staff/:numOfEq", sStaff);
 // Edit a staff
-app.put("/staff/edit/:id", editStaff);
 app.delete("/staff/delete/:id", deletedStaff);
 
 // Upload Image
