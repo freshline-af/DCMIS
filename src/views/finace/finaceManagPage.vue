@@ -32,6 +32,7 @@
 import CreateInvoce from "./CreateInvoice.vue"
 import DailyReport from "./DailyReport.vue"
 import EquepmentList from "./EquepmentList"
+import Store from "../../store/index"
 export default {
   data() {
     return {
@@ -42,6 +43,10 @@ export default {
     CreateInvoce,
     DailyReport,
     EquepmentList
+  },
+   beforeRouteEnter(to, from ,next){
+  Store.dispatch("finances/get_daily_report")
+  next()
   }
 };
 </script>

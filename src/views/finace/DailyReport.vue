@@ -5,6 +5,8 @@
       :items="reportType"
       rounded
       outlined
+      item-value="value"
+      item-text="text"
       label="انتخاب کردن عنوان راپور"
       v-model="search"
       >
@@ -34,65 +36,59 @@ import Store from "../../store/index";
 export default {
   data() {
     return {
-      search:"مواد غذایی",
+      search:"food",
     reportheader: [
         {
-          text: "اسم",
+          text: "آدی",
           align: "start",
           sortable: true,
-          value: "name",
+          value: "_id",
         },
         {
-          text: "توضیحات",
+          text: "تاریخ",
           align: "start",
           sortable: true,
-          value: "description",
+          value: "purchased_at",
         },
         {
-          text: "تعداد",
+          text: "تعداد اقلام",
           align: "start",
           sortable: true,
-          value: "total_number",
+          value: "total_item",
         },
+        
         {
-          text: "قیمت فی واحد",
+          text: " مچموع",
           align: "start",
           sortable: true,
-          value: "perunit_price",
-        },
-        {
-          text: " مجموعی",
-          align: "start",
-          sortable: true,
-          value: "total_price",
+          value: "grand_total",
         },
         {
           text: " نوعیت",
           align: "start",
           sortable: true,
-          value: "type",
+          value: "category",
         },
       ],
-      reportType:[
-         "مواد غذایی",
-         "تجهیزات جدید",
-          "داروهای جدید",
-      ],
+      reportType: [
+                    {text:"مواد غذایی",value:"food"},
+                    {text:"تجهیزات جدید",value:"equipment"},
+                   { text:"داروهای جدید",value:"medicines"},
+
+                ],
       reportItems:[]
     };
   },
   mounted(){
   this.initialize();
   },
-  updated(){
-    this.initialize();
-  },
+ 
   methods:{
     initialize(){
+      console.log(Store.state.finances.dailyReport.length)
       this.reportItems= Store.state.finances.dailyReport
-      console.log(this.reportItems)
     }
-  }
+  },
 };
 </script>
 
