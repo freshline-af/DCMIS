@@ -28,6 +28,8 @@ require("./API/models/conn");
 const newStaffController = require("./API/NewStaffController");
 const staffAll = require("./API/ReadStaffController");
 const hashStaffPwd = require("./API/UpdatePasswordController");
+// Staff Sign up
+const staffSignUp = require('./API/StaffSignUpController');
 // staff login controller
 const staffLogin = require("./API/StaffLoginController");
 // Import to edit a staff
@@ -126,11 +128,11 @@ app.put("/patient/photo/upload/:id", (req, res) => {
 // Retrieve all staff
 app.get("/staff/all", staffAll);
 app.post("/staff/add", newStaffController);
+// Staff Sign up
+app.post("/staff/signup/:id", staffSignUp);
 app.put("/staff/updatePassword/:id", hashStaffPwd);
 // login route
 app.post("/staff/login", staffLogin);
-// A specific staff
-app.get("/staff/:numOfEq", sStaff);
 // Edit a staff
 app.delete("/staff/delete/:id", deletedStaff);
 
