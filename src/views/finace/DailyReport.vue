@@ -40,37 +40,32 @@ export default {
           text: "اسم",
           align: "start",
           sortable: true,
-          value: "name",
+          value: "purchased_by",
         },
         {
           text: "توضیحات",
           align: "start",
           sortable: true,
-          value: "description",
+          value: "purchased_at",
         },
         {
           text: "تعداد",
           align: "start",
           sortable: true,
-          value: "total_number",
+          value: "grand_total",
         },
-        {
-          text: "قیمت فی واحد",
-          align: "start",
-          sortable: true,
-          value: "perunit_price",
-        },
+        
         {
           text: " مجموعی",
           align: "start",
           sortable: true,
-          value: "total_price",
+          value: "grand_total",
         },
         {
           text: " نوعیت",
           align: "start",
           sortable: true,
-          value: "type",
+          value: "category",
         },
       ],
       reportType:[
@@ -84,13 +79,15 @@ export default {
   mounted(){
   this.initialize();
   },
-  updated(){
-    this.initialize();
-  },
+  // updated(){
+  //   this.initialize();
+  // },
   methods:{
     initialize(){
+      
+      Store.dispatch("finances/get_daily_report")
       this.reportItems= Store.state.finances.dailyReport
-      console.log(this.reportItems)
+       console.log(this.reportItems)
     }
   }
 };

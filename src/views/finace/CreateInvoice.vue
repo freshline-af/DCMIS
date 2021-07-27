@@ -228,10 +228,9 @@ import Store from "../../store/index";
 
                 ],
                 Invocies:{
-                    purchased_by: "60b9b5ef3b6ae20404ccf6c6",
-                    item:[],
-                     
-                },
+                    "purchased_by": "60b9b5ef3b6ae20404ccf6c6",
+                    "item":[],
+                     },
                 
                 
             }
@@ -240,8 +239,7 @@ import Store from "../../store/index";
             submitInvoceFrom(){
             if(this.$refs.NewInvoce_form.validate()){
                 this.Invocies.invoice = JSON.stringify(this.file_image),
-                 this.Invocies.grand_total = this.FindeGrantTotal();
-               Store.dispatch("finances/add_daily_report",this.Invoces,{root:true});
+               Store.dispatch("finances/add_daily_report",this.Invocies,{root:true});
                window.scrollTo(0,0);
                 this.$refs.NewInvoce_form.reset();
                this.file_image = null;
@@ -253,10 +251,10 @@ import Store from "../../store/index";
                 if(this.$refs.form_item.validate())
                 {
                 this.Invocies.item.push({
-                    name:this.item.name,
-                    number:this.item.number,
-                    unit_price: this.item.unit_price,
-                    total: this.item.total
+                    "name":this.item.name,
+                    "number":this.item.number,
+                    "unit_price": this.item.unit_price,
+                    "total": this.item.total
                 });
                 this.item_number +=1;
                 this.number_item.push(this.item_number)
@@ -264,13 +262,7 @@ import Store from "../../store/index";
 
                 }
             },
-            FindeGrantTotal(){
-                var total= 0;
-                this.Invocies.item.forEach(element => {
-                    total += element.total;
-                });
-                return total;
-            }
+           
         }
     }
 </script>
