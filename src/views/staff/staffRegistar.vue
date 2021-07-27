@@ -100,42 +100,6 @@
                </v-col>
               </v-row>
             </v-col>
-            <v-col cols="12" md="12" sm="12" xs="12">
-              <v-row justify="center">
-               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
-              <v-file-input
-                label="عکس"
-                placeholder="عکس خود را وارد کنید"
-                outlined
-                rounded
-                prepend-icon="mdi-camera"
-                type="file"
-                accept="image/*"
-                v-model="employe.photo"
-                :rules="Rules.rules.file"
-              >
-              </v-file-input>
-               </v-col>
-              </v-row>
-            </v-col>
-            <v-col cols="12" md="12" sm="12" xs="12">
-              <v-row justify="center">
-               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
-              <v-file-input
-                label="کاپی تذکره"
-                placeholder=".کاپی تذکره خود را وارد کنید"
-                outlined
-                rounded
-                prepend-icon="mdi-file"
-                type="file"
-                accept="image/*"
-                v-model="employe.tazkira_copy"
-                :rules="Rules.rules.required_file"
-              >
-              </v-file-input>
-               </v-col>
-              </v-row>
-            </v-col>
           </v-row>
         
           <v-row class="mt-4 elevation-1">
@@ -189,7 +153,7 @@
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
               <v-row>
-              <v-col cols="12" md="6" sm="12" xs="12" lg="6" xl="6">
+              <v-col cols="12" md="12" sm="12" xs="12" lg="12" xl="12">
                 <v-row justify="center">
                <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <v-menu
@@ -223,7 +187,7 @@
                </v-col>
                 </v-row>
             </v-col>
-            <v-col cols="12" md="6" sm="12" xs="12" lg="6">
+            <v-col cols="12" md="12" sm="12" xs="12" lg="12">
               <v-row justify="center">
                <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <v-menu
@@ -373,7 +337,8 @@ export default {
       employe: { 
         hired_at: this.hired_at,
         edu_start_date: this.edu_start_date,
-        edu_end_date: this.edu_end_date
+        edu_end_date: this.edu_end_date,
+        role: "common_staff"
          },
       edu_degree:[
         "دوازده پاس",
@@ -392,7 +357,8 @@ export default {
       if (this.$refs.employRegistar.validate()) {
         Store.dispatch("staff/addEmploye", this.employe)
         window.scrollTo(0,0)
-        console.log(this.employe)
+        this.$refs.employeRegistarForm.reset();
+      
       }
     },
   },

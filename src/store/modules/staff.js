@@ -37,12 +37,13 @@ export const actions = {
     })
   },
   async addEmploye({dispatch},employe){
-    axios.post("http://localhost:3000/staff/add",employe).then( response =>{
+  await axios.post("http://localhost:3000/staff/add",employe).then( response =>{
       if(response.status == 200){
         let notification ={
           type: "success",
-          message: "کارمند جدید موفقانه در سیستم ثبت گردید."
+          message: response.data
         };
+        dispatch("staff/getStaff")
         dispatch("notification/add", notification, {root: true});
       }
     }).catch( error => {
