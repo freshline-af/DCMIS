@@ -18,7 +18,7 @@ app.use(
 /* --------------------/. Express-Fileupload ------------------------- */
 
 app.use(express.json());
-const staffSchema = require("./API/models/Staff");
+const staffSchema = require("./API/models/staff/Staff");
 const patientSchema = require("./API/models/patients/TeethFillingModel");
 
 // Import db connection

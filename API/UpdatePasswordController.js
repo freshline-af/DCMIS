@@ -1,4 +1,4 @@
-const staffSchema = require("./models/Staff");
+const staffSchema = require("./models/staff/Staff");
 const bcrypt = require("bcryptjs");
 
 var staffId = "";
