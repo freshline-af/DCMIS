@@ -24,6 +24,8 @@
                            :items="InvoceType"
                            prepend-icon="mdi-format-list-checkbox"
                            v-model="Invocies.category"
+                           item-text="text"
+                           item-value="value"
                            label=".انتخاب کردن نوعیت ارقام خریداری شده"
                            ></v-select>
                            </v-col>
@@ -222,9 +224,9 @@ import Store from "../../store/index";
                 item:{},
                 number_item:[],
                 InvoceType: [
-                    "مواد غذایی",
-                    "تجهیزات جدید",
-                    "داروهای جدید",
+                    {text:"مواد غذایی",value:"food"},
+                    {text:"تجهیزات جدید",value:"equipment"},
+                   { text:"داروهای جدید",value:"medicines"},
 
                 ],
                 Invocies:{

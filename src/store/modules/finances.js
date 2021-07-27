@@ -3,7 +3,8 @@ export const namespaced = true;
 import axios  from "axios";
 
 export const state ={
-    dailyReport:[]
+    dailyReport:[],
+    equipment:[]
 };
 export const mutations = {
     ADD_DAILYREPORT(state,data){

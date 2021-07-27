@@ -5,6 +5,8 @@
       :items="reportType"
       rounded
       outlined
+      item-value="value"
+      item-text="text"
       label="انتخاب کردن عنوان راپور"
       v-model="search"
       >
@@ -34,29 +36,29 @@ import Store from "../../store/index";
 export default {
   data() {
     return {
-      search:"مواد غذایی",
+      search:"food",
     reportheader: [
         {
-          text: "اسم",
+          text: "آدی",
           align: "start",
           sortable: true,
-          value: "purchased_by",
+          value: "_id",
         },
         {
-          text: "توضیحات",
+          text: "تاریخ",
           align: "start",
           sortable: true,
           value: "purchased_at",
         },
         {
-          text: "تعداد",
+          text: "تعداد اقلام",
           align: "start",
           sortable: true,
-          value: "grand_total",
+          value: "total_item",
         },
         
         {
-          text: " مجموعی",
+          text: " مچموع",
           align: "start",
           sortable: true,
           value: "grand_total",
@@ -68,28 +70,25 @@ export default {
           value: "category",
         },
       ],
-      reportType:[
-         "مواد غذایی",
-         "تجهیزات جدید",
-          "داروهای جدید",
-      ],
+      reportType: [
+                    {text:"مواد غذایی",value:"food"},
+                    {text:"تجهیزات جدید",value:"equipment"},
+                   { text:"داروهای جدید",value:"medicines"},
+
+                ],
       reportItems:[]
     };
   },
   mounted(){
   this.initialize();
   },
-  // updated(){
-  //   this.initialize();
-  // },
+ 
   methods:{
     initialize(){
-      
-      Store.dispatch("finances/get_daily_report")
+      console.log(Store.state.finances.dailyReport.length)
       this.reportItems= Store.state.finances.dailyReport
-       console.log(this.reportItems)
     }
-  }
+  },
 };
 </script>
 

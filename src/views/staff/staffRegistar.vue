@@ -6,8 +6,8 @@
     lazy-validation
   >
     <v-row fill-height>
-      <v-row justify-space-around>
-        <v-col class=" mt-2 px-10" cols="12" md="6" lg="6" sm="12" xl="6">
+      <v-row justify="center">
+        <v-col class=" mt-2 px-10" cols="12" md="12" lg="12" sm="12" xl="12">
           <v-row class="mt-4 elevation-1">
             <v-col cols="12">
               <strong>معلومات شخصی</strong>
@@ -16,7 +16,9 @@
               <v-divider></v-divider>
             </v-col>
             <v-col class="mt-3" cols="12" md="12" sm="12" xs="12">
-              <BaseEdittext
+             <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
+                  <BaseEdittext
                 label="نام"
                 placeholder="نام خود را وارد کنید"
                 picon="mdi-account-outline"
@@ -24,8 +26,12 @@
                 :rules="Rules.rules.required_text"
               >
               </BaseEdittext>
+               </v-col>
+             </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <BaseEdittext
                 label="تخلص"
                 placeholder="تخلص خود را وارد کنید"
@@ -34,8 +40,12 @@
                 :rules="Rules.rules.text"
               >
               </BaseEdittext>
+               </v-col>
+             </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <BaseEdittext
                 label="نام پدر"
                 placeholder="نام پدر خود را وارد کنید"
@@ -44,8 +54,12 @@
                 :rules="Rules.rules.required_text"
               >
               </BaseEdittext>
+               </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <BaseEdittext
                 label="شماره تذکره"
                 type="number"
@@ -54,8 +68,12 @@
                 v-model="employe.tazkira_id"
                 :rules="Rules.rules.number"
               />
+               </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <BaseEdittext
                 label="شماره تماس"
                 placeholder="شماره تماس خود را وارد کنید"
@@ -64,9 +82,14 @@
                 v-model="employe.phone1"
                 :rules="Rules.rules.required_phone"
               />
+               </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <BaseEdittext
+
                 label="آدرس"
                 placeholder="آدرس خود را وارد کنید"
                 picon="mdi-map-outline"
@@ -74,8 +97,12 @@
                 v-model="employe.address"
                 :rules="Rules.rules.required_text"
               />
+               </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <v-file-input
                 label="عکس"
                 placeholder="عکس خود را وارد کنید"
@@ -88,11 +115,15 @@
                 :rules="Rules.rules.file"
               >
               </v-file-input>
+               </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <v-file-input
                 label="کاپی تذکره"
-                placeholder="کاپی تذکره خود را وارد کنید"
+                placeholder=".کاپی تذکره خود را وارد کنید"
                 outlined
                 rounded
                 prepend-icon="mdi-file"
@@ -102,16 +133,19 @@
                 :rules="Rules.rules.required_file"
               >
               </v-file-input>
+               </v-col>
+              </v-row>
             </v-col>
           </v-row>
-        </v-col>
-        <v-col cols="12" class=" px-10   mt-2" md="6" sm="12" xl="6">
+        
           <v-row class="mt-4 elevation-1">
             <v-col cols="12">
               <strong>تحصیلات</strong>
             </v-col>
             <v-col cols="12"><v-divider></v-divider></v-col>
             <v-col class="mt-5" cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <v-select
                 label="درجه تحصیل"
                 prepend-icon="mdi-school-outline"
@@ -120,32 +154,44 @@
                 v-model="employe.edu_level"
                 outlined
                 rounded
-                :rules="Rules.rules.text"
+                :rules="Rules.rules.required_text"
               />
+               </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <BaseEdittext
                 label="رشته تحصیلی"
                 picon="mdi-school-outline"
                 placeholder="رشته تحصیلی خود را وارد کنید"
                 type="text"
                 v-model="employe.edu_field"
-                :rules="Rules.rules.text"
+                :rules="Rules.rules.required_text"
               />
+               </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <BaseEdittext
                 label="پوهنتون"
                 picon="mdi-school-outline"
                 placeholder="نام پوهنتون را وارد کنید"
                 type="text"
                 v-model="employe.edu_university"
-                :rules="Rules.rules.text"
+                :rules="Rules.rules.required_text"
               />
+               </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
               <v-row>
               <v-col cols="12" md="6" sm="12" xs="12" lg="6" xl="6">
+                <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <v-menu
                 ref="menu2"
                 v-model="menu2"
@@ -174,8 +220,12 @@
                   @input="menu2 = false"
                 ></v-date-picker>
               </v-menu>
+               </v-col>
+                </v-row>
             </v-col>
             <v-col cols="12" md="6" sm="12" xs="12" lg="6">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <v-menu
                 ref="menu3"
                 v-model="menu3"
@@ -204,6 +254,8 @@
                   @input="menu3 = false"
                 ></v-date-picker>
               </v-menu>
+               </v-col>
+              </v-row>
             </v-col>
               </v-row>
             </v-col>
@@ -217,6 +269,8 @@
             </v-col>
 
             <v-col cols="12" md="12" sm="12" xs="12" lg="12" xl="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <BaseEdittext
                 label="عنوان وظیفه"
                 type="text"
@@ -225,8 +279,12 @@
                 v-model="employe.position"
                 :rules="Rules.rules.required_text"
               />
+               </v-col>
+              </v-row>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12" lg="12" xl="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <BaseEdittext
                 label="معاش"
                 placeholder="معاش خود را وارد کنید"
@@ -235,9 +293,13 @@
                 v-model="employe.salary"
                 :rules="Rules.rules.required_number"
               />
+               </v-col>
+              </v-row>
             </v-col>
 
             <v-col cols="12" md="12" sm="12" xs="12">
+              <v-row justify="center">
+               <v-col cols="12" md="6" lg="6" sm="12" xl="6">
               <v-menu
                 ref="menu1"
                 v-model="menu1"
@@ -266,6 +328,8 @@
                   @input="menu1 = false"
                 ></v-date-picker>
               </v-menu>
+               </v-col>
+              </v-row>
             </v-col>
           </v-row>
         </v-col>
@@ -273,7 +337,7 @@
     </v-row>
      <v-row class="mt-5 pa-4">
         <v-col class="text-right text-xs-center" cols="6" md="6" sm="6" xs="6">
-          <v-btn @click="reset" color="red" outlined>هذف کردن</v-btn>
+          <v-btn @click="reset" color="red" outlined>لغو کردن</v-btn>
         </v-col>
         <v-spacer></v-spacer>
         <v-col class="text-left" cols="6" sm="6" xs="6" md="6">
