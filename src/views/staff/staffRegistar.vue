@@ -356,7 +356,7 @@ export default {
         this.employe.role = "common_staff"
         Store.dispatch("staff/addEmploye", this.employe)
         window.scrollTo(0,0)
-        //this.reset();
+        this.reset();
       
       }
     },
