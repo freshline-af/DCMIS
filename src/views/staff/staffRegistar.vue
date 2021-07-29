@@ -334,12 +334,7 @@ export default {
       edu_start_date:"",
       edu_end_date: "",
       dateFormatted: "",
-      employe: { 
-        hired_at: this.hired_at,
-        edu_start_date: this.edu_start_date,
-        edu_end_date: this.edu_end_date,
-        role: "common_staff"
-         },
+      employe: {},
       edu_degree:[
         "دوازده پاس",
         "چهارده پاس",
@@ -355,9 +350,13 @@ export default {
     },
     submitInfo() {
       if (this.$refs.employRegistar.validate()) {
+        this.employe.hired_at = this.hired_at;
+        this.employe.edu_start_date = this.edu_start_date;
+        this.employe.edu_end_date = this.edu_end_date;
+        this.employe.role = "common_staff"
         Store.dispatch("staff/addEmploye", this.employe)
         window.scrollTo(0,0)
-        this.$refs.employeRegistarForm.reset();
+        //this.reset();
       
       }
     },
