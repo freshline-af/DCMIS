@@ -66,7 +66,7 @@
                 placeholder="شماره تذکره خود را وارد کنید"
                 picon="mdi-numeric"
                 v-model="employe.tazkira_id"
-                :rules="Rules.rules.number"
+                :rules="Rules.rules.tazkira_id"
               />
                </v-col>
               </v-row>
