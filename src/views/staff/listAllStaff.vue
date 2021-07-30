@@ -116,7 +116,8 @@ export default {
     DeleteStaff(item){
      this.employe = item;
      this.dialogDelete= true;
-    }
+    },
+    deleteItemConfirm(){}
   },
 };
 </script>
