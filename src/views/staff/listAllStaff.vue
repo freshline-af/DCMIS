@@ -20,9 +20,34 @@
           :footer-props="footer"
           class="elevation-1"
         >
+          <template v-slot:top>
+            <v-dialog v-model="dialogDelete" max-width="500px">
+              <v-card>
+                <v-card-title class="headline"
+                  >آیا می خواهد این کارمند را از سیستم حذف کنید؟</v-card-title
+                >
+                <v-card-actions>
+                  <v-btn color="blue darken-1" text @click="dialogDelete = !dialogDelete"
+                    >انصراف</v-btn
+                  >
+                   <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                    >بله</v-btn
+                  >
+                 
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </template>
           <template v-slot:item.actions="{ item }">
             <v-btn x-small icon @click="ShowOneStaff(item)">
               <v-icon>mdi-text</v-icon>
+            </v-btn>
+            <v-btn x-small icon @click="EditStaff(item)">
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn x-small icon @click="DeleteStaff(item)">
+              <v-icon>mdi-delete</v-icon>
             </v-btn>
           </template>
           <template v-slot:no-data>
@@ -39,17 +64,17 @@
 <script>
 //import staffAll from "../../../server"
 export default {
- 
   props: {
     staffs: {
       type: Array,
-      required: true
+      required: true,
     },
   },
   data() {
     return {
       search: "",
       staffList: this.staffs,
+      dialogDelete:false,
       employe: {},
       footer: {
         itemsPerPageText: "تعداد کارمند در هر صفحه",
@@ -79,9 +104,20 @@ export default {
   methods: {
     ShowOneStaff(item) {
       this.employe = item;
-      this.$router.push({name:"ShowStaff", params:{employe: this.employe}});
+      this.$router.push({
+        name: "ShowStaff",
+        params: { employe: this.employe },
+      });
     },
-}
+    EditStaff(item) {
+      this.employe = item;
+      this.$router.push({ name: "EditStaff", params: { staff: this.employe } });
+    },
+    DeleteStaff(item){
+     this.employe = item;
+     this.dialogDelete= true;
+    }
+  },
 };
 </script>
 <style lang="scss" scoped></style>
