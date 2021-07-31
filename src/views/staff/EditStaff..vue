@@ -178,7 +178,7 @@
                             outlined
                             rounded
                             v-model="edu_start_date"
-                            :value="staff.edu_start_date"
+                            :value=" edu_start_date"
                             label="تاریخ آغاز "
                             readonly
                             persistent-hint
@@ -213,7 +213,7 @@
                             outlined
                             rounded
                             v-model="edu_end_date"
-                            :value="staff.edu_end_date"
+                            :value="edu_end_date"
                             label="تاریخ ختم"
                             readonly
                             persistent-hint
@@ -290,7 +290,7 @@
                         outlined
                         rounded
                         v-model="hired_at"
-                        :value="staff.hired_at"
+                        :value="hired_at"
                         label="تاریخ آغاز کار"
                         readonly
                         persistent-hint
@@ -354,11 +354,22 @@ export default {
   },
   mounted() {
     this.staff = this.$route.params.staff;
+    this.edu_start_date = this.getRealDate(this.staff.edu_start_date);
+    this.edu_end_date = this.getRealDate(this.staff.edu_end_date);
+    this.hired_at = this.getRealDate(this.staff.hired_at);
   },
   methods:{
       reset() {
       this.$refs.employRegistar.reset();
     },
+    getRealDate(date){
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      var real_date = new Date(date);
+      var month = real_date.getMonth();
+      var year = real_date.getFullYear();
+      var day = real_date.getDate();
+      return  months[month] +"-" + year+"-" +day ;
+    }
   }
 };
 </script>
