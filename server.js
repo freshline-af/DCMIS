@@ -78,6 +78,8 @@ app.post("/staff/add", newStaffController);
 app.put("/staff/updatePassword/:id", hashStaffPwd);
 // login route
 app.post("/staff/login", staffLogin);
+// Edit staff
+app.put("/staff/edit/:id", editStaff);
 /* ------------------  Routes for Patients -------------------------- */
 // Add a new patient
 app.post("/patient/add", addPatient);

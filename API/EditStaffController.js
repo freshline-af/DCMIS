@@ -9,8 +9,10 @@ const staffRquest = async (req, res) => {
     (err, result) => {
       if (err) {
         res.end("an error occured: " + err);
+      } else if(result) {
+        res.end("Staff edited!");
       } else {
-        res.end("Staff updated!");
+        res.end("Editing staff failed.")
       }
     }
   );
