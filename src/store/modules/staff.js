@@ -37,13 +37,14 @@ export const actions = {
     })
   },
   async addEmploye({dispatch},employe){
+    console.log(employe)
   await axios.post("http://localhost:3000/staff/add",employe).then( response =>{
       if(response.status == 200){
         let notification ={
           type: "success",
           message: response.data
         };
-        dispatch("staff/getStaff")
+        dispatch("getStaff")
         dispatch("notification/add", notification, {root: true});
       }
     }).catch( error => {

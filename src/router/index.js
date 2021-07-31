@@ -1,5 +1,6 @@
 import AccountManagment from "../views/account/accountManagmentPage.vue";
 import EditPatient from "../views/patient/editPatient.vue";
+import EditStaff from "../views/staff/EditStaff..vue"
 import FinaceManag from "../views/finace/finaceManagPage.vue";
 import Home from "../views/Home.vue";
 import Login from "../views/account/loginView.vue";
@@ -58,6 +59,12 @@ const routes = [
     path: "/show_staff",
     name: "ShowStaff",
     component: ShowStaff,
+    probs: true,
+  },
+  {
+    path: "/edit_staff",
+    name: "EditStaff",
+    component: EditStaff,
     probs: true,
   },
   {
