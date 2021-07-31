@@ -60,6 +60,8 @@ const editExpense = require('./API/EditExpensesController');
 const deleteExpense = require('./API/DeleteExpensesController');
 // 5. Upload invoice
 const uploadInvoice = require('./API/UploadInvoiceController');
+// 6. Generate Reports 
+const expenseReport = require('./API/ExpensesReportController');
 /* -------------------------------/. Import Expenses ------------------------------ */
 // use public directory
 app.use(express.static("public"));
@@ -271,6 +273,8 @@ app.put("/expenses/edit/:id", editExpense);
 app.delete("/expenses/delete/:id", deleteExpense);
 // 5. Upload invoice
 app.put("/expenses/invoice/upload/:id", uploadInvoice);
+// 6. Reports
+app.post("/expenses/report", expenseReport);
 /* --------------------------/. Routes for Expenses -------------------------- */
 
 
