@@ -27,8 +27,6 @@ require("./API/models/conn");
 /* --------------------------------- import Staff --------------------------- */
 const newStaffController = require("./API/NewStaffController");
 const staffAll = require("./API/ReadStaffController");
-// Get a specific staff
-const sStaff = require("./API/SpecificStaff");
 const hashStaffPwd = require("./API/UpdatePasswordController");
 // staff login controller
 const staffLogin = require("./API/StaffLoginController");
@@ -60,6 +58,8 @@ const editExpense = require('./API/EditExpensesController');
 const deleteExpense = require('./API/DeleteExpensesController');
 // 5. Upload invoice
 const uploadInvoice = require('./API/UploadInvoiceController');
+// 6. Generate Reports 
+const expenseReport = require('./API/ExpensesReportController');
 /* -------------------------------/. Import Expenses ------------------------------ */
 // use public directory
 app.use(express.static("public"));
@@ -133,8 +133,6 @@ app.post("/staff/add", newStaffController);
 app.put("/staff/updatePassword/:id", hashStaffPwd);
 // login route
 app.post("/staff/login", staffLogin);
-// A specific staff
-app.get("/staff/:numOfEq", sStaff);
 // Edit a staff
 app.put("/staff/edit/:id", editStaff);
 app.delete("/staff/delete/:id", deletedStaff);
@@ -272,6 +270,8 @@ app.put("/expenses/edit/:id", editExpense);
 app.delete("/expenses/delete/:id", deleteExpense);
 // 5. Upload invoice
 app.put("/expenses/invoice/upload/:id", uploadInvoice);
+// 6. Reports
+app.post("/expenses/report", expenseReport);
 /* --------------------------/. Routes for Expenses -------------------------- */
 
 
