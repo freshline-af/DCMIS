@@ -55,5 +55,26 @@ export const actions = {
       dispatch("notification/add", notification, {root: true});
       throw error;
     })
+  },
+  editStaff({dispatch},staff){
+    axios.put("http://localhost:3000/staff/edit",staff).then(response =>{
+      if(response.status == 200){
+        let notification ={
+          type: "success",
+          message: response.date
+        };
+        dispatch("notification/add",notification, {root: true});
+        dispatch("getStaff");
+        this.$router.push({name:"staff"});
+        
+        
+      }
+    }).catch(error =>{
+      let notification = {
+        type: "warning",
+        messate: error.message
+      };
+      dispatch("notification/add",notification,{root: true});
+    })
   }
 };

@@ -325,7 +325,7 @@
           :disabled="!employeRegistarForm"
           outlined
           elevation="5"
-          >ثبت کردن</v-btn
+          >تغیر دادن</v-btn
         >
       </v-col>
     </v-row>
@@ -334,7 +334,7 @@
 
 <script>
 import Rules from "../../validation/validationRules";
-//import Store from "../../store/index"
+import Store from "../../store/index"
 export default {
   data() {
     return {
@@ -348,7 +348,6 @@ export default {
       edu_start_date: "",
       edu_end_date: "",
       dateFormatted: "",
-      employe: {},
       edu_degree: ["دوازده پاس", "چهارده پاس", "لیسانس", "ماستر", "دوکتور"],
     };
   },
@@ -360,7 +359,7 @@ export default {
   },
   methods:{
       reset() {
-      this.$refs.employRegistar.reset();
+      this.$router.push({name: "staff"})
     },
     getRealDate(date){
       const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -369,6 +368,14 @@ export default {
       var year = real_date.getFullYear();
       var day = real_date.getDate();
       return  months[month] +"-" + year+"-" +day ;
+    },
+    updateStaff(){
+      this.staff.hired_at = this.hired_at;
+      this.staff.edu_start_date = this.edu_start_date;
+      this.staff.edu_end_date = this.edu_end_date;
+      Store.dispatch("staff/editStaff",this.staff);
+
+
     }
   }
 };
