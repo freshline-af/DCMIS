@@ -1,216 +1,221 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <v-col> </v-col>
-    </v-card-title>
-    <v-card-text>
-      <v-row>
-        <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-          <v-row>
-            <v-col cols="12" class="text-center">
-              <v-avatar size="100" color="blue">
-                <!-- <v-img
-             v-if="employe.photo"
-             :src="employe.photo"
-             >
-
-             </v-img> -->
-                <strong class="white--text">
-                  {{ employe.firstname }}
-                </strong>
-              </v-avatar>
-            </v-col>
-            <v-col cols="12">
-              <v-divider></v-divider>
-            </v-col>
-            <v-col class="px-6" cols="12">
-              <v-row>
-                <v-col>
-                  <v-text-field
-                    outlined
-                    label="اسم"
-                    :value="employe.firstname"
-                    readonly
-                    rounded
-                    prepend-icon="mdi-text"
-                  />
-                </v-col>
-                <v-col>
-                  <v-text-field
-                    label="تخلص"
-                    readonly
-                    outlined
-                    rounded
-                    :value="employe.lastname"
-                    prepend-icon="mdi-text"
-                  >
-                  </v-text-field>
-                </v-col>
-              </v-row>
-            </v-col>
-            <v-col cols="12" class="px-6" v-if="employe.fathername">
-              <v-text-field
-                label=""
-                readonly
-                rounded
-                :value="employe.fathername"
-                outlined
-                prepend-icon="mdi-text"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" class="px-6">
-              <v-text-field
-                readonly
-                prepend-icon="mdi-map"
-                :value="employe.address"
-                outlined
-                rounded
-                label="آدرس"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" class="px-6">
-              <v-text-field
-                label="نمبر تماس 1"
-                outlined
-                :value="employe.phone1"
-                prepend-icon="mdi-phone"
-                readonly
-                rounded
-              >
-              </v-text-field>
-            </v-col>
-            <v-col v-if="employe.phone2" cols="12" class="px-6">
-              <v-text-field
-                label="نمبر تماس 2"
-                outlined
-                :value="employe.phone2"
-                prepend-icon="mdi-phone"
-                readonly
-                rounded
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" class="px-6">
-              <v-row>
-                <v-col>
-                  <v-text-field
-                    label="نمبر تذکره"
-                    readonly
-                    :value="employe.tazkira_id"
-                    prepend-icon="mdi-numeric"
-                    outlined
-                  >
-                  </v-text-field>
-                </v-col>
-                <v-col class="text-left">
-                  <v-btn
-                    :disabled="employe.tazkira_copy"
-                    outlined
-                    width="200"
-                    height="55"
-                    link
-                    :href="employe.tazkira_copy"
-                  >
-                    <v-icon>mdi-paperclip</v-icon>
-                    <span>کاپی تذکره</span>
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
+  <v-row justify="space-arrond"  class="mt-4">
+    <v-col align="right" class="mt-4 " cols="12" md="3" lg="3" xl="3" sm="4">
+      <v-row class="elevation-1" justify="center">
+        <v-col cols="12" align="center">
+          <v-avatar size="90" color="primary">
+            <span class="white--text">{{ employe.firstname }}</span>
+          </v-avatar>
         </v-col>
-        <v-col class="mt-md-16" cols="12" md="6" lg="6" xl="6" sm="12">
-          <v-row>
-            <v-col cols="12" class="text-center">
-              <strong>تحصیلات</strong>
-            </v-col>
-            <v-col class="mt-3" cols="12">
-              <v-divider></v-divider>
-            </v-col>
-            <v-col cols="12" class="px-6">
-              <v-row>
-                <v-col>
-                  <v-text-field
-                    label="درجه تحصیلی"
-                    :value="employe.edu_level"
-                    outlined
-                    readonly
-                    rounded
-                    prepend-icon="mdi-school"
-                  >
-                  </v-text-field>
-                </v-col>
-                <v-col>
-                  <v-text-field
-                    label="رشته تحصیلی"
-                    outlined
-                    readonly
-                    rounded
-                    prepend-icon="mdi-school"
-                    :value="employe.edu_field"
-                  >
-                  </v-text-field>
-                </v-col>
-              </v-row>
-            </v-col>
-            <v-col class="px-6" cols="12">
-              <v-row>
-                <v-col>
-                  <v-text-field
-                    label="تاریخ آغاز"
-                    outlined
-                    readonly
-                    prepend-icon="mdi-calendar-range"
-                    :value="employe.edu_start_date"
-                  >
-                  </v-text-field>
-                </v-col>
-                <v-col>
-                  <v-text-field
-                    label="تاریخ ختم"
-                    outlined
-                    readonly
-                    prepend-icon="mdi-calendar-range"
-                    :value="employe.edu_end_date"
-                  >
-                  </v-text-field>
-                </v-col>
-              </v-row>
-            </v-col>
-            <v-col cols="12" class="px-6">
-              <v-text-field
-                label="پوهنتون"
-                outlined
-                readonly
-                rounded
-                :value="employe_university"
-                prepend-icon="mdi-school-outline"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col class="px-6">
-              <v-row>
-                <v-col class="text-right mr-7">
-                  <v-btn :disabled="employe.edu_docs" width="200" height="50" outlined link :href="employe.edu_docs">
-                    <v-icon>mdi-paperclip</v-icon>
-                    <span>اسناد تحصیلی</span>
-                  </v-btn>
-                </v-col>
-                <v-col class="text-left">
-                  <v-btn :disabled="!employe.edu_docs" outlined width="200" height="50">
-                    <span>آپلود کردن اسناد تحصیلی</span>
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
+        <v-col cols="12"><v-divider></v-divider></v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text pr-2 label">اسم :</span>
+            <span class="show_detial pr-2">
+              {{ employe.firstname }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" label">تخلص :</span>
+            <span class="show_detial pr-2">{{ employe.lastname }}</span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label">اسم پدر :</span>
+            <span class="show_detial pr-2">
+              {{ employe.fathername }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label"> نمبر تماس اولی :</span>
+            <span class="show_detial pr-2">
+              {{ employe.phone1 }}
+            </span>
+          </div>
+        </v-col>
+        <v-col v-if="employe.phone2" class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label"> نمبر تماس دومی :</span>
+            <span class="show_detial pr-2">
+              {{ employe.phone2 }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label"> آدرس :</span>
+            <span class="show_detial pr-2">
+              {{ employe.address }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label"> شماره تذکره :</span>
+            <span class="show_detial pr-2">
+              {{ employe.tazkira_id }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label"> درجه تحصیلی :</span>
+            <span class="show_detial pr-2">
+              {{ employe.edu_level }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label"> پوهنتون :</span>
+            <span class="show_detial pr-2">
+              {{ employe.edu_university }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label"> تاریخ آغاز :</span>
+            <span class="show_detial pr-2">
+              {{ getRealDate(employe.edu_start_date) }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label">تاریخ ختم :</span>
+            <span class="show_detial pr-2">
+              {{ getRealDate(employe.edu_end_date) }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label"> مقام :</span>
+            <span class="show_detial pr-2">
+              {{ employe.position }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label"> تاریخ آغاز کار :</span>
+            <span class="show_detial pr-2">
+              {{ getRealDate(employe.hired_at) }}
+            </span>
+          </div>
+        </v-col>
+        <v-col class="mr-4" cols="12">
+          <div>
+            <span class=" gray--text label"> معاش :</span>
+            <span class="show_detial pr-2"> {{ employe.salary }} افغانی </span>
+          </div>
         </v-col>
       </v-row>
-    </v-card-text>
-  </v-card>
+    </v-col>
+    <v-col cols="12" md="9" lg="9" xl="9" sm="8">
+      <v-row>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              <span>اسناد تحصیلی</span>
+              <v-spacer></v-spacer>
+              <v-btn icon>
+              <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
+              </v-btn>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-row>
+                <v-col align="center" class="pa-12">
+                  <v-icon x-large color="warning">mdi-alert-outline</v-icon>
+                  <br />
+                  <span class="pt-8 show_detial"
+                    >لطفااسناد های تحصیلی خود را در سیستم اپلود نماید.</span
+                  >
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              <span>تذکره</span>
+              <v-spacer></v-spacer>
+              <v-btn icon>
+              <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
+              </v-btn>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-row>
+                <v-col align="center" class="pa-12">
+                  <v-icon x-large color="warning">mdi-alert-outline</v-icon>
+                  <br />
+                  <span class="pt-8 show_detial"
+                    >لطفا تذکره خود را در سیستم اپلود نماید.</span
+                  >
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              <span>قرارداد کاری</span>
+              <v-spacer></v-spacer>
+              <v-btn icon>
+              <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
+              </v-btn>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-row>
+                <v-col align="center" class="pa-12">
+                  <v-icon x-large color="warning">mdi-alert-outline</v-icon>
+                  <br />
+                  <span class="pt-8 show_detial"
+                    >لطفا قرارداد کاری خود را در سیستم اپلود نماید.</span
+                  >
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              <span>حساب کاربری</span>
+              <v-spacer></v-spacer>
+              <v-btn icon>
+              <v-icon color="primary">mdi-card-account-details-outline</v-icon>
+              </v-btn>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-row>
+                <v-col align="center" class="pa-12">
+                  <v-icon x-large color="warning">mdi-alert-outline</v-icon>
+                  <br />
+                  <span class="pt-8 show_detial"
+                    >لطفابرای وارد شدن کارمند به سیستم یوزرنیم و پسورد انتخاب نماید.</span
+                  >
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
-
 <script>
 export default {
   mounted() {
@@ -221,7 +226,41 @@ export default {
       employe: {},
     };
   },
+  methods: {
+    getRealDate(date) {
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      var real_date = new Date(date);
+      var month = real_date.getMonth();
+      var year = real_date.getFullYear();
+      var day = real_date.getDate();
+      return months[month] + "-" + year + "-" + day;
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.show_detial {
+  font-family: "Times New Roman", Times, serif;
+  size: 1.975rem;
+  font-weight: 500;
+}
+.label {
+  font-family: "Times New Roman", Times, serif;
+  size: 2.975rem;
+  font-weight: 700;
+}
+</style>
