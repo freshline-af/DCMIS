@@ -8,7 +8,10 @@
             size="90"
             color="primary"
           >
-            <v-icon x-large color="white">mdi-account</v-icon>
+            <v-icon v-if="!employe.photo" x-large color="white">mdi-account</v-icon>
+            <v-img v-if="employe.photo"
+            src="employe.photo"
+            ></v-img>
           </v-avatar>
         </v-col>
         <v-col cols="12"><v-divider></v-divider></v-col>
