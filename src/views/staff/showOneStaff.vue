@@ -148,7 +148,7 @@
             <v-card-title>
               <span>تذکره</span>
               <v-spacer></v-spacer>
-              <v-btn icon>
+              <v-btn @click="tazkira_dialog = !tazkira_dialog" icon>
                 <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
               </v-btn>
             </v-card-title>
@@ -217,6 +217,7 @@
         </v-col>
       </v-row>
     </v-col>
+    <!-- dialog for upload education document -->
     <v-dialog width="900" v-model="edu_dialog">
       <v-card>
         <v-card-title
@@ -258,6 +259,48 @@
 
       </v-card>
     </v-dialog>
+    <!-- dialog for upload Tazkira-------- -->
+    <v-dialog width="900" v-model="tazkira_dialog">
+      <v-card>
+        <v-card-title
+          >ثبت کردن تذکره 
+          <v-spacer></v-spacer>
+          <v-btn icon @click="tazkira_dialog = !tazkira_dialog">
+            <v-icon color="warning">mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-divider></v-divider>
+          <v-form v-model="tazkira_form" ref="tazkira_from_document" @submit.prevent="SubmitTazkiraDoc">
+            <v-card-text>
+            <v-row justify="center">
+            <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
+              <v-file-input
+                label="تذکره خود را انتخاب نماید."
+                v-model="tazkira_doc.files"
+                outlined
+                rounded
+                show-size
+                counter
+                accept=".pdf,Image/*"
+                :rules="rules.rules.required_file"
+              ></v-file-input>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="mt-3">
+          <v-btn class="mb-3" outlined  color="warning" @click="tazkira_dialog =! tazkira_dialog">
+            لغو کردن
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn :disabled="!tazkira_form" type="submit" class="mb-3" outlined  color="primary">
+            ثبت کردن
+          </v-btn>
+        </v-card-actions>
+          </v-form>
+
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 <script>
@@ -269,10 +312,16 @@ export default {
   data() {
     return {
       employe: {},
-      edu_doc:{},
       rules: rules,
+      // Education
+      edu_doc:{},
       edu_dialog: false,
-      edu_form_doc:null
+      edu_form_doc:null,
+      // Tazkira
+      tazkira_dialog:false,
+      tazkira_form:null,
+      tazkira_doc:{}
+
     };
   },
   methods: {
@@ -301,6 +350,12 @@ export default {
       if(this.$refs.edu_from_document.validate()){
        this.edu_doc.id = this.employe._id;
        console.log(this.edu_doc)
+      }
+    },
+    SubmitTazkiraDoc(){
+      if(this.$refs.tazkira_from_document.validate()){
+        this.tazkira_doc.id = this.employe._id;
+        console.log(this.tazkira_doc)
       }
     }
   },
