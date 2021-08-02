@@ -1,10 +1,14 @@
 <template>
-  <v-row  class="mt-4">
+  <v-row class="mt-4">
     <v-col align="right" class="mt-4 " cols="12" md="3" lg="3" xl="3" sm="4">
       <v-row class="elevation-1" justify="center">
         <v-col cols="12" align="center">
-          <v-avatar @click="photo_dialog =!photo_dialog" size="90" color="primary">
-            <span class="white--text">{{ employe.firstname }}</span>
+          <v-avatar
+            @click="photo_dialog = !photo_dialog"
+            size="90"
+            color="primary"
+          >
+            <v-icon x-large color="white">mdi-account</v-icon>
           </v-avatar>
         </v-col>
         <v-col cols="12"><v-divider></v-divider></v-col>
@@ -171,7 +175,7 @@
             <v-card-title>
               <span>قرارداد کاری</span>
               <v-spacer></v-spacer>
-              <v-btn @click="contract_dialog =! contract_dialog" icon>
+              <v-btn @click="contract_dialog = !contract_dialog" icon>
                 <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
               </v-btn>
             </v-card-title>
@@ -194,7 +198,7 @@
             <v-card-title>
               <span>حساب کاربری</span>
               <v-spacer></v-spacer>
-              <v-btn icon>
+              <v-btn @click="sign_up_dialog = !sign_up_dialog" icon>
                 <v-icon color="primary"
                   >mdi-card-account-details-outline</v-icon
                 >
@@ -228,77 +232,105 @@
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>
-          <v-form v-model="edu_form_doc" ref="edu_from_document" @submit.prevent="SubmitEduDoc">
-            <v-card-text>
+        <v-form
+          v-model="edu_form_doc"
+          ref="edu_from_document"
+          @submit.prevent="SubmitEduDoc"
+        >
+          <v-card-text>
             <v-row justify="center">
-            <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
-              <v-file-input
-                label="اسناد تحصیلی"
-                v-model="edu_doc.files"
-                outlined
-                rounded
-                show-size
-                counter
-                accept=".pdf, .zip"
-                :rules="rules.rules.required_file"
-              ></v-file-input>
-            </v-col>
-          </v-row>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions class="mt-3">
-          <v-btn class="mb-3" outlined  color="warning" @click="edu_dialog =! edu_dialog">
-            لغو کردن
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn :disabled="!edu_form_doc" type="submit" class="mb-3" outlined  color="primary">
-            ثبت کردن
-          </v-btn>
-        </v-card-actions>
-          </v-form>
-
+              <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
+                <v-file-input
+                  label="اسناد تحصیلی"
+                  v-model="edu_doc.files"
+                  outlined
+                  rounded
+                  show-size
+                  counter
+                  accept=".pdf, .zip"
+                  :rules="rules.rules.required_file"
+                ></v-file-input>
+              </v-col>
+            </v-row>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="mt-3">
+            <v-btn
+              class="mb-3"
+              outlined
+              color="warning"
+              @click="edu_dialog = !edu_dialog"
+            >
+              لغو کردن
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+              :disabled="!edu_form_doc"
+              type="submit"
+              class="mb-3"
+              outlined
+              color="primary"
+            >
+              ثبت کردن
+            </v-btn>
+          </v-card-actions>
+        </v-form>
       </v-card>
     </v-dialog>
     <!-- dialog for upload Tazkira-------- -->
     <v-dialog width="900" v-model="tazkira_dialog">
       <v-card>
         <v-card-title
-          >ثبت کردن تذکره 
+          >ثبت کردن تذکره
           <v-spacer></v-spacer>
           <v-btn icon @click="tazkira_dialog = !tazkira_dialog">
             <v-icon color="warning">mdi-close</v-icon>
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>
-          <v-form v-model="tazkira_form" ref="tazkira_from_document" @submit.prevent="SubmitTazkiraDoc">
-            <v-card-text>
+        <v-form
+          v-model="tazkira_form"
+          ref="tazkira_from_document"
+          @submit.prevent="SubmitTazkiraDoc"
+        >
+          <v-card-text>
             <v-row justify="center">
-            <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
-              <v-file-input
-                label="تذکره خود را انتخاب نماید."
-                v-model="tazkira_doc.files"
-                outlined
-                rounded
-                show-size
-                counter
-                accept=".pdf,Image/*"
-                :rules="rules.rules.required_file"
-              ></v-file-input>
-            </v-col>
-          </v-row>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions class="mt-3">
-          <v-btn class="mb-3" outlined  color="warning" @click="tazkira_dialog =! tazkira_dialog">
-            لغو کردن
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn :disabled="!tazkira_form" type="submit" class="mb-3" outlined  color="primary">
-            ثبت کردن
-          </v-btn>
-        </v-card-actions>
-          </v-form>
-
+              <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
+                <v-file-input
+                  label="تذکره خود را انتخاب نماید."
+                  v-model="tazkira_doc.files"
+                  outlined
+                  rounded
+                  show-size
+                  counter
+                  accept=".pdf,Image/*"
+                  :rules="rules.rules.required_file"
+                ></v-file-input>
+              </v-col>
+            </v-row>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="mt-3">
+            <v-btn
+              class="mb-3"
+              outlined
+              color="warning"
+              @click="tazkira_dialog = !tazkira_dialog"
+            >
+              لغو کردن
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+              :disabled="!tazkira_form"
+              type="submit"
+              class="mb-3"
+              outlined
+              color="primary"
+            >
+              ثبت کردن
+            </v-btn>
+          </v-card-actions>
+        </v-form>
       </v-card>
     </v-dialog>
     <!-- dialog for upload work contract -->
@@ -312,77 +344,220 @@
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>
-          <v-form v-model="contract_form" ref="contract_from_document" @submit.prevent="SubmitContractDoc">
-            <v-card-text>
+        <v-form
+          v-model="contract_form"
+          ref="contract_from_document"
+          @submit.prevent="SubmitContractDoc"
+        >
+          <v-card-text>
             <v-row justify="center">
-            <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
-              <v-file-input
-                label="قرارداد کاری خود را انتخاب نماید."
-                v-model="contract_doc.files"
-                outlined
-                rounded
-                show-size
-                counter
-                accept=".pdf, .zip"
-                :rules="rules.rules.required_file"
-              ></v-file-input>
-            </v-col>
-          </v-row>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions class="mt-3">
-          <v-btn class="mb-3" outlined  color="warning" @click="contract_dialog =! contract_dialog">
-            لغو کردن
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn :disabled="!contract_form" type="submit" class="mb-3" outlined  color="primary">
-            ثبت کردن
-          </v-btn>
-        </v-card-actions>
-          </v-form>
-
+              <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
+                <v-file-input
+                  label="قرارداد کاری خود را انتخاب نماید."
+                  v-model="contract_doc.files"
+                  outlined
+                  rounded
+                  show-size
+                  counter
+                  accept=".pdf, .zip"
+                  :rules="rules.rules.required_file"
+                ></v-file-input>
+              </v-col>
+            </v-row>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="mt-3">
+            <v-btn
+              class="mb-3"
+              outlined
+              color="warning"
+              @click="contract_dialog = !contract_dialog"
+            >
+              لغو کردن
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+              :disabled="!contract_form"
+              type="submit"
+              class="mb-3"
+              outlined
+              color="primary"
+            >
+              ثبت کردن
+            </v-btn>
+          </v-card-actions>
+        </v-form>
       </v-card>
     </v-dialog>
     <!-- dialog for upload staff photo -->
     <v-dialog width="900" v-model="photo_dialog">
       <v-card>
         <v-card-title
-          >ثبت کردن قرارداد کاری
+          >ثبت کردن عکس کارمند
           <v-spacer></v-spacer>
           <v-btn icon @click="photo_dialog = !photo_dialog">
             <v-icon color="warning">mdi-close</v-icon>
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>
-          <v-form v-model="photo_form" ref="photo_from_document" @submit.prevent="SubmitPhotoDoc">
-            <v-card-text>
+        <v-form
+          v-model="photo_form"
+          ref="photo_from_document"
+          @submit.prevent="SubmitPhotoDoc"
+        >
+          <v-card-text>
             <v-row justify="center">
-            <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
-              <v-file-input
-                label="عکس مورد نظر خود را انتخاب نماید."
-                v-model="photo_doc.files"
-                outlined
-                rounded
-                show-size
-                counter
-                accept="Image/*"
-                :rules="rules.rules.required_file"
-              ></v-file-input>
-            </v-col>
-          </v-row>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions class="mt-3">
-          <v-btn class="mb-3" outlined  color="warning" @click="photo_dialog =! photo_dialog">
-            لغو کردن
-          </v-btn>
+              <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
+                <v-file-input
+                  label="عکس مورد نظر خود را انتخاب نماید."
+                  v-model="photo_doc.files"
+                  outlined
+                  rounded
+                  show-size
+                  counter
+                  accept="Image/*"
+                  :rules="rules.rules.required_file"
+                ></v-file-input>
+              </v-col>
+            </v-row>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="mt-3">
+            <v-btn
+              class="mb-3"
+              outlined
+              color="warning"
+              @click="photo_dialog = !photo_dialog"
+            >
+              لغو کردن
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+              :disabled="!photo_form"
+              type="submit"
+              class="mb-3"
+              outlined
+              color="primary"
+            >
+              ثبت کردن
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-dialog>
+    <!-- dialog for sign up staff -->
+    <v-dialog width="900" v-model="sign_up_dialog">
+      <v-card>
+        <v-card-title
+          >ایجاد کردن حساب کاربری
           <v-spacer></v-spacer>
-          <v-btn :disabled="!photo_form" type="submit" class="mb-3" outlined  color="primary">
-            ثبت کردن
+          <v-btn icon @click="sign_up_dialog = !sign_up_dialog">
+            <v-icon color="warning">mdi-close</v-icon>
           </v-btn>
-        </v-card-actions>
-          </v-form>
-
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-form
+          v-model="sign_up_form"
+          ref="sign_up_from_document"
+          @submit.prevent="SubmitSignUp"
+        >
+          <v-card-text>
+            <v-row justify="center">
+              <v-col class="mt-8" cols="12" md="12" lg="12" sm="12" xl="12">
+                <v-row justify="center">
+                  <v-col cols="12" md="6" lg="6" xl="6" sm="6">
+                    <v-text-field
+                      label="یوزر نیم"
+                      outlined
+                      :rules="rules.auth_rules.username"
+                      prepend-icon="mdi-account"
+                      type="text"
+                      rounded
+                      v-model="sign_up_info.staffUname"
+                      placeholder="لطفا یوزرنیم خود را وارد کنید."
+                    >
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col class="mt-n2" cols="12" md="12" lg="12" sm="12" xl="12">
+                <v-row justify="center">
+                  <v-col cols="12" md="6" lg="6" xl="6" sm="6">
+                    <v-text-field
+                      label="پسورد"
+                      outlined
+                      :type="show_pass ? 'text' : 'password'"
+                      :prepend-icon="show_pass ? 'mdi-eye' : 'mdi-eye-off'"
+                      rounded
+                      v-model="password"
+                      @click:prepend="show_pass = !show_pass"
+                      :rules="password_rules"
+                      placeholder="لطفا پسورد خود را وارد کنید."
+                    >
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col class="mt-n2" cols="12" md="12" lg="12" sm="12" xl="12">
+                <v-row justify="center">
+                  <v-col cols="12" md="6" lg="6" xl="6" sm="6">
+                    <v-text-field
+                      label="تصدیق کردن پسورد"
+                      outlined
+                      :prepend-icon="show_pass ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="show_pass ? 'text' : 'password'"
+                      rounded
+                      v-model="confirm_password"
+                      @click:prepend="show_pass = !show_pass"
+                      :rules="confirmPasswordRull"
+                      placeholder="لطفا پسورد خود را دوباره وارد کنید."
+                    >
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col class="mt-n2" cols="12" md="12" lg="12" sm="12" xl="12">
+                <v-row justify="center">
+                  <v-col cols="12" md="6" lg="6" xl="6" sm="6">
+                    <v-select
+                      label="مقام کارمند"
+                      outlined
+                      :items="type_staff"
+                      item-text="text"
+                      item-value="value"
+                      prepend-icon="mdi-text"
+                      rounded
+                      v-model="sign_up_info.role"
+                      placeholder="لطفا پسورد خود را دوباره وارد کنید."
+                    >
+                    </v-select>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="mt-3">
+            <v-btn
+              class="mb-3"
+              outlined
+              color="warning"
+              @click="sign_up_dialog = !sign_up_dialog"
+            >
+              لغو کردن
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+              :disabled="!sign_up_form"
+              type="submit"
+              class="mb-3"
+              outlined
+              color="primary"
+            >
+              ثبت کردن
+            </v-btn>
+          </v-card-actions>
+        </v-form>
       </v-card>
     </v-dialog>
   </v-row>
@@ -398,24 +573,63 @@ export default {
       employe: {},
       rules: rules,
       // Education
-      edu_doc:{},
+      edu_doc: {},
       edu_dialog: false,
-      edu_form_doc:null,
+      edu_form_doc: null,
       // Tazkira
-      tazkira_dialog:false,
-      tazkira_form:null,
-      tazkira_doc:{},
+      tazkira_dialog: false,
+      tazkira_form: null,
+      tazkira_doc: {},
 
       // Work Contract
-      contract_dialog:false,
+      contract_dialog: false,
       contract_form: null,
-      contract_doc:{},
+      contract_doc: {},
 
       // staff photo
-      photo_dialog:false,
+      photo_dialog: false,
       photo_form: null,
-      photo_doc:{}
+      photo_doc: {},
 
+      // sign up staff
+      sign_up_dialog: false,
+      show_pass: false,
+      sign_up_form: null,
+      confirm_password:"",
+      password:"",
+      sign_up_info: {},
+      type_staff: [
+        { text: "مدیر", value: "َAdmin" },
+        { text: "اسیستاند", value: "Assistant" },
+        { text: "کشییر", value: "cashier" },
+      ],
+      password_rules: [
+        v => !!v || "وارد کردن پسورد الزامی می باشد.",
+        v =>
+          ((v || "").length >= 6 && v.length <= 20) ||
+          "پسورد باشد بزرگتر از 6 و کوچکتر از 20 باشد.",
+        v =>
+          /[A-Z a-z]+/.test(v) ||
+          "پسورد باید شامل حروف الفبای بزرگ و کوچک انگلسی باشدو",
+        v =>
+          /[£$%#@]+/.test(v) ||
+          "پسورد باید شامل حروف خاص مثل £$%#@ باشد. ",
+        v => /[0-9]+/.test(v) || "پسورد باید حداقل شامل یک رقم عدد باشد.",
+      ],
+      confirmPasswordRull: [
+        v => !!v || "تصدیق کردن پسورد الزامی می باشد.",
+        v =>
+          ((v || "").length >= 6 && v.length <= 20) ||
+          "پسورد باشد بزرگتر از 6 و کوچکتر از 20 باشد.",
+        v =>
+          /[A-Z a-z]+/.test(v) ||
+          "پسورد باید شامل حروف الفبای بزرگ و کوچک انگلسی باشدو",
+        v =>
+          /[£$%#@]+/.test(v) ||
+          "پسورد باید شامل حروف خاص مثل £$%#@ باشد. ",
+        v => /[0-9]+/.test(v) || "پسورد باید حداقل شامل یک رقم عدد باشد.",
+        v => v == this.password || " این پسورد را کی وارد کردین باید با پسورد قبلی مطابق باشد. "
+      ]
     };
   },
   methods: {
@@ -440,30 +654,37 @@ export default {
       var day = real_date.getDate();
       return months[month] + "-" + year + "-" + day;
     },
-    SubmitEduDoc(){
-      if(this.$refs.edu_from_document.validate()){
-       this.edu_doc.id = this.employe._id;
-       console.log(this.edu_doc)
+    SubmitEduDoc() {
+      if (this.$refs.edu_from_document.validate()) {
+        this.edu_doc.id = this.employe._id;
+        console.log(this.edu_doc);
       }
     },
-    SubmitTazkiraDoc(){
-      if(this.$refs.tazkira_from_document.validate()){
+    SubmitTazkiraDoc() {
+      if (this.$refs.tazkira_from_document.validate()) {
         this.tazkira_doc.id = this.employe._id;
-        console.log(this.tazkira_doc)
+        console.log(this.tazkira_doc);
       }
     },
-    SubmitContractDoc(){
-      if(this.$refs.contract_from_document.validate()){
+    SubmitContractDoc() {
+      if (this.$refs.contract_from_document.validate()) {
         this.contract_doc.id = this.employe._id;
         console.log(this.contract_doc);
       }
     },
-    SubmitPhotoDoc(){
-      if(this.$refs.photo_from_document.validate()){
+    SubmitPhotoDoc() {
+      if (this.$refs.photo_from_document.validate()) {
         this.photo_doc.id = this.employe._id;
         console.log(this.photo_doc);
       }
-    }
+    },
+    SubmitSignUp() {
+      if (this.$refs.sign_up_from_document.validate()) {
+        this.sign_up_info.id = this.employe._id;
+        this.sign_up_info.staffPassword = this.password;
+        console.log(this.sign_up_info);
+      }
+    },
   },
 };
 </script>
