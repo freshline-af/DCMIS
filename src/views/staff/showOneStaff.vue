@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="space-arrond"  class="mt-4">
+  <v-row  class="mt-4">
     <v-col align="right" class="mt-4 " cols="12" md="3" lg="3" xl="3" sm="4">
       <v-row class="elevation-1" justify="center">
         <v-col cols="12" align="center">
@@ -125,8 +125,8 @@
             <v-card-title>
               <span>اسناد تحصیلی</span>
               <v-spacer></v-spacer>
-              <v-btn icon>
-              <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
+              <v-btn @click="edu_dialog = !edu_dialog" icon>
+                <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
               </v-btn>
             </v-card-title>
             <v-divider></v-divider>
@@ -149,7 +149,7 @@
               <span>تذکره</span>
               <v-spacer></v-spacer>
               <v-btn icon>
-              <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
+                <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
               </v-btn>
             </v-card-title>
             <v-divider></v-divider>
@@ -172,7 +172,7 @@
               <span>قرارداد کاری</span>
               <v-spacer></v-spacer>
               <v-btn icon>
-              <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
+                <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
               </v-btn>
             </v-card-title>
             <v-divider></v-divider>
@@ -195,7 +195,9 @@
               <span>حساب کاربری</span>
               <v-spacer></v-spacer>
               <v-btn icon>
-              <v-icon color="primary">mdi-card-account-details-outline</v-icon>
+                <v-icon color="primary"
+                  >mdi-card-account-details-outline</v-icon
+                >
               </v-btn>
             </v-card-title>
             <v-divider></v-divider>
@@ -205,7 +207,8 @@
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
-                    >لطفابرای وارد شدن کارمند به سیستم یوزرنیم و پسورد انتخاب نماید.</span
+                    >لطفابرای وارد شدن کارمند به سیستم یوزرنیم و پسورد انتخاب
+                    نماید.</span
                   >
                 </v-col>
               </v-row>
@@ -214,9 +217,51 @@
         </v-col>
       </v-row>
     </v-col>
+    <v-dialog width="900" v-model="edu_dialog">
+      <v-card>
+        <v-card-title
+          >ثبت کردن اسناد تحصیلی
+          <v-spacer></v-spacer>
+          <v-btn icon @click="edu_dialog = !edu_dialog">
+            <v-icon color="warning">mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-divider></v-divider>
+          <v-form v-model="edu_form_doc" ref="edu_from_document" @submit.prevent="SubmitEduDoc">
+            <v-card-text>
+            <v-row justify="center">
+            <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
+              <v-file-input
+                label="اسناد تحصیلی"
+                v-model="edu_doc.files"
+                outlined
+                rounded
+                show-size
+                counter
+                accept=".pdf, .zip"
+                :rules="rules.rules.required_file"
+              ></v-file-input>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="mt-3">
+          <v-btn class="mb-3" outlined  color="warning" @click="edu_dialog =! edu_dialog">
+            لغو کردن
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn :disabled="!edu_form_doc" type="submit" class="mb-3" outlined  color="primary">
+            ثبت کردن
+          </v-btn>
+        </v-card-actions>
+          </v-form>
+
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 <script>
+import rules from "../../validation/validationRules.js";
 export default {
   mounted() {
     this.employe = this.$route.params.employe;
@@ -224,6 +269,10 @@ export default {
   data() {
     return {
       employe: {},
+      edu_doc:{},
+      rules: rules,
+      edu_dialog: false,
+      edu_form_doc:null
     };
   },
   methods: {
@@ -248,6 +297,12 @@ export default {
       var day = real_date.getDate();
       return months[month] + "-" + year + "-" + day;
     },
+    SubmitEduDoc(){
+      if(this.$refs.edu_from_document.validate()){
+       this.edu_doc.id = this.employe._id;
+       console.log(this.edu_doc)
+      }
+    }
   },
 };
 </script>
