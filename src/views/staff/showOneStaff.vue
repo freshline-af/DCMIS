@@ -8,10 +8,10 @@
             size="90"
             color="primary"
           >
-            <v-icon v-if="!employe.photo" x-large color="white">mdi-account</v-icon>
-            <v-img v-if="employe.photo"
-            src="employe.photo"
-            ></v-img>
+            <v-icon v-if="!employe.photo" x-large color="white"
+              >mdi-account</v-icon
+            >
+            <v-img v-if="employe.photo" src="employe.photo"></v-img>
           </v-avatar>
         </v-col>
         <v-col cols="12"><v-divider></v-divider></v-col>
@@ -139,18 +139,53 @@
             <v-divider></v-divider>
             <v-card-text>
               <v-row>
-                <v-col align="center" class="pa-12">
+                <v-col
+                  v-if="!employe.edu_docs"
+                  cols="12"
+                  align="center"
+                  class="pa-12"
+                >
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
                     >لطفااسناد های تحصیلی خود را در سیستم اپلود نماید.</span
                   >
                 </v-col>
+                <v-col v-else cols="12" align="center" class="pa-8">
+                  <v-simple-table>
+                    <template v-slot:default>
+                      <thead>
+                        <tr>
+                          <th>
+                            درجه تحصیلی
+                          </th>
+                          <th>
+                            رشته تحصیلی
+                          </th>
+                           <th>
+                           دیپلوم
+                          </th>
+                          <th>
+                           مشاهده کردن دیپلوم
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{ employe.edu_level}}</td>
+                          <td>{{ employe.edu_university }}</td>
+                           <td>{{ employe.edu_docs }}</td>
+                            <td><v-btn icon color="primary"><v-icon>mdi-eye</v-icon></v-btn></td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
+                </v-col>
               </v-row>
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="12">
+        <v-col  cols="12">
           <v-card>
             <v-card-title>
               <span>تذکره</span>
@@ -162,12 +197,38 @@
             <v-divider></v-divider>
             <v-card-text>
               <v-row>
-                <v-col align="center" class="pa-12">
+                <v-col v-if="!employe.tazkira_copy" align="center" class="pa-12">
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
                     >لطفا تذکره خود را در سیستم اپلود نماید.</span
                   >
+                </v-col>
+                 <v-col v-else cols="12" align="center" class="pa-8">
+                  <v-simple-table>
+                    <template v-slot:default>
+                      <thead>
+                        <tr>
+                          <th>
+                           شماره تذکره
+                          </th>
+                          <th>
+                           تذکره
+                          </th>
+                           <th>
+                           مشاهده کردن تذکره
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{ employe.tazkira_id}}</td>
+                          <td>{{ employe.tazkira_copy }}</td>
+                            <td><v-btn icon color="primary"><v-icon>mdi-eye</v-icon></v-btn></td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -185,12 +246,38 @@
             <v-divider></v-divider>
             <v-card-text>
               <v-row>
-                <v-col align="center" class="pa-12">
+                <v-col v-if="!employe.contract" align="center" class="pa-12">
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
                     >لطفا قرارداد کاری خود را در سیستم اپلود نماید.</span
                   >
+                </v-col>
+                <v-col v-else cols="12" align="center" class="pa-8">
+                  <v-simple-table>
+                    <template v-slot:default>
+                      <thead>
+                        <tr>
+                          <th>
+                          تاریخ آغاز کار
+                          </th>
+                          <th>
+                           قرار داد کاری
+                          </th>
+                           <th>
+                           مشاهده کردن قرارداد
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{ getRealDate(employe.hired_at)}}</td>
+                          <td>{{ employe.contract }}</td>
+                            <td><v-btn icon color="primary"><v-icon>mdi-eye</v-icon></v-btn></td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -210,13 +297,39 @@
             <v-divider></v-divider>
             <v-card-text>
               <v-row>
-                <v-col align="center" class="pa-12">
+                <v-col v-if="!employe.username" align="center" class="pa-12">
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
                     >لطفابرای وارد شدن کارمند به سیستم یوزرنیم و پسورد انتخاب
                     نماید.</span
                   >
+                </v-col>
+                 <v-col v-else cols="12" align="center" class="pa-8">
+                  <v-simple-table>
+                    <template v-slot:default>
+                      <thead>
+                        <tr>
+                          <th>
+                         یوزنیم
+                          </th>
+                          <th>
+                           پسورد
+                          </th>
+                           <th>
+                          مقام
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{employe.username}}</td>
+                          <td>{{ employe.password }}</td>
+                            <td>{{employe.role}}</td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -598,8 +711,8 @@ export default {
       sign_up_dialog: false,
       show_pass: false,
       sign_up_form: null,
-      confirm_password:"",
-      password:"",
+      confirm_password: "",
+      password: "",
       sign_up_info: {},
       type_staff: [
         { text: "مدیر", value: "َAdmin" },
@@ -607,32 +720,32 @@ export default {
         { text: "کشییر", value: "cashier" },
       ],
       password_rules: [
-        v => !!v || "وارد کردن پسورد الزامی می باشد.",
-        v =>
+        (v) => !!v || "وارد کردن پسورد الزامی می باشد.",
+        (v) =>
           ((v || "").length >= 6 && v.length <= 20) ||
           "پسورد باشد بزرگتر از 6 و کوچکتر از 20 باشد.",
-        v =>
+        (v) =>
           /[A-Z a-z]+/.test(v) ||
           "پسورد باید شامل حروف الفبای بزرگ و کوچک انگلسی باشدو",
-        v =>
-          /[£$%#@]+/.test(v) ||
-          "پسورد باید شامل حروف خاص مثل £$%#@ باشد. ",
-        v => /[0-9]+/.test(v) || "پسورد باید حداقل شامل یک رقم عدد باشد.",
+        (v) =>
+          /[£$%#@]+/.test(v) || "پسورد باید شامل حروف خاص مثل £$%#@ باشد. ",
+        (v) => /[0-9]+/.test(v) || "پسورد باید حداقل شامل یک رقم عدد باشد.",
       ],
       confirmPasswordRull: [
-        v => !!v || "تصدیق کردن پسورد الزامی می باشد.",
-        v =>
+        (v) => !!v || "تصدیق کردن پسورد الزامی می باشد.",
+        (v) =>
           ((v || "").length >= 6 && v.length <= 20) ||
           "پسورد باشد بزرگتر از 6 و کوچکتر از 20 باشد.",
-        v =>
+        (v) =>
           /[A-Z a-z]+/.test(v) ||
           "پسورد باید شامل حروف الفبای بزرگ و کوچک انگلسی باشدو",
-        v =>
-          /[£$%#@]+/.test(v) ||
-          "پسورد باید شامل حروف خاص مثل £$%#@ باشد. ",
-        v => /[0-9]+/.test(v) || "پسورد باید حداقل شامل یک رقم عدد باشد.",
-        v => v == this.password || " این پسورد را کی وارد کردین باید با پسورد قبلی مطابق باشد. "
-      ]
+        (v) =>
+          /[£$%#@]+/.test(v) || "پسورد باید شامل حروف خاص مثل £$%#@ باشد. ",
+        (v) => /[0-9]+/.test(v) || "پسورد باید حداقل شامل یک رقم عدد باشد.",
+        (v) =>
+          v == this.password ||
+          " این پسورد را کی وارد کردین باید با پسورد قبلی مطابق باشد. ",
+      ],
     };
   },
   methods: {
