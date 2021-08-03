@@ -62,7 +62,7 @@
   </v-container>
 </template>
 <script>
-//import staffAll from "../../../server"
+import Store from "../../store/index"
 export default {
   props: {
     staffs: {
@@ -117,7 +117,11 @@ export default {
      this.employe = item;
      this.dialogDelete= true;
     },
-    deleteItemConfirm(){}
+ async   deleteItemConfirm(){
+   await  Store.dispatch("staff/deleteStaff", this.employe);
+     this.dialogDelete = false;
+      window.location.reload();
+    }
   },
 };
 </script>

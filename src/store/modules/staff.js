@@ -76,5 +76,22 @@ export const actions = {
       };
       dispatch("notification/add",notification,{root: true});
     })
+  },
+async  deleteStaff({dispatch}, staff){
+  await  axios.delete("http://localhost:3000/staff/delete/"+staff._id).then(response =>{
+       if(response.status == 200 && response.data == "Staff removed!"){
+         let notification = {
+           type: "success",
+           message: "کارمند مورد نظر موفقانه از سیستم حذف کردید."
+         };
+          dispatch("notification/add",notification,{root: true});
+       }
+    }).catch(error =>{
+      let notification = {
+        type: "warning",
+        message: error.message
+      };
+      dispatch("notification/add", notification, {root: true});
+    })
   }
 };
