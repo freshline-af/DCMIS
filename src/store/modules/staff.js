@@ -57,15 +57,15 @@ export const actions = {
     })
   },
   editStaff({dispatch},staff){
-    axios.put("http://localhost:3000/staff/edit",staff).then(response =>{
-      if(response.status == 200){
+    axios.put("http://localhost:3000/staff/edit/"+staff._id,staff).then(response =>{
+      if(response.status == 200 ){
         let notification ={
           type: "success",
-          message: response.date
+          message: "معلومات کارمند مورد نظر موفقانه تغیر داده شد."
         };
         dispatch("notification/add",notification, {root: true});
         dispatch("getStaff");
-        this.$router.push({name:"staff"});
+        
         
         
       }

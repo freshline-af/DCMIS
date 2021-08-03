@@ -1,6 +1,6 @@
 <template>
   <v-form
-    @submit.prevent="submitInfo"
+    @submit.prevent="updateStaff"
     ref="employRegistar"
     v-model="employeRegistarForm"
     lazy-validation
@@ -374,6 +374,7 @@ export default {
       this.staff.edu_start_date = this.edu_start_date;
       this.staff.edu_end_date = this.edu_end_date;
       Store.dispatch("staff/editStaff",this.staff);
+      this.$router.push({name:"staff"});
 
 
     }
