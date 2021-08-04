@@ -314,7 +314,7 @@
                          یوزنیم
                           </th>
                           <th>
-                           پسورد
+                           تغیر دادن
                           </th>
                            <th>
                           مقام
@@ -324,7 +324,7 @@
                       <tbody>
                         <tr>
                           <td>{{employe.username}}</td>
-                          <td>{{ employe.password }}</td>
+                          <td><v-btn icon color="primary" @click="sign_up_dialog = !sign_up_dialog"><v-icon>mdi-pencil</v-icon></v-btn></td>
                             <td>{{employe.role}}</td>
                         </tr>
                       </tbody>
@@ -680,6 +680,7 @@
 </template>
 <script>
 import rules from "../../validation/validationRules.js";
+import Store from "../../store/index"
 export default {
   mounted() {
     this.employe = this.$route.params.employe;
@@ -773,7 +774,9 @@ export default {
     SubmitEduDoc() {
       if (this.$refs.edu_from_document.validate()) {
         this.edu_doc.id = this.employe._id;
-        console.log(this.edu_doc);
+       Store.dispatch("staff/uploadeEduDoc",this.edu_doc);
+       this.edu_dialog = false;
+
       }
     },
     SubmitTazkiraDoc() {
@@ -797,8 +800,10 @@ export default {
     SubmitSignUp() {
       if (this.$refs.sign_up_from_document.validate()) {
         this.sign_up_info.id = this.employe._id;
-        this.sign_up_info.staffPassword = this.password;
-        console.log(this.sign_up_info);
+        this.sign_up_info.staffPwd = this.password;
+        Store.dispatch("staff/signUpuser", this.sign_up_info);
+        this.sign_up_dialog = false;
+       this.$router.push({name:"staff"})
       }
     },
   },

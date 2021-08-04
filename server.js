@@ -211,9 +211,9 @@ app.put("/staff/education/upload/:id", (req, res) => {
   } else {
     let sEduDocs = req.files.staffEduDocs;
     let fileType = path.extname(sEduDocs.name).toLowerCase();
-    if (fileType !== ".zip") {
+    if (fileType !== ".zip" && fileType !== ".pdf") {
       res.end("Please select files with extension '.zip'.");
-    } else {
+    } else {  
       sEduDocs.mv(
         path.resolve(
           __dirname,

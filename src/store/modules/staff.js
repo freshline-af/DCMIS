@@ -93,5 +93,42 @@ async  deleteStaff({dispatch}, staff){
       };
       dispatch("notification/add", notification, {root: true});
     })
+  },
+async  uploadeEduDoc({dispatch}, eduDoc){
+  console.log(eduDoc)
+ await  axios.put("http://localhost:3000/staff/education/upload/"+eduDoc.id, eduDoc.files).then( response =>{
+      if(response.status == 200 ){
+        let notification = {
+          type: "success",
+          message: response.data//"اسناد پوهنتون مفقانه در سیستم اپلود شد."
+        };
+        dispatch("notification/add", notification, {root: true})
+      }
+  
+    }).catch(error =>{
+      let notification = {
+        type: "warning",
+        message: error.message
+      };
+      dispatch("notification/add", notification, {root:true});
+    });
+  },
+  async signUpuser({dispatch},userData){
+    axios.post("http://localhost:3000/staff/signup/"+userData.id,userData).then(response =>{
+      if(response.status ==200 && response.data =="Sign up done!"){
+        let notification = {
+          type: "success",
+          message: "حساب کاربری مفقانه اضافه شد."
+        }
+        dispatch("notification/add", notification,{root:true})
+      }
+    }).catch(error =>{
+      let notification={
+        type: "warning",
+        message: error.message
+      };
+      dispatch("notification/add", notification,{root:true})
+    })
+
   }
 };
