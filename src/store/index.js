@@ -27,18 +27,20 @@ export default new Vuex.Store({
       commit("ADD_USER", data);
     },
     login_staff({ dispatch,commit }, data) {
-      axios.post("http://localhost:3000/staff/login", data).then((response) => {
-        if (response.data === "Fail") {
-          const notification = {
-            type: "error",
-            message: ".لطفا پسورد و یا توزرنیم خود را چک نماید که درست باشد",
-          };
-          dispatch("notification/add", notification, { root: true });
+      console.log(data)
+       axios.post("http://localhost:3000/staff/login", data).then((response) => {
+      //   if (response.data === "Fail") {
+      //     const notification = {
+      //       type: "error",
+      //       message:response.data //".لطفا پسورد و یا توزرنیم خود را چک نماید که درست باشد",
+      //     };
+      //     dispatch("notification/add", notification, { root: true });
           
-        } else {
+          
+      // } else {}
           const notification = {
             type: "success",
-            message: "به سیستم خوش آمدید.",
+            message: response.data//"به سیستم خوش آمدید.",
           };
           const user ={
             id:"60bb22439734f8238caa8405",
@@ -51,8 +53,8 @@ export default new Vuex.Store({
           localStorage.setItem("user", JSON.stringify(user))
           router.push({name: "Home"})
           window.location.reload();
-          dispatch("notification/add", notification, { root: true });
-        }
+           dispatch("notification/add", notification, { root: true });
+        
       }).catch(error =>{
         const notification = {
           type: "error",
