@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-tabs align-with-title v-model="tab" grow>
-      <v-tab v-for="item in staff.items" :key="item.id">
+      <v-tab v-for="item in staff.items" :key="item.id" :disabled="item.show">
         {{ item.name }}
       </v-tab>
     </v-tabs>
