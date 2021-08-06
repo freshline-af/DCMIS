@@ -11,7 +11,7 @@
             <v-icon v-if="!employe.photo" x-large color="white"
               >mdi-account</v-icon
             >
-            <v-img v-if="employe.photo" src="employe.photo"></v-img>
+            <v-img v-else :src="photoBase"></v-img>
           </v-avatar>
         </v-col>
         <v-col cols="12"><v-divider></v-divider></v-col>
@@ -358,12 +358,13 @@
               <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
                 <v-file-input
                   label="اسناد تحصیلی"
-                  v-model="edu_doc.files"
                   outlined
                   rounded
                   show-size
                   counter
                   accept=".pdf, .zip"
+                  v-model="edu_doc.staffEduDocs"
+                 
                   :rules="rules.rules.required_file"
                 ></v-file-input>
               </v-col>
@@ -414,12 +415,12 @@
               <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
                 <v-file-input
                   label="تذکره خود را انتخاب نماید."
-                  v-model="tazkira_doc.files"
+                  v-model="tazkira_doc.staffTazkira"
                   outlined
                   rounded
                   show-size
                   counter
-                  accept=".pdf,Image/*"
+                  accept=".pdf,.zip,Image/*"
                   :rules="rules.rules.required_file"
                 ></v-file-input>
               </v-col>
@@ -470,7 +471,7 @@
               <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
                 <v-file-input
                   label="قرارداد کاری خود را انتخاب نماید."
-                  v-model="contract_doc.files"
+                  v-model="contract_doc.staffContract"
                   outlined
                   rounded
                   show-size
@@ -526,7 +527,7 @@
               <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
                 <v-file-input
                   label="عکس مورد نظر خود را انتخاب نماید."
-                  v-model="photo_doc.files"
+                  v-model="photo_doc.staffPhoto"
                   outlined
                   rounded
                   show-size
@@ -684,14 +685,18 @@ import Store from "../../store/index"
 export default {
   mounted() {
     this.employe = this.$route.params.employe;
+    console.log(this.employe)
   },
   data() {
     return {
+      photoBase:"public/uploads/docs/photo/",//+ this.employe.photo,
+      upload_file:'',
       employe: {},
       rules: rules,
       // Education
       edu_doc: {},
       edu_dialog: false,
+      edu_file:'',
       edu_form_doc: null,
       // Tazkira
       tazkira_dialog: false,
@@ -773,7 +778,7 @@ export default {
     },
     SubmitEduDoc() {
       if (this.$refs.edu_from_document.validate()) {
-        this.edu_doc.id = this.employe._id;
+        this.edu_doc.id =this.employe._id;
        Store.dispatch("staff/uploadeEduDoc",this.edu_doc);
        this.edu_dialog = false;
 
@@ -782,19 +787,26 @@ export default {
     SubmitTazkiraDoc() {
       if (this.$refs.tazkira_from_document.validate()) {
         this.tazkira_doc.id = this.employe._id;
-        console.log(this.tazkira_doc);
+        Store.dispatch("staff/uploadStaffTazkira",this.tazkira_doc);
+        this.$refs.tazkira_from_document.reset();
+        this.tazkira_dialog = false;
       }
     },
     SubmitContractDoc() {
       if (this.$refs.contract_from_document.validate()) {
         this.contract_doc.id = this.employe._id;
-        console.log(this.contract_doc);
+        Store.dispatch("staff/uploadStaffContract",this.contract_doc);
+        this.$refs.contract_from_document.reset();
+        this.contract_dialog = false;
       }
     },
     SubmitPhotoDoc() {
       if (this.$refs.photo_from_document.validate()) {
         this.photo_doc.id = this.employe._id;
-        console.log(this.photo_doc);
+        Store.dispatch("staff/uploadStaffPhoto",this.photo_doc)
+        this.$refs.photo_from_document.reset();
+        this.photo_dialog = false;
+
       }
     },
     SubmitSignUp() {
@@ -806,6 +818,15 @@ export default {
        this.$router.push({name:"staff"})
       }
     },
+    onpdfFile(event) {
+      const files = event;
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(files);
+      this.upload_file = event;
+    },
+    fileselect(file){
+      console.log(file)
+    }
   },
 };
 </script>

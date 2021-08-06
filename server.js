@@ -147,6 +147,7 @@ app.delete("/staff/delete/:id", deletedStaff);
 app.put("/staff/photo/upload/:id", (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     res.end("No photo chosen.");
+    
   } else {
     let sPhoto = req.files.staffPhoto;
     let imgTypes = path.extname(sPhoto.name).toLowerCase();

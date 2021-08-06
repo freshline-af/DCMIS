@@ -1,3 +1,4 @@
+import FormData from 'form-data'
 import axios from 'axios';
 
 export const namespaced = true;
@@ -95,12 +96,20 @@ async  deleteStaff({dispatch}, staff){
     })
   },
 async  uploadeEduDoc({dispatch}, eduDoc){
-  console.log(eduDoc)
- await  axios.put("http://localhost:3000/staff/education/upload/"+eduDoc.id, eduDoc.files).then( response =>{
+  let data = new FormData();
+  
+  data.append('staffEduDocs',eduDoc.staffEduDocs);
+ await  axios.put("http://localhost:3000/staff/education/upload/"+eduDoc.id, data, {
+  headers: {
+    'accept': 'application/json',
+    'Accept-Language': 'en-US,en;q=0.8',
+    'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+  }
+}).then( response =>{
       if(response.status == 200 ){
         let notification = {
           type: "success",
-          message: response.data//"اسناد پوهنتون مفقانه در سیستم اپلود شد."
+          message:"اسناد پوهنتون مفقانه در سیستم اپلود شد."
         };
         dispatch("notification/add", notification, {root: true})
       }
@@ -130,5 +139,83 @@ async  uploadeEduDoc({dispatch}, eduDoc){
       dispatch("notification/add", notification,{root:true})
     })
 
+  },
+  async uploadStaffPhoto({dispatch},photo){
+    let data = new FormData();
+    data.append('staffPhoto',photo.staffPhoto);
+    await axios.put("http://localhost:3000/staff/photo/upload/"+photo.id, data, {
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+      }
+    }).then(response =>{
+      if(response.status == 200)
+      {
+        let notification = {
+          type: "success",
+          message: "عکس موفقانه اضافه شد."
+        };
+        dispatch("notification/add", notification, {root: true});
+      }
+    }).catch(error =>{
+      let notification = {
+        type: "error",
+        message: error.message
+      };
+      dispatch("notification/add", notification, {root: true});
+    })
+  },
+  async uploadStaffTazkira({dispatch},tazkira){
+    let data = new FormData();
+    data.append('staffTazkira',tazkira.staffTazkira);
+    await axios.put("http://localhost:3000/staff/tazkira/upload/"+tazkira.id, data, {
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+      }
+    }).then(response =>{
+      if(response.status == 200)
+      {
+        let notification = {
+          type: "success",
+          message: "تذکره مفقانه آپلود شد."
+        };
+        dispatch("notification/add", notification, {root: true});
+      }
+    }).catch(error =>{
+      let notification = {
+        type: "error",
+        message: error.message
+      };
+      dispatch("notification/add", notification, {root: true});
+    })
+  },
+  async uploadStaffContract({dispatch},contract){
+    let data = new FormData();
+    data.append('staffContract',contract.staffContract);
+    await axios.put("http://localhost:3000/staff/contract/upload/"+contract.id, data, {
+      headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+      }
+    }).then(response =>{
+      if(response.status == 200)
+      {
+        let notification = {
+          type: "success",
+          message: "قرار داد کاری موفقانه در سیستم آپلود شد."
+        };
+        dispatch("notification/add", notification, {root: true});
+      }
+    }).catch(error =>{
+      let notification = {
+        type: "error",
+        message: error.message
+      };
+      dispatch("notification/add", notification, {root: true});
+    })
   }
 };
