@@ -175,7 +175,7 @@
                           <td>{{ employe.edu_level}}</td>
                           <td>{{ employe.edu_university }}</td>
                            <td>{{ employe.edu_docs }}</td>
-                            <td><v-btn icon color="primary"><v-icon>mdi-eye</v-icon></v-btn></td>
+                            <td><v-btn icon color="primary" target="_blank" :href="'http://localhost:3000/uploads/docs/education/'+ employe.edu_docs"><v-icon>mdi-eye</v-icon></v-btn></td>
                         </tr>
                       </tbody>
                     </template>
@@ -224,7 +224,7 @@
                         <tr>
                           <td>{{ employe.tazkira_id}}</td>
                           <td>{{ employe.tazkira_copy }}</td>
-                            <td><v-btn icon color="primary"><v-icon>mdi-eye</v-icon></v-btn></td>
+                            <td><v-btn icon color="primary" target="_blank" :href="'http://localhost:3000/uploads/docs/tazkira/'+ employe.tazkira_copy"><v-icon>mdi-eye</v-icon></v-btn></td>
                         </tr>
                       </tbody>
                     </template>
@@ -273,7 +273,7 @@
                         <tr>
                           <td>{{ getRealDate(employe.hired_at)}}</td>
                           <td>{{ employe.contract }}</td>
-                            <td><v-btn icon color="primary"><v-icon>mdi-eye</v-icon></v-btn></td>
+                            <td><v-btn icon color="primary" target="_blank" :href="'http://localhost:3000/uploads/docs/contract/'+ employe.contract"><v-icon>mdi-eye</v-icon></v-btn></td>
                         </tr>
                       </tbody>
                     </template>
