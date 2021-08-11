@@ -11,7 +11,7 @@
             <v-icon v-if="!employe.photo" x-large color="white"
               >mdi-account</v-icon
             >
-            <v-img v-else :src="photoBase"></v-img>
+            <v-img v-else :src="'http://localhost:3000/uploads/docs/photo/'+employe.photo"></v-img>
           </v-avatar>
         </v-col>
         <v-col cols="12"><v-divider></v-divider></v-col>
@@ -689,7 +689,7 @@ export default {
   },
   data() {
     return {
-      photoBase:"public/uploads/docs/photo/",//+ this.employe.photo,
+      //photoBase:"http://localhost:3000/uploads/docs/photo/"+ this.employe.photo,
       upload_file:'',
       employe: {},
       rules: rules,
