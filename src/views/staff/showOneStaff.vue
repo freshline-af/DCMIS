@@ -11,7 +11,10 @@
             <v-icon v-if="!employe.photo" x-large color="white"
               >mdi-account</v-icon
             >
-            <v-img v-else :src="'http://localhost:3000/uploads/docs/photo/'+employe.photo"></v-img>
+            <v-img
+              v-else
+              :src="'http://localhost:3000/uploads/docs/photo/' + employe.photo"
+            ></v-img>
           </v-avatar>
         </v-col>
         <v-col cols="12"><v-divider></v-divider></v-col>
@@ -162,20 +165,31 @@
                           <th>
                             رشته تحصیلی
                           </th>
-                           <th>
-                           دیپلوم
+                          <th>
+                            دیپلوم
                           </th>
                           <th>
-                           مشاهده کردن دیپلوم
+                            مشاهده کردن دیپلوم
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>{{ employe.edu_level}}</td>
+                          <td>{{ employe.edu_level }}</td>
                           <td>{{ employe.edu_university }}</td>
-                           <td>{{ employe.edu_docs }}</td>
-                            <td><v-btn icon color="primary" target="_blank" :href="'http://localhost:3000/uploads/docs/education/'+ employe.edu_docs"><v-icon>mdi-eye</v-icon></v-btn></td>
+                          <td>{{ employe.edu_docs }}</td>
+                          <td>
+                            <v-btn
+                              icon
+                              color="primary"
+                              target="_blank"
+                              :href="
+                                'http://localhost:3000/uploads/docs/education/' +
+                                  employe.edu_docs
+                              "
+                              ><v-icon>mdi-eye</v-icon></v-btn
+                            >
+                          </td>
                         </tr>
                       </tbody>
                     </template>
@@ -185,46 +199,62 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col  cols="12">
+        <v-col cols="12">
           <v-card>
             <v-card-title>
               <span>تذکره</span>
               <v-spacer></v-spacer>
               <v-btn @click="tazkira_dialog = !tazkira_dialog" icon>
-                <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
+                <v-icon v-if="!employe.tazkira_copy" color="primary">mdi-cloud-upload-outline</v-icon>
+                <v-icon color="primary" v-else>mdi-pencil</v-icon>
               </v-btn>
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text>
               <v-row>
-                <v-col v-if="!employe.tazkira_copy" align="center" class="pa-12">
+                <v-col
+                  v-if="!employe.tazkira_copy"
+                  align="center"
+                  class="pa-12"
+                >
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
                     >لطفا تذکره خود را در سیستم اپلود نماید.</span
                   >
                 </v-col>
-                 <v-col v-else cols="12" align="center" class="pa-8">
+                <v-col v-else cols="12" align="center" class="pa-8">
                   <v-simple-table>
                     <template v-slot:default>
                       <thead>
                         <tr>
                           <th>
-                           شماره تذکره
+                            شماره تذکره
                           </th>
                           <th>
-                           تذکره
+                            تذکره
                           </th>
-                           <th>
-                           مشاهده کردن تذکره
+                          <th>
+                            مشاهده کردن تذکره
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>{{ employe.tazkira_id}}</td>
+                          <td>{{ employe.tazkira_id }}</td>
                           <td>{{ employe.tazkira_copy }}</td>
-                            <td><v-btn icon color="primary" target="_blank" :href="'http://localhost:3000/uploads/docs/tazkira/'+ employe.tazkira_copy"><v-icon>mdi-eye</v-icon></v-btn></td>
+                          <td>
+                            <v-btn
+                              icon
+                              color="primary"
+                              target="_blank"
+                              :href="
+                                'http://localhost:3000/uploads/docs/tazkira/' +
+                                  employe.tazkira_copy
+                              "
+                              ><v-icon>mdi-eye</v-icon></v-btn
+                            >
+                          </td>
                         </tr>
                       </tbody>
                     </template>
@@ -259,21 +289,32 @@
                       <thead>
                         <tr>
                           <th>
-                          تاریخ آغاز کار
+                            تاریخ آغاز کار
                           </th>
                           <th>
-                           قرار داد کاری
+                            قرار داد کاری
                           </th>
-                           <th>
-                           مشاهده کردن قرارداد
+                          <th>
+                            مشاهده کردن قرارداد
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>{{ getRealDate(employe.hired_at)}}</td>
+                          <td>{{ getRealDate(employe.hired_at) }}</td>
                           <td>{{ employe.contract }}</td>
-                            <td><v-btn icon color="primary" target="_blank" :href="'http://localhost:3000/uploads/docs/contract/'+ employe.contract"><v-icon>mdi-eye</v-icon></v-btn></td>
+                          <td>
+                            <v-btn
+                              icon
+                              color="primary"
+                              target="_blank"
+                              :href="
+                                'http://localhost:3000/uploads/docs/contract/' +
+                                  employe.contract
+                              "
+                              ><v-icon>mdi-eye</v-icon></v-btn
+                            >
+                          </td>
                         </tr>
                       </tbody>
                     </template>
@@ -305,27 +346,34 @@
                     نماید.</span
                   >
                 </v-col>
-                 <v-col v-else cols="12" align="center" class="pa-8">
+                <v-col v-else cols="12" align="center" class="pa-8">
                   <v-simple-table>
                     <template v-slot:default>
                       <thead>
                         <tr>
                           <th>
-                         یوزنیم
+                            یوزنیم
                           </th>
                           <th>
-                           تغیر دادن
+                            تغیر دادن
                           </th>
-                           <th>
-                          مقام
+                          <th>
+                            مقام
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>{{employe.username}}</td>
-                          <td><v-btn icon color="primary" @click="sign_up_dialog = !sign_up_dialog"><v-icon>mdi-pencil</v-icon></v-btn></td>
-                            <td>{{employe.role}}</td>
+                          <td>{{ employe.username }}</td>
+                          <td>
+                            <v-btn
+                              icon
+                              color="primary"
+                              @click="sign_up_dialog = !sign_up_dialog"
+                              ><v-icon>mdi-pencil</v-icon></v-btn
+                            >
+                          </td>
+                          <td>{{ employe.role }}</td>
                         </tr>
                       </tbody>
                     </template>
@@ -364,7 +412,6 @@
                   counter
                   accept=".pdf, .zip"
                   v-model="edu_doc.staffEduDocs"
-                 
                   :rules="rules.rules.required_file"
                 ></v-file-input>
               </v-col>
@@ -681,22 +728,21 @@
 </template>
 <script>
 import rules from "../../validation/validationRules.js";
-import Store from "../../store/index"
+import Store from "../../store/index";
 export default {
   mounted() {
     this.employe = this.$route.params.employe;
-    console.log(this.employe)
   },
   data() {
     return {
       //photoBase:"http://localhost:3000/uploads/docs/photo/"+ this.employe.photo,
-      upload_file:'',
+      upload_file: "",
       employe: {},
       rules: rules,
       // Education
       edu_doc: {},
       edu_dialog: false,
-      edu_file:'',
+      edu_file: "",
       edu_form_doc: null,
       // Tazkira
       tazkira_dialog: false,
@@ -754,6 +800,7 @@ export default {
       ],
     };
   },
+ 
   methods: {
     getRealDate(date) {
       const months = [
@@ -778,16 +825,15 @@ export default {
     },
     SubmitEduDoc() {
       if (this.$refs.edu_from_document.validate()) {
-        this.edu_doc.id =this.employe._id;
-       Store.dispatch("staff/uploadeEduDoc",this.edu_doc);
-       this.edu_dialog = false;
-
+        this.edu_doc.id = this.employe._id;
+        Store.dispatch("staff/uploadeEduDoc", this.edu_doc);
+        this.edu_dialog = false;
       }
     },
     SubmitTazkiraDoc() {
       if (this.$refs.tazkira_from_document.validate()) {
         this.tazkira_doc.id = this.employe._id;
-        Store.dispatch("staff/uploadStaffTazkira",this.tazkira_doc);
+        Store.dispatch("staff/uploadStaffTazkira", this.tazkira_doc);
         this.$refs.tazkira_from_document.reset();
         this.tazkira_dialog = false;
       }
@@ -795,7 +841,7 @@ export default {
     SubmitContractDoc() {
       if (this.$refs.contract_from_document.validate()) {
         this.contract_doc.id = this.employe._id;
-        Store.dispatch("staff/uploadStaffContract",this.contract_doc);
+        Store.dispatch("staff/uploadStaffContract", this.contract_doc);
         this.$refs.contract_from_document.reset();
         this.contract_dialog = false;
       }
@@ -803,10 +849,9 @@ export default {
     SubmitPhotoDoc() {
       if (this.$refs.photo_from_document.validate()) {
         this.photo_doc.id = this.employe._id;
-        Store.dispatch("staff/uploadStaffPhoto",this.photo_doc)
+        Store.dispatch("staff/uploadStaffPhoto", this.photo_doc);
         this.$refs.photo_from_document.reset();
         this.photo_dialog = false;
-
       }
     },
     SubmitSignUp() {
@@ -815,7 +860,7 @@ export default {
         this.sign_up_info.staffPwd = this.password;
         Store.dispatch("staff/signUpuser", this.sign_up_info);
         this.sign_up_dialog = false;
-       this.$router.push({name:"staff"})
+        this.$router.push({ name: "staff" });
       }
     },
     onpdfFile(event) {
@@ -824,9 +869,9 @@ export default {
       fileReader.readAsDataURL(files);
       this.upload_file = event;
     },
-    fileselect(file){
-      console.log(file)
-    }
+    fileselect(file) {
+      console.log(file);
+    },
   },
 };
 </script>

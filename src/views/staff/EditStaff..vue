@@ -314,7 +314,7 @@
     </v-row>
     <v-row class="mt-5 pa-4">
       <v-col class="text-right text-xs-center" cols="6" md="6" sm="6" xs="6">
-        <v-btn @click="reset" color="red" outlined>لغو کردن</v-btn>
+        <v-btn  width="300" elevation="5" @click="reset" color="red" outlined>لغو کردن</v-btn>
       </v-col>
       <v-spacer></v-spacer>
       <v-col class="text-left" cols="6" sm="6" xs="6" md="6">
