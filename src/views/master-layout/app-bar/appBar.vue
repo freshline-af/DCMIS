@@ -30,7 +30,8 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
       <v-avatar>
-        <v-img src="../../../assets/face.png"> </v-img>
+        <v-icon v-if="!staff.photo">mdi-account</v-icon>
+        <v-img v-else :src="'http://localhost:3000/uploads/docs/photo/'+staff.photo"> </v-img>
       </v-avatar>
       <v-btn icon @click.stop="leftDrawer = !leftDrawer">
         <v-icon>mdi-arrow-right</v-icon>
@@ -53,8 +54,12 @@ export default {
       search: false,
       searching: false,
       drawer: false,
-      leftDrawer: false
+      leftDrawer: false,
+      staff:{}
     };
+  },
+  mounted(){
+this.staff = JSON.parse(localStorage.getItem("user"));
   },
   methods:{
     showsearch(){

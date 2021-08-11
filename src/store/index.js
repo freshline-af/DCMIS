@@ -46,7 +46,7 @@ export default new Vuex.Store({
           const user = {
             username: "Basir",
             roll: "Admin",
-            photoUrl: "../../assets/face.png",
+            photo: "face.png",
             _id: "60ffd64beef96b4a38c9a11a",
             role: "common_staff",
             firstname: "محمد علی",

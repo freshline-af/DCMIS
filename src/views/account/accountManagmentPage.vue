@@ -8,10 +8,10 @@
             size="90"
             color="primary"
           >
-            <v-icon v-if="!employe.photoUrl" x-large color="white"
+            <v-icon v-if="!employe.photo" x-large color="white"
               >mdi-account</v-icon
             >
-            <v-img v-else :src="employe.photoUrl"></v-img>
+            <v-img v-else :src="'http://localhost:3000/uploads/docs/photo/'+employe.photo"></v-img>
           </v-avatar>
         </v-col>
         <v-col cols="12"><v-divider></v-divider></v-col>
