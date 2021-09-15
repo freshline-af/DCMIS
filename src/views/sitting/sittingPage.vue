@@ -11,7 +11,7 @@
             v-model="$vuetify.theme.dark"
             hint="با فعال کردن این مود تمام صفحات به رنگ تاریک نشان داده میشود و باعث اذیت کردن چشم  نمی شود"
             inset
-            label="فعال کردن نایت مود"
+            label="حالت شب"
             persistent-hint
           ></v-switch>
         </v-col>
