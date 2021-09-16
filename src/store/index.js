@@ -48,7 +48,6 @@ export default new Vuex.Store({
             roll: "Admin",
             photo: "face.png",
             _id: "60ffd64beef96b4a38c9a11a",
-            role: "common_staff",
             firstname: "محمد علی",
             lastname: "علی زاده",
             fathername: "عوض علی",

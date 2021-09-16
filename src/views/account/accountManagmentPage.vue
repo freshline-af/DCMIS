@@ -11,7 +11,10 @@
             <v-icon v-if="!employe.photo" x-large color="white"
               >mdi-account</v-icon
             >
-            <v-img v-else :src="'http://localhost:3000/uploads/docs/photo/'+employe.photo"></v-img>
+            <v-img
+              v-else
+              :src="'http://localhost:3000/uploads/docs/photo/' + employe.photo"
+            ></v-img>
           </v-avatar>
         </v-col>
         <v-col cols="12"><v-divider></v-divider></v-col>
@@ -132,7 +135,11 @@
             <v-card-title>
               <span>اسناد تحصیلی</span>
               <v-spacer></v-spacer>
-              <v-btn v-if="employe.role== 'Admin'" @click="edu_dialog = !edu_dialog" icon>
+              <v-btn
+                v-if="employe.role == 'Admin'"
+                @click="edu_dialog = !edu_dialog"
+                icon
+              >
                 <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
               </v-btn>
               <v-btn icon large>
@@ -151,7 +158,8 @@
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
-                    >برای آپلود نمودن اسناد تحصیلی تان با ادمین سیستم در تماس شوید.</span
+                    >برای آپلود نمودن اسناد تحصیلی تان با ادمین سیستم در تماس
+                    شوید.</span
                   >
                 </v-col>
                 <v-col v-else cols="12" align="center" class="pa-8">
@@ -165,24 +173,31 @@
                           <th>
                             رشته تحصیلی
                           </th>
-                           <th>
-                           دیپلوم
+                          <th>
+                            دیپلوم
                           </th>
                           <th>
-                           مشاهده کردن دیپلوم
+                            مشاهده کردن دیپلوم
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>{{ employe.edu_level}}</td>
+                          <td>{{ employe.edu_level }}</td>
                           <td>{{ employe.edu_university }}</td>
-                           <td>{{ employe.edu_docs }}</td>
-                            <td><v-btn icon color="primary" target="_blank"
+                          <td>{{ employe.edu_docs }}</td>
+                          <td>
+                            <v-btn
+                              icon
+                              color="primary"
+                              target="_blank"
                               :href="
                                 'http://localhost:3000/uploads/docs/education/' +
                                   employe.edu_docs
-                              "><v-icon>mdi-eye</v-icon></v-btn></td>
+                              "
+                              ><v-icon>mdi-eye</v-icon></v-btn
+                            >
+                          </td>
                         </tr>
                       </tbody>
                     </template>
@@ -192,50 +207,66 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col  cols="12">
+        <v-col cols="12">
           <v-card>
             <v-card-title>
               <span>تذکره</span>
               <v-spacer></v-spacer>
-              <v-btn v-if="employe.role== 'Admin'" @click="tazkira_dialog = !tazkira_dialog" icon>
+              <v-btn
+                v-if="employe.role == 'Admin'"
+                @click="tazkira_dialog = !tazkira_dialog"
+                icon
+              >
                 <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
               </v-btn>
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text>
               <v-row>
-                <v-col v-if="!employe.tazkira_copy" align="center" class="pa-12">
+                <v-col
+                  v-if="!employe.tazkira_copy"
+                  align="center"
+                  class="pa-12"
+                >
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
-                    >برای آپلود نمودن تذکره خود با آدمین سیستم در تماس شوید.</span
+                    >برای آپلود نمودن تذکره خود با آدمین سیستم در تماس
+                    شوید.</span
                   >
                 </v-col>
-                 <v-col v-else cols="12" align="center" class="pa-8">
+                <v-col v-else cols="12" align="center" class="pa-8">
                   <v-simple-table>
                     <template v-slot:default>
                       <thead>
                         <tr>
                           <th>
-                           شماره تذکره
+                            شماره تذکره
                           </th>
                           <th>
-                           تذکره
+                            تذکره
                           </th>
-                           <th>
-                           مشاهده کردن تذکره
+                          <th>
+                            مشاهده کردن تذکره
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>{{ employe.tazkira_id}}</td>
+                          <td>{{ employe.tazkira_id }}</td>
                           <td>{{ employe.tazkira_copy }}</td>
-                            <td><v-btn icon color="primary"  target="_blank"
+                          <td>
+                            <v-btn
+                              icon
+                              color="primary"
+                              target="_blank"
                               :href="
                                 'http://localhost:3000/uploads/docs/tazkira/' +
                                   employe.tazkira_copy
-                              "><v-icon>mdi-eye</v-icon></v-btn></td>
+                              "
+                              ><v-icon>mdi-eye</v-icon></v-btn
+                            >
+                          </td>
                         </tr>
                       </tbody>
                     </template>
@@ -250,7 +281,11 @@
             <v-card-title>
               <span>قرارداد کاری</span>
               <v-spacer></v-spacer>
-              <v-btn v-if="employe.role== 'Admin'" @click="contract_dialog = !contract_dialog" icon>
+              <v-btn
+                v-if="employe.role == 'Admin'"
+                @click="contract_dialog = !contract_dialog"
+                icon
+              >
                 <v-icon color="primary">mdi-cloud-upload-outline</v-icon>
               </v-btn>
             </v-card-title>
@@ -261,7 +296,8 @@
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
-                    >برای آپلود نمودن قرارداد کاری تان با آدمین سیستم در تماس شوید.</span
+                    >برای آپلود نمودن قرارداد کاری تان با آدمین سیستم در تماس
+                    شوید.</span
                   >
                 </v-col>
                 <v-col v-else cols="12" align="center" class="pa-8">
@@ -270,25 +306,32 @@
                       <thead>
                         <tr>
                           <th>
-                          تاریخ آغاز کار
+                            تاریخ آغاز کار
                           </th>
                           <th>
-                           قرار داد کاری
+                            قرار داد کاری
                           </th>
-                           <th>
-                           مشاهده کردن قرارداد
+                          <th>
+                            مشاهده کردن قرارداد
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>{{ getRealDate(employe.hired_at)}}</td>
+                          <td>{{ getRealDate(employe.hired_at) }}</td>
                           <td>{{ employe.contract }}</td>
-                            <td><v-btn icon color="primary"  target="_blank"
+                          <td>
+                            <v-btn
+                              icon
+                              color="primary"
+                              target="_blank"
                               :href="
                                 'http://localhost:3000/uploads/docs/contract/' +
                                   employe.contract
-                              "><v-icon>mdi-eye</v-icon></v-btn></td>
+                              "
+                              ><v-icon>mdi-eye</v-icon></v-btn
+                            >
+                          </td>
                         </tr>
                       </tbody>
                     </template>
@@ -303,7 +346,11 @@
             <v-card-title>
               <span>حساب کاربری</span>
               <v-spacer></v-spacer>
-              <v-btn v-if="employe.role== 'Admin'" @click="sign_up_dialog = !sign_up_dialog" icon>
+              <v-btn
+                v-if="employe.role == 'Admin'"
+                @click="sign_up_dialog = !sign_up_dialog"
+                icon
+              >
                 <v-icon color="primary"
                   >mdi-card-account-details-outline</v-icon
                 >
@@ -319,27 +366,34 @@
                     >برای ایجادحساب کاربری با آدمین سیستم در تماس شوید.</span
                   >
                 </v-col>
-                 <v-col v-else cols="12" align="center" class="pa-8">
+                <v-col v-else cols="12" align="center" class="pa-8">
                   <v-simple-table>
                     <template v-slot:default>
                       <thead>
                         <tr>
                           <th>
-                         یوزنیم
+                            یوزنیم
                           </th>
                           <th>
-                           تغیر دادن
+                            تغیر دادن
                           </th>
-                           <th>
-                          مقام
+                          <th>
+                            مقام
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>{{employe.username}}</td>
-                          <td><v-btn icon color="primary" @click="sign_up_dialog = !sign_up_dialog"><v-icon>mdi-pencil</v-icon></v-btn></td>
-                            <td>{{employe.role}}</td>
+                          <td>{{ employe.username }}</td>
+                          <td>
+                            <v-btn
+                              icon
+                              color="primary"
+                              @click="sign_up_dialog = !sign_up_dialog"
+                              ><v-icon>mdi-pencil</v-icon></v-btn
+                            >
+                          </td>
+                          <td>{{ employe.role }}</td>
                         </tr>
                       </tbody>
                     </template>
@@ -694,7 +748,7 @@
 </template>
 <script>
 import rules from "../../validation/validationRules.js";
-import Store from "../../store/index"
+import Store from "../../store/index";
 export default {
   mounted() {
     this.employe = JSON.parse(localStorage.getItem("user"));
@@ -788,9 +842,8 @@ export default {
     SubmitEduDoc() {
       if (this.$refs.edu_from_document.validate()) {
         this.edu_doc.id = this.employe._id;
-       Store.dispatch("staff/uploadeEduDoc",this.edu_doc);
-       this.edu_dialog = false;
-
+        Store.dispatch("staff/uploadeEduDoc", this.edu_doc);
+        this.edu_dialog = false;
       }
     },
     SubmitTazkiraDoc() {
@@ -808,7 +861,9 @@ export default {
     SubmitPhotoDoc() {
       if (this.$refs.photo_from_document.validate()) {
         this.photo_doc.id = this.employe._id;
-        console.log(this.employe);
+        Store.dispatch("staff/uploadStaffPhoto", this.photo_doc);
+        this.$refs.photo_from_document.reset();
+        this.photo_dialog = false;
       }
     },
     SubmitSignUp() {
@@ -817,7 +872,7 @@ export default {
         this.sign_up_info.staffPwd = this.password;
         Store.dispatch("staff/signUpuser", this.sign_up_info);
         this.sign_up_dialog = false;
-       this.$router.push({name:"staff"})
+        this.$router.push({ name: "staff" });
       }
     },
   },
