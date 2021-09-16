@@ -16,7 +16,9 @@ const pTeethProticeSchema = new Schema({
   age: { type: Number, required: true },
   blood_group: String,
   marital_status: { type: String, required: true },
-  case_history: [{ disease: String, result: Boolean }],
+  case_history: [
+    { _id: false, disease: String, result: Boolean },
+  ],
   registered_at: { type: Date, default: dateKabul },
   phone: { type: String, required: true },
   address: String,
@@ -24,6 +26,7 @@ const pTeethProticeSchema = new Schema({
   photo: String,
   appointment: [
     {
+      _id: false,
       stag: Number,
       teeth_protice: [
         {
