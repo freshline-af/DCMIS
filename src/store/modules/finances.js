@@ -50,5 +50,16 @@ export const actions = {
             dispatch("notification/add",notification,{root:true});
             throw error;
         })
+    },
+    async get_report_numberOf_days({dispatch},numOfDays){
+        await axios.get("http://localhost:3000/expenses/report",numOfDays).then(response =>{
+            console.log(response.data);
+        }).catch(error =>{
+            let notification ={
+                "type" :"warning",
+                "message": error
+            }
+            dispatch("notification/add",notification,{root:true})
+        })
     }
 };

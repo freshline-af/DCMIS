@@ -23,7 +23,12 @@
 </template>
 
 <script>
+import Store from "../../store/index"
     export default {
+        mounted(){
+            let numOfDays = 20;
+        Store.dispatch("finances/get_report_numberOf_days",numOfDays)
+        },
         data() {
             return {
                 search:"",

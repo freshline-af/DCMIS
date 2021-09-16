@@ -114,6 +114,7 @@
                                v-model="item.unit_price"
                                hint=".وارد کردن این فیلد الزامی می باشد"
                                prepend-icon="mdi-cash"
+                               @keyup="setTotal"
                                />
                                </v-col>
                            </v-row>
@@ -129,8 +130,8 @@
                                prepend-icon="mdi-cash-multiple"
                                placeholder=".مجموعه پول که برای خریداری کردن ارقام ذکر شده مصرف شده است وارد کنید"
                                :rules="rules.rules.required_number"
-                               value="item.number * item.unit_price"
-                               v-model="item.total"
+                               value="total_prices"
+                               v-model="total_prices"
                                hint=".وارد کردن این فیلد الزامی می باشد"
                                />
                                </v-col>
@@ -217,6 +218,7 @@ import Store from "../../store/index";
             return {
                 rules: rules,
                 file_image:null,
+                total_prices:0,
                 add_item_dialog: null,
                 invoce_form: null,
                 item_number:0,
@@ -249,6 +251,7 @@ import Store from "../../store/index";
                this.number_item = [];
             }
             },
+            // This method add new item to the array of item for insert new invoices;
             AddItem(){
                 if(this.$refs.form_item.validate())
                 {
@@ -256,7 +259,7 @@ import Store from "../../store/index";
                     "name":this.item.name,
                     "number":this.item.number,
                     "unit_price": this.item.unit_price,
-                    "total": this.item.total
+                    "total": this.total_prices
                 });
                 this.item_number +=1;
                 this.number_item.push(this.item_number)
@@ -264,6 +267,12 @@ import Store from "../../store/index";
 
                 }
             },
+            // This method count the total number of prices of any invoices
+            setTotal(){
+                var number = this.item.number;
+                var prices = this.item.unit_price;
+                this.total_prices = number * prices;
+            }
            
         }
     }
