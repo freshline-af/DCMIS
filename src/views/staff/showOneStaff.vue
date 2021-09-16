@@ -151,7 +151,7 @@
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
-                    >لطفااسناد های تحصیلی خود را در سیستم اپلود نماید.</span
+                    >لطفااسناد های تحصیلی خود را در سیستم اپلود نمایید.</span
                   >
                 </v-col>
                 <v-col v-else cols="12" align="center" class="pa-8">
@@ -220,7 +220,7 @@
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
-                    >لطفا تذکره خود را در سیستم اپلود نماید.</span
+                    >لطفا تذکره خود را در سیستم اپلود نمایید.</span
                   >
                 </v-col>
                 <v-col v-else cols="12" align="center" class="pa-8">
@@ -280,7 +280,7 @@
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
-                    >لطفا قرارداد کاری خود را در سیستم اپلود نماید.</span
+                    >لطفا قرارداد کاری خود را در سیستم اپلود نمایید.</span
                   >
                 </v-col>
                 <v-col v-else cols="12" align="center" class="pa-8">
@@ -343,7 +343,7 @@
                   <br />
                   <span class="pt-8 show_detial"
                     >لطفابرای وارد شدن کارمند به سیستم یوزرنیم و پسورد انتخاب
-                    نماید.</span
+                    نمایید.</span
                   >
                 </v-col>
                 <v-col v-else cols="12" align="center" class="pa-8">
@@ -461,7 +461,7 @@
             <v-row justify="center">
               <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
                 <v-file-input
-                  label="تذکره خود را انتخاب نماید."
+                  label="تذکره خود را انتخاب نمایید."
                   v-model="tazkira_doc.staffTazkira"
                   outlined
                   rounded
@@ -517,7 +517,7 @@
             <v-row justify="center">
               <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
                 <v-file-input
-                  label="قرارداد کاری خود را انتخاب نماید."
+                  label="قرارداد کاری خود را انتخاب نمایید."
                   v-model="contract_doc.staffContract"
                   outlined
                   rounded
@@ -573,7 +573,7 @@
             <v-row justify="center">
               <v-col class="mt-8" cols="12" md="6" lg="6" sm="12" xl="6">
                 <v-file-input
-                  label="عکس مورد نظر خود را انتخاب نماید."
+                  label="عکس مورد نظر خود را انتخاب نمایید."
                   v-model="photo_doc.staffPhoto"
                   outlined
                   rounded
