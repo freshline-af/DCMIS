@@ -767,9 +767,9 @@ export default {
       password: "",
       sign_up_info: {},
       type_staff: [
-        { text: "مدیر", value: "َAdmin" },
-        { text: "اسیستاند", value: "Assistant" },
-        { text: "کشییر", value: "cashier" },
+        { text: "Admin", value: "َAdmin" },
+        { text: "Assistant", value: "Assistant" },
+        { text: "Cashier", value: "Cashier" },
       ],
       password_rules: [
         (v) => !!v || "وارد کردن پسورد الزامی می باشد.",
