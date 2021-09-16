@@ -151,7 +151,7 @@
                   <v-icon x-large color="warning">mdi-alert-outline</v-icon>
                   <br />
                   <span class="pt-8 show_detial"
-                    >لطفااسناد های تحصیلی خود را در سیستم اپلود نمایید.</span
+                    >لطفااسناد تحصیلی خود را در سیستم اپلود نمایید.</span
                   >
                 </v-col>
                 <v-col v-else cols="12" align="center" class="pa-8">
