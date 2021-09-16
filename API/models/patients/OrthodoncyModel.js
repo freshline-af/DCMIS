@@ -22,35 +22,37 @@ const pOrthodoncySchema = new Schema({
   address: String,
   sex: { type: String, required: true },
   photo: String,
-  appointment: {
-    stag: Number,
-    orthodoncy: [
-      {
-        meet_at: {
-          type: Date,
-          default: Date.now,
+  appointment: [
+    {
+      stag: Number,
+      orthodoncy: [
+        {
+          meet_at: {
+            type: Date,
+            default: Date.now,
+          },
+          round: {
+            type: Number,
+            min: 1,
+            max: 5,
+          },
+          image: String,
+          description: String,
+          tooth: {
+            gum: String,
+            type: { type: String },
+          },
+          fee: {
+            installment: { type: Number, min: 1, max: 3 },
+            amount_received: Schema.Types.Decimal128,
+            amount_due: Schema.Types.Decimal128,
+            dentist: mongoose.ObjectId,
+          },
+          total_received: Schema.Types.Decimal128,
         },
-        round: {
-          type: Number,
-          min: 1,
-          max: 5,
-        },
-        image: String,
-        description: String,
-        tooth: {
-          gum: String,
-          type: { type: String },
-        },
-        fee: {
-          installment: { type: Number, min: 1, max: 3 },
-          amount_received: Schema.Types.Decimal128,
-          amount_due: Schema.Types.Decimal128,
-          dentist: mongoose.ObjectId,
-        },
-        total_received: Schema.Types.Decimal128,
-      },
-    ],
-  },
+      ],
+    },
+  ],
 });
 // access the database collection
 const POrthodoncy = mongoose.model("pOrthodoncy", pOrthodoncySchema, "patients");
