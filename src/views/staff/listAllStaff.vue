@@ -24,7 +24,7 @@
             <v-dialog v-model="dialogDelete" max-width="500px">
               <v-card>
                 <v-card-title class="headline"
-                  >آیا می خواهد این کارمند را از سیستم حذف کنید؟</v-card-title
+                  >آیا می خواهید این کارمند را از سیستم حذف کنید؟</v-card-title
                 >
                 <v-card-actions>
                   <v-btn color="blue darken-1" text @click="dialogDelete = !dialogDelete"
