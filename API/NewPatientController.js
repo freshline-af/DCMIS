@@ -92,17 +92,25 @@ const insertPatient = async (req, res) => {
       let meetAt = serviceArrayOfObj[s].meet_date;
       let sRound = serviceArrayOfObj[s].round;
       let desc = serviceArrayOfObj[s].description;
-      let _material = serviceArrayOfObj[s].material;
       let toothGum = serviceArrayOfObj[s].tooth.gum;
       let toothType = serviceArrayOfObj[s].tooth.type;
       let inst = serviceArrayOfObj[s].fee.installment;
       let amountReceived = serviceArrayOfObj[s].fee.amount_received;
       let amoutDue = serviceArrayOfObj[s].fee.amount_due;
       let _dentist = serviceArrayOfObj[s].fee.dentist;
+      if (seeDrFor === "teeth_filling") {
+        serviceObj["initial_services"] = serviceArrayOfObj[s].initial_services;
+        serviceObj["material"] = serviceArrayOfObj[s].material;
+      } else if (seeDrFor === "teeth_cover"
+              || seeDrFor === "teeth_protice"
+              || seeDrFor === "teeth_bleaching") {
+        serviceObj["material"] = serviceArrayOfObj[s].material;
+      } else if (seeDrFor === "orthodoncy") {
+        serviceObj["image"] = serviceArrayOfObj[s].image;
+      } 
       serviceObj["meet_at"] = meetAt;
       serviceObj["round"] = sRound;
       serviceObj["description"] = desc;
-      serviceObj["material"] = _material;
       toothObj["gum"] = toothGum;
       toothObj["type"] = toothType;
       feeObj["installment"] = inst;
@@ -118,10 +126,11 @@ const insertPatient = async (req, res) => {
     apptObj[seeDrFor] = newServiceArray;
     newApptArray.push(apptObj);
   }
+
   // res.json(newApptArray);
 
   /* ---------------------------/. Appointment Array/Objects ------------------------ */
-
+  /* -------------------------- Insert patients into db ------------------------------- */
   await patient.create(
     {
       firstname: fname,
@@ -135,18 +144,19 @@ const insertPatient = async (req, res) => {
       phone: pphone,
       address: addr,
       sex: psex,
-      appointment: newApptArray
+      appointment: newApptArray,
     },
     (err, result) => {
       if (err) {
         res.end("Some error occured: " + err);
-      } else if(result) {
+      } else if (result) {
         res.end("Patient added!");
       } else {
-        res.end('Sorry, patient not added.');
+        res.end("Sorry, patient not added.");
       }
     }
   );
+  /* --------------------------/. Insert patients into db ------------------------------- */
 };
 
 module.exports = insertPatient;
