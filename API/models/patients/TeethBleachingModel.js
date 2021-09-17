@@ -16,9 +16,7 @@ const pTeethBleachingSchema = new Schema({
   age: { type: Number, required: true },
   blood_group: String,
   marital_status: { type: String, required: true },
-  case_history: [
-    { _id: false, disease: String, result: Boolean },
-  ],
+  case_history: [{ _id: false, disease: String, result: Boolean }],
   registered_at: { type: Date, default: dateKabul },
   phone: { type: String, required: true },
   address: String,
@@ -30,6 +28,7 @@ const pTeethBleachingSchema = new Schema({
       stag: Number,
       teeth_bleaching: [
         {
+          _id: false,
           meet_at: {
             type: Date,
             default: Date.now,

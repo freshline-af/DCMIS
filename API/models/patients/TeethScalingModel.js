@@ -28,6 +28,7 @@ const pScalingSchema = new Schema({
       stag: Number,
       scaling: [
         {
+          _id: false,
           meet_at: {
             type: Date,
             default: Date.now,

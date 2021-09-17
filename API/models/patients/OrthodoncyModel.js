@@ -28,6 +28,7 @@ const pOrthodoncySchema = new Schema({
       stag: Number,
       orthodoncy: [
         {
+          _id: false,
           meet_at: {
             type: Date,
             default: Date.now,

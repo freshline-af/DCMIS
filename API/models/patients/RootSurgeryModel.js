@@ -28,6 +28,7 @@ const pRootSurgerySchema = new Schema({
       stag: Number,
       root_surgery: [
         {
+          _id: false,
           meet_at: {
             type: Date,
             default: Date.now,
