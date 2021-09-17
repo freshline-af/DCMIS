@@ -26,7 +26,7 @@ const pTeethSurgerySchema = new Schema({
     {
       _id: false,
       stag: Number,
-      teeth_surgery: [
+      gum_surgery: [
         {
           meet_at: {
             type: Date,
