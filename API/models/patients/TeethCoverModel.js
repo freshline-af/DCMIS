@@ -28,6 +28,7 @@ const pTeethCoverSchema = new Schema({
       stag: Number,
       teeth_cover: [
         {
+          _id: false,
           meet_at: {
             type: Date,
             default: Date.now,
