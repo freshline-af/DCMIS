@@ -15,7 +15,6 @@ const insertPatient = async (req, res) => {
   // const stag = req.body.appointment.stag;
 
   /* ---------------- Personal Info ------------------- */
-  let pid = req.body._id;
   let fname = req.body.firstname;
   let lname = req.body.lastname;
   let faname = req.body.fathername;
@@ -101,13 +100,15 @@ const insertPatient = async (req, res) => {
       if (seeDrFor === "teeth_filling") {
         serviceObj["initial_services"] = serviceArrayOfObj[s].initial_services;
         serviceObj["material"] = serviceArrayOfObj[s].material;
-      } else if (seeDrFor === "teeth_cover"
-              || seeDrFor === "teeth_protice"
-              || seeDrFor === "teeth_bleaching") {
+      } else if (
+        seeDrFor === "teeth_cover" ||
+        seeDrFor === "teeth_protice" ||
+        seeDrFor === "teeth_bleaching"
+      ) {
         serviceObj["material"] = serviceArrayOfObj[s].material;
       } else if (seeDrFor === "orthodoncy") {
         serviceObj["image"] = serviceArrayOfObj[s].image;
-      } 
+      }
       serviceObj["meet_at"] = meetAt;
       serviceObj["round"] = sRound;
       serviceObj["description"] = desc;
@@ -126,10 +127,23 @@ const insertPatient = async (req, res) => {
     apptObj[seeDrFor] = newServiceArray;
     newApptArray.push(apptObj);
   }
-
-  // res.json(newApptArray);
-
   /* ---------------------------/. Appointment Array/Objects ------------------------ */
+  /* ---------------------------- Patient case-history --------------------------- */
+  // Case-history array of objects
+  let cHistoryArrayOfObj = req.body.case_history;
+  // Declase a new array to use in below
+  let newCHistoryArray = [];
+  for (let c = 0; c < cHistoryArrayOfObj.length; c++) {
+    // Declare a new obj for case-history
+    let cHistoryObj = {};
+    let chDisease = cHistoryArrayOfObj[c].disease;
+    let chResult = cHistoryArrayOfObj[c].result;
+    cHistoryObj["disease"] = chDisease;
+    cHistoryObj["result"] = chResult;
+    newCHistoryArray.push(cHistoryObj);
+  }
+  /* ----------------------------/. Patient case-history --------------------------- */
+
   /* -------------------------- Insert patients into db ------------------------------- */
   await patient.create(
     {
@@ -144,6 +158,8 @@ const insertPatient = async (req, res) => {
       phone: pphone,
       address: addr,
       sex: psex,
+      photo: pphoto,
+      case_history: newCHistoryArray,
       appointment: newApptArray,
     },
     (err, result) => {
