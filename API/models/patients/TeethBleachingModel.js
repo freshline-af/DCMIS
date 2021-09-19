@@ -16,41 +16,45 @@ const pTeethBleachingSchema = new Schema({
   age: { type: Number, required: true },
   blood_group: String,
   marital_status: { type: String, required: true },
-  case_history: [{ disease: String, result: Boolean }],
+  case_history: [{ _id: false, disease: String, result: Boolean }],
   registered_at: { type: Date, default: dateKabul },
   phone: { type: String, required: true },
   address: String,
   sex: { type: String, required: true },
   photo: String,
-  appointment: {
-    stag: Number,
-    teeth_bleaching: [
-      {
-        meet_at: {
-          type: Date,
-          default: Date.now,
+  appointment: [
+    {
+      _id: false,
+      stag: Number,
+      teeth_bleaching: [
+        {
+          _id: false,
+          meet_at: {
+            type: Date,
+            default: Date.now,
+          },
+          round: {
+            type: Number,
+            min: 1,
+            max: 5,
+          },
+          material: String,
+          description: String,
+          tooth: {
+            gum: String,
+            type: { type: String },
+          },
+          fee: {
+            installment: { type: Number, min: 1, max: 3 },
+            amount_received: Schema.Types.Decimal128,
+            amount_due: Schema.Types.Decimal128,
+            dentist: mongoose.ObjectId,
+          },
+          total_received: Schema.Types.Decimal128,
         },
-        round: {
-          type: Number,
-          min: 1,
-          max: 5,
-        },
-        material: String,
-        description: String,
-        tooth: {
-          gum: String,
-          type: { type: String },
-        },
-        fee: {
-          installment: { type: Number, min: 1, max: 3 },
-          amount_received: Schema.Types.Decimal128,
-          amount_due: Schema.Types.Decimal128,
-          dentist: mongoose.ObjectId,
-        },
-        total_received: Schema.Types.Decimal128,
-      },
-    ],
-  },
+      ],
+    },
+  ],
 });
 // access the database collection
 const PTeethBleaching = mongoose.model("pTeethBleaching", pTeethBleachingSchema, "patients");

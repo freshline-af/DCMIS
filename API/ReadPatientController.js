@@ -43,7 +43,7 @@ const patientsController = async (req, res) => {
       break;
   }
 
-  const patients = await patient.find();
+  const patients = await patient.find({});
   // res.json(patients);
   res.send(patients);
 }
