@@ -1141,7 +1141,7 @@ export default {
       ],
       type_fack_orthodoncy: ["بالا", "پایین", "هردو"],
       installments: [
-        { text: "تکمیل", value: 0 },
+        { text: "تکمیل", value: 1 },
         {
           text: "دو قسط",
           value: "2",
