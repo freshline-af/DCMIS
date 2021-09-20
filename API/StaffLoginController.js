@@ -3,11 +3,11 @@ const staffSchema = require("../API/models/staff/Staff");
 // Import this module to hash password
 const bcrypt = require("bcryptjs");
 
-// fetch username & password to very them into db.staff whether they are existing
+// fetch username & password to varify them into db.staff whether they are existing
 const StaffCredentials = async (req, res) => {
-  await staffSchema.findOne(
+  let resultSet = await staffSchema.findOne(
     {
-      username: req.body.username,
+      username: req.body.username
     },
     function(err, staff) {
       if (err) throw err;
@@ -20,7 +20,7 @@ const StaffCredentials = async (req, res) => {
             throw err;
           } else {
             if (result) {
-              res.json("Success");
+              res.json(resultSet);
             } else {
               res.json("Fail");
             }
