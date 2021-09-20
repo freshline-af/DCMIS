@@ -8,7 +8,7 @@ const StaffSchema = new Schema(
   {
     username: String,
     password: String,
-    role: { type: String, required: true },
+    role: String,
     firstname: { type: String, required: true },
     lastname: String,
     fathername: { type: String, required: true },
