@@ -78,7 +78,7 @@ const insertPatient = async (req, res) => {
         patient = TeethFilling;
         seeDrFor = "teeth_filling";
         break;
-    }
+    } 
     var serviceArrayOfObj = apptArrayOfObj[a][seeDrFor];
 
     // Declare a new empty array for services to use in below.

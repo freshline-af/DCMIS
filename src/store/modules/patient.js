@@ -32,13 +32,18 @@ export const actions = {
   },
   async addPatient({dispatch},patient){
     axios.post("http://localhost:3000/patient/add",patient).then( (response =>{
-      if(response.status== 200){
+      if(response.status== 200 && response.data == "Patient added!"){
         const notification = {
         type: 'success',
-        message: response.data +"sueccessfully"
+        message: "مریض مورد نظر موفقانه در سیستم اضافه گردید."
       }
-      console.log(response.date)
       dispatch('notification/add', notification, { root: true })
+      }else{
+        const notification = {
+          type: 'red',
+          message: "در قسمت راجستر کردن مریض مشکل وجود دارد." + response.data
+        }
+        dispatch('notification/add', notification, { root: true })
       }
     })).catch(error =>{
       const notification = {

@@ -867,7 +867,7 @@
                   </v-row>
                 </v-col>
                 <v-col cols="12" class="mt-n2">
-                  <v-row justify="center" v-if="fee.installment != 0">
+                  <v-row justify="center" v-if="fee.installment != 1">
                     <v-col cols="12" md="6">
                       <BaseEdittext
                         label="مبلغ قابل پرداخت"
@@ -1069,18 +1069,7 @@ export default {
         "چهار مرحله یی",
       ],
       new_patient: {
-        appointment: {
-          stage: "",
-          teeth_filling: [],
-          teeth_cover: [],
-          orthodoncy: [],
-          teeth_remove: [],
-          teeth_surgery: [],
-          root_surgery: [],
-          teeth_protice: [],
-          teeth_bleaching: [],
-          scaling: [],
-        },
+        appointment:[]
       },
       marital_status: ["مجرد", "متاهل"],
       six: ["مذکر", "مونث"],
@@ -1141,7 +1130,7 @@ export default {
       ],
       type_fack_orthodoncy: ["بالا", "پایین", "هردو"],
       installments: [
-        { text: "تکمیل", value: 0 },
+        { text: "تکمیل", value: 1 },
         {
           text: "دو قسط",
           value: "2",
@@ -1149,6 +1138,18 @@ export default {
         { text: "سه فسط", value: 3 },
       ],
       patient_caseHistory: [],
+      appointment2:{ 
+        teeth_filling:[],
+        teeth_cover:[],
+        orthodoncy: [],
+        teeth_remove: [],
+        teeth_surgery: [],
+        root_surgery: [],
+        teeth_protice:[],
+        teeth_bleaching: [],
+        scaling: [],
+        mounth_testing: []
+        },
       appointment: {
         stag: "",
         teeth_filling: {
@@ -1242,178 +1243,112 @@ export default {
     PatientRagistar() {
       if (this.$refs.submit_new_patient_form.validate()) {
         if (this.appointment.stag === 1) {
-          this.new_patient.appointment.stag = this.appointment.stag;
-          this.new_patient.appointment.teeth_filling = [
+          this.appointment.teeth_filling.fee = 
             {
-              tooth: {
-                gum: this.appointment.teeth_filling.tooth.gum,
-                type: this.appointment.teeth_filling.tooth.type,
-              },
-              material: this.appointment.teeth_filling.material,
-              description: this.appointment.teeth_filling.description,
-              fee: {
-                installment: this.fee.installment,
-                amount_received: this.fee.amount_received,
-                amount_due: this.fee.total_received - this.fee.amount_received,
-                dentist: "60b9c344fdfcff1cb464e52b",
-              },
-              total_received: this.fee.total_received,
-            },
-          ];
+                "installment": this.fee.installment, 
+                "amount_received": this.fee.amount_received,
+                "amount_due": this.fee.total_received - this.fee.amount_received,
+               " dentist": "60b9c344fdfcff1cb464e52b",
+              
+            };
+            this.appointment2.stag = 1;
+            this.appointment2.teeth_filling.push(this.appointment.teeth_filling);
+            this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 2) {
-          this.new_patient.appointment.stag = this.appointment.stag;
-          this.new_patient.appointment.teeth_cover = [
+          this.appointment.teeth_cover.fee = 
             {
-              tooth: {
-                gum: this.appointment.teeth_cover.tooth.gum,
-                type: this.appointment.teeth_cover.tooth.type,
-              },
-              material: this.appointment.teeth_cover.material,
-              description: this.appointment.teeth_cover.description,
-              fee: {
-                installment: this.fee.installment,
-                amount_received: this.fee.amount_received,
-                amount_due: this.fee.total_received - this.fee.amount_received,
-                dentist: "60b9c344fdfcff1cb464e52b",
-              },
-              total_received: this.fee.total_received,
-            },
-          ];
+                "installment": this.fee.installment,
+                "amount_received": this.fee.amount_received,
+                "amount_due": this.fee.total_received - this.fee.amount_received,
+               " dentist": "60b9c344fdfcff1cb464e52b",
+            };
+             this.appointment2.stag = 2;
+            this.appointment2.teeth_cover.push(this.appointment.teeth_cover);
+             this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 3) {
-          this.new_patient.appointment.stag = this.appointment.stag;
-          this.new_patient.appointment.orthodoncy = [
+          this.appointment.orthodoncy.fee = 
             {
-              tooth: {
-                gum: this.appointment.orthodoncy.tooth.gum,
-                type: this.appointment.orthodoncy.tooth.type,
-              },
-              description: this.appointment.orthodoncy.description,
-              fee: {
-                installment: this.fee.installment,
-                amount_received: this.fee.amount_received,
-                amount_due: this.fee.total_received - this.fee.amount_received,
-                dentist: "60b9c344fdfcff1cb464e52b",
-              },
-              total_received: this.fee.total_received,
-              image: this.appointment.orthodoncy.image,
-            },
-          ];
+             
+                "installment": this.fee.installment,
+                "amount_received": this.fee.amount_received,
+               " amount_due": this.fee.total_received - this.fee.amount_received,
+                "dentist": "60b9c344fdfcff1cb464e52b",
+                "image": this.appointment.orthodoncy.image,
+            };
+             this.appointment2.stag = 3;
+            this.appointment2.orthodoncy.push(this.appointment.orthodoncy);
+             this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 4) {
-          this.new_patient.appointment.stag = this.appointment.stag;
-          this.new_patient.appointment.teeth_remove = [
+          this.appointment.teeth_remove.fee =
             {
-              tooth: {
-                gum: this.appointment.teeth_remove.tooth.gum,
-                type: this.appointment.teeth_remove.tooth.type,
-              },
-              description: this.appointment.teeth_remove.description,
-              fee: {
-                installment: this.fee.installment,
-                amount_received: this.fee.amount_received,
-                amount_due: this.fee.total_received - this.fee.amount_received,
-                dentist: "60b9c344fdfcff1cb464e52b",
-              },
-              total_received: this.fee.total_received,
-            },
-          ];
+               " installment": this.fee.installment,
+                "amount_received": this.fee.amount_received,
+                "amount_due": this.fee.total_received - this.fee.amount_received,
+                "dentist": "60b9c344fdfcff1cb464e52b",
+            };
+             this.appointment2.stag = 4;
+            this.appointment2.teeth_remove.push(this.appointment.teeth_remove);
+             this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 5) {
-          this.new_patient.appointment.stag = this.appointment.stag;
-          this.new_patient.appointment.teeth_surgery = [
+          this.appointment.teeth_surgery.fee = 
             {
-              tooth: {
-                gum: this.appointment.teeth_surgery.tooth.gum,
-                type: this.appointment.teeth_surgery.tooth.type,
-              },
-              description: this.appointment.teeth_surgery.description,
-              fee: {
-                installment: this.fee.installment,
-                amount_received: this.fee.amount_received,
-                amount_due: this.fee.total_received - this.fee.amount_received,
-                dentist: "60b9c344fdfcff1cb464e52b",
-              },
-              total_received: this.fee.total_received,
-            },
-          ];
+                "installment": this.fee.installment,
+               " amount_received": this.fee.amount_received,
+                "amount_due": this.fee.total_received - this.fee.amount_received,
+               " dentist": "60b9c344fdfcff1cb464e52b",
+            };
+             this.appointment2.stag = 5;
+            this.appointment2.teeth_surgery.push(this.appointment.teeth_surgery);
+             this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 6) {
-          this.new_patient.appointment.stag = this.appointment.stag;
-          this.new_patient.appointment.root_surgery = [
+          this.appointment.root_surgery.fee = 
             {
-              tooth: {
-                gum: this.appointment.root_surgery.tooth.gum,
-                type: this.appointment.root_surgery.tooth.type,
-              },
-              description: this.appointment.root_surgery.description,
-              fee: {
-                installment: this.fee.installment,
-                amount_received: this.fee.amount_received,
-                amount_due: this.fee.total_received - this.fee.amount_received,
-                dentist: "60b9c344fdfcff1cb464e52b",
-              },
-              total_received: this.fee.total_received,
-            },
-          ];
+                "installment": this.fee.installment,
+               " amount_received": this.fee.amount_received,
+               " amount_due": this.fee.total_received - this.fee.amount_received,
+                "dentist": "60b9c344fdfcff1cb464e52b",
+              };
+               this.appointment2.stag = 6;
+            this.appointment2.root_surgery.push(this.appointment.root_surgery);
+               this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 7) {
-          this.new_patient.appointment.stag = this.appointment.stag;
-          this.new_patient.appointment.teeth_protice = [
+          this.appointment.teeth_protice.fee = 
             {
-              tooth: {
-                gum: this.appointment.teeth_protice.tooth.gum,
-                type: this.appointment.teeth_protice.tooth.type,
-              },
-              initail_services: this.appointment.teeth_protice.initail_services,
-              description: this.appointment.teeth_protice.description,
-              fee: {
-                installment: this.fee.installment,
-                amount_received: this.fee.amount_received,
-                amount_due: this.fee.total_received - this.fee.amount_received,
-                dentist: "60b9c344fdfcff1cb464e52b",
-              },
-              total_received: this.fee.total_received,
-            },
-          ];
+                "installment": this.fee.installment,
+                "amount_received": this.fee.amount_received,
+                "amount_due": this.fee.total_received - this.fee.amount_received,
+                "dentist": "60b9c344fdfcff1cb464e52b",
+              };
+               this.appointment2.stag = 7;
+            this.appointment2.teeth_protice.push(this.appointment.teeth_protice);
+               this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 8) {
-          this.new_patient.appointment.stag = this.appointment.stag;
-          this.new_patient.appointment.teeth_bleaching = [
+          this.appointment.teeth_bleaching.fee = 
             {
-              tooth: {
-                gum: this.appointment.teeth_bleaching.tooth.gum,
-                type: this.appointment.teeth_bleaching.tooth.type,
-              },
-              material: this.appointment.teeth_bleaching.material,
-              description: this.appointment.teeth_bleaching.description,
-              fee: {
-                installment: this.fee.installment,
-                amount_received: this.fee.amount_received,
-                amount_due: this.fee.total_received - this.fee.amount_received,
-                dentist: "",
-              },
-              total_received: this.fee.total_received,
-            },
-          ];
+              
+                "installment": this.fee.installment,
+                "amount_received": this.fee.amount_received,
+                "amount_due": this.fee.total_received - this.fee.amount_received,
+               " dentist": "",
+              };
+               this.appointment2.stag = 8;
+            this.appointment2.teeth_bleaching.push(this.appointment.teeth_bleaching);
+               this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 9) {
-          this.new_patient.appointment.stag = this.appointment.stag;
-          this.new_patient.appointment.scaling = [
+          this.appointment.scaling.fee = 
             {
-              tooth: {
-                gum: this.appointment.scaling.tooth.gum,
-                type: this.appointment.scaling.tooth.type,
-              },
-              material: this.appointment.scaling.material,
-              description: this.appointment.scaling.description,
-              fee: {
-                installment: this.fee.installment,
-                amount_received: this.fee.amount_received,
-                amount_due: this.fee.total_received - this.fee.amount_received,
-                dentist: "60b9c344fdfcff1cb464e52b",
-              },
-              total_received: this.fee.total_received,
-            },
-          ];
+                "installment": this.fee.installment,
+                "amount_received": this.fee.amount_received,
+                "amount_due": this.fee.total_received - this.fee.amount_received,
+                "dentist": "60b9c344fdfcff1cb464e52b",
+              };
+               this.appointment2.stag = 9;
+            this.appointment2.scaling.push(this.appointment.scaling);
+               this.new_patient.appointment.push(this.appointment2);
         }
         this.$store.dispatch("patient/addPatient", this.new_patient);
         this.$store.dispatch("patient/getListOfPatient");
-        // this.$refs.regis_patient.reset();
-        console.log(this.new_patient);
+        this.$router.push({name:"patient"})
       }
     },
   },
