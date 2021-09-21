@@ -366,13 +366,14 @@ export default {
     },
     submitInfo() {
       if (this.$refs.employRegistar.validate()) {
+        this.employe.tazkira_id = this.tazkira_id;
+        this.employe.phone1 = this.phone_number;
         this.employe.hired_at = this.hired_at;
         this.employe.edu_start_date = this.edu_start_date;
         this.employe.edu_end_date = this.edu_end_date;
         this.employe.role = ""
         Store.dispatch("staff/addEmploye", this.employe)
-        window.scrollTo(0,0)
-        this.reset();
+        location.reload();
       
       }
     },

@@ -39,10 +39,17 @@ export const actions = {
   },
   async addEmploye({dispatch},employe){
   await axios.post("http://localhost:3000/staff/add",employe).then( response =>{
-      if(response.status == 200){
+      if(response.status == 200 && response.data =="Staff added!"){
         let notification ={
           type: "success",
-          message: response.data
+          message: "کارمند مورد نظر موفقانه در سیستم اضافه گردید."
+        };
+        dispatch("getStaff")
+        dispatch("notification/add", notification, {root: true});
+      }else{
+        let notification ={
+          type: "red",
+          message: "در قسمت اضافه کردن کارمند جدید مشکل وجود دارد."
         };
         dispatch("getStaff")
         dispatch("notification/add", notification, {root: true});
