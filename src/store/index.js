@@ -31,43 +31,25 @@ export default new Vuex.Store({
       axios
         .post("http://localhost:3000/staff/login", data)
         .then((response) => {
-          //   if (response.data === "Fail") {
-          //     const notification = {
-          //       type: "error",
-          //       message:response.data //".لطفا پسورد و یا توزرنیم خود را چک نماید که درست باشد",
-          //     };
-          //     dispatch("notification/add", notification, { root: true });
+            if (response.status == 200 && response.data === "Fail") {
+              const notification = {
+                type: "red",
+                message:"لطفا پسورد و یا یوزرنیم خود را چک نماید که درست باشد.",
+              };
+              dispatch("notification/add", notification, { root: true });
 
-          // } else {}
+          } else {
           const notification = {
             type: "success",
-            message: response.data, //"به سیستم خوش آمدید.",
+            message:"به سیستم خوش آمدید.",
           };
-          const user = {
-            username: "Basir",
-            roll: "Admin",
-            photo: "face.png",
-            _id: "60ffd64beef96b4a38c9a11a",
-            firstname: "محمد علی",
-            lastname: "علی زاده",
-            fathername: "عوض علی",
-            tazkira_id: "345678",
-            phone1: "0748953964",
-            address: "کابل افغانستان",
-            edu_level: "دوازده پاس",
-            edu_field: "طب دندان",
-            edu_university: "پوهنتون طبی کابل",
-            position: "کار آموز",
-            salary: 5000,
-            edu_start_date: "2021-07-27T09:47:55.717Z",
-            edu_end_date: "2021-07-27T09:47:55.717Z",
-            hired_at: "2021-07-27T09:47:55.717Z",
-          };
-          commit("ADD_USER", user);
-          localStorage.setItem("user", JSON.stringify(user));
+         
+          commit("ADD_USER", JSON.stringify(response.data));
+          localStorage.setItem("user", JSON.stringify(response.data));
           router.push({ name: "Home" });
           window.location.reload();
           dispatch("notification/add", notification, { root: true });
+        }
         })
         .catch((error) => {
           const notification = {

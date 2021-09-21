@@ -99,7 +99,6 @@
 
 <script>
 import rules_validation from "../../validation/validationRules";
-import bcrypt from "bcryptjs";
 export default {
   data() {
     return {
@@ -113,34 +112,15 @@ export default {
   methods: {
     login() {
       if (this.$refs.user_login.validate()) {
-         let data = this.user;
-    bcrypt.genSalt(10, ((saltError, salt,) =>{
-         
-          if(!saltError){
-          bcrypt.hash(data.password, salt, ((hashError, hash)=> {
-               if(!hashError) {
-                let password  = hash;
-               data.password = password;
-               //console.log(data.password)
-               this.$store.dispatch("login_staff",this.user);
-              }
-              else {
-                throw hashError;
-              }
-            }));
-            
-          }
-          else {
-            throw saltError;
-          }
-        }));
-       
-       
-        
+        let data={
+          "username":this.user.username,
+          "password":this.user.password
+        };
+         this.$store.dispatch("login_staff",data);
       }
-    },
   },
-};
+}
+}
 </script>
 
 <style scoped></style>
