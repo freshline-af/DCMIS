@@ -60,13 +60,16 @@
             <v-col cols="12" md="12" sm="12" xs="12">
               <v-row justify="center">
                <v-col cols="12" md="6" lg="6" sm="12" xl="6">
-              <BaseEdittext
+              <v-text-field
                 label="شماره تذکره"
-                type="number"
+                type="text"
                 placeholder="شماره تذکره خود را وارد کنید"
-                picon="mdi-numeric"
-                v-model="employe.tazkira_id"
+                prepend-icon="mdi-numeric"
+                rounded
+                outlined
+                v-model="tazkira_id"
                 :rules="Rules.rules.tazkira_id"
+               @input="formatTazkira_number"
               />
                </v-col>
               </v-row>
@@ -329,6 +332,7 @@ export default {
   data() {
     return {
       phone_number:"",
+      tazkira_id:"",
       Rules,
       menu1: false,
       menu2:false,
@@ -352,11 +356,14 @@ export default {
     reset() {
       this.$refs.employRegistar.reset();
     },
+    formatTazkira_number(){
+      var tazkira = this.tazkira_id.replace(/\D/g,'').match(/(\d{0,4})(\d{0,4})(\d{0,5})/);
+      this.tazkira_id = !tazkira[2] ? tazkira[1] :  tazkira[1] + '-' + tazkira[2] + (tazkira[3] ? '-' +tazkira[3]: '');
+    },
     formatPhoneNumber(){
       var phone = this.phone_number.replace(/\D/g,'').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,4})/);
-      this.phone_number = !phone[2] ? phone[1] : '(' + phone[1] + ') ' + phone[2] + (phone[3] ? '-' +phone[3]: '');
+      this.phone_number = !phone[2] ? phone[1] :  phone[1] + '-' + phone[2] + (phone[3] ? '-' +phone[3]: '');
     },
-   
     submitInfo() {
       if (this.$refs.employRegistar.validate()) {
         this.employe.hired_at = this.hired_at;
