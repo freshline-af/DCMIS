@@ -116,9 +116,9 @@ export default {
      this.dialogDelete= true;
     },
  async   deleteItemConfirm(){
-   await  Store.dispatch("staff/deleteStaff", this.employe);
+    await  Store.dispatch("staff/deleteStaff", this.employe);
+   await window.location.reload();
      this.dialogDelete = false;
-      window.location.reload();
     }
   },
 };
