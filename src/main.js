@@ -41,7 +41,6 @@ requireComponent.keys().forEach(fileName => {
     componentConfig.default || componentConfig
   );
 });
-
 Vue.config.productionTip = false;
 
 new Vue({

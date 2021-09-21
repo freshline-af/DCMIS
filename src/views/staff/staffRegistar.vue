@@ -74,12 +74,15 @@
             <v-col cols="12" md="12" sm="12" xs="12">
               <v-row justify="center">
                <v-col cols="12" md="6" lg="6" sm="12" xl="6">
-              <BaseEdittext
+              <v-text-field
                 label="شماره تماس"
                 placeholder="شماره تماس خود را وارد کنید"
-                picon="mdi-phone"
-                type="number"
-                v-model="employe.phone1"
+                prepend-icon="mdi-phone"
+                outlined
+                rounded
+                type="text"
+                @input="formatPhoneNumber"
+                v-model="phone_number"
                 :rules="Rules.rules.required_phone"
               />
                </v-col>
@@ -325,6 +328,7 @@ import Store from "../../store/index"
 export default {
   data() {
     return {
+      phone_number:"",
       Rules,
       menu1: false,
       menu2:false,
@@ -348,12 +352,17 @@ export default {
     reset() {
       this.$refs.employRegistar.reset();
     },
+    formatPhoneNumber(){
+      var phone = this.phone_number.replace(/\D/g,'').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,4})/);
+      this.phone_number = !phone[2] ? phone[1] : '(' + phone[1] + ') ' + phone[2] + (phone[3] ? '-' +phone[3]: '');
+    },
+   
     submitInfo() {
       if (this.$refs.employRegistar.validate()) {
         this.employe.hired_at = this.hired_at;
         this.employe.edu_start_date = this.edu_start_date;
         this.employe.edu_end_date = this.edu_end_date;
-        this.employe.role = "common_staff"
+        this.employe.role = ""
         Store.dispatch("staff/addEmploye", this.employe)
         window.scrollTo(0,0)
         this.reset();
