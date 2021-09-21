@@ -691,8 +691,8 @@
                       item-value="value"
                       prepend-icon="mdi-text"
                       rounded
-                      v-model="sign_up_info.role"
-                      placeholder="لطفا پسورد خود را دوباره وارد کنید."
+                      v-model="sign_up_info.staffRole"
+                      placeholder="لطفا مقام کارمند را انتخاب نمایید."
                     >
                     </v-select>
                   </v-col>
