@@ -361,7 +361,7 @@ export default {
       this.tazkira_id = !tazkira[2] ? tazkira[1] :  tazkira[1] + '-' + tazkira[2] + (tazkira[3] ? '-' +tazkira[3]: '');
     },
     formatPhoneNumber(){
-      var phone = this.phone_number.replace(/\D/g,'').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,4})/);
+      var phone = this.phone_number.replace(/\D/g,'').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
       this.phone_number = !phone[2] ? phone[1] :  phone[1] + '-' + phone[2] + (phone[3] ? '-' +phone[3]: '');
     },
     submitInfo() {

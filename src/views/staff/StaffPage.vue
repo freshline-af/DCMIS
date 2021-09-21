@@ -6,7 +6,7 @@
       </v-tab>
     </v-tabs>
     <v-tabs-items continuous v-model="tab">
-      <v-tab-item><AllStaff :staffs="staffs"></AllStaff> </v-tab-item>
+      <v-tab-item><AllStaff></AllStaff> </v-tab-item>
       <v-tab-item><Registar></Registar> </v-tab-item>
       <v-tab-item> <Present></Present> </v-tab-item>
     </v-tabs-items>
@@ -28,7 +28,6 @@ export default {
   data() {
     return {
       tab: null,
-      staffs:[]
     };
   },
   async beforeRouteEnter(routeTo,routeFrom,next){
@@ -42,9 +41,7 @@ export default {
     ...mapState(["staff"])
   },
   methods:{
-     initialize() {
-       this.staffs = this.$store.state.staff.staff;
-  }
+   
   }
 };
 </script>

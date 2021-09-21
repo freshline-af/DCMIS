@@ -26,8 +26,8 @@ const StaffSchema = new Schema(
     edu_docs: String,
     tazkira_copy: String,
     photo: String,
-    phone1: { type: String, required: true, min: 10, max: 12 },
-    phone2: { type: String, required: false, min: 10, max: 12 }
+    phone1: { type: String, required: true, min: 12 },
+    phone2: { type: String, required: false, min: 12}
     // the second parameter forces mongodb to not pluralize staff automatically
   },
   { collection: "staff" }

@@ -63,13 +63,16 @@
             <v-col cols="12" md="12" sm="12" xs="12">
               <v-row justify="center">
                 <v-col cols="12" md="6" lg="6" sm="12" xl="6">
-                  <BaseEdittext
+                  <v-text-field
                     label="شماره تذکره"
-                    type="number"
+                    type="text"
+                    rounded
+                    outlined
                     placeholder="شماره تذکره خود را وارد کنید"
-                    picon="mdi-numeric"
-                    v-model="staff.tazkira_id"
-                    :vlaues="staff.tazkira_id"
+                    prepend-icon="mdi-numeric"
+                    @input="formatTazkira_number"
+                    v-model="tazkira_id"
+                    :vlaues="tazkira_id"
                     :rules="Rules.rules.tazkira_id"
                   />
                 </v-col>
@@ -78,13 +81,16 @@
             <v-col cols="12" md="12" sm="12" xs="12">
               <v-row justify="center">
                 <v-col cols="12" md="6" lg="6" sm="12" xl="6">
-                  <BaseEdittext
+                  <v-text-field
                     label="شماره تماس"
+                    rounded
+                    outlined
                     placeholder="شماره تماس خود را وارد کنید"
-                    picon="mdi-phone"
-                    type="number"
-                    v-model="staff.phone1"
-                    :values="staff.phone1"
+                    prepend-icon="mdi-phone"
+                    type="text"
+                    @input="formatPhoneNumber"
+                    v-model="phone_number"
+                    :values="phone_number"
                     :rules="Rules.rules.required_phone"
                   />
                 </v-col>
@@ -339,6 +345,8 @@ export default {
   data() {
     return {
       staff: {},
+      phone_number:"",
+      tazkira_id:"",
       Rules,
       menu1: false,
       menu2: false,
@@ -356,6 +364,8 @@ export default {
     this.edu_start_date = this.getRealDate(this.staff.edu_start_date);
     this.edu_end_date = this.getRealDate(this.staff.edu_end_date);
     this.hired_at = this.getRealDate(this.staff.hired_at);
+    this.phone_number = this.staff.phone1;
+    this.tazkira_id = this.staff.tazkira_id;
   },
   methods:{
       reset() {
@@ -369,15 +379,28 @@ export default {
       var day = real_date.getDate();
       return  months[month] +"-" + year+"-" +day ;
     },
-    updateStaff(){
+   async updateStaff(){
       this.staff.hired_at = this.hired_at;
       this.staff.edu_start_date = this.edu_start_date;
       this.staff.edu_end_date = this.edu_end_date;
-      Store.dispatch("staff/editStaff",this.staff);
+      this.staff.phone1 = this.phone_number;
+      this.staff.tazkira_id = this.tazkira_id
+      console.log(this.phone_number);
+      await Store.dispatch("staff/editStaff",this.staff);
+      await Store.dispatch("staff/getStaff")
       this.$router.push({name:"staff"});
 
 
-    }
+    },
+    formatTazkira_number(){
+      var tazkira = this.tazkira_id.replace(/\D/g,'').match(/(\d{0,4})(\d{0,4})(\d{0,5})/);
+      this.tazkira_id = !tazkira[2] ? tazkira[1] :  tazkira[1] + '-' + tazkira[2] + (tazkira[3] ? '-' +tazkira[3]: '');
+    },
+    formatPhoneNumber(){
+      var phone = this.phone_number.replace(/\D/g,'').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+      this.phone_number = !phone[2] ? phone[1] :  phone[1] + '-' + phone[2] + (phone[3] ? '-' +phone[3]: '');
+      
+    },
   }
 };
 </script>

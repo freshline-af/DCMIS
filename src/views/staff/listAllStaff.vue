@@ -64,16 +64,11 @@
 <script>
 import Store from "../../store/index"
 export default {
-  props: {
-    staffs: {
-      type: Array,
-      required: true,
-    },
-  },
+
   data() {
     return {
       search: "",
-      staffList: this.staffs,
+      staffList: [],
       dialogDelete:false,
       employe: {},
       footer: {
@@ -100,6 +95,9 @@ export default {
         { text: "عملیه", value: "actions", sortable: false },
       ],
     };
+  },
+  mounted(){
+    this.staffList= Store.state.staff.staff;
   },
   methods: {
     ShowOneStaff(item) {
