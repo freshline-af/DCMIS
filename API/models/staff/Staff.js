@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const StaffSchema = new Schema(
   {
     username: String,
-    password: String,
+    password: { type: String, select: false},
     role: String,
     firstname: { type: String, required: true },
     lastname: String,
@@ -27,7 +27,7 @@ const StaffSchema = new Schema(
     tazkira_copy: String,
     photo: String,
     phone1: { type: String, required: true, min: 10, max: 12 },
-    phone2: { type: String, required: false, min: 10, max: 12 }
+    phone2: { type: String, required: false, min: 10, max: 12 },
     // the second parameter forces mongodb to not pluralize staff automatically
   },
   { collection: "staff" }
