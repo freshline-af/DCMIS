@@ -1,72 +1,49 @@
-/* ------------------ 9 data models for patient services --------------------- */
-const TeethFilling = require("./models/patients/TeethFillingModel");
-const TeethRemove = require("./models/patients/TeethRemoveModel");
-const TeethCover = require("./models/patients/TeethCoverModel");
-const TeethProtice = require("./models/patients/TeethProticeModel");
-const TeethBleaching = require("./models/patients/TeethBleachingModel");
-const TeethScaling = require("./models/patients/TeethScalingModel");
-const GumSurgery = require("./models/patients/GumSurgeryModel");
-const RootSurgery = require("./models/patients/RootSurgeryModel");
-const Orthodoncy = require("./models/patients/OrthodoncyModel");
-/* ------------------/. 9 data models for patient services --------------------- */
-
 const patientsServices = async (req, res) => {
+  // Firstly, fetch the service tag of a service through request.
   const serviceTag = parseInt(req.params.stag);
-  let service = "";
+  // Declare a empty object to assign any service model.
+  let pModel = {};
   if (serviceTag === 1) {
-    service = TeethFilling;
+    pModel = require("./models/patients/TeethFillingModel");
   } else if (serviceTag === 2) {
-    service = TeethCover;
+    pModel = require("./models/patients/TeethCoverModel");
   } else if (serviceTag === 3) {
-    service = Orthodoncy;
+    pModel = require("./models/patients/OrthodoncyModel");
   } else if (serviceTag === 4) {
-    service = TeethRemove;
+    pModel = require("./models/patients/TeethRemoveModel");
   } else if (serviceTag === 5) {
-    service = GumSurgery;
+    pModel = require("./models/patients/GumSurgeryModel");
   } else if (serviceTag === 6) {
-    service = RootSurgery;
+    pModel = require("./models/patients/RootSurgeryModel");
   } else if (serviceTag === 7) {
-    service = TeethProtice;
+    pModel = require("./models/patients/TeethProticeModel");
   } else if (serviceTag === 8) {
-    service = TeethBleaching;
+    pModel = require("./models/patients/TeethBleachingModel");
   } else if (serviceTag === 9) {
-    service = TeethScaling;
+    pModel = require("./models/patients/TeethScalingModel");
   } else {
-    service = "Sorry, this service not existing.";
+    pModel = "Unavailable";
   }
-  /* switch (serviceTag) {
-    case 2:
-      service = TeethCover;
-      break;
-    case 3:
-      service = Orthodoncy;
-      break;
-    case 4:
-      service = TeethRemove;
-      break;
-    case 5:
-      service = GumSurgery;
-      break;
-    case 6:
-      service = RootSurgery;
-      break;
-    case 7:
-      service = TeethProtice;
-      break;
-    case 8:
-      service = TeethBleaching;
-      break;
-    case 9:
-      service = TeethScaling;
-      break;
-    default:
-      service = TeethFilling;
-      break;
-  } */
 
-  const patientService = await service.find({});
-  // res.json(patients);
-  res.send(patientService);
+  // Set a message if the service tag coming through request doesn't match
+  if (pModel === "Unavailable") {
+    res.end("Sorry, this service is not available.");
+  } else {
+    const patientService = await pModel.aggregate([
+      {
+        $match: {
+          "appointment.stag": serviceTag,
+        },
+      },
+    ]);
+    // This service is included but currently has no data.
+    if (patientService.length < 1) {
+      res.end("No data found.");
+    } else {
+      // res.send(...) = res.json(...) in here.
+      res.send(patientService);
+    }
+  }
 };
 
 module.exports = patientsServices;
