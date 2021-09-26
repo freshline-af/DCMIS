@@ -140,13 +140,16 @@
                     <v-col cols="12" class="mt-n2">
                       <v-row justify="center">
                         <v-col cols="6" md="6" sm="12" xs="12">
-                          <BaseEdittext
+                          <v-text-field
+                          outlined
+                          rounded
                             label="نمبر تذکره"
-                            v-model="new_patient.tazkira_id"
+                            v-model="tazkira_id"
                             placeholder=".نمبر تذکره خود را وارد کنید"
-                            type="number"
-                            picon="mdi-numeric"
-                            :rules="rule.rules.number"
+                            type="text"
+                            @input="formatTazkira_number"
+                            prepend-icon="mdi-numeric"
+                            :rules="rule.rules.tazkira_id"
                           />
                         </v-col>
                       </v-row>
@@ -170,14 +173,17 @@
                     <v-col cols="12" class="mt-n2">
                       <v-row justify="center">
                         <v-col cols="12" md="6" xl="6" lg="6" sm="12" xs="12">
-                          <BaseEdittext
+                          <v-text-field
                             label="نمبر تماس"
                             hint=".وارد کردن شماره تماس الزامی می باشد"
                             placeholder=".لطفا شماره تماس خود را وارد کنید"
-                            type="number"
-                            :rules="rule.rules.phone"
-                            v-model="new_patient.phone"
-                            picon="mdi-phone"
+                            type="text"
+                            @input="formatPhoneNumber"
+                            :rules="rule.rules.required_phone"
+                            outlined
+                            rounded
+                            v-model="phone_number"
+                            prepend-icon="mdi-phone"
                           />
                         </v-col>
                       </v-row>
@@ -925,6 +931,8 @@ import rules from "../../validation/validationRules.js";
 export default {
   data() {
     return {
+      phone_number:"",
+      tazkira_id:"",
       age: [
         "1",
         "2",
@@ -1210,8 +1218,18 @@ export default {
     this.patient_caseHistory = this.$store.state.services.caseHistory;
   },
   methods: {
+     formatTazkira_number(){
+      var tazkira = this.tazkira_id.replace(/\D/g,'').match(/(\d{0,4})(\d{0,4})(\d{0,5})/);
+      this.tazkira_id = !tazkira[2] ? tazkira[1] :  tazkira[1] + '-' + tazkira[2] + (tazkira[3] ? '-' +tazkira[3]: '');
+    },
+    formatPhoneNumber(){
+      var phone = this.phone_number.replace(/\D/g,'').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+      this.phone_number = !phone[2] ? phone[1] :  phone[1] + '-' + phone[2] + (phone[3] ? '-' +phone[3]: '');
+    },
     step1_parsonal() {
       if (this.$refs.regis_patient.validate()) {
+        this.new_patient.phone= this.phone_number;
+        this.new_patient.tazkira_id = this.tazkira_id;
         this.step = 2;
       }
     },
