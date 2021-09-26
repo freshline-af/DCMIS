@@ -385,7 +385,6 @@ export default {
       this.staff.edu_end_date = this.edu_end_date;
       this.staff.phone1 = this.phone_number;
       this.staff.tazkira_id = this.tazkira_id
-      console.log(this.phone_number);
       await Store.dispatch("staff/editStaff",this.staff);
       await Store.dispatch("staff/getStaff")
       this.$router.push({name:"staff"});

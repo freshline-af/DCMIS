@@ -63,9 +63,7 @@
       <v-btn icon class="mr-2" @click="showitem(item)">
         <v-icon>mdi-text</v-icon>
       </v-btn>
-      <v-btn icon class="mr-2" @click="editItem(item)">
-        <v-icon>mdi-pencil</v-icon>
-      </v-btn>
+      
       <v-btn @click="deleteItem(item)" icon>
         <v-icon>
           mdi-delete
