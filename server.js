@@ -49,6 +49,10 @@ const editPatient = require("./API/EditPatientController");
 const deletePatient = require("./API/DeletePatientController");
 /* --------------------------------- /. import Patients ------------------------- */
 
+/* ------------------------------ Import Patients' Services ---------------------- */
+const services = require("./API/ReadServicesController");
+/* ------------------------------/. Import Patients' Services ---------------------- */
+
 /* ------------------------------- Import Expenses ------------------------------ */
 // 1. Retrieve expenses
 const readExpense = require('./API/ReadExpensesController');
@@ -130,6 +134,11 @@ app.put("/patient/photo/upload/:id", (req, res) => {
 });
 
 /* ------------------ /. Routes for Patients -------------------------- */
+
+/* -------------------------------- Routes for Patients' Services -------------------------------------- */
+app.post("/patient/service/:stag", services);
+/* --------------------------------/. Routes for Patients' Services -------------------------------------- */
+
 /* ----------------------------- Routes for Staff ------------------------ */
 // Retrieve all staff
 app.get("/staff/all", staffAll);
