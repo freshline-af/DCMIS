@@ -32,7 +32,7 @@
             >
               <v-row class="mt-4" justify="center">
                 <v-col align="start" cols="12" md="6" sm="12" xs="12">
-                  <h2 class="mt-2">.لطفا معلومات شخصی خود را وارد کنید</h2>
+                  <h2 class="mt-2">لطفا معلومات شخصی بیمار مورد نطر را وارد کنید.</h2>
                 </v-col>
                 <v-col cols="12" align="center">
                   <v-row justify="center">
@@ -72,6 +72,21 @@
                     </v-col>
                   </v-row>
                 </v-col>
+                <v-col cols="12" class="mt-3">
+                  <v-row justify="center">
+                    <v-col cols="12" md="6" sm="12" xs="12">
+                      <BaseEdittext
+                        label=" تخلص"
+                        type="text"
+                        hint="وارد کردن تخلص اختیاری میباشد."
+                        placeholder="لطفا تخلص خود را وارد کنید."
+                        v-model="new_patient.lastname"
+                        picon="mdi-account"
+                        :rules="rule.rules.text"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-col>
 
                 <v-col cols="12" class="mt-3">
                   <v-row justify="center">
@@ -80,7 +95,7 @@
                         label=" شغل"
                         type="text"
                         hint=".وارد کردن شغل الزامی می باشد"
-                        placeholder=".لطفاً خود شغل خود را وارد کنید"
+                        placeholder=".لطفاً شغل خود را وارد کنید"
                         v-model="new_patient.occupation"
                         picon="mdi-account"
                         :rules="rule.rules.required_text"
@@ -141,11 +156,11 @@
                       <v-row justify="center">
                         <v-col cols="6" md="6" sm="12" xs="12">
                           <v-text-field
-                          outlined
-                          rounded
+                            outlined
+                            rounded
                             label="نمبر تذکره"
                             v-model="tazkira_id"
-                            placeholder=".نمبر تذکره خود را وارد کنید"
+                            placeholder="نمبر تذکره بیمار مورد نظر را وارد کنید."
                             type="text"
                             @input="formatTazkira_number"
                             prepend-icon="mdi-numeric"
@@ -931,8 +946,8 @@ import rules from "../../validation/validationRules.js";
 export default {
   data() {
     return {
-      phone_number:"",
-      tazkira_id:"",
+      phone_number: "",
+      tazkira_id: "",
       age: [
         "1",
         "2",
@@ -1077,7 +1092,7 @@ export default {
         "چهار مرحله یی",
       ],
       new_patient: {
-        appointment:[]
+        appointment: [],
       },
       marital_status: ["مجرد", "متاهل"],
       six: ["مذکر", "مونث"],
@@ -1146,18 +1161,18 @@ export default {
         { text: "سه فسط", value: 3 },
       ],
       patient_caseHistory: [],
-      appointment2:{ 
-        teeth_filling:[],
-        teeth_cover:[],
+      appointment2: {
+        teeth_filling: [],
+        teeth_cover: [],
         orthodoncy: [],
         teeth_remove: [],
         teeth_surgery: [],
         root_surgery: [],
-        teeth_protice:[],
+        teeth_protice: [],
         teeth_bleaching: [],
         scaling: [],
-        mounth_testing: []
-        },
+        mounth_testing: [],
+      },
       appointment: {
         stag: "",
         teeth_filling: {
@@ -1218,17 +1233,25 @@ export default {
     this.patient_caseHistory = this.$store.state.services.caseHistory;
   },
   methods: {
-     formatTazkira_number(){
-      var tazkira = this.tazkira_id.replace(/\D/g,'').match(/(\d{0,4})(\d{0,4})(\d{0,5})/);
-      this.tazkira_id = !tazkira[2] ? tazkira[1] :  tazkira[1] + '-' + tazkira[2] + (tazkira[3] ? '-' +tazkira[3]: '');
+    formatTazkira_number() {
+      var tazkira = this.tazkira_id
+        .replace(/\D/g, "")
+        .match(/(\d{0,4})(\d{0,4})(\d{0,5})/);
+      this.tazkira_id = !tazkira[2]
+        ? tazkira[1]
+        : tazkira[1] + "-" + tazkira[2] + (tazkira[3] ? "-" + tazkira[3] : "");
     },
-    formatPhoneNumber(){
-      var phone = this.phone_number.replace(/\D/g,'').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-      this.phone_number = !phone[2] ? phone[1] :  phone[1] + '-' + phone[2] + (phone[3] ? '-' +phone[3]: '');
+    formatPhoneNumber() {
+      var phone = this.phone_number
+        .replace(/\D/g, "")
+        .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+      this.phone_number = !phone[2]
+        ? phone[1]
+        : phone[1] + "-" + phone[2] + (phone[3] ? "-" + phone[3] : "");
     },
     step1_parsonal() {
       if (this.$refs.regis_patient.validate()) {
-        this.new_patient.phone= this.phone_number;
+        this.new_patient.phone = this.phone_number;
         this.new_patient.tazkira_id = this.tazkira_id;
         this.step = 2;
       }
@@ -1261,112 +1284,102 @@ export default {
     PatientRagistar() {
       if (this.$refs.submit_new_patient_form.validate()) {
         if (this.appointment.stag === 1) {
-          this.appointment.teeth_filling.fee = 
-            {
-                "installment": this.fee.installment, 
-                "amount_received": this.fee.amount_received,
-                "amount_due": this.fee.total_received - this.fee.amount_received,
-               " dentist": "60b9c344fdfcff1cb464e52b",
-              
-            };
-            this.appointment2.stag = 1;
-            this.appointment2.teeth_filling.push(this.appointment.teeth_filling);
-            this.new_patient.appointment.push(this.appointment2);
+          this.appointment.teeth_filling.fee = {
+            installment: this.fee.installment,
+            amount_received: this.fee.amount_received,
+            amount_due: this.fee.total_received - this.fee.amount_received,
+            " dentist": "60b9c344fdfcff1cb464e52b",
+          };
+          this.appointment2.stag = 1;
+          this.appointment2.teeth_filling.push(this.appointment.teeth_filling);
+          this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 2) {
-          this.appointment.teeth_cover.fee = 
-            {
-                "installment": this.fee.installment,
-                "amount_received": this.fee.amount_received,
-                "amount_due": this.fee.total_received - this.fee.amount_received,
-               " dentist": "60b9c344fdfcff1cb464e52b",
-            };
-             this.appointment2.stag = 2;
-            this.appointment2.teeth_cover.push(this.appointment.teeth_cover);
-             this.new_patient.appointment.push(this.appointment2);
+          this.appointment.teeth_cover.fee = {
+            installment: this.fee.installment,
+            amount_received: this.fee.amount_received,
+            amount_due: this.fee.total_received - this.fee.amount_received,
+            " dentist": "60b9c344fdfcff1cb464e52b",
+          };
+          this.appointment2.stag = 2;
+          this.appointment2.teeth_cover.push(this.appointment.teeth_cover);
+          this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 3) {
-          this.appointment.orthodoncy.fee = 
-            {
-             
-                "installment": this.fee.installment,
-                "amount_received": this.fee.amount_received,
-               " amount_due": this.fee.total_received - this.fee.amount_received,
-                "dentist": "60b9c344fdfcff1cb464e52b",
-                "image": this.appointment.orthodoncy.image,
-            };
-             this.appointment2.stag = 3;
-            this.appointment2.orthodoncy.push(this.appointment.orthodoncy);
-             this.new_patient.appointment.push(this.appointment2);
+          this.appointment.orthodoncy.fee = {
+            installment: this.fee.installment,
+            amount_received: this.fee.amount_received,
+            " amount_due": this.fee.total_received - this.fee.amount_received,
+            dentist: "60b9c344fdfcff1cb464e52b",
+            image: this.appointment.orthodoncy.image,
+          };
+          this.appointment2.stag = 3;
+          this.appointment2.orthodoncy.push(this.appointment.orthodoncy);
+          this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 4) {
-          this.appointment.teeth_remove.fee =
-            {
-               " installment": this.fee.installment,
-                "amount_received": this.fee.amount_received,
-                "amount_due": this.fee.total_received - this.fee.amount_received,
-                "dentist": "60b9c344fdfcff1cb464e52b",
-            };
-             this.appointment2.stag = 4;
-            this.appointment2.teeth_remove.push(this.appointment.teeth_remove);
-             this.new_patient.appointment.push(this.appointment2);
+          this.appointment.teeth_remove.fee = {
+            " installment": this.fee.installment,
+            amount_received: this.fee.amount_received,
+            amount_due: this.fee.total_received - this.fee.amount_received,
+            dentist: "60b9c344fdfcff1cb464e52b",
+          };
+          this.appointment2.stag = 4;
+          this.appointment2.teeth_remove.push(this.appointment.teeth_remove);
+          this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 5) {
-          this.appointment.teeth_surgery.fee = 
-            {
-                "installment": this.fee.installment,
-               " amount_received": this.fee.amount_received,
-                "amount_due": this.fee.total_received - this.fee.amount_received,
-               " dentist": "60b9c344fdfcff1cb464e52b",
-            };
-             this.appointment2.stag = 5;
-            this.appointment2.teeth_surgery.push(this.appointment.teeth_surgery);
-             this.new_patient.appointment.push(this.appointment2);
+          this.appointment.teeth_surgery.fee = {
+            installment: this.fee.installment,
+            " amount_received": this.fee.amount_received,
+            amount_due: this.fee.total_received - this.fee.amount_received,
+            " dentist": "60b9c344fdfcff1cb464e52b",
+          };
+          this.appointment2.stag = 5;
+          this.appointment2.teeth_surgery.push(this.appointment.teeth_surgery);
+          this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 6) {
-          this.appointment.root_surgery.fee = 
-            {
-                "installment": this.fee.installment,
-               " amount_received": this.fee.amount_received,
-               " amount_due": this.fee.total_received - this.fee.amount_received,
-                "dentist": "60b9c344fdfcff1cb464e52b",
-              };
-               this.appointment2.stag = 6;
-            this.appointment2.root_surgery.push(this.appointment.root_surgery);
-               this.new_patient.appointment.push(this.appointment2);
+          this.appointment.root_surgery.fee = {
+            installment: this.fee.installment,
+            " amount_received": this.fee.amount_received,
+            " amount_due": this.fee.total_received - this.fee.amount_received,
+            dentist: "60b9c344fdfcff1cb464e52b",
+          };
+          this.appointment2.stag = 6;
+          this.appointment2.root_surgery.push(this.appointment.root_surgery);
+          this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 7) {
-          this.appointment.teeth_protice.fee = 
-            {
-                "installment": this.fee.installment,
-                "amount_received": this.fee.amount_received,
-                "amount_due": this.fee.total_received - this.fee.amount_received,
-                "dentist": "60b9c344fdfcff1cb464e52b",
-              };
-               this.appointment2.stag = 7;
-            this.appointment2.teeth_protice.push(this.appointment.teeth_protice);
-               this.new_patient.appointment.push(this.appointment2);
+          this.appointment.teeth_protice.fee = {
+            installment: this.fee.installment,
+            amount_received: this.fee.amount_received,
+            amount_due: this.fee.total_received - this.fee.amount_received,
+            dentist: "60b9c344fdfcff1cb464e52b",
+          };
+          this.appointment2.stag = 7;
+          this.appointment2.teeth_protice.push(this.appointment.teeth_protice);
+          this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 8) {
-          this.appointment.teeth_bleaching.fee = 
-            {
-              
-                "installment": this.fee.installment,
-                "amount_received": this.fee.amount_received,
-                "amount_due": this.fee.total_received - this.fee.amount_received,
-               " dentist": "",
-              };
-               this.appointment2.stag = 8;
-            this.appointment2.teeth_bleaching.push(this.appointment.teeth_bleaching);
-               this.new_patient.appointment.push(this.appointment2);
+          this.appointment.teeth_bleaching.fee = {
+            installment: this.fee.installment,
+            amount_received: this.fee.amount_received,
+            amount_due: this.fee.total_received - this.fee.amount_received,
+            " dentist": "",
+          };
+          this.appointment2.stag = 8;
+          this.appointment2.teeth_bleaching.push(
+            this.appointment.teeth_bleaching
+          );
+          this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 9) {
-          this.appointment.scaling.fee = 
-            {
-                "installment": this.fee.installment,
-                "amount_received": this.fee.amount_received,
-                "amount_due": this.fee.total_received - this.fee.amount_received,
-                "dentist": "60b9c344fdfcff1cb464e52b",
-              };
-               this.appointment2.stag = 9;
-            this.appointment2.scaling.push(this.appointment.scaling);
-               this.new_patient.appointment.push(this.appointment2);
+          this.appointment.scaling.fee = {
+            installment: this.fee.installment,
+            amount_received: this.fee.amount_received,
+            amount_due: this.fee.total_received - this.fee.amount_received,
+            dentist: "60b9c344fdfcff1cb464e52b",
+          };
+          this.appointment2.stag = 9;
+          this.appointment2.scaling.push(this.appointment.scaling);
+          this.new_patient.appointment.push(this.appointment2);
         }
         this.$store.dispatch("patient/addPatient", this.new_patient);
         this.$store.dispatch("patient/getListOfPatient");
-        this.$router.push({name:"patient"})
+        this.$router.push({ name: "patient" });
       }
     },
   },
