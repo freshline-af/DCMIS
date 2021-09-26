@@ -10,6 +10,7 @@ import NotFoundPage from "../views/NotFoundPage.vue";
 import Patient from "../views/patient/patient.vue";
 import PatientRegistar from "../views/patient/registarPatient.vue";
 import Service from "../views/service/ServicePage.vue";
+import ShowPatientDetails from "../views/patient/showPatientDetails.vue";
 import ShowStaff from "../views/staff/showOneStaff.vue";
 import Sitting from "../views/sitting/sittingPage.vue";
 import Staff from "../views/staff/StaffPage.vue";
@@ -43,6 +44,12 @@ const routes = [
     path: "/patient-registar",
     name: "PatientRegistar",
     component: PatientRegistar,
+  },
+  {
+    path: "/show_patient_details",
+    name: "PatienDetails",
+    component: ShowPatientDetails,
+    probs:true
   },
   {
     path: "/edit_patient",
