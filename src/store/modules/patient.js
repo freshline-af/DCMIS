@@ -65,7 +65,7 @@ export const actions = {
       }
     }).catch(error =>{
       const notification = {
-        type: 'warning',
+        type: 'red',
         message: 'There was a problem editing your event: ' + error.message
       }
       dispatch('notification/add', notification, { root: true })

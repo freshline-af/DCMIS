@@ -14,7 +14,7 @@
             <v-card-title>
               <v-row>
                 <v-col cols="12" class="mt-n1">
-                  <v-btn icon @click="editPatientMethod"
+                  <v-btn icon @click="openEditPersonalInfoEditDialog"
                     ><v-icon color="primary">mdi-pencil</v-icon></v-btn
                   >
                 </v-col>
@@ -482,13 +482,17 @@
                       class="mb-3"
                     >
                       <v-row>
+                        <v-col   class="text-right"
+                          cols="6"
+                         
+                         >
+                          <v-btn class="white--text" elevation="3" large width="200" color="red" @click="closeEditPersonalInfoEditDialog">
+                            لفو کردن
+                          </v-btn>
+                        </v-col>
                         <v-col
                           class="text-end"
-                          cols="12"
-                          md="12"
-                          lg="12"
-                          xl="12"
-                          sm="12"
+                          cols="6"
                           ><v-btn
                             :disabled="!editParsonalInfoForm"
                             elevation="3"
@@ -507,11 +511,6 @@
               </v-stepper-content>
               <!-- step 2 Case history of patients-------------------------------- -->
               <v-stepper-content step="2">
-                <v-form
-                  v-model="EditeCaseHistoryForm"
-                  ref="editeCaseHistoryRef"
-                  @submit.prevent="stepTwoCaseHistoryEdit"
-                >
                   <v-row justify="center">
                     <v-col cols="12" md="6">
                       <h2>تغیر وارد کردن در تاریخجه بیمار.</h2>
@@ -527,7 +526,7 @@
                           <v-btn
                             icon
                             class="mr-2"
-                            @click="updateCaseHistory(item)"
+                            @click="openUpdateCaseHistory(item)"
                           >
                             <v-icon>mdi-pencil</v-icon>
                           </v-btn>
@@ -552,7 +551,7 @@
                     >
                       <v-row>
                         <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                          <v-btn width="200" large @click="step = 1">
+                          <v-btn width="200" large @click="patient_edit_step = 1">
                             برگشت
                           </v-btn>
                         </v-col>
@@ -564,12 +563,11 @@
                           xl="6"
                           sm="12"
                           ><v-btn
-                            :disabled="!EditeCaseHistoryForm"
                             elevation="3"
                             large
                             width="200"
                             color="primary"
-                            type="submit"
+                            @click="stepTwoCaseHistoryEdit"
                           >
                             بعدی
                           </v-btn>
@@ -577,27 +575,46 @@
                       </v-row>
                     </v-col>
                   </v-row>
-                </v-form>
               </v-stepper-content>
             </v-stepper-items>
           </v-stepper>
         </v-card-text>
       </v-card>
     </v-dialog>
-    <v-dialog max-width="200" v-model="caseHistoryDialog">
+    <!-- Case History update Dialog -->
+    <v-dialog max-width="300" persistent v-model="caseHistoryDialog">
       <v-card>
         <v-card-text>
-          <v-row>
+         <v-form v-model="caseUpdateForm" ref="CaseUpdateRef" @submit.prevent="submitUpdateCaseHistory">
+            <v-row class="pt-4">
             <v-col cols="12">
               <strong class="text-weight-bold">{{ caseUpdate.disease }}</strong>
             </v-col>
             <v-col cols="12">
-              <v-radio-group v-model="caseUpdate.result" :value="caseUpdate.result" mandatory row >
-                <v-radio label="بلی" value="true"></v-radio>
-                <v-radio label="نخیر" value="false"></v-radio>
+              <v-radio-group v-model="caseUpdate.result"  :value="caseUpdate.result" mandatory row >
+                <v-radio label="بلی" color="red" :value="true"></v-radio>
+                <v-radio label="نخیر" :value="false"></v-radio>
               </v-radio-group>
             </v-col>
+            <v-col>
+              <v-divider></v-divider>
+            </v-col>
+            <v-col cols="12">
+              <v-row>
+                <v-col cols="6" clase="text-right">
+                  <v-btn outlined color="red" @click=" closeCaseUpdateDialog">
+                    لغو کردن
+                  </v-btn>
+                </v-col>
+                <v-col cols="6" class="text-left">
+                 <v-btn type="submit" outlined color="blue">
+                   تغیر دادن
+                 </v-btn>
+                </v-col>
+              </v-row>
+            </v-col>
           </v-row>
+         </v-form>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -606,23 +623,15 @@
 
 <script>
 import rules from "../../validation/validationRules.js";
+import Store from "../../store/index";
 
 export default {
   data() {
     return {
-      heart: "false",
-      dieabet: "false",
-      blood: "false",
-      rule: rules,
-      EditeCaseHistoryForm: null,
-      editParsonalInfoForm: null,
+      // v-model of stepper
       patient_edit_step: 1,
-      editedItem: [],
-      editePatient: {},
-      edit_patient: false,
-      caseHistoryDialog: false,
-      phone_number: "",
-      tazkira_id: "",
+      rule: rules ,// rule for validation
+      editedItem: {},// object for show specifc patient
       maritalStatus: ["مجرد", "متاهل"],
       six: ["مذکر", "مونث"],
       bloodGroup: [
@@ -749,7 +758,42 @@ export default {
         "114",
         "115",
       ],
-      patientCaseHistory: [],
+      // personal information 
+       editePatient: {
+        firstname: "",
+        lastname: "",
+        fathername: "",
+        tazkira_id:0,
+        occupation: "",
+        age: 0,
+        blood_group: "",
+        marital_status:"",
+        phone: "",
+        address: "",
+        sex: "",
+        photo: "",
+        case_history: [],
+       },
+        defalutEditePatient: {
+        firstname: "",
+        lastname: "",
+        fathername: "",
+        tazkira_id:0,
+        occupation: "",
+        age: 0,
+        blood_group: "",
+        marital_status:"",
+        phone: "",
+        address: "",
+        sex: "",
+        photo: "",
+        case_history: [],
+       },
+      edit_patient: false,
+      editParsonalInfoForm: null,
+      //Case History
+      caseUpdateForm:null,
+      caseHistoryDialog: false,
       caseHeaders: [
         {
           text: "مرض",
@@ -764,7 +808,15 @@ export default {
         { text: "Actions", value: "actions", sortable: false },
       ],
       editedCaseIndex: -1,
-      caseUpdate: {},
+      caseUpdate: {
+        disease:"",
+        result:"",
+      },
+      caseUpdateDefalut:{
+        disease:"",
+        result:""
+      },
+
     };
   },
   mounted() {
@@ -815,9 +867,9 @@ export default {
         ? phone[1]
         : phone[1] + "-" + phone[2] + (phone[3] ? "-" + phone[3] : "");
     },
-    editPatientMethod() {
+    // To open dialog for edit personal information of patient
+    openEditPersonalInfoEditDialog() {
       this.editePatient = {
-        _id: this.editedItem._id,
         firstname: this.editedItem.firstname,
         lastname: this.editedItem.lastname,
         fathername: this.editedItem.fathername,
@@ -834,18 +886,59 @@ export default {
       };
       this.edit_patient = true;
     },
-    updateCaseHistory(item) {
+    // To close edit information dialog
+    closeEditPersonalInfoEditDialog(){
+      this.editePatient =Object.assign({},this.defalutEditePatient);
+      this.patient_edit_step =1;
+      this.edit_patient = false;
+    },
+    // To open case history update dialog
+    openUpdateCaseHistory(item) {
       this.editedCaseIndex = this.editePatient.case_history.indexOf(item);
       this.caseUpdate = Object.assign({}, item);
-      console.log(this.caseUpdate);
       this.caseHistoryDialog = true;
+    },
+    // To submit case Histofy update
+    submitUpdateCaseHistory(){
+       if(this.$refs.CaseUpdateRef.validate()){
+          if(this.editedCaseIndex>-1){
+           Object.assign( this.editePatient.case_history[this.editedCaseIndex],this.caseUpdate);
+           this.closeCaseUpdateDialog()
+          }
+       }
+
     },
     stepOnePersonalInfoEdit() {
       if (this.$refs.editPersonalInfoRef.validate()) {
+       
         this.patient_edit_step = 2;
       }
     },
-    stepTwoCaseHistoryEdit() {},
+    // To close case history dialog
+    closeCaseUpdateDialog(){
+       this.caseHistoryDialog = false;
+          this.$nextTick(()=>{
+            this.caseUpdate = Object.assign({},this.caseUpdateDefalut);
+            this.editedCaseIndex = -1;
+            
+          });
+    },
+   async stepTwoCaseHistoryEdit() {
+        this.editedItem.firstname = this.editePatient.firstname;
+        this.editedItem.fathername = this.editePatient.fathername;
+        this.editedItem.lastname = this.editePatient.lastname;
+        this.editedItem.occupation = this.editePatient.occupation;
+        this.editedItem.age = this.editePatient.age;
+        this.editedItem.blood_group = this.editePatient.blood_group;
+        this.editedItem.address = this.editePatient.address
+        this.editedItem.marital_status = this.editePatient.marital_status;
+        this.editedItem.sex = this.editePatient.sex;
+        this.editedItem.tazkira_id = this.editePatient.tazkira_id;
+        this.editedItem.phone = this.editePatient.phone;
+        await Store.dispatch("patient/editPatient",this.editedItem);
+        this.closeEditPersonalInfoEditDialog();
+        
+    },
   },
 };
 </script>
