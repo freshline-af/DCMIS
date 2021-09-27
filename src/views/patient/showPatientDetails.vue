@@ -3,7 +3,7 @@
     <v-col cols="12">
       <v-card>
         <v-card-title>
-          <strong class="pr-3"> جزییات بیشتر اکونت</strong>
+          <strong class="pr-3 text-h5"> جزییات بیشتر</strong>
         </v-card-title>
       </v-card>
     </v-col>
@@ -137,33 +137,30 @@
             <v-col cols="12" sm="12">
               <v-card>
                 <v-card-title>
-                  <strong> دفعات مراجعه شده</strong>
+                  <strong class="text-h5"> دفعات مراجعه شده</strong>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
-                  <v-simple-table v-if="editedItem.appointment">
-                    <template v-slot:default>
-                      <thead>
-                        <tr>
-                          <th>نوبت دوره</th>
-                          <th>تاریخ مراجعه</th>
-                          <th>توضیحات</th>
-                          <th>مشکل مریض</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                          v-for="item in editedItem.appointment"
-                          :key="item.round"
-                        >
-                          <td>{{ item.round }}</td>
-                          <td>{{ getDate(item.meet_date) }}</td>
-                          <td>{{ item.description }}</td>
-                          <td>{{ item.disease }}</td>
-                        </tr>
-                      </tbody>
-                    </template>
-                  </v-simple-table>
+                  <v-data-table v-if="editedItem.appointment"
+                  :headers="appointmentHeader"
+                  :items="appointmentItem" >
+                  <template v-slot:item.actions="{item}">
+                  <v-btn icon @click="openAppointmentEditDialog(item)">
+                    <v-icon color="primary">mdi-pencil</v-icon>
+                  </v-btn>
+                  </template>
+                  <template
+                  v-slot:item.meet_at="{item}"
+                  >
+                   {{ getRealDate(item.meet_at)}}
+                  </template>
+                  <template v-slot:item.stag ="{item}">
+                    {{showServices(item.stag)}}
+                  </template>
+                  <template v-slot:item.dentist ="{item}">
+                    {{showDintstName(item.dentist)}}
+                  </template>
+                  </v-data-table>
                   <v-sheet v-else>
                     <span>بیمار مورد نظر تا فعلا هیج مراجعه نداشته است</span>
                   </v-sheet>
@@ -173,7 +170,7 @@
             <v-col cols="12">
               <v-card>
                 <v-card-title>
-                  <strong>تاریخچه مریض</strong>
+                  <strong class="text-h5">تاریخچه مریض</strong>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
@@ -181,8 +178,8 @@
                     <template>
                       <thead>
                         <tr>
-                          <th>نوعیت تاریخچه</th>
-                          <th>حالت</th>
+                          <th class="font-weight-block font-weight-bold text-h6">نوعیت مریضی</th>
+                          <th class="font-weight-block font-weight-bold text-h6">نتیجه</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -191,7 +188,7 @@
                           :key="item.disease"
                         >
                           <td>{{ item.disease }}</td>
-                          <td>{{ item.result }}</td>
+                          <td><v-chip :color="item.result===true? 'red':'blue'" class="white--text">{{ item.result=== true?'بلی': 'نخیر' }}</v-chip></td>
                         </tr>
                       </tbody>
                     </template>
@@ -205,7 +202,7 @@
             <v-col cols="12" sm="12">
               <v-card>
                 <v-card-title>
-                  <strong> هزینه ها</strong>
+                  <strong class="text-h5"> هزینه ها</strong>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
@@ -213,10 +210,10 @@
                     <template>
                       <thead>
                         <tr>
-                          <th>نوعیت بیماری</th>
-                          <th>تاریخ ثبت بیمار</th>
-                          <th>هزینه کل</th>
-                          <th>حالت</th>
+                          <th class="font-weight-block font-weight-bold text-h6">نوعیت بیماری</th>
+                          <th class="font-weight-block font-weight-bold text-h6">تاریخ ثبت بیمار</th>
+                          <th class="font-weight-block font-weight-bold text-h6">هزینه کل</th>
+                          <th class="font-weight-block font-weight-bold text-h6">حالت</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -758,6 +755,40 @@ export default {
         "114",
         "115",
       ],
+      // Pationt appointment
+      appointmentHeader:[
+       {
+         text:"نوعیت سرویس",
+         value:"stag",
+         sortable: true,
+         align: "start"
+       },
+        {
+         text:"تاریخ",
+         value:"meet_at",
+         sortable: true,
+         align: "start"
+       },
+        {
+         text:"دوره",
+         value:"round",
+         sortable: true,
+         align: "start"
+       },
+        {
+         text:"داکتر",
+         value:"dentist",
+         sortable: true,
+         align: "start"
+       },
+        {
+         text:"عملیه",
+         value:"actions",
+         sortable: true,
+         align: "start"
+       }
+      ],
+      appointmentItem:[],
       // personal information 
        editePatient: {
         firstname: "",
@@ -819,17 +850,18 @@ export default {
 
     };
   },
-  mounted() {
+ async mounted() {
     this.editedItem = this.$route.params.editedItem;
+    await Store.dispatch("staff/getStaff");
+    this.initionalizeAppointment();
   },
   methods: {
     showname(firstname) {
       let name = "" + firstname + "".split("");
       return name[0] + name[1];
     },
-    getDate(date) {
-      let date_time = new Date(date);
-      var months = [
+     getRealDate(date) {
+      const months = [
         "January",
         "February",
         "March",
@@ -843,13 +875,11 @@ export default {
         "November",
         "December",
       ];
-      return (
-        months[date_time.getMonth("MM")] +
-        " " +
-        date_time.getDate() +
-        " " +
-        date_time.getFullYear()
-      );
+      var real_date = new Date(date);
+      var month = real_date.getMonth();
+      var year = real_date.getFullYear();
+      var day = real_date.getDate();
+      return months[month] + "-" + year + "-" + day;
     },
     formatTazkira_number() {
       var tazkira = this.editePatient.tazkira_id
@@ -923,6 +953,7 @@ export default {
             
           });
     },
+    // To submit personal information Update
    async stepTwoCaseHistoryEdit() {
         this.editedItem.firstname = this.editePatient.firstname;
         this.editedItem.fathername = this.editePatient.fathername;
@@ -939,6 +970,156 @@ export default {
         this.closeEditPersonalInfoEditDialog();
         
     },
+    // To initionalize appointment in appointmentItem array;
+    initionalizeAppointment(){
+      let appointment = {};
+      for(var i=0; i< this.editedItem.appointment.length;i++){
+        appointment.index_of_appoint = i;
+        appointment.stag = this.editedItem.appointment[i].stag
+        if(this.editedItem.appointment[i].stag ===1){
+          for(var tf=0; tf<this.editedItem.appointment[i].teeth_filling.length; tf++){
+            appointment.index_of_tf= tf;
+            appointment.round =this.editedItem.appointment[i].teeth_filling[tf].round || "";
+            appointment.meet_at = this.editedItem.appointment[i].teeth_filling[tf].meet_at;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_filling[tf].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_due = this.editedItem.appointment[i].teeth_filling[tf].fee.amount_due|| 0;
+            appointment.installment = this.editedItem.appointment[i].teeth_filling[tf].fee.installment;
+            appointment.dentist = this.editedItem.appointment[i].teeth_filling[tf].fee.dentist|| 0;
+            this.appointmentItem.push(appointment)
+          }
+        }
+        else if(this.editedItem.appointment[i].stag ===2){
+          for(var tc=0; tc<this.editedItem.appointment[i].teeth_cover.length; tc++){
+            appointment.index_of_tc= tc;
+            appointment.round =this.editedItem.appointment[i].teeth_cover[tc].round || "";
+            appointment.meet_at = this.editedItem.appointment[i].teeth_cover[tc].meet_at;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_cover[tc].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_due = this.editedItem.appointment[i].teeth_cover[tc].fee.amount_due|| 0;
+            appointment.installment = this.editedItem.appointment[i].teeth_cover[tc].fee.installment;
+            appointment.dentist = this.editedItem.appointment[i].teeth_cover[tc].fee.dentist|| 0;
+            this.appointmentItem.push(appointment)
+          }
+        }
+        else if(this.editedItem.appointment[i].stag ===3){
+          for(var o=0; o<this.editedItem.appointment[i].orthodoncy.length; o++){
+            appointment.index_of_o= o;
+            appointment.round =this.editedItem.appointment[i].orthodoncy[o].round || "";
+            appointment.meet_at = this.editedItem.appointment[i].orthodoncy[o].meet_at;
+            appointment.fee_amount_received = this.editedItem.appointment[i].orthodoncy[o].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_due = this.editedItem.appointment[i].orthodoncy[o].fee.amount_due|| 0;
+            appointment.installment = this.editedItem.appointment[i].orthodoncy[o].fee.installment;
+            appointment.dentist = this.editedItem.appointment[i].orthodoncy[o].fee.dentist|| 0;
+            this.appointmentItem.push(appointment)
+          }
+        }
+        else if(this.editedItem.appointment[i].stag ===4){
+          for(var tr=0; tr<this.editedItem.appointment[i].teeth_remove.length; tr++){
+            appointment.index_of_tr= tr;
+            appointment.round =this.editedItem.appointment[i].teeth_remove[tr].round || "";
+            appointment.meet_at = this.editedItem.appointment[i].teeth_remove[tr].meet_at;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_remove[tr].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_due = this.editedItem.appointment[i].teeth_remove[tr].fee.amount_due|| 0;
+            appointment.installment = this.editedItem.appointment[i].teeth_remove[tr].fee.installment;
+            appointment.dentist = this.editedItem.appointment[i].teeth_remove[tr].fee.dentist|| 0;
+            this.appointmentItem.push(appointment)
+          }
+        }
+        else if(this.editedItem.appointment[i].stag ===5){
+           for(var gs=0; gs<this.editedItem.appointment[i].gum_surgery.length; gs++){
+            appointment.index_of_gs= gs;
+            appointment.round =this.editedItem.appointment[i].gum_surgery[gs].round || "";
+            appointment.meet_at = this.editedItem.appointment[i].gum_surgery[gs].meet_at;
+            appointment.fee_amount_received = this.editedItem.appointment[i].gum_surgery[gs].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_due = this.editedItem.appointment[i].gum_surgery[gs].fee.amount_due|| 0;
+            appointment.installment = this.editedItem.appointment[i].gum_surgery[gs].fee.installment;
+            appointment.dentist = this.editedItem.appointment[i].gum_surgery[gs].fee.dentist|| 0;
+            this.appointmentItem.push(appointment)
+          }
+        }
+        else if (this.editedItem.appointment[i].stag ===6){
+           for(var rs=0; rs<this.editedItem.appointment[i].root_surgery.length; rs++){
+            appointment.index_of_rs= rs;
+            appointment.round =this.editedItem.appointment[i].root_surgery[rs].round || "";
+            appointment.meet_at = this.editedItem.appointment[i].root_surgery[rs].meet_at;
+            appointment.fee_amount_received = this.editedItem.appointment[i].root_surgery[rs].fee.amount_received||0;
+            appointment.fee_amount_due = this.editedItem.appointment[i].root_surgery[rs].fee.amount_due|| 0;
+            appointment.installment = this.editedItem.appointment[i].root_surgery[rs].fee.installment;
+            appointment.dentist = this.editedItem.appointment[i].root_surgery[rs].fee.dentist|| 0;
+            this.appointmentItem.push(appointment)
+          }
+        }
+        else if(this.editedItem.appointment[i].stag ===7){
+          for(var tp=0; tp<this.editedItem.appointment[i].teeth_protice.length; tp++){
+            appointment.index_of_tp= tp;
+            appointment.round =this.editedItem.appointment[i].teeth_protice[tp].round || "";
+            appointment.meet_at = this.editedItem.appointment[i].teeth_protice[tp].meet_at;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_protice[tp].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_due = this.editedItem.appointment[i].teeth_protice[tp].fee.amount_due|| 0;
+            appointment.installment = this.editedItem.appointment[i].teeth_protice[tp].fee.installment;
+            appointment.dentist = this.editedItem.appointment[i].teeth_protice[tp].fee.dentist|| 0;
+            this.appointmentItem.push(appointment)
+          }
+        }
+        else if(this.editedItem.appointment[i].stag ===8){
+          for(var tb=0; tb<this.editedItem.appointment[i].teeth_bleaching.length; tb++){
+            appointment.index_of_tb= tb;
+            appointment.round =this.editedItem.appointment[i].teeth_bleaching[tb].round || "";
+            appointment.meet_at = this.editedItem.appointment[i].teeth_bleaching[tb].meet_at;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_bleaching[tp].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_due = this.editedItem.appointment[i].teeth_bleaching[tb].fee.amount_due|| 0;
+            appointment.installment = this.editedItem.appointment[i].teeth_bleaching[tb].fee.installment;
+            appointment.dentist = this.editedItem.appointment[i].teeth_bleaching[tb].fee.dentist|| 0;
+            this.appointmentItem.push(appointment)
+          }
+        }
+        else if(this.editedItem.appointment[i].stag ===9){
+          for(var ts=0; ts<this.editedItem.appointment[i].teeth_scaling.length; ts++){
+            appointment.index_of_ts= ts;
+            appointment.round =this.editedItem.appointment[i].teeth_scaling[ts].round || "";
+            appointment.meet_at = this.editedItem.appointment[i].teeth_scaling[ts].meet_at;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_scaling[ts].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_due = this.editedItem.appointment[i].teeth_scaling[ts].fee.amount_due|| 0;
+            appointment.installment = this.editedItem.appointment[i].teeth_scaling[ts].fee.installment;
+            appointment.dentist = this.editedItem.appointment[i].teeth_scaling[ts].fee.dentist|| 0;
+            this.appointmentItem.push(appointment)
+          }
+        }
+      }
+    },
+    showServices(services){
+     switch (services) {
+      case 1:
+      return "پرکردن دندان"
+      case 2:
+       return "پوش کردن دندان"
+      case 3:
+        return "ارتودانسی"
+      case 4:
+        return "کشیدن دندان"
+      case 5:
+       return "جراحی الثه دندان"
+      case 6:
+        return "جراحی ریشه دندان"
+      case 7:
+       return "پروتیز دندان"
+      case 8:
+        return "سفید کردن دندان"
+      case 9:
+        return "معاینه دهن"
+    
+    } 
+    },
+     showDintstName(id){
+      const res =this.$store.state.staff.staff.find(({_id})=>_id === id);
+      if(res){
+        return res.firstname;
+      }else{
+        return "";
+      }
+    },
+    openAppointmentEditDialog(item){
+      console.log(item);
+    }
   },
 };
 </script>

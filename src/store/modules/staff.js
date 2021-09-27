@@ -223,5 +223,5 @@ async  uploadeEduDoc({dispatch}, eduDoc){
       };
       dispatch("notification/add", notification, {root: true});
     })
-  }
+  },
 };
