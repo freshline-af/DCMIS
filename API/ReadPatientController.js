@@ -1,18 +1,18 @@
 /* ------------------ 9 data models for patient services --------------------- */
-const TeethFilling = require('./models/patients/TeethFillingModel');
-const TeethRemove = require('./models/patients/TeethRemoveModel');
-const TeethCover = require('./models/patients/TeethCoverModel');
-const TeethProtice = require('./models/patients/TeethProticeModel');
-const TeethBleaching = require('./models/patients/TeethBleachingModel');
-const TeethScaling = require('./models/patients/TeethScalingModel');
-const GumSurgery = require('./models/patients/GumSurgeryModel');
-const RootSurgery = require('./models/patients/RootSurgeryModel');
-const Orthodoncy = require('./models/patients/OrthodoncyModel');
+const TeethFilling = require("./models/patients/TeethFillingModel");
+const TeethRemove = require("./models/patients/TeethRemoveModel");
+const TeethCover = require("./models/patients/TeethCoverModel");
+const TeethProtice = require("./models/patients/TeethProticeModel");
+const TeethBleaching = require("./models/patients/TeethBleachingModel");
+const TeethScaling = require("./models/patients/TeethScalingModel");
+const GumSurgery = require("./models/patients/GumSurgeryModel");
+const RootSurgery = require("./models/patients/RootSurgeryModel");
+const Orthodoncy = require("./models/patients/OrthodoncyModel");
 /* ------------------/. 9 data models for patient services --------------------- */
 
 const patientsController = async (req, res) => {
   const stag = 1;
-  let patient = "";
+  let patient = {};
   switch (stag) {
     case 2:
       patient = TeethCover;
@@ -43,11 +43,17 @@ const patientsController = async (req, res) => {
       break;
   }
 
-  const patients = await patient.find({});
-  // res.json(patients);
+  const patients = await patient
+    .aggregate([
+      {
+        $match: {
+          "appointment.stag": {
+            $in: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+          },
+        },
+      },
+    ]).sort("-registered_at");
   res.send(patients);
-}
+};
 
 module.exports = patientsController;
-
-
