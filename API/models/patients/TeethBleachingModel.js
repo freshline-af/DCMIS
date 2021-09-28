@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+ const mongoose = require("mongoose");
 // Import Timezone module
 const momentTZ = require("moment-timezone");
 // Set timezone for Kabul

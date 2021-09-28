@@ -615,6 +615,574 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-dialog
+    max-width="1200" persistent v-model="appointmentEditDialog" >
+    <v-card>
+      <v-card-title>
+          <v-row>
+           <v-col class="mt-3 ml-3" cols="12">
+           <v-row>
+          <strong>تغیر وارد کردن به جلسه</strong>
+          <v-spacer></v-spacer>
+          <v-btn icon color="red" @click="closeAppointmentEditDialog"><v-icon>mdi-close</v-icon></v-btn>
+           </v-row>
+           </v-col>
+           <v-col class="mt-3" cols="12">
+             <v-divider></v-divider>
+           </v-col>
+          </v-row>
+      </v-card-title>
+      <v-card-text>
+      <v-stepper v-model="appointment_edit_stepper">
+        <v-stepper-header>
+          <v-stepper-step step="1" :complete="appointment_edit_stepper>1">
+            تغیر دادن جلسه مراجعه شده
+          </v-stepper-step>
+          <v-stepper-step step="2" :complete="appointment_edit_stepper>2">
+            تغیر دادن حساب مالی
+          </v-stepper-step>
+        </v-stepper-header>
+        <v-stepper-items>
+          <v-stepper-content step="1">
+           <v-form
+              v-model="appointmentEditForm"
+              ref="appointmentEditRef"
+              @submit.prevent="appointmentEditStepOne"
+            >
+              <v-row justify="center">
+                <v-col cols="12" md="6">
+                  <h2>.لطفا نوعیت و جزییات بیماری را وارد کنید</h2>
+                </v-col>
+                <v-col cols="12">
+                  <v-row justify="center">
+                    <v-col cols="12" md="6" sm="12">
+                      <v-divider></v-divider>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="12" class="mt-n2">
+                  <v-row justify="center">
+                    <v-col cols="6" md="6" sm="12" xs="12">
+                      <v-autocomplete
+                        label="نوعیت مریضی"
+                        :items="services"
+                        item-value="value"
+                        item-text="text"
+                        v-model="appointmentEditOb.stag"
+                        :value="appointmentEditOb.stag"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- teeth filling services 1 -->
+                <v-col
+                  v-if="appointmentEditOb.stag === 1"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label=" نوعیت مواد"
+                        :items="theet_filling_matieral"
+                        v-model="appointmentEditOb.material"
+                        :value="appointmentEditOb.material"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack"
+                        v-model="appointmentEditOb.tooth_gum"
+                        :value="appointmentEditOb.tooth_gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="دندان"
+                        :items="teeths"
+                        v-model="appointmentEditOb.tooth_type"
+                        :value="appointmentEditOb.tooth_type"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointmentEditOb.description"
+                        :value="appointmentEditOb.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- teeth cover services 2 -->
+                <v-col
+                  v-if="appointmentEditOb.stag === 2"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label=" نوعیت مواد"
+                        :items="theet_cover_matieral"
+                        v-model="appointmentEditOb.material"
+                        :value="appointmentEditOb.material"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack"
+                        v-model="appointmentEditOb.tooth_gum"
+                        :value="appointmentEditOb.tooth_gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="دندان"
+                        :items="teeths"
+                        v-model="appointmentEditOb.tooth_type"
+                        :value="appointmentEditOb.tooth_type"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointmentEditOb.description"
+                        :value="appointmentEditOb.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- teeth orthodoncy services 3  -->
+                <v-col
+                  v-if="appointmentEditOb.stag === 3"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack_orthodoncy"
+                        v-model="appointmentEditOb.tooth_gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" lg="12" xl="12" sm="12">
+                      <v-file-input
+                        label="عکس از دندان ها"
+                        outlined
+                        v-model="appointmentEditOb.image"
+                        :value="appointmentEditOb.image"
+                        :rules="rule.rules.file"
+                        rounded
+                        required
+                      ></v-file-input>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointmentEditOb.description"
+                        :value="appointmentEditOb.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- Teeth remove services 4 -->
+                <v-col
+                  v-if="appointmentEditOb.stag === 4"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack"
+                        v-model="appointmentEditOb.tooth_gum"
+                        :value="appointmentEditOb.tooth_gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="دندان"
+                        :items="type_pull_out_theeth"
+                        v-model="appointmentEditOb.tooth_type"
+                        :value="appointmentEditOb.tooth_type"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointmentEditOb.description"
+                        :value="appointmentEditOb.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- Teeth Gum Surgery services 5---------- -->
+                <v-col
+                  v-if="appointmentEditOb.stag === 5"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="گواردینات"
+                        :items="type_quardinat"
+                        v-model="appointmentEditOb.tooth_gum"
+                        :value="appointmentEditOb.tooth_gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointmentEditOb.description"
+                        :value="appointmentEditOb.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- Teeth Root Surgery services 6 -->
+                <v-col
+                  v-if="appointmentEditOb.stag === 6"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack"
+                        v-model="appointmentEditOb.tooth_gum"
+                        :value="appointmentEditOb.tooth_gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="دندان"
+                        :items="teeths"
+                        v-model="appointmentEditOb.tooth_type"
+                        :value="appointmentEditOb.tooth_type"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointmentEditOb.description"
+                        :value="appointmentEditOb.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- Teeth protices services 7 -->
+                <v-col
+                  v-if="appointmentEditOb.stag === 7"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="نوعیت پروتیز"
+                        :items="type_protis"
+                        v-model="appointmentEditOb.initail_services"
+                        :value="appointmentEditOb.initail_services"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack"
+                        v-model="appointmentEditOb.tooth_gum"
+                        :value="appointmentEditOb.tooth_gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col
+                      v-if="
+                        appointmentEditOb.initail_services ===
+                          'پروتیز قسمی'
+                      "
+                      cols="12"
+                      md="12"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-autocomplete
+                        label="دندان"
+                        :items="teeths"
+                        v-model="appointmentEditOb.tooth_type"
+                        :value="appointmentEditOb.tooth_type"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointmentEditOb.description"
+                        :value="appointmentEditOb.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <!-- ،Teeth bleaching services 8--- -->
+                <v-col
+                  v-if="appointmentEditOb.stag === 8"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="نوعیت سفید کردن دندان ها"
+                        :items="type_teeth_bleaching"
+                        v-model="appointmentEditOb.material"
+                        :value="appointmentEditOb.material"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointmentEditOb.description"
+                        :value="appointmentEditOb.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col
+                  v-if="appointmentEditOb.stag === 9"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-autocomplete
+                        label="فک"
+                        :items="type_fack_orthodoncy"
+                        v-model="appointmentEditOb.tooth_gum"
+                        :value="appointmentEditOb.tooth_gum"
+                        :rules="rule.rules.select"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointmentEditOb.description"
+                        :value="appointmentEditOb.description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col
+                  v-if="appointmentEditOb.stag === 10"
+                  cols="6"
+                  md="6"
+                  sm="12"
+                  xs="12"
+                >
+                  <v-row justify="center">
+                    <v-col cols="12" md="12" sm="12" xs="12">
+                      <v-textarea
+                        label="نوت"
+                        v-model="appointmentEditOb.description"
+                        :value="description"
+                        outlined
+                        rounded
+                        required
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
+                  <v-row>
+                    <v-col cols="12" md="6" lg="6" xl="6" sm="12">
+                      <v-btn width="200" large @click="step = 2">
+                        برگشت
+                      </v-btn>
+                    </v-col>
+                    <v-col
+                      class="text-end"
+                      cols="12"
+                      md="6"
+                      lg="6"
+                      xl="6"
+                      sm="12"
+                      ><v-btn
+                        elevation="3"
+                        large
+                        width="200"
+                        color="primary"
+                        type="submit"
+                      >
+                        بعدی
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-stepper-content>
+          <v-stepper-content step="2">
+
+          </v-stepper-content>
+        </v-stepper-items>
+      </v-stepper>
+      </v-card-text>
+    </v-card>
+    </v-dialog>
   </v-row>
 </template>
 
@@ -788,7 +1356,75 @@ export default {
          align: "start"
        }
       ],
+      theet_filling_matieral: ["کامپوزیت", "املگم", "سایر مواد"],
+      theet_cover_matieral: ["پورسلن", "میتل", "زرگونیم", "گیگم"],
+      type_teeth_bleaching: [
+        "یک مرحله یی",
+        "دو مرحله یی",
+        "سه مرحله یی",
+        "چهار مرحله یی",
+      ],
+       services: [
+        { text: "معاینه دندان", value: 10 },
+        {
+          text: "پر کاری دندان",
+          value: 1,
+        },
+        {
+          text: "پوش کردن دندان ها",
+          value: 2,
+        },
+        {
+          text: "ارتودانسی",
+          value: 3,
+        },
+        {
+          text: "کشیدن دندان ها",
+          value: 4,
+        },
+        {
+          text: "جراحی ریشه دندان ها",
+          value: 5,
+        },
+        {
+          text: "حراحی لثه",
+          value: 6,
+        },
+        { text: "پروتیز دندان", value: 7 },
+        {
+          text: "سفید کردن دندان",
+          value: 8,
+        },
+        {
+          text: "جرم گیری دندان ها",
+          value: 9,
+        },
+      ],
+      type_protis: ["پروتیز قسمی", "پروتیز کامل"],
+      type_fack: [
+        "بالا - راست",
+        "بالا - چپ",
+        "پایین - راست",
+        "پایین - چپ",
+        "هردو",
+      ],
+      type_fack_orthodoncy: ["بالا", "پایین", "هردو"],
+      installments: [
+        { text: "تکمیل", value: 1 },
+        {
+          text: "دو قسط",
+          value: "2",
+        },
+        { text: "سه فسط", value: 3 },
+      ],
       appointmentItem:[],
+      appointmentEditDialog:false,
+      appointment_edit_stepper:1,
+      appointmentEditForm:null,
+      apointmentEditIndex:-1,
+      appointmentEditOb:{
+
+      },
       // personal information 
        editePatient: {
         firstname: "",
@@ -981,10 +1617,16 @@ export default {
             appointment.index_of_tf= tf;
             appointment.round =this.editedItem.appointment[i].teeth_filling[tf].round || "";
             appointment.meet_at = this.editedItem.appointment[i].teeth_filling[tf].meet_at;
-            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_filling[tf].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_filling[tf].fee.amount_received || 0
             appointment.fee_amount_due = this.editedItem.appointment[i].teeth_filling[tf].fee.amount_due|| 0;
             appointment.installment = this.editedItem.appointment[i].teeth_filling[tf].fee.installment;
             appointment.dentist = this.editedItem.appointment[i].teeth_filling[tf].fee.dentist|| 0;
+            appointment.initial_swervices=this.editedItem.appointment[i].teeth_filling[tf].initial_swervices ||" ";
+            appointment.description=this.editedItem.appointment[i].teeth_filling[tf].description || " ";
+            appointment.material = this.editedItem.appointment[i].teeth_filling[tf].material || " ";
+            appointment.tooth_gum = this.editedItem.appointment[i].teeth_filling[tf].tooth.gum || " ";
+            appointment.tooth_type = this.editedItem.appointment[i].teeth_filling[tf].tooth.type || " ";
+            appointment.fee_total_received= this.editedItem.appointment[i].teeth_filling[tf].total_received || 0
             this.appointmentItem.push(appointment)
           }
         }
@@ -993,10 +1635,15 @@ export default {
             appointment.index_of_tc= tc;
             appointment.round =this.editedItem.appointment[i].teeth_cover[tc].round || "";
             appointment.meet_at = this.editedItem.appointment[i].teeth_cover[tc].meet_at;
-            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_cover[tc].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_cover[tc].fee.amount_received || 0;
             appointment.fee_amount_due = this.editedItem.appointment[i].teeth_cover[tc].fee.amount_due|| 0;
             appointment.installment = this.editedItem.appointment[i].teeth_cover[tc].fee.installment;
             appointment.dentist = this.editedItem.appointment[i].teeth_cover[tc].fee.dentist|| 0;
+            appointment.material = this.editedItem.appointment[i].teeth_cover[tc].material || " ";
+            appointment.description = this.editedItem.appointment[i].teeth_cover[tc].description || " ";
+            appointment.tooth_gum = this.editedItem.appointment[i].teeth_cover[tc].tooth.gum || " ";
+            appointment.tooth_type = this.editedItem.appointment[i].teeth_cover[tc].tooth.type || " ";
+            appointment.total_received = this.editedItem.appointment[i].teeth_cover[tc].total_received || 0;
             this.appointmentItem.push(appointment)
           }
         }
@@ -1005,10 +1652,15 @@ export default {
             appointment.index_of_o= o;
             appointment.round =this.editedItem.appointment[i].orthodoncy[o].round || "";
             appointment.meet_at = this.editedItem.appointment[i].orthodoncy[o].meet_at;
-            appointment.fee_amount_received = this.editedItem.appointment[i].orthodoncy[o].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_received = this.editedItem.appointment[i].orthodoncy[o].fee.amount_received || 0;
             appointment.fee_amount_due = this.editedItem.appointment[i].orthodoncy[o].fee.amount_due|| 0;
             appointment.installment = this.editedItem.appointment[i].orthodoncy[o].fee.installment;
             appointment.dentist = this.editedItem.appointment[i].orthodoncy[o].fee.dentist|| 0;
+            appointment.image = this.editedItem.appointment[i].orthodoncy[o].image || "";
+            appointment.description = this.editedItem.appointment[i].orthodoncy[o].description ||"";
+            appointment.tooth_gum = this.editedItem.appointment[i].orthodoncy[o].tooth.gum || "";
+            appointment.tooth_type = this.editedItem.appointment[i].orthodoncy[o].tooth.type || "";
+            appointment.total_received = this.editedItem.appointment[i].orthodoncy[o].total_received || 0;
             this.appointmentItem.push(appointment)
           }
         }
@@ -1017,10 +1669,14 @@ export default {
             appointment.index_of_tr= tr;
             appointment.round =this.editedItem.appointment[i].teeth_remove[tr].round || "";
             appointment.meet_at = this.editedItem.appointment[i].teeth_remove[tr].meet_at;
-            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_remove[tr].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_remove[tr].fee.amount_received ||0;
             appointment.fee_amount_due = this.editedItem.appointment[i].teeth_remove[tr].fee.amount_due|| 0;
             appointment.installment = this.editedItem.appointment[i].teeth_remove[tr].fee.installment;
             appointment.dentist = this.editedItem.appointment[i].teeth_remove[tr].fee.dentist|| 0;
+            appointment.description = this.editedItem.appointment[i].teeth_remove[tr].description || "";
+            appointment.tooth_gum =this.editedItem.appointment[i].teeth_remove[tr].tooth.gum || "";
+            appointment.tooth_type = this.editedItem.appointment[i].teeth_remove[tr].tooth.type||"";
+            appointment.total_received = this.editedItem.appointment[i].teeth_remove[tr].total_received ||0;
             this.appointmentItem.push(appointment)
           }
         }
@@ -1029,10 +1685,14 @@ export default {
             appointment.index_of_gs= gs;
             appointment.round =this.editedItem.appointment[i].gum_surgery[gs].round || "";
             appointment.meet_at = this.editedItem.appointment[i].gum_surgery[gs].meet_at;
-            appointment.fee_amount_received = this.editedItem.appointment[i].gum_surgery[gs].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_received = this.editedItem.appointment[i].gum_surgery[gs].fee.amount_received || 0;
             appointment.fee_amount_due = this.editedItem.appointment[i].gum_surgery[gs].fee.amount_due|| 0;
-            appointment.installment = this.editedItem.appointment[i].gum_surgery[gs].fee.installment;
+            appointment.installment = this.editedItem.appointment[i].gum_surgery[gs].fee.installment || 0;
             appointment.dentist = this.editedItem.appointment[i].gum_surgery[gs].fee.dentist|| 0;
+            appointment.description = this.editedItem.appointment[i].gum_surgery[gs].description || "";
+            appointment.tooth_gum = this.editedItem.appointment[i].gum_surgery[gs].tooth.gum || "";
+            appointment.tooth_type = this.editedItem.appointment[i].gum_surgery[gs].tooth.type || "";
+            appointment.total_received = this.editedItem.appointment[i].gum_surgery[gs].total_received || 0;
             this.appointmentItem.push(appointment)
           }
         }
@@ -1043,44 +1703,62 @@ export default {
             appointment.meet_at = this.editedItem.appointment[i].root_surgery[rs].meet_at;
             appointment.fee_amount_received = this.editedItem.appointment[i].root_surgery[rs].fee.amount_received||0;
             appointment.fee_amount_due = this.editedItem.appointment[i].root_surgery[rs].fee.amount_due|| 0;
-            appointment.installment = this.editedItem.appointment[i].root_surgery[rs].fee.installment;
+            appointment.installment = this.editedItem.appointment[i].root_surgery[rs].fee.installment || 0;
             appointment.dentist = this.editedItem.appointment[i].root_surgery[rs].fee.dentist|| 0;
+            appointment.description = this.editedItem.appointment[i].root_surgery[rs].description || "";
+            appointment.tooth_gum = this.editedItem.appointment[i].root_surgery[rs].tooth.gum || "";
+            appointment.tooth = this.editedItem.appointment[i].root_surgery[rs].tooth.type || "";
+            appointment.total_received = this.editedItem.appointment[i].root_surgery[rs].total_received || 0;
             this.appointmentItem.push(appointment)
           }
         }
         else if(this.editedItem.appointment[i].stag ===7){
           for(var tp=0; tp<this.editedItem.appointment[i].teeth_protice.length; tp++){
             appointment.index_of_tp= tp;
-            appointment.round =this.editedItem.appointment[i].teeth_protice[tp].round || "";
+            appointment.round =this.editedItem.appointment[i].teeth_protice[tp].round || 1;
             appointment.meet_at = this.editedItem.appointment[i].teeth_protice[tp].meet_at;
-            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_protice[tp].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_protice[tp].fee.amount_received || 0;
             appointment.fee_amount_due = this.editedItem.appointment[i].teeth_protice[tp].fee.amount_due|| 0;
-            appointment.installment = this.editedItem.appointment[i].teeth_protice[tp].fee.installment;
+            appointment.installment = this.editedItem.appointment[i].teeth_protice[tp].fee.installment || 0;
             appointment.dentist = this.editedItem.appointment[i].teeth_protice[tp].fee.dentist|| 0;
+            appointment.description =  this.editedItem.appointment[i].teeth_protice[tp].description || "";
+            appointment.tooth_gum =  this.editedItem.appointment[i].teeth_protice[tp].tooth.gum || "";
+            appointment.tooth_type =  this.editedItem.appointment[i].teeth_protice[tp].tooth.type || "";
+            appointment.total_received =  this.editedItem.appointment[i].teeth_protice[tp].total_received || 0;
+            appointment.material =  this.editedItem.appointment[i].teeth_protice[tp].material || "";
             this.appointmentItem.push(appointment)
           }
         }
         else if(this.editedItem.appointment[i].stag ===8){
           for(var tb=0; tb<this.editedItem.appointment[i].teeth_bleaching.length; tb++){
             appointment.index_of_tb= tb;
-            appointment.round =this.editedItem.appointment[i].teeth_bleaching[tb].round || "";
+            appointment.round =this.editedItem.appointment[i].teeth_bleaching[tb].round || 1;
             appointment.meet_at = this.editedItem.appointment[i].teeth_bleaching[tb].meet_at;
-            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_bleaching[tp].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_bleaching[tp].fee.amount_received||0;
             appointment.fee_amount_due = this.editedItem.appointment[i].teeth_bleaching[tb].fee.amount_due|| 0;
             appointment.installment = this.editedItem.appointment[i].teeth_bleaching[tb].fee.installment;
             appointment.dentist = this.editedItem.appointment[i].teeth_bleaching[tb].fee.dentist|| 0;
+            appointment.description = this.editedItem.appointment[i].teeth_bleaching[tb].description || "";
+            appointment.material = this.editedItem.appointment[i].teeth_bleaching[tb].material || "";
+            appointment.tooth_gum = this.editedItem.appointment[i].teeth_bleaching[tb].tooth.gum ||"";
+            appointment.tooth_type = this.editedItem.appointment[i].teeth_bleaching[tb].tooth.type ||"";
+            appointment.total_received = this.editedItem.appointment[i].teeth_bleaching[tb].total_received || 0;
             this.appointmentItem.push(appointment)
           }
         }
         else if(this.editedItem.appointment[i].stag ===9){
           for(var ts=0; ts<this.editedItem.appointment[i].teeth_scaling.length; ts++){
             appointment.index_of_ts= ts;
-            appointment.round =this.editedItem.appointment[i].teeth_scaling[ts].round || "";
+            appointment.round =this.editedItem.appointment[i].teeth_scaling[ts].round || 1;
             appointment.meet_at = this.editedItem.appointment[i].teeth_scaling[ts].meet_at;
-            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_scaling[ts].fee.amount_received.$numberDecimal;
+            appointment.fee_amount_received = this.editedItem.appointment[i].teeth_scaling[ts].fee.amount_received|| 0;
             appointment.fee_amount_due = this.editedItem.appointment[i].teeth_scaling[ts].fee.amount_due|| 0;
-            appointment.installment = this.editedItem.appointment[i].teeth_scaling[ts].fee.installment;
+            appointment.installment = this.editedItem.appointment[i].teeth_scaling[ts].fee.installment || 0
             appointment.dentist = this.editedItem.appointment[i].teeth_scaling[ts].fee.dentist|| 0;
+            appointment.description = this.editedItem.appointment[i].teeth_scaling[ts].description ||"";
+            appointment.tooth_type = this.editedItem.appointment[i].teeth_scaling[ts].tooth.type || "";
+            appointment.tooth_gum = this.editedItem.appointment[i].teeth_scaling[ts].tooth.gum || "";
+            appointment.total_received = this.editedItem.appointment[i].teeth_scaling[ts].total_received || 0;
             this.appointmentItem.push(appointment)
           }
         }
@@ -1119,7 +1797,14 @@ export default {
     },
     openAppointmentEditDialog(item){
       console.log(item);
-    }
+      this.apointmentEditIndex = this.appointmentItem.indexOf(item);
+      this.appointmentEditOb = Object.assign({},item)
+      this.appointmentEditDialog = true;
+    },
+    closeAppointmentEditDialog(){
+      this.appointmentEditDialog =false;
+    },
+    appointmentEditStepOne(){}
   },
 };
 </script>

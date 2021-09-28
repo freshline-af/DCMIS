@@ -1359,7 +1359,7 @@ export default {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
             amount_due: this.fee.total_received - this.fee.amount_received,
-            " dentist": "",
+            " dentist": this.$store.state.user._id,
           };
           this.appointment2.stag = 8;
           this.appointment2.teeth_bleaching.push(
