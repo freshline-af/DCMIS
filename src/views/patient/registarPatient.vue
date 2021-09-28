@@ -948,6 +948,7 @@ export default {
     return {
       phone_number: "",
       tazkira_id: "",
+      user_login_id:0,
       age: [
         "1",
         "2",
@@ -1229,7 +1230,7 @@ export default {
     };
   },
   mounted() {
-    //this.patient_label = this.$store.state.services.services_form_item;
+    this.user_login_id = JSON.parse(localStorage.getItem("user"))._id;
     this.patient_caseHistory = this.$store.state.services.caseHistory;
   },
   methods: {
@@ -1288,8 +1289,9 @@ export default {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
             amount_due: this.fee.total_received - this.fee.amount_received,
-            " dentist": "60b9c344fdfcff1cb464e52b",
+            dentist: this.user_login_id,
           };
+          this.appointment.teeth_filling.total_received = this.fee.total_received;
           this.appointment2.stag = 1;
           this.appointment2.teeth_filling.push(this.appointment.teeth_filling);
           this.new_patient.appointment.push(this.appointment2);
@@ -1298,8 +1300,9 @@ export default {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
             amount_due: this.fee.total_received - this.fee.amount_received,
-            " dentist": "60b9c344fdfcff1cb464e52b",
+            dentist: this.user_login_id,
           };
+          this.appointment.teeth_cover.total_received = this.fee.total_received;
           this.appointment2.stag = 2;
           this.appointment2.teeth_cover.push(this.appointment.teeth_cover);
           this.new_patient.appointment.push(this.appointment2);
@@ -1307,40 +1310,44 @@ export default {
           this.appointment.orthodoncy.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
-            " amount_due": this.fee.total_received - this.fee.amount_received,
-            dentist: "60b9c344fdfcff1cb464e52b",
+            amount_due: this.fee.total_received - this.fee.amount_received,
+            dentist:  this.user_login_id,
             image: this.appointment.orthodoncy.image,
           };
+          this.appointment.orthodoncy.total_received =  this.fee.total_received;
           this.appointment2.stag = 3;
           this.appointment2.orthodoncy.push(this.appointment.orthodoncy);
           this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 4) {
           this.appointment.teeth_remove.fee = {
-            " installment": this.fee.installment,
+            installment: this.fee.installment,
             amount_received: this.fee.amount_received,
             amount_due: this.fee.total_received - this.fee.amount_received,
-            dentist: "60b9c344fdfcff1cb464e52b",
+            dentist:  this.user_login_id,
           };
+          this.appointment.teeth_remove.total_received =  this.fee.total_received;
           this.appointment2.stag = 4;
           this.appointment2.teeth_remove.push(this.appointment.teeth_remove);
           this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 5) {
           this.appointment.teeth_surgery.fee = {
             installment: this.fee.installment,
-            " amount_received": this.fee.amount_received,
+            amount_received: this.fee.amount_received,
             amount_due: this.fee.total_received - this.fee.amount_received,
-            " dentist": "60b9c344fdfcff1cb464e52b",
+            dentist:  this.user_login_id,
           };
+          this.appointment.teeth_surgery.total_received = this.fee.total_received;
           this.appointment2.stag = 5;
           this.appointment2.teeth_surgery.push(this.appointment.teeth_surgery);
           this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 6) {
           this.appointment.root_surgery.fee = {
             installment: this.fee.installment,
-            " amount_received": this.fee.amount_received,
-            " amount_due": this.fee.total_received - this.fee.amount_received,
-            dentist: "60b9c344fdfcff1cb464e52b",
+            amount_received: this.fee.amount_received,
+            amount_due: this.fee.total_received - this.fee.amount_received,
+            dentist:  this.user_login_id,
           };
+          this.appointment.root_surgery.total_received =this.fee.total_received;
           this.appointment2.stag = 6;
           this.appointment2.root_surgery.push(this.appointment.root_surgery);
           this.new_patient.appointment.push(this.appointment2);
@@ -1349,8 +1356,9 @@ export default {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
             amount_due: this.fee.total_received - this.fee.amount_received,
-            dentist: "60b9c344fdfcff1cb464e52b",
+            dentist:  this.user_login_id,
           };
+          this.appointment.teeth_protice.total_received = this.fee.total_received;
           this.appointment2.stag = 7;
           this.appointment2.teeth_protice.push(this.appointment.teeth_protice);
           this.new_patient.appointment.push(this.appointment2);
@@ -1359,8 +1367,9 @@ export default {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
             amount_due: this.fee.total_received - this.fee.amount_received,
-            " dentist": this.$store.state.user._id,
+            dentist:  this.user_login_id,
           };
+          this.appointment.teeth_bleaching.total_received = this.fee.total_received;
           this.appointment2.stag = 8;
           this.appointment2.teeth_bleaching.push(
             this.appointment.teeth_bleaching
@@ -1371,12 +1380,14 @@ export default {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
             amount_due: this.fee.total_received - this.fee.amount_received,
-            dentist: "60b9c344fdfcff1cb464e52b",
+            dentist:  this.user_login_id,
           };
+          this.appointment.scaling.total_received = this.fee.total_received;
           this.appointment2.stag = 9;
           this.appointment2.scaling.push(this.appointment.scaling);
           this.new_patient.appointment.push(this.appointment2);
         }
+        console.log(this.new_patient);
         this.$store.dispatch("patient/addPatient", this.new_patient);
         this.$store.dispatch("patient/getListOfPatient");
         this.$router.push({ name: "patient" });

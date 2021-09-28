@@ -622,9 +622,9 @@
           <v-row>
            <v-col class="mt-3 ml-3" cols="12">
            <v-row>
-          <strong>تغیر وارد کردن به جلسه</strong>
+          <strong class="mr-3 mt-2">تغیرات آوردن به جلسه های مراجعه شده</strong>
           <v-spacer></v-spacer>
-          <v-btn icon color="red" @click="closeAppointmentEditDialog"><v-icon>mdi-close</v-icon></v-btn>
+          <v-btn x-large icon color="red" @click="closeAppointmentEditDialog"><v-icon>mdi-close</v-icon></v-btn>
            </v-row>
            </v-col>
            <v-col class="mt-3" cols="12">
@@ -650,17 +650,8 @@
               @submit.prevent="appointmentEditStepOne"
             >
               <v-row justify="center">
-                <v-col cols="12" md="6">
-                  <h2>.لطفا نوعیت و جزییات بیماری را وارد کنید</h2>
-                </v-col>
+                
                 <v-col cols="12">
-                  <v-row justify="center">
-                    <v-col cols="12" md="6" sm="12">
-                      <v-divider></v-divider>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="12" class="mt-n2">
                   <v-row justify="center">
                     <v-col cols="6" md="6" sm="12" xs="12">
                       <v-autocomplete
@@ -1149,8 +1140,8 @@
                 <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
                   <v-row>
                     <v-col cols="12" md="6" lg="6" xl="6" sm="12">
-                      <v-btn width="200" large @click="step = 2">
-                        برگشت
+                      <v-btn width="200" color="red" class="white--text" large @click="closeAppointmentEditDialog">
+                       لغو کردن
                       </v-btn>
                     </v-col>
                     <v-col
@@ -1356,6 +1347,10 @@ export default {
          align: "start"
        }
       ],
+      type_pull_out_theeth: ["ساده", "عقلی", "امپکت"],
+      type_surgary: ["کشیدن دندان ها", "جراحی لثه", "جراحی ریشه"],
+      type_quardinat: ["1", "2", "3", "4"],
+      teeths: ["1", "2", "3", "4", "5", "6", "7", "8"],
       theet_filling_matieral: ["کامپوزیت", "املگم", "سایر مواد"],
       theet_cover_matieral: ["پورسلن", "میتل", "زرگونیم", "گیگم"],
       type_teeth_bleaching: [
