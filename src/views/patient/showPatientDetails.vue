@@ -148,6 +148,9 @@
                   <v-btn icon @click="openAppointmentEditDialog(item)">
                     <v-icon color="primary">mdi-pencil</v-icon>
                   </v-btn>
+                  <v-btn icon @click="openShowAppointmentDialog(item)">
+                    <v-icon color="primary">mdi-text</v-icon>
+                  </v-btn>
                   </template>
                   <template
                   v-slot:item.meet_at="{item}"
@@ -233,6 +236,7 @@
         </v-col>
       </v-row>
     </v-col>
+    <!-- dialog for edit patient personal infomation -->
     <v-dialog persistent max-width="1200" v-model="edit_patient">
       <v-card>
         <v-card-title>
@@ -615,6 +619,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <!-- dialog for update appointment -->
     <v-dialog
     max-width="1200" persistent v-model="appointmentEditDialog" >
     <v-card>
@@ -643,12 +648,13 @@
           </v-stepper-step>
         </v-stepper-header>
         <v-stepper-items>
-          <v-stepper-content step="1">
            <v-form
               v-model="appointmentEditForm"
               ref="appointmentEditRef"
               @submit.prevent="appointmentEditStepOne"
             >
+          <v-stepper-content step="1">
+
               <v-row justify="center">
                 
                 <v-col cols="12">
@@ -1156,7 +1162,7 @@
                         large
                         width="200"
                         color="primary"
-                        type="submit"
+                        @click="appointmentEditStepOne"
                       >
                         بعدی
                       </v-btn>
@@ -1164,13 +1170,127 @@
                   </v-row>
                 </v-col>
               </v-row>
-            </v-form>
+            
           </v-stepper-content>
           <v-stepper-content step="2">
-
+              <v-row justify="center">
+                <v-col cols="12">
+                  <v-row justify="center">
+                    <v-col align="start" cols="12" md="6" sm="12" lg="6">
+                      <h2>هزینه ها</h2>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="12">
+                  <v-row justify="center">
+                    <v-col cols="12" md="6" lg="6" sm="12">
+                      <v-divider></v-divider>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="12">
+                  <v-row justify="center">
+                    <v-col cols="6" md="6" sm="12" xs="12">
+                      <BaseEdittext
+                        label="مصارف کل"
+                        v-model="appointmentEditOb.total_received"
+                        :values="appointmentEditOb.total_received"
+                        :rules="rule.rules.required_number"
+                        type="number"
+                        hint="وارد کردن مصرف الزامی می باشد"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="12" class="mt-n2">
+                  <v-row justify="center">
+                    <v-col cols="6" md="6" sm="12" xs="12">
+                      <v-select
+                        label="اقساط"
+                        v-model="appointmentEditOb.installment"
+                        :value="appointmentEditOb.installment"
+                        :items="installments"
+                        :rules="rule.rules.select"
+                        item-text="text"
+                        item-value="value"
+                        outlined
+                        rounded
+                      >
+                      </v-select>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="12" class="mt-n2">
+                  <v-row justify="center" v-if="appointmentEditOb.installment != 1">
+                    <v-col cols="12" md="6">
+                      <BaseEdittext
+                        label="مبلغ قابل پرداخت"
+                        v-model="appointmentEditOb.fee_amount_received"
+                        :values="appointmentEditOb.fee_amount_received"
+                        type="number"
+                        :rules="rule.rules.number"
+                        placeholder="مقدرا قابل پرداخت را وارد کنید"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="12" class="mt-n2">
+                  <v-row justify="center">
+                    <span class="red--text">{{ appointmentEditOb.fee_amount_due }}</span>
+                  </v-row>
+                </v-col>
+                <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
+                  <v-row>
+                    <v-col cols="12" md="6" lg="6" xl="6" sm="12">
+                      <v-btn width="200" large @click="appointment_edit_stepper = 1">
+                        برگشت
+                      </v-btn>
+                    </v-col>
+                    <v-col
+                      class="text-end"
+                      cols="12"
+                      md="6"
+                      lg="6"
+                      xl="6"
+                      sm="12"
+                      ><v-btn
+                        :disabled="!appointmentEditForm"
+                        elevation="3"
+                        large
+                        type="submit"
+                        width="200"
+                        color="primary"
+                      >
+                        ثبت کردن
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
           </v-stepper-content>
+          </v-form>
         </v-stepper-items>
       </v-stepper>
+      </v-card-text>
+    </v-card>
+    </v-dialog>
+    <!-- dialog for show appointment of patient -->
+    <v-dialog
+    max-width="1200"
+    v-model="appointmentShowDetails"
+    >
+    <v-card>
+      <v-card-title>
+        <strong>نشان دادن جزییات جلسه مراجعه شده</strong>
+        <v-spacer></v-spacer>
+        <v-btn icon x-large @click=" closeShowAppointmentDialog()"><v-icon color="red">mdi-close</v-icon></v-btn>
+      </v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col>
+           
+          </v-col>
+        </v-row>
       </v-card-text>
     </v-card>
     </v-dialog>
@@ -1418,7 +1538,36 @@ export default {
       appointmentEditForm:null,
       apointmentEditIndex:-1,
       appointmentEditOb:{
-
+      dentist:0,
+      description:"",
+      fee_amount_received:0,
+      fee_amount_due:0,
+      fee_total_received:0,
+      installment:0,
+      meet_at:0,
+      round:0,
+      tooth_gum:"",
+      tooth_type:"",
+      material:"",
+      initial_swervices:"",
+      image:"",
+      stag:"",
+      },
+      appointmentDefalutEditOb:{
+      dentist:0,
+      description:"",
+      fee_amount_received:0,
+      fee_amount_due:0,
+      fee_total_received:0,
+      installment:0,
+      meet_at:0,
+      round:0,
+      tooth_gum:"",
+      tooth_type:"",
+      material:"",
+      initial_swervices:"",
+      image:"",
+      stag:"",
       },
       // personal information 
        editePatient: {
@@ -1478,6 +1627,9 @@ export default {
         disease:"",
         result:""
       },
+
+      // appointment show details
+      appointmentShowDetails:false,
 
     };
   },
@@ -1782,7 +1934,7 @@ export default {
     
     } 
     },
-     showDintstName(id){
+    showDintstName(id){
       const res =this.$store.state.staff.staff.find(({_id})=>_id === id);
       if(res){
         return res.firstname;
@@ -1798,8 +1950,27 @@ export default {
     },
     closeAppointmentEditDialog(){
       this.appointmentEditDialog =false;
+      this.appointment_edit_stepper=1;
+      this.$nextTick(()=>{
+        this.appointmentEditOb = Object.assign({},this.appointmentDefalutEditOb);
+        this.apointmentEditIndex = -1;
+      });
     },
-    appointmentEditStepOne(){}
+    appointmentEditStepOne(){
+        this.appointment_edit_stepper =2;
+    },
+    openShowAppointmentDialog(item){
+      this.apointmentEditIndex = this.appointmentItem.indexOf(item);
+      this.appointmentEditOb = Object.assign({},item)
+      this.appointmentShowDetails = true;
+    },
+    closeShowAppointmentDialog(){
+      this.appointmentShowDetails = false;
+       this.$nextTick(()=>{
+        this.appointmentEditOb = Object.assign({},this.appointmentDefalutEditOb);
+        this.apointmentEditIndex = -1;
+      });
+    }
   },
 };
 </script>
