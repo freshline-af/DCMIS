@@ -1449,7 +1449,7 @@ export default {
          align: "start"
        },
         {
-         text:"دوره",
+         text:"جلسه",
          value:"round",
          sortable: true,
          align: "start"
