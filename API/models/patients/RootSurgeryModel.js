@@ -37,6 +37,7 @@ const pRootSurgerySchema = new Schema({
             type: Number,
             min: 1,
             max: 5,
+            default: 1
           },
           description: String,
           tooth: {
@@ -45,11 +46,11 @@ const pRootSurgerySchema = new Schema({
           },
           fee: {
             installment: { type: Number, min: 1, max: 3 },
-            amount_received: Schema.Types.Decimal128,
-            amount_due: Schema.Types.Decimal128,
+            amount_received: { type: Number, default: 0 },
+            amount_due: { type: Number, default: 0 },
             dentist: mongoose.ObjectId,
           },
-          total_received: Schema.Types.Decimal128,
+          total_received: { type: Number, default: 0 },
         },
       ],
     },
