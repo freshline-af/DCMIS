@@ -1645,24 +1645,25 @@ export default {
     },
      getRealDate(date) {
       const months = [
-        "January",
-        "February",
-        "March",
-        "April",
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
         "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
       ];
       var real_date = new Date(date);
       var month = real_date.getMonth();
-      var year = real_date.getFullYear();
-      var day = real_date.getDate();
-      return months[month] + "-" + year + "-" + day;
+      var year =real_date.getFullYear();
+      var day = real_date.getDate()+" ";
+      let newDate = day +' '+ months[month] +' '+ year  ;
+      return newDate;
     },
     formatTazkira_number() {
       var tazkira = this.editePatient.tazkira_id
