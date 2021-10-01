@@ -39,7 +39,10 @@ const pOrthodoncySchema = new Schema({
             max: 5,
             default: 1,
           },
-          image: String,
+          image: {
+            type: String,
+            default: 'default.png'
+          },
           description: String,
           tooth: {
             gum: String,
