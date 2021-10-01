@@ -902,7 +902,7 @@
                 </v-col>
                 <v-col cols="12" class="mt-n2">
                   <v-row justify="center">
-                    <span class="red--text">{{ amount_due }}</span>
+                    <span class="red--text">{{ fee.total_received - fee.amount_received || ''}}</span>
                   </v-row>
                 </v-col>
                 <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
