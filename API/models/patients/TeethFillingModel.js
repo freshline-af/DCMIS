@@ -38,7 +38,7 @@ const pTeethFillingSchema = new Schema({
             type: Number,
             min: 1,
             max: 5,
-            default: 1
+            default: 1,
           },
           initial_services: String,
           description: String,
@@ -53,7 +53,7 @@ const pTeethFillingSchema = new Schema({
             amount_due: { type: Number, default: 0 },
             dentist: mongoose.ObjectId,
           },
-          total_received: { type: Number, default: 0 },
+          grand_total: { type: Number, default: 0 },
         },
       ],
     },

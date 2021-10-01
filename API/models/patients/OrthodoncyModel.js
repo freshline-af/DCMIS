@@ -37,9 +37,12 @@ const pOrthodoncySchema = new Schema({
             type: Number,
             min: 1,
             max: 5,
-            default: 1
+            default: 1,
           },
-          image: String,
+          image: {
+            type: String,
+            default: 'default.png'
+          },
           description: String,
           tooth: {
             gum: String,
@@ -51,7 +54,7 @@ const pOrthodoncySchema = new Schema({
             amount_due: { type: Number, default: 0 },
             dentist: mongoose.ObjectId,
           },
-          total_received: { type: Number, default: 0 },
+          grand_total: { type: Number, default: 0 },
         },
       ],
     },
