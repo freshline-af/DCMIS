@@ -96,7 +96,6 @@ const insertPatient = async (req, res) => {
       let toothType = serviceArrayOfObj[s].tooth.type;
       let inst = serviceArrayOfObj[s].fee.installment;
       amountReceived += serviceArrayOfObj[s].fee.amount_received;
-      // let amountDue = serviceArrayOfObj[s].fee.amount_due;
       let grandTotal = serviceArrayOfObj[s].grand_total;
       let amountDue = grandTotal - amountReceived;
       let _dentist = serviceArrayOfObj[s].fee.dentist;
@@ -117,7 +116,7 @@ const insertPatient = async (req, res) => {
       serviceObj["description"] = desc;
       toothObj["gum"] = toothGum;
       toothObj["type"] = toothType;
-      feeObj["installment"] = inst--;
+      feeObj["installment"] = inst;
       feeObj["amount_received"] = amountReceived;
       feeObj["amount_due"] = amountDue;
       feeObj["dentist"] = _dentist;
