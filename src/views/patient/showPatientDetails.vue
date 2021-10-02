@@ -269,7 +269,7 @@
       </v-row>
     </v-col>
     <!-- dialog for edit patient personal infomation -->
-    <v-dialog persistent max-width="1200" v-model="edit_patient">
+    <v-dialog scrollable persistent max-width="1200" v-model="edit_patient">
       <v-card>
         <v-card-title>
           <v-row>
@@ -280,10 +280,11 @@
                 </v-col>
                 <v-col cols="6" class="text-left">
                   <v-btn
-                    color="primary"
+                  x-large
+                    color="red"
                     @click="closeEditPersonalInfoEditDialog"
                     icon
-                    ><v-icon x-large>mdi-close</v-icon></v-btn
+                    ><v-icon>mdi-close</v-icon></v-btn
                   >
                 </v-col>
               </v-row>
@@ -602,7 +603,7 @@
       </v-card>
     </v-dialog>
     <!-- Case History update Dialog -->
-    <v-dialog max-width="300" persistent v-model="caseHistoryDialog">
+    <v-dialog  max-width="300" persistent v-model="caseHistoryDialog">
       <v-card>
         <v-card-text>
           <v-form
@@ -650,7 +651,7 @@
       </v-card>
     </v-dialog>
     <!-- dialog for update appointment -->
-    <v-dialog max-width="1200" persistent v-model="appointmentEditDialog">
+    <v-dialog scrollable max-width="1200" persistent v-model="appointmentEditDialog">
       <v-card>
         <v-card-title>
           <v-row>
