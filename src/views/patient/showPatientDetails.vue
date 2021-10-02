@@ -1247,8 +1247,8 @@
                         <v-col cols="6" md="6" sm="12" xs="12">
                           <BaseEdittext
                             label="مصارف کل"
-                            v-model="appointmentEditOb.total_received"
-                            :values="appointmentEditOb.total_received"
+                            v-model="appointmentEditOb.grand_total"
+                            :values="appointmentEditOb.grand_total"
                             :rules="rule.rules.required_number"
                             type="number"
                             hint="وارد کردن مصرف الزامی می باشد"
@@ -1291,13 +1291,7 @@
                         </v-col>
                       </v-row>
                     </v-col>
-                    <v-col cols="12" class="mt-n2">
-                      <v-row justify="center">
-                        <span class="red--text">{{
-                          appointmentEditOb.fee_amount_due
-                        }}</span>
-                      </v-row>
-                    </v-col>
+                    
                     <v-col
                       cols="12"
                       md="12"
@@ -1932,8 +1926,8 @@ export default {
             appointment.tooth_type =
               this.editedItem.appointment[i].teeth_filling[tf].tooth.type ||
               " ";
-            appointment.fee_total_received =
-              this.editedItem.appointment[i].teeth_filling[tf].total_received ||
+            appointment.fee_grand_total =
+              this.editedItem.appointment[i].teeth_filling[tf].grand_total ||
               0;
             this.appointmentItem.push(appointment);
           }
@@ -1968,8 +1962,8 @@ export default {
               this.editedItem.appointment[i].teeth_cover[tc].tooth.gum || " ";
             appointment.tooth_type =
               this.editedItem.appointment[i].teeth_cover[tc].tooth.type || " ";
-            appointment.total_received =
-              this.editedItem.appointment[i].teeth_cover[tc].total_received ||
+            appointment.grand_total =
+              this.editedItem.appointment[i].teeth_cover[tc].grand_total ||
               0;
             this.appointmentItem.push(appointment);
           }
@@ -2003,8 +1997,8 @@ export default {
               this.editedItem.appointment[i].orthodoncy[o].tooth.gum || "";
             appointment.tooth_type =
               this.editedItem.appointment[i].orthodoncy[o].tooth.type || "";
-            appointment.total_received =
-              this.editedItem.appointment[i].orthodoncy[o].total_received || 0;
+            appointment.grand_total =
+              this.editedItem.appointment[i].orthodoncy[o].grand_total || 0;
             this.appointmentItem.push(appointment);
           }
         } else if (this.editedItem.appointment[i].stag === 4) {
@@ -2036,8 +2030,8 @@ export default {
               this.editedItem.appointment[i].teeth_remove[tr].tooth.gum || "";
             appointment.tooth_type =
               this.editedItem.appointment[i].teeth_remove[tr].tooth.type || "";
-            appointment.total_received =
-              this.editedItem.appointment[i].teeth_remove[tr].total_received ||
+            appointment.grand_total =
+              this.editedItem.appointment[i].teeth_remove[tr].grand_total ||
               0;
             this.appointmentItem.push(appointment);
           }
@@ -2070,8 +2064,8 @@ export default {
               this.editedItem.appointment[i].gum_surgery[gs].tooth.gum || "";
             appointment.tooth_type =
               this.editedItem.appointment[i].gum_surgery[gs].tooth.type || "";
-            appointment.total_received =
-              this.editedItem.appointment[i].gum_surgery[gs].total_received ||
+            appointment.grand_total =
+              this.editedItem.appointment[i].gum_surgery[gs].grand_total ||
               0;
             this.appointmentItem.push(appointment);
           }
@@ -2104,8 +2098,8 @@ export default {
               this.editedItem.appointment[i].root_surgery[rs].tooth.gum || "";
             appointment.tooth =
               this.editedItem.appointment[i].root_surgery[rs].tooth.type || "";
-            appointment.total_received =
-              this.editedItem.appointment[i].root_surgery[rs].total_received ||
+            appointment.grand_total =
+              this.editedItem.appointment[i].root_surgery[rs].grand_total ||
               0;
             this.appointmentItem.push(appointment);
           }
@@ -2139,8 +2133,8 @@ export default {
               this.editedItem.appointment[i].teeth_protice[tp].tooth.gum || "";
             appointment.tooth_type =
               this.editedItem.appointment[i].teeth_protice[tp].tooth.type || "";
-            appointment.total_received =
-              this.editedItem.appointment[i].teeth_protice[tp].total_received ||
+            appointment.grand_total =
+              this.editedItem.appointment[i].teeth_protice[tp].grand_total ||
               0;
             appointment.material =
               this.editedItem.appointment[i].teeth_protice[tp].material || "";
@@ -2181,9 +2175,9 @@ export default {
             appointment.tooth_type =
               this.editedItem.appointment[i].teeth_bleaching[tb].tooth.type ||
               "";
-            appointment.total_received =
+            appointment.grand_total =
               this.editedItem.appointment[i].teeth_bleaching[tb]
-                .total_received || 0;
+                .grand_total || 0;
             this.appointmentItem.push(appointment);
           }
         } else if (this.editedItem.appointment[i].stag === 9) {
@@ -2216,8 +2210,8 @@ export default {
               this.editedItem.appointment[i].teeth_scaling[ts].tooth.type || "";
             appointment.tooth_gum =
               this.editedItem.appointment[i].teeth_scaling[ts].tooth.gum || "";
-            appointment.total_received =
-              this.editedItem.appointment[i].teeth_scaling[ts].total_received ||
+            appointment.grand_total =
+              this.editedItem.appointment[i].teeth_scaling[ts].grand_total ||
               0;
             this.appointmentItem.push(appointment);
           }

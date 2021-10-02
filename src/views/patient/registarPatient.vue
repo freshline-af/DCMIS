@@ -862,7 +862,7 @@
                     <v-col cols="6" md="6" sm="12" xs="12">
                       <BaseEdittext
                         label="مصارف کل"
-                        v-model="fee.total_received"
+                        v-model="fee.grand_total"
                         :rules="rule.rules.required_number"
                         type="number"
                         hint="وارد کردن مصرف الزامی می باشد"
@@ -898,11 +898,6 @@
                         placeholder="مقدرا قابل پرداخت را وارد کنید"
                       />
                     </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="12" class="mt-n2">
-                  <v-row justify="center">
-                    <span class="red--text">{{ fee.total_received - fee.amount_received || ''}}</span>
                   </v-row>
                 </v-col>
                 <v-col cols="12" md="12" sm="12" lg="12" xl="12" class="mb-3">
@@ -1288,10 +1283,9 @@ export default {
           this.appointment.teeth_filling.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
-            amount_due: this.fee.total_received - this.fee.amount_received,
             dentist: this.user_login_id,
           };
-          this.appointment.teeth_filling.total_received = this.fee.total_received;
+          this.appointment.teeth_filling.grand_total = this.fee.grand_total;
           this.appointment2.stag = 1;
           this.appointment2.teeth_filling.push(this.appointment.teeth_filling);
           this.new_patient.appointment.push(this.appointment2);
@@ -1299,10 +1293,9 @@ export default {
           this.appointment.teeth_cover.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
-            amount_due: this.fee.total_received - this.fee.amount_received,
             dentist: this.user_login_id,
           };
-          this.appointment.teeth_cover.total_received = this.fee.total_received;
+          this.appointment.teeth_cover.grand_total = this.fee.grand_total;
           this.appointment2.stag = 2;
           this.appointment2.teeth_cover.push(this.appointment.teeth_cover);
           this.new_patient.appointment.push(this.appointment2);
@@ -1310,11 +1303,10 @@ export default {
           this.appointment.orthodoncy.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
-            amount_due: this.fee.total_received - this.fee.amount_received,
             dentist:  this.user_login_id,
             image: this.appointment.orthodoncy.image,
           };
-          this.appointment.orthodoncy.total_received =  this.fee.total_received;
+          this.appointment.orthodoncy.grand_total =  this.fee.grand_total;
           this.appointment2.stag = 3;
           this.appointment2.orthodoncy.push(this.appointment.orthodoncy);
           this.new_patient.appointment.push(this.appointment2);
@@ -1322,10 +1314,9 @@ export default {
           this.appointment.teeth_remove.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
-            amount_due: this.fee.total_received - this.fee.amount_received,
             dentist:  this.user_login_id,
           };
-          this.appointment.teeth_remove.total_received =  this.fee.total_received;
+          this.appointment.teeth_remove.grand_total =  this.fee.grand_total;
           this.appointment2.stag = 4;
           this.appointment2.teeth_remove.push(this.appointment.teeth_remove);
           this.new_patient.appointment.push(this.appointment2);
@@ -1333,10 +1324,9 @@ export default {
           this.appointment.teeth_surgery.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
-            amount_due: this.fee.total_received - this.fee.amount_received,
             dentist:  this.user_login_id,
           };
-          this.appointment.teeth_surgery.total_received = this.fee.total_received;
+          this.appointment.teeth_surgery.grand_total = this.fee.grand_total;
           this.appointment2.stag = 5;
           this.appointment2.teeth_surgery.push(this.appointment.teeth_surgery);
           this.new_patient.appointment.push(this.appointment2);
@@ -1344,10 +1334,9 @@ export default {
           this.appointment.root_surgery.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
-            amount_due: this.fee.total_received - this.fee.amount_received,
             dentist:  this.user_login_id,
           };
-          this.appointment.root_surgery.total_received =this.fee.total_received;
+          this.appointment.root_surgery.grand_total =this.fee.grand_total;
           this.appointment2.stag = 6;
           this.appointment2.root_surgery.push(this.appointment.root_surgery);
           this.new_patient.appointment.push(this.appointment2);
@@ -1355,10 +1344,9 @@ export default {
           this.appointment.teeth_protice.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
-            amount_due: this.fee.total_received - this.fee.amount_received,
             dentist:  this.user_login_id,
           };
-          this.appointment.teeth_protice.total_received = this.fee.total_received;
+          this.appointment.teeth_protice.grand_total = this.fee.grand_total;
           this.appointment2.stag = 7;
           this.appointment2.teeth_protice.push(this.appointment.teeth_protice);
           this.new_patient.appointment.push(this.appointment2);
@@ -1366,10 +1354,9 @@ export default {
           this.appointment.teeth_bleaching.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
-            amount_due: this.fee.total_received - this.fee.amount_received,
             dentist:  this.user_login_id,
           };
-          this.appointment.teeth_bleaching.total_received = this.fee.total_received;
+          this.appointment.teeth_bleaching.grand_total = this.fee.grand_total;
           this.appointment2.stag = 8;
           this.appointment2.teeth_bleaching.push(
             this.appointment.teeth_bleaching
@@ -1379,10 +1366,9 @@ export default {
           this.appointment.scaling.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
-            amount_due: this.fee.total_received - this.fee.amount_received,
             dentist:  this.user_login_id,
           };
-          this.appointment.scaling.total_received = this.fee.total_received;
+          this.appointment.scaling.grand_total = this.fee.grand_total;
           this.appointment2.stag = 9;
           this.appointment2.scaling.push(this.appointment.scaling);
           this.new_patient.appointment.push(this.appointment2);
