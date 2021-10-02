@@ -70,6 +70,9 @@
         </v-icon>
       </v-btn>
     </template>
+    <template v-slot:item.registered_at ="{item}">
+      {{getRealDate(item.registered_at)}}
+    </template>
     <!-- if there is no data in the tabel -->
     <template v-slot:no-data>
       <span> هیچ بیماری فعلا ثبت نشده است </span>
@@ -96,15 +99,15 @@ export default {
     },
     headers: [
       {
-        text: "آی دی",
+        text: "تاریخ راجستر شده",
         align: "start",
         sortable: false,
-        value: "_id",
+        value: "registered_at",
       },
       { text: "اسم", value: "firstname" },
       { text: "اسم پدر", value: "fathername" },
       { text: "شماره تماس", value: "phone" },
-      { text: "نوعیت بیماری", value: "disease" },
+      { text: "نمبر تذکره", value: "tazkira_id" },
       { text: "Actions", value: "actions", sortable: false },
     ],
     patients_list: [],
@@ -189,7 +192,28 @@ export default {
       }
       this.close();
     },
-    
+    getRealDate(date) {
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      var real_date = new Date(date);
+      var month = real_date.getMonth();
+      var year = real_date.getFullYear();
+      var day = real_date.getDate() + " ";
+      let newDate = day + " " + months[month] + " " + year;
+      return newDate;
+    },
     getDate(date){
       let date_time = new Date(date);
       var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
