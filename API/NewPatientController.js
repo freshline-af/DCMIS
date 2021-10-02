@@ -83,6 +83,7 @@ const insertPatient = async (req, res) => {
 
     // Declare a new empty array for services to use in below.
     let newServiceArray = [];
+    let amountReceived = 0;
     // This inner loop is for any service which is an array of objects
     for (let s = 0; s < serviceArrayOfObj.length; s++) {
       let serviceObj = {};
@@ -94,8 +95,9 @@ const insertPatient = async (req, res) => {
       let toothGum = serviceArrayOfObj[s].tooth.gum;
       let toothType = serviceArrayOfObj[s].tooth.type;
       let inst = serviceArrayOfObj[s].fee.installment;
-      let amountReceived = serviceArrayOfObj[s].fee.amount_received;
-      let amoutDue = serviceArrayOfObj[s].fee.amount_due;
+      amountReceived += serviceArrayOfObj[s].fee.amount_received;
+      let grandTotal = serviceArrayOfObj[s].grand_total;
+      let amountDue = grandTotal - amountReceived;
       let _dentist = serviceArrayOfObj[s].fee.dentist;
       if (seeDrFor === "teeth_filling") {
         serviceObj["initial_services"] = serviceArrayOfObj[s].initial_services;
@@ -116,10 +118,11 @@ const insertPatient = async (req, res) => {
       toothObj["type"] = toothType;
       feeObj["installment"] = inst;
       feeObj["amount_received"] = amountReceived;
-      feeObj["amount_due"] = amoutDue;
+      feeObj["amount_due"] = amountDue;
       feeObj["dentist"] = _dentist;
       serviceObj["tooth"] = toothObj;
       serviceObj["fee"] = feeObj;
+      serviceObj["grand_total"] = grandTotal;
       newServiceArray.push(serviceObj);
     }
 

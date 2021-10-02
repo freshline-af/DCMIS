@@ -50,7 +50,7 @@ const pScalingSchema = new Schema({
             amount_due: { type: Number, default: 0 },
             dentist: mongoose.ObjectId,
           },
-          total_received: { type: Number, default: 0 },
+          grand_total: { type: Number, default: 0 },
         },
       ],
     },

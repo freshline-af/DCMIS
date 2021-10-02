@@ -37,7 +37,7 @@ const pTeethCoverSchema = new Schema({
             type: Number,
             min: 1,
             max: 5,
-            default: 1
+            default: 1,
           },
           material: String,
           description: String,
@@ -51,7 +51,7 @@ const pTeethCoverSchema = new Schema({
             amount_due: { type: Number, default: 0 },
             dentist: mongoose.ObjectId,
           },
-          total_received: { type: Number, default: 0 },
+          grand_total: { type: Number, default: 0 },
         },
       ],
     },
