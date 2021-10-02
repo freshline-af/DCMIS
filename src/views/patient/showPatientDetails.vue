@@ -337,7 +337,7 @@
                         </v-col>
                       </v-row>
                     </v-col>
-
+                    
                     <v-col cols="12" class="mt-3">
                       <v-row justify="center">
                         <v-col cols="12" md="6" sm="12" xs="12">
@@ -370,7 +370,22 @@
                         </v-col>
                       </v-row>
                     </v-col>
-
+                     <v-col cols="12" class="mt-3">
+                      <v-row justify="center">
+                        <v-col cols="12" md="6" sm="12" xs="12">
+                          <BaseEdittext
+                            label="آدرس"
+                            type="text"
+                            hint=".وارد کردن آدرس اختیاری می باشد"
+                            placeholder=".لطفاً آدرس خود را وارد کنید"
+                            v-model="editePatient.address"
+                            :values="editePatient.address"
+                            picon="mdi-map"
+                            :rules="rule.rules.text"
+                          />
+                        </v-col>
+                      </v-row>
+                    </v-col>
                     <v-col cols="12" class="mt-3">
                       <v-row justify="center">
                         <v-col cols="12" md="6" sm="12" xs="12">
