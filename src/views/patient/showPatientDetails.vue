@@ -665,7 +665,7 @@
             <v-col class="mt-3 ml-3" cols="12">
               <v-row>
                 <strong class="mr-3 mt-2"
-                  >تغیرات آوردن به جلسه های مراجعه شده</strong
+                  >تغییر دادن جلسه مراجعه شده</strong
                 >
                 <v-spacer></v-spacer>
                 <v-btn
@@ -686,7 +686,7 @@
           <v-stepper v-model="appointment_edit_stepper">
             <v-stepper-header>
               <v-stepper-step step="1" :complete="appointment_edit_stepper > 1">
-                تغیر دادن جلسه مراجعه شده
+                تغییر دادن جلسه مراجعه شده
               </v-stepper-step>
               <v-stepper-step step="2" :complete="appointment_edit_stepper > 2">
                 تغیر دادن حساب مالی
