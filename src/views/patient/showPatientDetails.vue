@@ -276,12 +276,12 @@
             <v-col cols="12">
               <v-row>
                 <v-col cols="6">
-                  <strong class="mr-2">تغیر آوردن در معلومات شخصی </strong>
+                  <strong class="mr-2">تغییر دادن معلومات شخصی </strong>
                 </v-col>
                 <v-col cols="6" class="text-left">
                   <v-btn
                     color="primary"
-                    @click="edit_patient = !edit_patient"
+                    @click="closeEditPersonalInfoEditDialog"
                     icon
                     ><v-icon x-large>mdi-close</v-icon></v-btn
                   >
@@ -300,7 +300,7 @@
                 معلومات شخصی
               </v-stepper-step>
               <v-stepper-step step="2" :complete="patient_edit_step > 2">
-                تاریخجه مریضی
+                تاریخچه بیمار
               </v-stepper-step>
             </v-stepper-header>
             <v-stepper-items>
@@ -313,11 +313,6 @@
                   lazy-validation
                 >
                   <v-row class="mt-4" justify="center">
-                    <v-col align="start" cols="12" md="6" sm="12" xs="12">
-                      <h2 class="mt-2">
-                        لطفا معلومات شخصی بیمار مورد نطر را وارد کنید.
-                      </h2>
-                    </v-col>
                     <v-col cols="12" align="center">
                       <v-row justify="center">
                         <v-col cols="12" md="6" lg="6" xl="6" sm="6">
@@ -547,9 +542,6 @@
               <!-- step 2 Case history of patients-------------------------------- -->
               <v-stepper-content step="2">
                 <v-row justify="center">
-                  <v-col cols="12" md="6">
-                    <h2>تغیر وارد کردن در تاریخجه بیمار.</h2>
-                  </v-col>
                   <v-col cols="12">
                     <v-data-table
                       :headers="caseHeaders"
@@ -597,7 +589,7 @@
                           color="primary"
                           @click="stepTwoCaseHistoryEdit"
                         >
-                          بعدی
+                         تغییر دادن
                         </v-btn>
                       </v-col>
                     </v-row>
@@ -647,7 +639,7 @@
                   </v-col>
                   <v-col cols="6" class="text-left">
                     <v-btn type="submit" outlined color="blue">
-                      تغیر دادن
+                      تغییر دادن
                     </v-btn>
                   </v-col>
                 </v-row>
