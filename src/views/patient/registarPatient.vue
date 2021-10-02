@@ -586,7 +586,7 @@
                       <v-autocomplete
                         label="گواردینات"
                         :items="type_quardinat"
-                        v-model="appointment.teeth_surgery.tooth.gum"
+                        v-model="appointment.gum_surgery.tooth.gum"
                         :rules="rule.rules.select"
                         outlined
                         rounded
@@ -598,7 +598,7 @@
                     <v-col cols="12" md="12" sm="12" xs="12">
                       <v-textarea
                         label="نوت"
-                        v-model="appointment.teeth_surgery.description"
+                        v-model="appointment.gum_surgery.description"
                         outlined
                         rounded
                         required
@@ -1075,7 +1075,6 @@ export default {
         {
           installment: "",
           amount_received: "",
-          amount_due: "",
           dentist: "",
         },
       ],
@@ -1123,11 +1122,11 @@ export default {
         },
         {
           text: "جراحی ریشه دندان ها",
-          value: 5,
+          value: 6,
         },
         {
           text: "حراحی لثه",
-          value: 6,
+          value: 5,
         },
         { text: "پروتیز دندان", value: 7 },
         {
@@ -1162,7 +1161,7 @@ export default {
         teeth_cover: [],
         orthodoncy: [],
         teeth_remove: [],
-        teeth_surgery: [],
+        gum_surgery: [],
         root_surgery: [],
         teeth_protice: [],
         teeth_bleaching: [],
@@ -1174,47 +1173,47 @@ export default {
         teeth_filling: {
           tooth: {},
           fee: {},
-          total_received: "",
+          grand_total:0,
         },
         teeth_cover: {
           tooth: {},
           fee: {},
-          total_received: "",
+          grand_total:0,
         },
         orthodoncy: {
           tooth: {},
           fee: {},
-          total_received: "",
+          grand_total:0,
         },
         teeth_remove: {
           tooth: {},
           fee: {},
-          total_received: "",
+          grand_total:0,
         },
-        teeth_surgery: {
+        gum_surgery: {
           tooth: {},
           fee: {},
-          total_received: "",
+          grand_total:0,
         },
         root_surgery: {
           tooth: {},
           fee: {},
-          total_received: "",
+          grand_total:0,
         },
         teeth_protice: {
           tooth: {},
           fee: {},
-          total_received: "",
+          grand_total:0,
         },
         teeth_bleaching: {
           tooth: {},
           fee: {},
-          total_received: "",
+          grand_total:0,
         },
         scaling: {
           tooth: {},
           fee: {},
-          total_received: "",
+          grand_total:0,
         },
         mounth_testing: {
           tooth: {},
@@ -1321,15 +1320,16 @@ export default {
           this.appointment2.teeth_remove.push(this.appointment.teeth_remove);
           this.new_patient.appointment.push(this.appointment2);
         } else if (this.appointment.stag === 5) {
-          this.appointment.teeth_surgery.fee = {
+          this.appointment.gum_surgery.fee = {
             installment: this.fee.installment,
             amount_received: this.fee.amount_received,
             dentist:  this.user_login_id,
           };
-          this.appointment.teeth_surgery.grand_total = this.fee.grand_total;
+          this.appointment.gum_surgery.grand_total = this.fee.grand_total;
           this.appointment2.stag = 5;
-          this.appointment2.teeth_surgery.push(this.appointment.teeth_surgery);
+          this.appointment2.gum_surgery.push(this.appointment.gum_surgery);
           this.new_patient.appointment.push(this.appointment2);
+          console.log(this.new_patient.appointment.fee)
         } else if (this.appointment.stag === 6) {
           this.appointment.root_surgery.fee = {
             installment: this.fee.installment,

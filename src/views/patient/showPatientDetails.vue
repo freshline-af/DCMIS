@@ -1631,11 +1631,11 @@ export default {
         },
         {
           text: "جراحی ریشه دندان ها",
-          value: 5,
+          value: 6,
         },
         {
           text: "حراحی لثه",
-          value: 6,
+          value: 5,
         },
         { text: "پروتیز دندان", value: 7 },
         {
@@ -2229,7 +2229,7 @@ export default {
         case 4:
           return "کشیدن دندان";
         case 5:
-          return "جراحی الثه دندان";
+          return "جراحی لثه دندان";
         case 6:
           return "جراحی ریشه دندان";
         case 7:
