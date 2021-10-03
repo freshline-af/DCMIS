@@ -704,7 +704,7 @@
               <v-form
                 v-model="appointmentEditForm"
                 ref="appointmentEditRef"
-                @submit.prevent="appointmentEditStepOne"
+                @submit.prevent="submitAppointmentEdit"
               >
                 <v-stepper-content step="1">
                   <v-row justify="center">
@@ -1782,10 +1782,12 @@ export default {
     this.initionalizeAppointment();
   },
   methods: {
+    // To show the name of patient when he does not have a photo;
     showname(firstname) {
       let name = "" + firstname + "".split("");
       return name[0] + name[1];
     },
+    // To take timestamp time and return formted date;
     getRealDate(date) {
       const months = [
         "Jan",
@@ -1808,6 +1810,7 @@ export default {
       let newDate = day + " " + months[month] + " " + year;
       return newDate;
     },
+    // To format tazkira id number
     formatTazkira_number() {
       var tazkira = this.editePatient.tazkira_id
         .replace(/\D/g, "")
@@ -1816,6 +1819,7 @@ export default {
         ? tazkira[1]
         : tazkira[1] + "-" + tazkira[2] + (tazkira[3] ? "-" + tazkira[3] : "");
     },
+    // To format phone number
     formatPhoneNumber() {
       var phone = this.editePatient.phone
         .replace(/\D/g, "")
@@ -1867,6 +1871,7 @@ export default {
         }
       }
     },
+    // To go to next step in personal information edit form.
     stepOnePersonalInfoEdit() {
       if (this.$refs.editPersonalInfoRef.validate()) {
         this.patient_edit_step = 2;
@@ -2230,6 +2235,7 @@ export default {
         }
       }
     },
+    // To take stag number and return services name
     showServices(services) {
       switch (services) {
         case 1:
@@ -2249,9 +2255,10 @@ export default {
         case 8:
           return "سفید کردن دندان";
         case 9:
-          return "معاینه دهن";
+          return "جرم گیری دندان";
       }
     },
+    // To search name of dentis with id of dentis in array of staff
     showDintstName(id) {
       const res = this.$store.state.staff.staff.find(({ _id }) => _id === id);
       if (res) {
@@ -2260,12 +2267,13 @@ export default {
         return "";
       }
     },
+    // To open edit appointment pop up
     openAppointmentEditDialog(item) {
-      console.log(item);
       this.apointmentEditIndex = this.appointmentItem.indexOf(item);
       this.appointmentEditOb = Object.assign({}, item);
       this.appointmentEditDialog = true;
     },
+    // To close appointment edit pop up
     closeAppointmentEditDialog() {
       this.appointmentEditDialog = false;
       this.appointment_edit_stepper = 1;
@@ -2277,14 +2285,17 @@ export default {
         this.apointmentEditIndex = -1;
       });
     },
+    // To go to step to in edit appointment form
     appointmentEditStepOne() {
       this.appointment_edit_stepper = 2;
     },
+    // To open show appointment pop up
     openShowAppointmentDialog(item) {
       this.apointmentEditIndex = this.appointmentItem.indexOf(item);
       this.appointmentEditOb = Object.assign({}, item);
       this.appointmentShowDetails = true;
     },
+    // To close show appointment pop up
     closeShowAppointmentDialog() {
       this.appointmentShowDetails = false;
       this.$nextTick(() => {
@@ -2294,6 +2305,202 @@ export default {
         );
         this.apointmentEditIndex = -1;
       });
+    },
+    // To update appoint of patient and integrate with api
+   async submitAppointmentEdit(){
+      if(this.$refs.appointmentEditRef.validate()){
+        if(this.apointmentEditIndex>-1){
+          Object.assign(this.appointmentItem[this.apointmentEditIndex],this.appointmentEditOb);
+          if(this.appointmentEditOb.stag===1){
+          let tfappointment ={
+            _id:0,
+            round: this.appointmentEditOb.round,
+            initial_services: this.appointmentEditOb.initial_services|| " ",
+            description: this.appointmentEditOb.description,
+            material: this.appointmentEditOb.material,
+            tooth:{
+              gum: this.appointmentEditOb.tooth_gum,
+              type: this.appointmentEditOb.tooth_type
+            },
+            fee:{
+              installment: this.appointmentEditOb.installment,
+              amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_amount_due,
+              dentist: this.appointmentEditOb.dentist
+            },
+            grand_total: this.appointmentEditOb.fee_grand_total
+          }
+          Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
+          teeth_filling[this.appointmentEditOb.index_of_tf],tfappointment);
+          }
+          else if(this.appointmentEditOb.stag===2){
+            let tcappointment ={
+            _id:this.appointmentEditOb.round._id ||0,
+            round: this.appointmentEditOb.round,
+            description: this.appointmentEditOb.description,
+            material: this.appointmentEditOb.material,
+            tooth:{
+              gum: this.appointmentEditOb.tooth_gum,
+              type: this.appointmentEditOb.tooth_type
+            },
+            fee:{
+              installment: this.appointmentEditOb.installment,
+              amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_amount_due,
+              dentist: this.appointmentEditOb.dentist
+            },
+            grand_total: this.appointmentEditOb.fee_grand_total
+          }
+           Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
+          teeth_cover[this.appointmentEditOb.index_of_tc],tcappointment)
+          }
+          else if(this.appointmentEditOb.stag===3){
+            let oappointment ={
+            _id:this.appointmentEditOb.round._id ||0,
+            round: this.appointmentEditOb.round,
+            description: this.appointmentEditOb.description,
+            image: this.appointmentEditOb.image || "",
+            tooth:{
+              gum: this.appointmentEditOb.tooth_gum,
+              type: this.appointmentEditOb.tooth_type
+            },
+            fee:{
+              installment: this.appointmentEditOb.installment,
+              amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_amount_due,
+              dentist: this.appointmentEditOb.dentist
+            },
+            grand_total: this.appointmentEditOb.fee_grand_total
+          }
+          Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
+          orthodoncy[this.appointmentEditOb.index_of_o],oappointment)
+          }
+          else if(this.appointmentEditOb.stag===4){
+              let trappointment ={
+            _id:this.appointmentEditOb.round._id ||0,
+            round: this.appointmentEditOb.round,
+            description: this.appointmentEditOb.description,
+            tooth:{
+              gum: this.appointmentEditOb.tooth_gum,
+              type: this.appointmentEditOb.tooth_type
+            },
+            fee:{
+              installment: this.appointmentEditOb.installment,
+              amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_amount_due,
+              dentist: this.appointmentEditOb.dentist
+            },
+            grand_total: this.appointmentEditOb.fee_grand_total
+          }
+          Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
+          teeth_remove[this.appointmentEditOb.index_of_tr],trappointment)
+          }
+          else if(this.appointmentEditOb.stag===5){
+          let gsappointment ={
+            _id:this.appointmentEditOb.round._id ||0,
+            round: this.appointmentEditOb.round,
+            description: this.appointmentEditOb.description,
+            tooth:{
+              gum: this.appointmentEditOb.tooth_gum,
+              type: this.appointmentEditOb.tooth_type
+            },
+            fee:{
+              installment: this.appointmentEditOb.installment,
+              amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_amount_due,
+              dentist: this.appointmentEditOb.dentist
+            },
+            grand_total: this.appointmentEditOb.fee_grand_total
+          }
+          Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
+          gum_surgery[this.appointmentEditOb.index_of_gs],gsappointment)
+          }
+          else if(this.appointmentEditOb.stag===6){
+         let rsappointment ={
+            _id:this.appointmentEditOb.round._id ||0,
+            round: this.appointmentEditOb.round,
+            description: this.appointmentEditOb.description,
+            tooth:{
+              gum: this.appointmentEditOb.tooth_gum,
+              type: this.appointmentEditOb.tooth_type
+            },
+            fee:{
+              installment: this.appointmentEditOb.installment,
+              amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_amount_due,
+              dentist: this.appointmentEditOb.dentist
+            },
+            grand_total: this.appointmentEditOb.fee_grand_total
+          }
+          Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
+         root_surgery[this.appointmentEditOb.index_of_rs],rsappointment)
+          }
+          else if(this.appointmentEditOb.stag===7){
+           let tpappointment ={
+            _id:this.appointmentEditOb.round._id ||0,
+            round: this.appointmentEditOb.round,
+            description: this.appointmentEditOb.description,
+            material: this.appointmentEditOb.material,
+            tooth:{
+              gum: this.appointmentEditOb.tooth_gum,
+              type: this.appointmentEditOb.tooth_type
+            },
+            fee:{
+              installment: this.appointmentEditOb.installment,
+              amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_amount_due,
+              dentist: this.appointmentEditOb.dentist
+            },
+            grand_total: this.appointmentEditOb.fee_grand_total
+          }
+          Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
+          teeth_protice[this.appointmentEditOb.index_of_tp],tpappointment)
+          }
+          else if(this.appointmentEditOb.stag===8){
+           let tbappointment ={
+            _id:this.appointmentEditOb.round._id ||0,
+            round: this.appointmentEditOb.round,
+            description: this.appointmentEditOb.description,
+            material: this.appointmentEditOb.material,
+            tooth:{
+              gum: this.appointmentEditOb.tooth_gum,
+              type: this.appointmentEditOb.tooth_type
+            },
+            fee:{
+              installment: this.appointmentEditOb.installment,
+              amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_amount_due,
+              dentist: this.appointmentEditOb.dentist
+            },
+            grand_total: this.appointmentEditOb.fee_grand_total
+          }
+          Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
+          teeth_bleaching[this.appointmentEditOb.index_of_tb],tbappointment)
+          }
+          else if(this.appointmentEditOb.stag===9){
+           let tsappointment ={
+            _id:this.appointmentEditOb.round._id ||0,
+            round: this.appointmentEditOb.round,
+            description: this.appointmentEditOb.description,
+            tooth:{
+              gum: this.appointmentEditOb.tooth_gum,
+              type: this.appointmentEditOb.tooth_type
+            },
+            fee:{
+              installment: this.appointmentEditOb.installment,
+              amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_amount_due,
+              dentist: this.appointmentEditOb.dentist
+            },
+            grand_total: this.appointmentEditOb.fee_grand_total
+          }
+          Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
+          scaling[this.appointmentEditOb.index_of_ts],tsappointment)
+          }
+         await Store.dispatch("patient/editPatient", this.editedItem);
+         this.closeAppointmentEditDialog();
+        }
+      }
     },
   },
 };
