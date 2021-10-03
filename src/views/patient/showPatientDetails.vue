@@ -225,42 +225,26 @@
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
-                  <v-simple-table class="mb-5 mt-1">
-                    <template>
-                      <thead>
-                        <tr>
-                          <th
-                            class="font-weight-block font-weight-bold text-h6"
-                          >
-                            نوعیت بیماری
-                          </th>
-                          <th
-                            class="font-weight-block font-weight-bold text-h6"
-                          >
-                            تاریخ ثبت بیمار
-                          </th>
-                          <th
-                            class="font-weight-block font-weight-bold text-h6"
-                          >
-                            هزینه کل
-                          </th>
-                          <th
-                            class="font-weight-block font-weight-bold text-h6"
-                          >
-                            حالت
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>دندان درد</td>
-                          <td>May 12 2021</td>
-                          <td>1000</td>
-                          <td>پرداخت شده</td>
-                        </tr>
-                      </tbody>
-                    </template>
-                  </v-simple-table>
+                  <v-data-table
+                  :items="appointmentItem"
+                  :headers="appointFeeHeader"
+                   class="mb-5 mt-1">
+                   <template v-slot:item.stag ="{item}">
+                    {{showServices(item.stag)}}
+                   </template>
+                   <template v-slot:item.fee_grand_total ="{item}">
+                    <v-chip color="white" class="blue--text">{{item.fee_grand_total}}</v-chip>
+                   </template>
+                    <template v-slot:item.fee_amount_received ="{item}">
+                    <v-chip color="success">{{item.fee_amount_received}}</v-chip>
+                   </template>
+                    <template v-slot:item.fee_amount_due ="{item}">
+                    <v-chip color="warning">{{item.fee_amount_due}}</v-chip>
+                   </template>
+                   <template v-slot:item.currency>
+                    <v-chip color="white" class="blue--text">AFG</v-chip>
+                   </template>
+                  </v-data-table>
                 </v-card-text>
               </v-card>
             </v-col>
@@ -1774,6 +1758,39 @@ export default {
 
       // appointment show details
       appointmentShowDetails: false,
+      // show appointment fee table
+     appointFeeHeader:[
+       {
+         text:"سرویس",
+         value:"stag",
+         sortable: true
+       },
+       {
+         text:"جلسه",
+         value:"round",
+         sortable: true
+       },
+       {
+         text:"مجموعه کل",
+         value:"fee_grand_total",
+         sortable: true
+       },
+       {
+         text:"دریافت شده",
+         value:"fee_amount_received",
+         sortable: true
+       },
+       {
+         text:"باقی مانده",
+         value:"fee_amount_due",
+         sortable: true
+       },
+       {
+         text:"ارز",
+         value:"currency",
+
+       }
+     ]
     };
   },
   async mounted() {
