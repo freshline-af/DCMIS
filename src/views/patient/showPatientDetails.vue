@@ -1350,7 +1350,10 @@
     <v-dialog scrollable max-width="400" v-model="appointmentShowDetails">
       <v-card>
         <v-card-title class="elevation-2">
-          <v-row><v-col cols="12" align="center"><strong class="text-h6 font-weight-bold">نشان دادن جزییات جلسه مراجعه شده</strong></v-col></v-row>
+          <v-row>
+            <v-col cols="10" align="center"><strong class="text-h6 font-weight-bold">نشان دادن جزییات جلسه مراجعه شده</strong></v-col>
+            <v-col cols="2" class="mt-n2"  align="center"><v-btn @click="closeShowAppointmentDialog" icon x-large color="red"><v-icon>mdi-close</v-icon></v-btn></v-col>
+          </v-row>
         </v-card-title>
         <v-card-text  justify="center" class="round-xl elevation-1">
             <v-col  cols="12" md="12" xl="12" lg="12" sm="12">
