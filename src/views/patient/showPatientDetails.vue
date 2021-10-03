@@ -1255,8 +1255,8 @@
                         <v-col cols="6" md="6" sm="12" xs="12">
                           <BaseEdittext
                             label="مصارف کل"
-                            v-model="appointmentEditOb.grand_total"
-                            :values="appointmentEditOb.grand_total"
+                            v-model="appointmentEditOb.fee_grand_total"
+                            :values="appointmentEditOb.fee_grand_total"
                             :rules="rule.rules.required_number"
                             type="number"
                             hint="وارد کردن مصرف الزامی می باشد"
@@ -1671,7 +1671,8 @@ export default {
         { text: "تکمیل", value: 1 },
         {
           text: "دو قسط",
-          value: "2",
+          value: 2,
+  
         },
         { text: "سه فسط", value: 3 },
       ],
@@ -1973,7 +1974,7 @@ export default {
               this.editedItem.appointment[i].teeth_cover[tc].tooth.gum || " ";
             appointment.tooth_type =
               this.editedItem.appointment[i].teeth_cover[tc].tooth.type || " ";
-            appointment.grand_total =
+            appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_cover[tc].grand_total ||
               0;
             this.appointmentItem.push(appointment);
@@ -2008,7 +2009,7 @@ export default {
               this.editedItem.appointment[i].orthodoncy[o].tooth.gum || "";
             appointment.tooth_type =
               this.editedItem.appointment[i].orthodoncy[o].tooth.type || "";
-            appointment.grand_total =
+            appointment.fee_grand_total =
               this.editedItem.appointment[i].orthodoncy[o].grand_total || 0;
             this.appointmentItem.push(appointment);
           }
@@ -2041,7 +2042,7 @@ export default {
               this.editedItem.appointment[i].teeth_remove[tr].tooth.gum || "";
             appointment.tooth_type =
               this.editedItem.appointment[i].teeth_remove[tr].tooth.type || "";
-            appointment.grand_total =
+            appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_remove[tr].grand_total ||
               0;
             this.appointmentItem.push(appointment);
@@ -2075,7 +2076,7 @@ export default {
               this.editedItem.appointment[i].gum_surgery[gs].tooth.gum || "";
             appointment.tooth_type =
               this.editedItem.appointment[i].gum_surgery[gs].tooth.type || "";
-            appointment.grand_total =
+            appointment.fee_grand_total =
               this.editedItem.appointment[i].gum_surgery[gs].grand_total ||
               0;
             this.appointmentItem.push(appointment);
@@ -2107,9 +2108,9 @@ export default {
               this.editedItem.appointment[i].root_surgery[rs].description || "";
             appointment.tooth_gum =
               this.editedItem.appointment[i].root_surgery[rs].tooth.gum || "";
-            appointment.tooth =
+            appointment.tooth_type =
               this.editedItem.appointment[i].root_surgery[rs].tooth.type || "";
-            appointment.grand_total =
+            appointment.fee_grand_total =
               this.editedItem.appointment[i].root_surgery[rs].grand_total ||
               0;
             this.appointmentItem.push(appointment);
@@ -2144,7 +2145,7 @@ export default {
               this.editedItem.appointment[i].teeth_protice[tp].tooth.gum || "";
             appointment.tooth_type =
               this.editedItem.appointment[i].teeth_protice[tp].tooth.type || "";
-            appointment.grand_total =
+            appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_protice[tp].grand_total ||
               0;
             appointment.material =
@@ -2186,7 +2187,7 @@ export default {
             appointment.tooth_type =
               this.editedItem.appointment[i].teeth_bleaching[tb].tooth.type ||
               "";
-            appointment.grand_total =
+            appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_bleaching[tb]
                 .grand_total || 0;
             this.appointmentItem.push(appointment);
@@ -2221,7 +2222,7 @@ export default {
               this.editedItem.appointment[i].teeth_scaling[ts].tooth.type || "";
             appointment.tooth_gum =
               this.editedItem.appointment[i].teeth_scaling[ts].tooth.gum || "";
-            appointment.grand_total =
+            appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_scaling[ts].grand_total ||
               0;
             this.appointmentItem.push(appointment);
