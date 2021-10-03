@@ -44,7 +44,7 @@ switch (stag) {
     break;
 }
 
-  await patient.remove({ _id: req.params.id }, (err, result) => {
+  await patient.deleteOne({ _id: req.params.id }, (err, result) => {
     if (err) {
       res.end("an error occured: " + err);
     } else {
