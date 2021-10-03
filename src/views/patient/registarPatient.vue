@@ -1151,7 +1151,7 @@ export default {
         { text: "تکمیل", value: 1 },
         {
           text: "دو قسط",
-          value: "2",
+          value: 2,
         },
         { text: "سه فسط", value: 3 },
       ],
@@ -1281,7 +1281,7 @@ export default {
         if (this.appointment.stag === 1) {
           this.appointment.teeth_filling.fee = {
             installment: this.fee.installment,
-            amount_received: this.fee.amount_received,
+            amount_received: this.fee.installment===1? this.fee.grand_total:this.fee.amount_received,
             dentist: this.user_login_id,
           };
           this.appointment.teeth_filling.grand_total = this.fee.grand_total;
@@ -1291,7 +1291,7 @@ export default {
         } else if (this.appointment.stag === 2) {
           this.appointment.teeth_cover.fee = {
             installment: this.fee.installment,
-            amount_received: this.fee.amount_received,
+            amount_received: this.fee.installment===1? this.fee.grand_total:this.fee.amount_received,
             dentist: this.user_login_id,
           };
           this.appointment.teeth_cover.grand_total = this.fee.grand_total;
@@ -1301,7 +1301,7 @@ export default {
         } else if (this.appointment.stag === 3) {
           this.appointment.orthodoncy.fee = {
             installment: this.fee.installment,
-            amount_received: this.fee.amount_received,
+            amount_received: this.fee.installment===1? this.fee.grand_total:this.fee.amount_received,
             dentist:  this.user_login_id,
             image: this.appointment.orthodoncy.image,
           };
@@ -1312,7 +1312,7 @@ export default {
         } else if (this.appointment.stag === 4) {
           this.appointment.teeth_remove.fee = {
             installment: this.fee.installment,
-            amount_received: this.fee.amount_received,
+            amount_received: this.fee.installment===1? this.fee.grand_total:this.fee.amount_received,
             dentist:  this.user_login_id,
           };
           this.appointment.teeth_remove.grand_total =  this.fee.grand_total;
@@ -1322,7 +1322,7 @@ export default {
         } else if (this.appointment.stag === 5) {
           this.appointment.gum_surgery.fee = {
             installment: this.fee.installment,
-            amount_received: this.fee.amount_received,
+            amount_received: this.fee.installment===1? this.fee.grand_total:this.fee.amount_received,
             dentist:  this.user_login_id,
           };
           this.appointment.gum_surgery.grand_total = this.fee.grand_total;
@@ -1333,7 +1333,7 @@ export default {
         } else if (this.appointment.stag === 6) {
           this.appointment.root_surgery.fee = {
             installment: this.fee.installment,
-            amount_received: this.fee.amount_received,
+            amount_received: this.fee.installment===1? this.fee.grand_total:this.fee.amount_received,
             dentist:  this.user_login_id,
           };
           this.appointment.root_surgery.grand_total =this.fee.grand_total;
@@ -1343,7 +1343,7 @@ export default {
         } else if (this.appointment.stag === 7) {
           this.appointment.teeth_protice.fee = {
             installment: this.fee.installment,
-            amount_received: this.fee.amount_received,
+            amount_received: this.fee.installment===1? this.fee.grand_total:this.fee.amount_received,
             dentist:  this.user_login_id,
           };
           this.appointment.teeth_protice.grand_total = this.fee.grand_total;
@@ -1353,7 +1353,7 @@ export default {
         } else if (this.appointment.stag === 8) {
           this.appointment.teeth_bleaching.fee = {
             installment: this.fee.installment,
-            amount_received: this.fee.amount_received,
+            amount_received: this.fee.installment===1? this.fee.grand_total:this.fee.amount_received,
             dentist:  this.user_login_id,
           };
           this.appointment.teeth_bleaching.grand_total = this.fee.grand_total;
@@ -1365,7 +1365,7 @@ export default {
         } else if (this.appointment.stag === 9) {
           this.appointment.scaling.fee = {
             installment: this.fee.installment,
-            amount_received: this.fee.amount_received,
+            amount_received: this.fee.installment===1? this.fee.grand_total:this.fee.amount_received,
             dentist:  this.user_login_id,
           };
           this.appointment.scaling.grand_total = this.fee.grand_total;

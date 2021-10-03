@@ -236,13 +236,13 @@
                     <v-chip color="white" class="blue--text">{{item.fee_grand_total}}</v-chip>
                    </template>
                     <template v-slot:item.fee_amount_received ="{item}">
-                    <v-chip color="success">{{item.fee_amount_received}}</v-chip>
+                    <v-chip color="primary">{{item.fee_amount_received}}</v-chip>
                    </template>
                     <template v-slot:item.fee_amount_due ="{item}">
-                    <v-chip color="warning">{{item.fee_amount_due}}</v-chip>
+                    <v-chip color="red" class="white--text">{{item.fee_amount_due}}</v-chip>
                    </template>
                    <template v-slot:item.currency>
-                    <v-chip color="white" class="blue--text">AFG</v-chip>
+                    <v-chip color="white" class="blue--text">افغانی</v-chip>
                    </template>
                   </v-data-table>
                 </v-card-text>
@@ -2187,7 +2187,7 @@ export default {
               i
             ].teeth_bleaching[tb].meet_at;
             appointment.fee_amount_received =
-              this.editedItem.appointment[i].teeth_bleaching[tp].fee
+              this.editedItem.appointment[i].teeth_bleaching[tb].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
               this.editedItem.appointment[i].teeth_bleaching[tb].fee
@@ -2203,12 +2203,6 @@ export default {
               "";
             appointment.material =
               this.editedItem.appointment[i].teeth_bleaching[tb].material || "";
-            appointment.tooth_gum =
-              this.editedItem.appointment[i].teeth_bleaching[tb].tooth.gum ||
-              "";
-            appointment.tooth_type =
-              this.editedItem.appointment[i].teeth_bleaching[tb].tooth.type ||
-              "";
             appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_bleaching[tb]
                 .grand_total || 0;
@@ -2342,7 +2336,6 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_amount_due,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2363,7 +2356,6 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_amount_due,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2384,7 +2376,6 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_amount_due,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2404,7 +2395,6 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_amount_due,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2424,7 +2414,6 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_amount_due,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2444,7 +2433,6 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_amount_due,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2465,7 +2453,6 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_amount_due,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2486,7 +2473,6 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_amount_due,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2506,7 +2492,6 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_amount_due,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
