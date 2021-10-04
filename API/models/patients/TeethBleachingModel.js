@@ -33,13 +33,6 @@ const pTeethBleachingSchema = new Schema({
             type: Date,
             default: Date.now,
           },
-          round: {
-            type: Number,
-            min: 1,
-            max: 5,
-            default: 1,
-          },
-          material: String,
           description: String,
           tooth: {
             gum: String,

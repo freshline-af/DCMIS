@@ -104,8 +104,7 @@ const insertPatient = async (req, res) => {
         serviceObj["material"] = serviceArrayOfObj[s].material;
       } else if (
         seeDrFor === "teeth_cover" ||
-        seeDrFor === "teeth_protice" ||
-        seeDrFor === "teeth_bleaching"
+        seeDrFor === "teeth_protice" 
       ) {
         serviceObj["material"] = serviceArrayOfObj[s].material;
       } else if (seeDrFor === "orthodoncy") {
