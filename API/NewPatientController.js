@@ -78,7 +78,7 @@ const insertPatient = async (req, res) => {
         patient = TeethFilling;
         seeDrFor = "teeth_filling";
         break;
-    } 
+    }
     var serviceArrayOfObj = apptArrayOfObj[a][seeDrFor];
 
     // Declare a new empty array for services to use in below.
@@ -104,12 +104,14 @@ const insertPatient = async (req, res) => {
         serviceObj["material"] = serviceArrayOfObj[s].material;
       } else if (
         seeDrFor === "teeth_cover" ||
-        seeDrFor === "teeth_protice" ||
-        seeDrFor === "teeth_bleaching"
+        seeDrFor === "teeth_protice" 
       ) {
         serviceObj["material"] = serviceArrayOfObj[s].material;
       } else if (seeDrFor === "orthodoncy") {
         serviceObj["image"] = serviceArrayOfObj[s].image;
+      } else if (seeDrFor === "teeth_bleaching") {
+        serviceObj["step"] = serviceArrayOfObj[s].step;
+        serviceObj["material"] = serviceArrayOfObj[s].material;
       }
       serviceObj["meet_at"] = meetAt;
       serviceObj["round"] = sRound;
