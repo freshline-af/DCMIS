@@ -33,11 +33,20 @@ const pTeethBleachingSchema = new Schema({
             type: Date,
             default: Date.now,
           },
-          description: String,
-          tooth: {
-            gum: String,
-            type: { type: String },
+          step: {
+            type: Number,
+            min: 1,
+            max: 4,
+            default: 1,
           },
+          round: {
+            type: Number,
+            min: 1,
+            max: 5,
+            default: 1,
+          },
+          material: String,
+          description: String,
           fee: {
             installment: { type: Number, min: 1, max: 3 },
             amount_received: { type: Number, default: 0 },
@@ -51,6 +60,10 @@ const pTeethBleachingSchema = new Schema({
   ],
 });
 // access the database collection
-const PTeethBleaching = mongoose.model("pTeethBleaching", pTeethBleachingSchema, "patients");
+const PTeethBleaching = mongoose.model(
+  "pTeethBleaching",
+  pTeethBleachingSchema,
+  "patients"
+);
 // export it to be use later
 module.exports = PTeethBleaching;
