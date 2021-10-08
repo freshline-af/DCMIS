@@ -1,4 +1,4 @@
-/* ------------------ 9 data models for patient services --------------------- */
+/* ------------------ 10 data models for patient services --------------------- */
 const TeethFilling = require("./models/patients/TeethFillingModel");
 const TeethRemove = require("./models/patients/TeethRemoveModel");
 const TeethCover = require("./models/patients/TeethCoverModel");
@@ -9,7 +9,7 @@ const GumSurgery = require("./models/patients/GumSurgeryModel");
 const RootSurgery = require("./models/patients/RootSurgeryModel");
 const Orthodoncy = require("./models/patients/OrthodoncyModel");
 const MouthTesting = require("./models/patients/MouthTestingModel");
-/* ------------------/. 9 data models for patient services --------------------- */
+/* ------------------/. 10 data models for patient services --------------------- */
 
 // Insert a patient
 const insertPatient = async (req, res) => {
