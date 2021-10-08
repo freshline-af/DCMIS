@@ -8,6 +8,7 @@ const TeethScaling = require("./models/patients/TeethScalingModel");
 const GumSurgery = require("./models/patients/GumSurgeryModel");
 const RootSurgery = require("./models/patients/RootSurgeryModel");
 const Orthodoncy = require("./models/patients/OrthodoncyModel");
+const MouthTesting = require("./models/patients/MouthTestingModel");
 /* ------------------/. 9 data models for patient services --------------------- */
 
 const patientsController = async (req, res) => {
@@ -38,6 +39,9 @@ const patientsController = async (req, res) => {
     case 9:
       patient = TeethScaling;
       break;
+    case 10:
+      patient = MouthTesting;
+      break;
     default:
       patient = TeethFilling;
       break;
@@ -48,7 +52,7 @@ const patientsController = async (req, res) => {
       {
         $match: {
           "appointment.stag": {
-            $in: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            $in: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
           },
         },
       },

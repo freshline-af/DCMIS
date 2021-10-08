@@ -8,6 +8,7 @@ const TeethScaling = require("./models/patients/TeethScalingModel");
 const GumSurgery = require("./models/patients/GumSurgeryModel");
 const RootSurgery = require("./models/patients/RootSurgeryModel");
 const Orthodoncy = require("./models/patients/OrthodoncyModel");
+const MouthTesting = require("./models/patients/MouthTestingModel");
 /* ------------------/. 9 data models for patient services --------------------- */
 
 // Insert a patient
@@ -27,6 +28,7 @@ const insertPatient = async (req, res) => {
   let addr = req.body.address;
   let psex = req.body.sex;
   let pphoto = req.body.photo;
+  let regDate = req.body.registered_at;
   /* ---------------/. Personal Info ------------------- */
   let patient = "";
   let seeDrFor = "";
@@ -74,6 +76,10 @@ const insertPatient = async (req, res) => {
         patient = TeethScaling;
         seeDrFor = "teeth_scaling";
         break;
+      case 10:
+        patient = MouthTesting;
+        seeDrFor = "mouth_testing";
+        break;
       default:
         patient = TeethFilling;
         seeDrFor = "teeth_filling";
@@ -113,6 +119,7 @@ const insertPatient = async (req, res) => {
         serviceObj["step"] = serviceArrayOfObj[s].step;
         serviceObj["material"] = serviceArrayOfObj[s].material;
       }
+      
       serviceObj["meet_at"] = meetAt;
       serviceObj["round"] = sRound;
       serviceObj["description"] = desc;
@@ -164,6 +171,7 @@ const insertPatient = async (req, res) => {
       address: addr,
       sex: psex,
       photo: pphoto,
+      registered_at: regDate,
       case_history: newCHistoryArray,
       appointment: newApptArray,
     },
