@@ -11,53 +11,54 @@ const Orthodoncy = require("./models/patients/OrthodoncyModel");
 const MouthTesting = require("./models/patients/MouthTestingModel");
 /* ------------------/. 9 data models for patient services --------------------- */
 
-const patientsController = async (req, res) => {
-  const stag = 1;
-  let patient = {};
-  switch (stag) {
+const serviceRequest = async (req, res) => {
+  const specificService = parseInt(req.params.stag);
+  let service = {};
+  switch (specificService) {
     case 2:
-      patient = TeethCover;
+      service = TeethCover;
       break;
     case 3:
-      patient = Orthodoncy;
+      service = Orthodoncy;
       break;
     case 4:
-      patient = TeethRemove;
+      service = TeethRemove;
       break;
     case 5:
-      patient = GumSurgery;
+      service = GumSurgery;
       break;
     case 6:
-      patient = RootSurgery;
+      service = RootSurgery;
       break;
     case 7:
-      patient = TeethProtice;
+      service = TeethProtice;
       break;
     case 8:
-      patient = TeethBleaching;
+      service = TeethBleaching;
       break;
     case 9:
-      patient = TeethScaling;
+      service = TeethScaling;
       break;
     case 10:
-      patient = MouthTesting;
+      service = MouthTesting;
       break;
     default:
-      patient = TeethFilling;
+      service = TeethFilling;
       break;
   }
 
-  const patients = await patient
+  const patients = await service
     .aggregate([
       {
         $match: {
           "appointment.stag": {
-            $in: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            $in: [specificService],
           },
         },
       },
-    ]).sort("-registered_at");
+    ])
+    .sort("-registered_at");
   res.send(patients);
 };
 
-module.exports = patientsController;
+module.exports = serviceRequest;

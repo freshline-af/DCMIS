@@ -1,4 +1,4 @@
- const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 // Import Timezone module
 const momentTZ = require("moment-timezone");
 // Set timezone for Kabul
@@ -6,8 +6,8 @@ const dateKabul = momentTZ.tz(Date.now(), "Asia/Kabul");
 // Declare a variable for schema
 const Schema = mongoose.Schema;
 
-// Appointment for teeth bleaching
-const pTeethBleachingSchema = new Schema({
+// Appointment for teeth surgery
+const pMouthTestingSchema = new Schema({
   firstname: { type: String, required: true },
   lastname: String,
   fathername: { type: String, required: true },
@@ -26,18 +26,12 @@ const pTeethBleachingSchema = new Schema({
     {
       _id: false,
       stag: Number,
-      teeth_bleaching: [
+      mouth_testing: [
         {
           _id: false,
           meet_at: {
             type: Date,
             default: Date.now,
-          },
-          step: {
-            type: Number,
-            min: 1,
-            max: 4,
-            default: 1,
           },
           round: {
             type: Number,
@@ -45,7 +39,6 @@ const pTeethBleachingSchema = new Schema({
             max: 5,
             default: 1,
           },
-          material: String,
           description: String,
           fee: {
             installment: { type: Number, min: 1, max: 3 },
@@ -60,10 +53,6 @@ const pTeethBleachingSchema = new Schema({
   ],
 });
 // access the database collection
-const PTeethBleaching = mongoose.model(
-  "pTeethBleaching",
-  pTeethBleachingSchema,
-  "patients"
-);
+const pMouthTesting = mongoose.model("pMouthTesting", pMouthTestingSchema, "patients");
 // export it to be use later
-module.exports = PTeethBleaching;
+module.exports = pMouthTesting;

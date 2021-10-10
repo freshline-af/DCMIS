@@ -59,6 +59,9 @@ const teethImage = require("./API/UploadToothImageController");
 /* ---------------------------- Import new appoitment round ----------------------- */
 const newApptRound = require("./API/CreatePatientRoundController");
 /* ----------------------------/. Import new appoitment round ----------------------- */
+/* ---------------------------- Import a specific service controller ----------------------- */
+const specificService = require("./API/ReadSpecificServiceController");
+/* ----------------------------/. Import a specific service controller ----------------------- */
 
 /* ------------------------------- Import Expenses ------------------------------ */
 // 1. Retrieve expenses
@@ -146,7 +149,10 @@ app.put("/patient/photo/upload/:id", (req, res) => {
 app.post("/patient/service/:stag", services);
 // Upload image of tooth
 app.put("/patient/service/orthodoncy/teeth/:pid", teethImage);
+// Add a new round
 app.put("/patient/service/round/:pid/:stag", newApptRound);
+// Read a specific Service
+app.post("/patient/service/:stag", specificService);
 /* --------------------------------/. Routes for Patients' Services -------------------------------------- */
 
 /* ----------------------------- Routes for Staff ------------------------ */

@@ -2,7 +2,7 @@
 const staffSchema = require('./models/staff/Staff');
 // Delete a staff based on a specific ID
 const deleteStaff = async (req, res) => {
-  await staffSchema.remove(
+  await staffSchema.deleteOne(
     { _id: req.params.id },
     (err, result) => {
       if (err) {

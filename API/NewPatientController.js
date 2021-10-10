@@ -1,4 +1,4 @@
-/* ------------------ 9 data models for patient services --------------------- */
+/* ------------------ 10 data models for patient services --------------------- */
 const TeethFilling = require("./models/patients/TeethFillingModel");
 const TeethRemove = require("./models/patients/TeethRemoveModel");
 const TeethCover = require("./models/patients/TeethCoverModel");
@@ -8,7 +8,8 @@ const TeethScaling = require("./models/patients/TeethScalingModel");
 const GumSurgery = require("./models/patients/GumSurgeryModel");
 const RootSurgery = require("./models/patients/RootSurgeryModel");
 const Orthodoncy = require("./models/patients/OrthodoncyModel");
-/* ------------------/. 9 data models for patient services --------------------- */
+const MouthTesting = require("./models/patients/MouthTestingModel");
+/* ------------------/. 10 data models for patient services --------------------- */
 
 // Insert a patient
 const insertPatient = async (req, res) => {
@@ -27,6 +28,7 @@ const insertPatient = async (req, res) => {
   let addr = req.body.address;
   let psex = req.body.sex;
   let pphoto = req.body.photo;
+  let regDate = req.body.registered_at;
   /* ---------------/. Personal Info ------------------- */
   let patient = "";
   let seeDrFor = "";
@@ -74,6 +76,10 @@ const insertPatient = async (req, res) => {
         patient = TeethScaling;
         seeDrFor = "teeth_scaling";
         break;
+      case 10:
+        patient = MouthTesting;
+        seeDrFor = "mouth_testing";
+        break;
       default:
         patient = TeethFilling;
         seeDrFor = "teeth_filling";
@@ -104,13 +110,16 @@ const insertPatient = async (req, res) => {
         serviceObj["material"] = serviceArrayOfObj[s].material;
       } else if (
         seeDrFor === "teeth_cover" ||
-        seeDrFor === "teeth_protice" ||
-        seeDrFor === "teeth_bleaching"
+        seeDrFor === "teeth_protice" 
       ) {
         serviceObj["material"] = serviceArrayOfObj[s].material;
       } else if (seeDrFor === "orthodoncy") {
         serviceObj["image"] = serviceArrayOfObj[s].image;
+      } else if (seeDrFor === "teeth_bleaching") {
+        serviceObj["step"] = serviceArrayOfObj[s].step;
+        serviceObj["material"] = serviceArrayOfObj[s].material;
       }
+      
       serviceObj["meet_at"] = meetAt;
       serviceObj["round"] = sRound;
       serviceObj["description"] = desc;
@@ -162,6 +171,7 @@ const insertPatient = async (req, res) => {
       address: addr,
       sex: psex,
       photo: pphoto,
+      registered_at: regDate,
       case_history: newCHistoryArray,
       appointment: newApptArray,
     },
