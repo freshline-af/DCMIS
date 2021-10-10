@@ -153,6 +153,9 @@
                       <v-btn icon @click="openShowAppointmentDialog(item)">
                         <v-icon color="primary">mdi-text</v-icon>
                       </v-btn>
+                      <v-btn @click="openOrthodoncyImageUplodeDialog(item)" v-if="item.stag==3" icon>
+                        <v-icon color="primary">mdi-image</v-icon>
+                      </v-btn>
                     </template>
                     <template v-slot:item.meet_at="{ item }">
                       {{ getRealDate(item.meet_at) }}
@@ -1415,9 +1418,77 @@
                   <span class="font-weight-bold font-weigh-black subtitle-1">
                    عکس : </span
                 >
-                  <v-img width="300" height="250" src="`http://localhost:3000/uploads/patient-photo/`+appointmentEditOb.image"></v-img>
+                  <v-img width="300" height="250" :src="`http://localhost:3000/uploads/docs/teeth/`+appointmentEditOb.image"></v-img>
             </v-col>
 
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <v-dialog max-width="600" v-model="UplodeOrthodoncyImageDialog">
+      <v-card>
+        <v-card-title>
+          <v-row>
+            <v-col cols="10" align="center"><strong class="text-h6 font-weight-bold">اضافه کردن عکس دندان</strong></v-col>
+            <v-col cols="2" class="mt-n2" align="center"><v-btn @click="closeOrthodoncyImageUplodeDialog" icon x-large color="red" ><v-icon>mdi-close</v-icon></v-btn></v-col>
+          </v-row>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+          <v-form ref="orthodanUplodRef" id="stagThreeOrthodancy" v-model="orthodanUplodImageForm" @submit.prevent="sendOrthodancyUploadImage">
+            <v-row>
+              <v-col cols="12" class="pt-8">
+                <v-file-input
+                class="mt-8" 
+                label="عکس"
+                outlined
+                rounded
+                placeholder="لطفا عکس دندان را انتخاب نمایید."
+                show-size
+                accept="Image/*"
+                required
+                v-model="orthodancyImage.toothImage"
+                :rules="rule.rules.required_file"
+                ></v-file-input>
+              </v-col>
+              <v-col cols="12" class="mt-6">
+                <v-divider></v-divider>
+              </v-col>
+              <v-col class="mt-3">
+                <v-row>
+                        <v-col cols="12" md="6" lg="6" xl="6" sm="12">
+                          <v-btn
+                            width="200"
+                            large
+                            color="red"
+                            class="white--text"
+                            @click="closeOrthodoncyImageUplodeDialog"
+                          >
+                            لغو کردن
+                          </v-btn>
+                        </v-col>
+                        <v-col
+                          class="text-end"
+                          cols="12"
+                          md="6"
+                          lg="6"
+                          xl="6"
+                          sm="12"
+                          ><v-btn
+                            :disabled="!orthodanUplodImageForm"
+                            elevation="3"
+                            large
+                            type="submit"
+                            form="stagThreeOrthodancy"
+                            width="200"
+                            color="primary"
+                          >
+                           آپلود کردن
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+              </v-col>
+            </v-row>
+          </v-form>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -1437,6 +1508,9 @@ export default {
       editedItem: {}, // object for show specifc patient
       maritalStatus: ["مجرد", "متاهل"],
       six: ["مذکر", "مونث"],
+      UplodeOrthodoncyImageDialog:false,
+      orthodanUplodImageForm:null,
+      orthodancyImage:{},
       bloodGroup: [
         "A+",
         "B+",
@@ -2504,6 +2578,22 @@ export default {
         }
       }
     },
+    openOrthodoncyImageUplodeDialog(item){
+      this.UplodeOrthodoncyImageDialog = true;
+      this.orthodancyImage.round = item.round;
+    },
+    closeOrthodoncyImageUplodeDialog(){
+      this.UplodeOrthodoncyImageDialog = false;
+      this.orthodancyImage={};
+    },
+async sendOrthodancyUploadImage(){
+      this.orthodancyImage.pid = this.editedItem._id;
+      if(this.$refs.orthodanUplodRef.validate()){
+      await Store.dispatch("patient/uplodaeOrthodoncyImage",this.orthodancyImage);
+      // this.orthodancyImage.image = this.orthodancyImage.toothImage.name;
+       this.closeOrthodoncyImageUplodeDialog();
+      }
+    }
   },
 };
 </script>

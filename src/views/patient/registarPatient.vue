@@ -505,16 +505,7 @@
                       >
                       </v-autocomplete>
                     </v-col>
-                    <v-col cols="12" md="12" lg="12" xl="12" sm="12">
-                      <v-file-input
-                        label="عکس از دندان ها"
-                        outlined
-                        v-model="appointment.orthodoncy.image"
-                        :rules="rule.rules.file"
-                        rounded
-                        required
-                      ></v-file-input>
-                    </v-col>
+                   
                     <v-col cols="12" md="12" sm="12" xs="12">
                       <v-textarea
                         label="نوت"
@@ -1303,7 +1294,6 @@ export default {
             installment: this.fee.installment,
             amount_received: this.fee.installment===1? this.fee.grand_total:this.fee.amount_received,
             dentist:  this.user_login_id,
-            image: this.appointment.orthodoncy.image,
           };
           this.appointment.orthodoncy.grand_total =  this.fee.grand_total;
           this.appointment2.stag = 3;

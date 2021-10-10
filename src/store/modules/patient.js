@@ -1,3 +1,4 @@
+import Formdata from 'form-data'
 import axios from "axios"
 
 export const namespaced = true;
@@ -91,5 +92,31 @@ export const actions = {
       dispatch('notification/add', notification, {root: true});
       throw error;
     });
+  },
+  async uplodaeOrthodoncyImage({dispatch},data){
+   var toothImage = new Formdata();
+  toothImage.append("toothImage", data.toothImage);
+  toothImage.append("round",data.round)
+   await axios.put("http://localhost:3000/patient/service/orthodoncy/teeth/"+data.pid,toothImage,{
+      headers: {
+      'accept': 'application/json',
+      'Accept-Language': 'en-US,en;q=0.8',
+      'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+    }}).then(response=>{
+      if(response.status == 200){
+        const notification ={
+          type:'success',
+          message: 'عکس دندان موفقانه آپلود شد.'
+        };
+        dispatch('notification/add', notification, {root: true});
+      }
+    }).catch(error =>{
+      const notification ={
+        type:'warning',
+        message: 'در قسمت آپلود کردن عکس دندان مشکل وجود دارد.' + error.message
+      };
+      dispatch('notification/add', notification, {root: true});
+      throw error;
+    })
   }
 };

@@ -384,6 +384,7 @@
           </v-card>
         </v-col>
       </v-row>
+      
     </v-col>
     <!-- dialog for upload education document -->
     <v-dialog width="900" v-model="edu_dialog">
