@@ -19,7 +19,7 @@
                   >
                 </v-col>
                 <v-col class="mt-n3" align="center">
-                  <v-avatar size="80" class="mr-1" color="blue">
+                  <v-avatar size="80" class="mr-1" @click="openUplodePatProImageDia"  color="blue">
                     <v-img
                       v-if="editedItem.photo"
                       :src="
@@ -1424,6 +1424,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <!-- dialog for upload teeth image in orthodancy services----- -->
     <v-dialog max-width="600" v-model="UplodeOrthodoncyImageDialog">
       <v-card>
         <v-card-title>
@@ -1492,6 +1493,45 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <!-- dialog for upload image for patient profile -->
+    <v-dialog max-width="600" v-model="uploadPatientProImage">
+      <v-card>
+        <v-card-title>
+          <v-row>
+            <v-col cols="10" align="center"> <strong>آپلود کردن عکس برای پروفایل بیمار</strong></v-col>
+            <v-col><v-btn icon large color="red" @click="closeUplodePatProImageDia"><v-icon>mdi-close</v-icon></v-btn></v-col>
+          </v-row>
+        </v-card-title>
+         <v-divider class="mt-3"></v-divider>
+         <v-card-text>
+           <v-form ref="uploadPaProImageRef" v-model="uploadpaProImageForm" @submit.prevent="submitPatienPhoto">
+             <v-row>
+               <v-col class="pt-5" cols="12" align="center">
+                 <v-file-input
+                 outlined
+                 rounded
+                 show-size
+                 counter
+                 class="mt-8"
+                 label="عکس"
+                 placeholder="لطفا عکس بیمار مورد نظر را انتخاب نمایید."
+                 accept="Image/*"
+                 v-model="uploadPatientProOb.pphoto"
+                 :rules="rule.rules.required_file"
+                 ></v-file-input>
+               </v-col>
+               <v-col cols="12"><v-divider class="mt-4"></v-divider></v-col>
+               <v-col cols="12" class="mt-6">
+                <v-row>
+                  <v-col cols="6" align="start"><v-btn elevation="3" large width="200" color="red" @click="closeUplodePatProImageDia" class="white--text">لغو کردن</v-btn></v-col>
+                  <v-col cols="6" align="end"><v-btn elevation="3" :disabled="!uploadpaProImageForm" large width="200" color="primary" type="submit">آپلود کردن</v-btn></v-col>
+                </v-row>
+               </v-col>
+             </v-row>
+           </v-form>
+         </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 
@@ -1511,6 +1551,9 @@ export default {
       UplodeOrthodoncyImageDialog:false,
       orthodanUplodImageForm:null,
       orthodancyImage:{},
+      uploadPatientProImage:false,
+      uploadpaProImageForm:null,
+      uploadPatientProOb:{},
       bloodGroup: [
         "A+",
         "B+",
@@ -2593,8 +2636,23 @@ async sendOrthodancyUploadImage(){
       // this.orthodancyImage.image = this.orthodancyImage.toothImage.name;
        this.closeOrthodoncyImageUplodeDialog();
       }
-    }
+    },
+   openUplodePatProImageDia(){
+   this.uploadPatientProImage = true;
   },
+  closeUplodePatProImageDia(){
+    this.uploadPatientProImage = false;
+  },
+ async submitPatienPhoto(){
+    if(this.$refs.uploadPaProImageRef.validate()){
+      this.uploadPatientProOb.pid = this.editedItem._id;
+      Store.dispatch("patient/uploadPatientImage",this.uploadPatientProOb);
+      this.editedItem.photo = await this.uploadPatientProOb.pphoto.name;
+      this.closeUplodePatProImageDia();
+    }
+  }
+  },
+ 
 };
 </script>
 

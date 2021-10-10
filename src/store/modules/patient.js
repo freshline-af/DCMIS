@@ -101,7 +101,7 @@ export const actions = {
       headers: {
       'accept': 'application/json',
       'Accept-Language': 'en-US,en;q=0.8',
-      'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+      'Content-Type': `multipart/form-data; boundary=${toothImage._boundary}`,
     }}).then(response=>{
       if(response.status == 200){
         const notification ={
@@ -117,6 +117,37 @@ export const actions = {
       };
       dispatch('notification/add', notification, {root: true});
       throw error;
+    })
+  },
+ async uploadPatientImage({dispatch},image){
+    let pdata = new Formdata();
+    pdata.append("patientPhoto",image.pphoto);
+   await  axios.put("http://localhost:3000/patient/photo/upload/"+image.pid,pdata,{
+      headers:{
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': `multipart/form-data; boundary=${pdata._boundary}`,
+      }
+    }).then(response =>{
+      if(response.status == 200 && response.data == "Photo updated."){
+        const notification ={
+          type:'success',
+          message: 'عکس بیمار مورد نظر موفقانه در سیستم اضافه شد.' 
+        };
+        dispatch('notification/add', notification, {root: true});
+      }else{
+        const notification ={
+          type:'warning',
+          message: "عکس موفقانه اضافه نشد."+response.data 
+        };
+        dispatch('notification/add', notification, {root: true});
+      }
+    }).catch(error =>{
+      const notification ={
+          type:'red',
+          message: error.message+"" 
+        };
+        dispatch('notification/add', notification, {root: true});
     })
   }
 };
