@@ -1171,7 +1171,7 @@
                           <v-textarea
                             label="نوت"
                             v-model="appointmentEditOb.description"
-                            :value="description"
+                            :value="appointmentEditOb.description"
                             outlined
                             rounded
                             required
@@ -1909,9 +1909,9 @@ export default {
      ]
     };
   },
-  async mounted() {
+   mounted() {
     this.editedItem = this.$route.params.editedItem;
-    await Store.dispatch("staff/getStaff");
+    Store.dispatch("staff/getStaff");
     this.initionalizeAppointment();
   },
   methods: {
@@ -2359,6 +2359,33 @@ export default {
               0;
             this.appointmentItem.push(appointment);
           }
+        } else if (this.editedItem.appointment[i].stag === 10){
+          for(var m_t = 0; m_t <this.editedItem.appointment[i].mouth_testing.length; m_t++){
+          appointment.index_of_m_t = m_t;
+          appointment.round = this.editedItem.appointment[i].mouth_testing[m_t].round || 1;
+           appointment.meet_at = this.editedItem.appointment[i].mouth_testing[
+              m_t
+            ].meet_at;
+            appointment.fee_amount_received =
+              this.editedItem.appointment[i].mouth_testing[m_t].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.editedItem.appointment[i].mouth_testing[m_t].fee.amount_due ||
+              0;
+            appointment.installment =
+              this.editedItem.appointment[i].mouth_testing[m_t].fee
+                .installment || 0;
+            appointment.dentist =
+              this.editedItem.appointment[i].mouth_testing[m_t].fee.dentist || 0;
+            appointment.description =
+              this.editedItem.appointment[i].mouth_testing[m_t].description ||
+              "";
+              appointment.fee_grand_total =
+              this.editedItem.appointment[i].mouth_testing[m_t].grand_total ||
+              0;
+            this.appointmentItem.push(appointment);
+
+          }
         }
       }
     },
@@ -2383,6 +2410,8 @@ export default {
           return "سفید کردن دندان";
         case 9:
           return "جرم گیری دندان";
+        case 10 :
+          return "معاینه دهن"
       }
     },
     // To search name of dentis with id of dentis in array of staff
@@ -2398,6 +2427,7 @@ export default {
     openAppointmentEditDialog(item) {
       this.apointmentEditIndex = this.appointmentItem.indexOf(item);
       this.appointmentEditOb = Object.assign({}, item);
+      console.log(this.appointmentEditOb);
       this.appointmentEditDialog = true;
     },
     // To close appointment edit pop up
@@ -2437,7 +2467,8 @@ export default {
    async submitAppointmentEdit(){
       if(this.$refs.appointmentEditRef.validate()){
         if(this.apointmentEditIndex>-1){
-        this.appointmentEditOb.fee_amount_due = this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received;
+        this.appointmentEditOb.fee_amount_due = this.appointmentEditOb.installment === 1? 0:this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received;
+        this.appointmentEditOb.fee_amount_received = this.appointmentEditOb.installment === 1? this.appointmentEditOb.fee_grand_total : this.appointmentEditOb.fee_amount_received;
         Object.assign(this.appointmentItem[this.apointmentEditIndex],this.appointmentEditOb);
           if(this.appointmentEditOb.stag===1){
           let tfappointment ={
@@ -2452,8 +2483,8 @@ export default {
             },
             fee:{
               installment: this.appointmentEditOb.installment,
-              amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
+              amount_received: this.appointmentEditOb.installment===1 ? this.appointmentEditOb.fee_grand_total:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.installment===1 ?0: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2473,8 +2504,8 @@ export default {
             },
             fee:{
               installment: this.appointmentEditOb.installment,
-              amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
+              amount_received: this.appointmentEditOb.installment===1 ? this.appointmentEditOb.fee_grand_total:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.installment===1 ?0: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2494,8 +2525,8 @@ export default {
             },
             fee:{
               installment: this.appointmentEditOb.installment,
-              amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
+              amount_received: this.appointmentEditOb.installment===1 ? this.appointmentEditOb.fee_grand_total:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.installment===1 ?0: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2514,8 +2545,8 @@ export default {
             },
             fee:{
               installment: this.appointmentEditOb.installment,
-              amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
+              amount_received: this.appointmentEditOb.installment===1 ? this.appointmentEditOb.fee_grand_total:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.installment===1 ?0: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2534,8 +2565,8 @@ export default {
             },
             fee:{
               installment: this.appointmentEditOb.installment,
-              amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
+              amount_received: this.appointmentEditOb.installment===1 ? this.appointmentEditOb.fee_grand_total:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.installment===1 ?0: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2554,8 +2585,8 @@ export default {
             },
             fee:{
               installment: this.appointmentEditOb.installment,
-              amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
+             amount_received: this.appointmentEditOb.installment===1 ? this.appointmentEditOb.fee_grand_total:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.installment===1 ?0: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2575,8 +2606,8 @@ export default {
             },
             fee:{
               installment: this.appointmentEditOb.installment,
-              amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
+              amount_received: this.appointmentEditOb.installment===1 ? this.appointmentEditOb.fee_grand_total:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.installment===1 ?0: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2596,8 +2627,8 @@ export default {
             },
             fee:{
               installment: this.appointmentEditOb.installment,
-              amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
+             amount_received: this.appointmentEditOb.installment===1 ? this.appointmentEditOb.fee_grand_total:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.installment===1 ?0: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2616,14 +2647,30 @@ export default {
             },
             fee:{
               installment: this.appointmentEditOb.installment,
-              amount_received:this.appointmentEditOb.fee_amount_received,
-              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
+              amount_received: this.appointmentEditOb.installment===1 ? this.appointmentEditOb.fee_grand_total:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.installment===1 ?0: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
           }
           Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
           scaling[this.appointmentEditOb.index_of_ts],tsappointment)
+          }
+           else if(this.appointmentEditOb.stag ===10){
+             let m_tappointment ={
+            _id:this.appointmentEditOb.round._id ||0,
+            round: this.appointmentEditOb.round,
+            description: this.appointmentEditOb.description,
+            fee:{
+              installment: this.appointmentEditOb.installment,
+              amount_received: this.appointmentEditOb.installment=== 1 ? this.appointmentEditOb.fee_grand_total:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.installment===1 ? 0: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
+              dentist: this.appointmentEditOb.dentist
+            },
+            grand_total: this.appointmentEditOb.fee_grand_total
+          }
+          Object.assign(this.editedItem.appointment[this.appointmentEditOb.index_of_appoint].
+          mouth_testing[this.appointmentEditOb.index_of_m_t],m_tappointment)
           }
          await Store.dispatch("patient/editPatient", this.editedItem);
          this.closeAppointmentEditDialog();

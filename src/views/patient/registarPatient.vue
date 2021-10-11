@@ -788,7 +788,7 @@
                     <v-col cols="12" md="12" sm="12" xs="12">
                       <v-textarea
                         label="نوت"
-                        v-model="appointment.mounth_testing.description"
+                        v-model="appointment.mouth_testing.description"
                         outlined
                         rounded
                         required
@@ -1157,7 +1157,7 @@ export default {
         teeth_protice: [],
         teeth_bleaching: [],
         scaling: [],
-        mounth_testing: [],
+        mouth_testing: [],
       },
       appointment: {
         stag: "",
@@ -1206,7 +1206,7 @@ export default {
           fee: {},
           grand_total:0,
         },
-        mounth_testing: {
+        mouth_testing: {
           tooth: {},
           fee: {},
           total_received: "",
@@ -1267,7 +1267,7 @@ export default {
       }
     },
 
-    PatientRagistar() {
+   async PatientRagistar() {
       if (this.$refs.submit_new_patient_form.validate()) {
         if (this.appointment.stag === 1) {
           this.appointment.teeth_filling.fee = {
@@ -1362,10 +1362,20 @@ export default {
           this.appointment2.stag = 9;
           this.appointment2.scaling.push(this.appointment.scaling);
           this.new_patient.appointment.push(this.appointment2);
+        } 
+        else if(this.appointment.stag === 10){
+          this.appointment.mouth_testing.fee ={
+            installment: this.fee.installment,
+            amount_received: this.fee.installment ===1? this.fee.grand_total:this.fee.amount_received,
+            dentist: this.user_login_id,
+          };
+          this.appointment.mouth_testing.grand_total = this.fee.grand_total;
+          this.appointment2.stag = 10;
+          this.appointment2.mouth_testing.push(this.appointment.mouth_testing);
+          this.new_patient.appointment.push(this.appointment2);
         }
-        console.log(this.new_patient);
-        this.$store.dispatch("patient/addPatient", this.new_patient);
-        this.$store.dispatch("patient/getListOfPatient");
+       await this.$store.dispatch("patient/addPatient", this.new_patient);
+       await this.$store.dispatch("patient/getListOfPatient");
         this.$router.push({ name: "patient" });
       }
     },
