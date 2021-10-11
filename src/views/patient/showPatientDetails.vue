@@ -861,17 +861,6 @@
                           >
                           </v-autocomplete>
                         </v-col>
-                        <v-col cols="12" md="12" lg="12" xl="12" sm="12">
-                          <v-file-input
-                            label="عکس از دندان ها"
-                            outlined
-                            v-model="appointmentEditOb.image"
-                            :value="appointmentEditOb.image"
-                            :rules="rule.rules.file"
-                            rounded
-                            required
-                          ></v-file-input>
-                        </v-col>
                         <v-col cols="12" md="12" sm="12" xs="12">
                           <v-textarea
                             label="نوت"
