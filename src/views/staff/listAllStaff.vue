@@ -40,14 +40,14 @@
             </v-dialog>
           </template>
           <template v-slot:item.actions="{ item }">
-            <v-btn x-small icon @click="ShowOneStaff(item)">
-              <v-icon>mdi-text</v-icon>
+            <v-btn  icon @click="ShowOneStaff(item)">
+              <v-icon color="primary">mdi-text</v-icon>
             </v-btn>
-            <v-btn x-small icon @click="EditStaff(item)">
-              <v-icon>mdi-pencil</v-icon>
+            <v-btn  icon @click="EditStaff(item)">
+              <v-icon color="primary">mdi-pencil</v-icon>
             </v-btn>
-            <v-btn x-small icon @click="DeleteStaff(item)">
-              <v-icon>mdi-delete</v-icon>
+            <v-btn  icon @click="DeleteStaff(item)">
+              <v-icon color="red">mdi-delete</v-icon>
             </v-btn>
           </template>
           <template v-slot:no-data>

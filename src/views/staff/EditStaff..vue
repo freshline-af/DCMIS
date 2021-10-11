@@ -320,16 +320,16 @@
     </v-row>
     <v-row class="mt-5 pa-4">
       <v-col class="text-right text-xs-center" cols="6" md="6" sm="6" xs="6">
-        <v-btn  width="300" elevation="5" @click="reset" color="red" outlined>لغو کردن</v-btn>
+        <v-btn  width="200" elevation="5" @click="reset" color="red" class="white--text" large>لغو کردن</v-btn>
       </v-col>
       <v-spacer></v-spacer>
       <v-col class="text-left" cols="6" sm="6" xs="6" md="6">
         <v-btn
           type="submit"
-          width="300"
-          color="green"
+          width="200"
+          color="primary"
           :disabled="!employeRegistarForm"
-          outlined
+          large
           elevation="5"
           >تغیر دادن</v-btn
         >
