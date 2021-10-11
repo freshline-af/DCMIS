@@ -1,7 +1,7 @@
 <template>
   <v-row class="mt-4">
     <v-col align="right" class="mt-4 " cols="12" md="3" lg="3" xl="3" sm="4">
-      <v-row class="elevation-1" justify="center">
+      <v-row class="elevation-1 mb-3" justify="center">
         <v-col cols="12" align="center">
           <v-avatar
             @click="photo_dialog = !photo_dialog"
@@ -19,112 +19,139 @@
         </v-col>
         <v-col cols="12"><v-divider></v-divider></v-col>
         <v-col class="mr-4" cols="12">
-          <div>
-            <span class=" gray--text pr-2 label">اسم :</span>
-            <span class="show_detial pr-2">
-              {{ employe.firstname }}
-            </span>
-          </div>
+          <v-text-field
+          label="اسم"
+          readonly
+          class="px-2"
+          v-model="employe.firstname"
+          :value="employe.firstname"
+          ></v-text-field>
         </v-col>
-        <v-col class="mr-4" cols="12">
-          <div>
-            <span class=" label">تخلص :</span>
-            <span class="show_detial pr-2">{{ employe.lastname }}</span>
-          </div>
+        <v-col class="mr-4 mt-n6" cols="12">
+          <v-text-field
+          label="تخلص"
+          readonly
+          class="px-2"
+          v-model="employe.lastname"
+          :value="employe.lastname"
+          ></v-text-field>
         </v-col>
-        <v-col class="mr-4" cols="12">
-          <div>
-            <span class=" gray--text label">اسم پدر :</span>
-            <span class="show_detial pr-2">
-              {{ employe.fathername }}
-            </span>
-          </div>
+        <v-col class="mr-4 mt-n6" cols="12">
+          <v-text-field
+          label="اسم پدر"
+          readonly
+          class="px-2"
+          v-model="employe.fathername"
+          :value="employe.lastname"
+          ></v-text-field>
         </v-col>
-        <v-col class="mr-4" cols="12">
-          <div>
-            <span class=" gray--text label"> نمبر تماس اولی :</span>
-            <span class="show_detial pr-2">
-              {{ employe.phone1 }}
-            </span>
-          </div>
+        <v-col class="mr-4 mt-n6" cols="12">
+          <v-text-field
+          label="شماره تماس اولی"
+          readonly
+          class="px-2"
+          v-model="employe.phone1"
+          :value="employe.phone1"
+          ></v-text-field>
         </v-col>
-        <v-col v-if="employe.phone2" class="mr-4" cols="12">
-          <div>
-            <span class=" gray--text label"> نمبر تماس دومی :</span>
-            <span class="show_detial pr-2">
-              {{ employe.phone2 }}
-            </span>
-          </div>
+        <v-col v-if="employe.phone2" class="mr-4 mt-n6" cols="12">
+          <v-text-field
+          label="شماره تماس دومی"
+          readonly
+          class="px-2"
+          v-model="employe.phone2"
+          :value="employe.phone2"
+          ></v-text-field>
         </v-col>
-        <v-col class="mr-4" cols="12">
-          <div>
-            <span class=" gray--text label"> آدرس :</span>
-            <span class="show_detial pr-2">
-              {{ employe.address }}
-            </span>
-          </div>
+        <v-col class="mr-4 mt-n6" cols="12">
+          <v-text-field
+          label="آدرس"
+          readonly
+          class="px-2"
+          v-model="employe.address"
+          :value="employe.address"
+          ></v-text-field>
         </v-col>
-        <v-col class="mr-4" cols="12">
-          <div>
-            <span class=" gray--text label"> شماره تذکره :</span>
-            <span class="show_detial pr-2">
-              {{ employe.tazkira_id }}
-            </span>
-          </div>
+        <v-col class="mr-4 mt-n6" cols="12">
+          <v-text-field
+          label="شماره تذکره"
+          readonly
+          class="px-2"
+          v-model="employe.tazkira_id"
+          :value="employe.tazkira_id"
+          ></v-text-field>
         </v-col>
-        <v-col class="mr-4" cols="12">
-          <div>
-            <span class=" gray--text label"> درجه تحصیلی :</span>
-            <span class="show_detial pr-2">
-              {{ employe.edu_level }}
-            </span>
-          </div>
+        <v-col class="mr-4 mt-n6" cols="12">
+          <v-text-field
+          label="درجه تحصیلی"
+          readonly
+          class="px-2"
+          v-model="employe.edu_level"
+          :value="employe.edu_level"
+          ></v-text-field>
         </v-col>
-        <v-col class="mr-4" cols="12">
-          <div>
-            <span class=" gray--text label"> پوهنتون :</span>
-            <span class="show_detial pr-2">
-              {{ employe.edu_university }}
-            </span>
-          </div>
+        <v-col class="mr-4 mt-n6" cols="12">
+          <v-text-field
+          label="پوهنتون"
+          readonly
+          class="px-2"
+          v-model="employe.edu_university"
+          :value="employe.edu_university"
+          ></v-text-field>
         </v-col>
-        <v-col class="mr-4" cols="12">
+        <v-col class="mr-6 mt-n3" cols="12">
           <div>
-            <span class=" gray--text label"> تاریخ آغاز :</span>
-            <span class="show_detial pr-2">
+            <span class="gray--text"> تاریخ آغاز</span>
+            <br>
+            <span class="show_detial">
               {{ getRealDate(employe.edu_start_date) }}
             </span>
           </div>
         </v-col>
-        <v-col class="mr-4" cols="12">
+        <v-col class="mr-4 mt-n5" cols="12">
+          <v-divider class="bold"></v-divider>
+        </v-col>
+        <v-col class="mr-6 mt-n3" cols="12">
           <div>
-            <span class=" gray--text label">تاریخ ختم :</span>
-            <span class="show_detial pr-2">
+            <span class=" gray--text">تاریخ ختم</span>
+            <br>
+            <span class="show_detial">
               {{ getRealDate(employe.edu_end_date) }}
             </span>
           </div>
         </v-col>
-        <v-col class="mr-4" cols="12">
-          <div>
-            <span class=" gray--text label"> مقام :</span>
-            <span class="show_detial pr-2">
-              {{ employe.position }}
-            </span>
-          </div>
+        <v-col class=" mt-n5" cols="12">
+          <v-divider class="bold"></v-divider>
         </v-col>
-        <v-col class="mr-4" cols="12">
+        <v-col class="mr-4 mt-n5" cols="12">
+          <v-text-field
+          label="مقام"
+          readonly
+          class="px-2"
+          v-model="employe.position"
+          :value="employe.position"
+          ></v-text-field>
+        </v-col>
+        <v-col class="mr-6 mt-n4" cols="12">
           <div>
-            <span class=" gray--text label"> تاریخ آغاز کار :</span>
-            <span class="show_detial pr-2">
+            <span class=" gray--text"> تاریخ آغاز کار</span>
+            <br>
+            <span class="show_detial">
               {{ getRealDate(employe.hired_at) }}
             </span>
           </div>
+          <v-col cols="12" class="mt-n3">
+            <v-divider></v-divider>
+          </v-col>
         </v-col>
-        <v-col class="mr-4" cols="12">
-          <div>
-            <span class=" gray--text label"> معاش :</span>
-            <span class="show_detial pr-2"> {{ employe.salary }} افغانی </span>
-          </div>
+        <v-col class="mr-4 mt-n6" cols="12">
+          <v-text-field
+          label="معاش"
+          readonly
+          class="px-2"
+          v-model="employe.salary"
+          :value="employe.salary"
+          ></v-text-field>
         </v-col>
       </v-row>
     </v-col>
@@ -440,9 +467,10 @@
           <v-divider></v-divider>
           <v-card-actions class="mt-3">
             <v-btn
-              class="mb-3"
-              outlined
-              color="warning"
+              class="mb-3 white--text"
+              large
+              width="200"
+              color="red"
               @click="edu_dialog = !edu_dialog"
             >
               لغو کردن
@@ -452,7 +480,8 @@
               :disabled="!edu_form_doc"
               type="submit"
               class="mb-3"
-              outlined
+              large
+              width="200"
               color="primary"
             >
               ثبت کردن
@@ -496,9 +525,10 @@
           <v-divider></v-divider>
           <v-card-actions class="mt-3">
             <v-btn
-              class="mb-3"
-              outlined
-              color="warning"
+              class="mb-3 white--text"
+              large
+              width="200"
+              color="red"
               @click="tazkira_dialog = !tazkira_dialog"
             >
               لغو کردن
@@ -508,7 +538,8 @@
               :disabled="!tazkira_form"
               type="submit"
               class="mb-3"
-              outlined
+              large
+              width="200"
               color="primary"
             >
               ثبت کردن
@@ -552,9 +583,10 @@
           <v-divider></v-divider>
           <v-card-actions class="mt-3">
             <v-btn
-              class="mb-3"
-              outlined
-              color="warning"
+              class="mb-3 white--text"
+              large
+              width="200"
+              color="red"
               @click="contract_dialog = !contract_dialog"
             >
               لغو کردن
@@ -564,7 +596,8 @@
               :disabled="!contract_form"
               type="submit"
               class="mb-3"
-              outlined
+              large
+              width="200"
               color="primary"
             >
               ثبت کردن
@@ -608,9 +641,10 @@
           <v-divider></v-divider>
           <v-card-actions class="mt-3">
             <v-btn
-              class="mb-3"
-              outlined
-              color="warning"
+              class="mb-3 white--text"
+              large
+              width="200"
+              color="red"
               @click="photo_dialog = !photo_dialog"
             >
               لغو کردن
@@ -620,7 +654,8 @@
               :disabled="!photo_form"
               type="submit"
               class="mb-3"
-              outlined
+              large
+              width="200"
               color="primary"
             >
               ثبت کردن
@@ -723,9 +758,10 @@
           <v-divider></v-divider>
           <v-card-actions class="mt-3">
             <v-btn
-              class="mb-3"
-              outlined
-              color="warning"
+              class="mb-3 white--text"
+              large
+              width="200"
+              color="red"
               @click="sign_up_dialog = !sign_up_dialog"
             >
               لغو کردن
@@ -735,7 +771,8 @@
               :disabled="!sign_up_form"
               type="submit"
               class="mb-3"
-              outlined
+              large
+              width="200"
               color="primary"
             >
               ثبت کردن
