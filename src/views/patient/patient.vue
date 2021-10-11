@@ -61,11 +61,11 @@
 
     <template v-slot:item.actions="{ item }">
       <v-btn icon class="mr-2" @click="showitem(item)">
-        <v-icon>mdi-text</v-icon>
+        <v-icon color="primary">mdi-text</v-icon>
       </v-btn>
       
       <v-btn @click="deleteItem(item)" icon>
-        <v-icon>
+        <v-icon color="red">
           mdi-delete
         </v-icon>
       </v-btn>
