@@ -93,10 +93,10 @@ export const actions = {
       throw error;
     });
   },
-  async uplodaeOrthodoncyImage({dispatch},data){
+   async uplodaeOrthodoncyImage({dispatch},data){
    var toothImage = new Formdata();
-  toothImage.append("toothImage", data.toothImage);
-  toothImage.append("round",data.round)
+    toothImage.append("toothImage", data.toothImage);
+    toothImage.append("round",data.round)
    await axios.put("http://localhost:3000/patient/service/orthodoncy/teeth/"+data.pid,toothImage,{
       headers: {
       'accept': 'application/json',
@@ -119,10 +119,10 @@ export const actions = {
       throw error;
     })
   },
- async uploadPatientImage({dispatch},image){
+  async uploadPatientImage({dispatch},image){
     let pdata = new Formdata();
     pdata.append("patientPhoto",image.pphoto);
-   await  axios.put("http://localhost:3000/patient/photo/upload/"+image.pid,pdata,{
+    await axios.put("http://localhost:3000/patient/photo/upload/"+image.pid,pdata,{
       headers:{
         'accept': 'application/json',
         'Accept-Language': 'en-US,en;q=0.8',

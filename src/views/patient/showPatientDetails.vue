@@ -1435,7 +1435,7 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-form ref="orthodanUplodRef" id="stagThreeOrthodancy" v-model="orthodanUplodImageForm" @submit.prevent="sendOrthodancyUploadImage">
+          <v-form ref="orthodanUplodRef"  v-model="orthodanUplodImageForm" @submit.prevent="sendOrthodancyUploadImage">
             <v-row>
               <v-col cols="12" class="pt-8">
                 <v-file-input
@@ -1479,7 +1479,6 @@
                             elevation="3"
                             large
                             type="submit"
-                            form="stagThreeOrthodancy"
                             width="200"
                             color="primary"
                           >
@@ -2434,11 +2433,12 @@ export default {
         this.apointmentEditIndex = -1;
       });
     },
-    // To update appoint of patient and integrate with api
+    // To update appointment of patient and integrate with api
    async submitAppointmentEdit(){
       if(this.$refs.appointmentEditRef.validate()){
         if(this.apointmentEditIndex>-1){
-          Object.assign(this.appointmentItem[this.apointmentEditIndex],this.appointmentEditOb);
+        this.appointmentEditOb.fee_amount_due = this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received;
+        Object.assign(this.appointmentItem[this.apointmentEditIndex],this.appointmentEditOb);
           if(this.appointmentEditOb.stag===1){
           let tfappointment ={
             _id:0,
@@ -2453,6 +2453,7 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2473,6 +2474,7 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2493,6 +2495,7 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2512,6 +2515,7 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2531,6 +2535,7 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2550,6 +2555,7 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2570,6 +2576,7 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2590,6 +2597,7 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2609,6 +2617,7 @@ export default {
             fee:{
               installment: this.appointmentEditOb.installment,
               amount_received:this.appointmentEditOb.fee_amount_received,
+              amount_due: this.appointmentEditOb.fee_grand_total - this.appointmentEditOb.fee_amount_received,
               dentist: this.appointmentEditOb.dentist
             },
             grand_total: this.appointmentEditOb.fee_grand_total
@@ -2621,33 +2630,39 @@ export default {
         }
       }
     },
+    // open dialog of teeth image
     openOrthodoncyImageUplodeDialog(item){
       this.UplodeOrthodoncyImageDialog = true;
       this.orthodancyImage.round = item.round;
     },
+    // close dialog of teeth image
     closeOrthodoncyImageUplodeDialog(){
       this.UplodeOrthodoncyImageDialog = false;
       this.orthodancyImage={};
     },
-async sendOrthodancyUploadImage(){
+    // submit the form teeth image
+   sendOrthodancyUploadImage(){
       this.orthodancyImage.pid = this.editedItem._id;
       if(this.$refs.orthodanUplodRef.validate()){
-      await Store.dispatch("patient/uplodaeOrthodoncyImage",this.orthodancyImage);
-      // this.orthodancyImage.image = this.orthodancyImage.toothImage.name;
+       Store.dispatch("patient/uplodaeOrthodoncyImage",this.orthodancyImage);
+      this.orthodancyImage.image = this.orthodancyImage.toothImage.name;
        this.closeOrthodoncyImageUplodeDialog();
       }
     },
-   openUplodePatProImageDia(){
+  // open dialog of upload image profile of patient
+  openUplodePatProImageDia(){
    this.uploadPatientProImage = true;
   },
+  // close dialog of upload image profile of patient
   closeUplodePatProImageDia(){
     this.uploadPatientProImage = false;
   },
- async submitPatienPhoto(){
+  // submit the form of upload image profile of patient
+  submitPatienPhoto(){
     if(this.$refs.uploadPaProImageRef.validate()){
       this.uploadPatientProOb.pid = this.editedItem._id;
       Store.dispatch("patient/uploadPatientImage",this.uploadPatientProOb);
-      this.editedItem.photo = await this.uploadPatientProOb.pphoto.name;
+      this.editedItem.photo = this.uploadPatientProOb.pphoto.name;
       this.closeUplodePatProImageDia();
     }
   }
