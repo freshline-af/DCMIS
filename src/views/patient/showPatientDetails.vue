@@ -1332,22 +1332,6 @@
           </v-row>
         </v-card-title>
         <v-card-text  justify="center" class="round-xl elevation-1">
-            <v-col  cols="12" md="12" xl="12" lg="12" sm="12">
-                  <span class="font-weight-bold font-weigh-black subtitle-1">
-                   نوعیت بیماری : </span>
-                  <span>{{
-                  showServices(appointmentEditOb.stag)
-                }}</span>
-            </v-col>
-
-             <v-col cols="12" md="12" xl="12" lg="12" sm="12">
-                  <span class="font-weight-bold font-weigh-black">
-                  تاریخ مراجعه : </span >
-                  <span>{{
-                  getRealDate(appointmentEditOb.meet_at)
-                }}</span>
-            </v-col>
-
              <v-col v-if=" appointmentEditOb.description" cols="12" md="12" xl="12" lg="12" sm="12">
                   <span class="font-weight-bold font-weigh-black subtitle-1">
                  توضیحات : </span
@@ -2068,7 +2052,9 @@ export default {
             appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_filling[tf].grand_total ||
               0;
+            appointment.stag = this.editedItem.appointment[i].stag
             this.appointmentItem.push(appointment);
+            appointment ={};
           }
         } else if (this.editedItem.appointment[i].stag === 2) {
           for (
@@ -2104,7 +2090,9 @@ export default {
             appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_cover[tc].grand_total ||
               0;
+              appointment.stag = this.editedItem.appointment[i].stag
             this.appointmentItem.push(appointment);
+            appointment ={};
           }
         } else if (this.editedItem.appointment[i].stag === 3) {
           for (
@@ -2138,7 +2126,9 @@ export default {
               this.editedItem.appointment[i].orthodoncy[o].tooth.type || "";
             appointment.fee_grand_total =
               this.editedItem.appointment[i].orthodoncy[o].grand_total || 0;
+              appointment.stag = this.editedItem.appointment[i].stag
             this.appointmentItem.push(appointment);
+            appointment ={};
           }
         } else if (this.editedItem.appointment[i].stag === 4) {
           for (
@@ -2172,7 +2162,9 @@ export default {
             appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_remove[tr].grand_total ||
               0;
+            appointment.stag = this.editedItem.appointment[i].stag
             this.appointmentItem.push(appointment);
+            appointment ={};
           }
         } else if (this.editedItem.appointment[i].stag === 5) {
           for (
@@ -2206,7 +2198,9 @@ export default {
             appointment.fee_grand_total =
               this.editedItem.appointment[i].gum_surgery[gs].grand_total ||
               0;
+            appointment.stag = this.editedItem.appointment[i].stag
             this.appointmentItem.push(appointment);
+            appointment = {};
           }
         } else if (this.editedItem.appointment[i].stag === 6) {
           for (
@@ -2240,7 +2234,9 @@ export default {
             appointment.fee_grand_total =
               this.editedItem.appointment[i].root_surgery[rs].grand_total ||
               0;
+            appointment.stag = this.editedItem.appointment[i].stag
             this.appointmentItem.push(appointment);
+            appointment = {};
           }
         } else if (this.editedItem.appointment[i].stag === 7) {
           for (
@@ -2277,7 +2273,9 @@ export default {
               0;
             appointment.material =
               this.editedItem.appointment[i].teeth_protice[tp].material || "";
+            appointment.stag = this.editedItem.appointment[i].stag;
             this.appointmentItem.push(appointment);
+            appointment = {};
           }
         } else if (this.editedItem.appointment[i].stag === 8) {
           for (
@@ -2311,7 +2309,9 @@ export default {
             appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_bleaching[tb]
                 .grand_total || 0;
+            appointment.stag = this.editedItem.appointment[i].stag
             this.appointmentItem.push(appointment);
+            appointment = {};
           }
         } else if (this.editedItem.appointment[i].stag === 9) {
           for (
@@ -2346,7 +2346,9 @@ export default {
             appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_scaling[ts].grand_total ||
               0;
+            appointment.stag = this.editedItem.appointment[i].stag;
             this.appointmentItem.push(appointment);
+            appointment = {};
           }
         } else if (this.editedItem.appointment[i].stag === 10){
           for(var m_t = 0; m_t <this.editedItem.appointment[i].mouth_testing.length; m_t++){
@@ -2372,8 +2374,9 @@ export default {
               appointment.fee_grand_total =
               this.editedItem.appointment[i].mouth_testing[m_t].grand_total ||
               0;
+            appointment.stag = this.editedItem.appointment[i].stag
             this.appointmentItem.push(appointment);
-
+            appointment = {};
           }
         }
       }
