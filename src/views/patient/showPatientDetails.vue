@@ -1407,7 +1407,7 @@
                   <span class="font-weight-bold font-weigh-black subtitle-1">
                    عکس : </span
                 >
-                  <v-img width="300" height="250" :src="`http://localhost:3000/uploads/docs/teeth/`+appointmentEditOb.image"></v-img>
+                  <v-img  width="300" class="elevation-1 mt-1 rounded-lg" height="250" :src="`http://localhost:3000/uploads/docs/teeth/`+appointmentEditOb.image"></v-img>
             </v-col>
 
         </v-card-text>
@@ -2129,7 +2129,7 @@ export default {
             appointment.dentist =
               this.editedItem.appointment[i].orthodoncy[o].fee.dentist || 0;
             appointment.image =
-              this.editedItem.appointment[i].orthodoncy[o].image || "";
+              this.editedItem.appointment[i].orthodoncy[o].image || "default.png";
             appointment.description =
               this.editedItem.appointment[i].orthodoncy[o].description || "";
             appointment.tooth_gum =
