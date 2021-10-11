@@ -2316,35 +2316,35 @@ export default {
         } else if (this.editedItem.appointment[i].stag === 9) {
           for (
             var ts = 0;
-            ts < this.editedItem.appointment[i].teeth_scaling.length;
+            ts < this.editedItem.appointment[i].scaling.length;
             ts++
           ) {
             appointment.index_of_ts = ts;
             appointment.round =
-              this.editedItem.appointment[i].teeth_scaling[ts].round || 1;
-            appointment.meet_at = this.editedItem.appointment[i].teeth_scaling[
+              this.editedItem.appointment[i].scaling[ts].round || 1;
+            appointment.meet_at = this.editedItem.appointment[i].scaling[
               ts
             ].meet_at;
             appointment.fee_amount_received =
-              this.editedItem.appointment[i].teeth_scaling[ts].fee
+              this.editedItem.appointment[i].scaling[ts].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
-              this.editedItem.appointment[i].teeth_scaling[ts].fee.amount_due ||
+              this.editedItem.appointment[i].scaling[ts].fee.amount_due ||
               0;
             appointment.installment =
-              this.editedItem.appointment[i].teeth_scaling[ts].fee
+              this.editedItem.appointment[i].scaling[ts].fee
                 .installment || 0;
             appointment.dentist =
-              this.editedItem.appointment[i].teeth_scaling[ts].fee.dentist || 0;
+              this.editedItem.appointment[i].scaling[ts].fee.dentist || 0;
             appointment.description =
-              this.editedItem.appointment[i].teeth_scaling[ts].description ||
+              this.editedItem.appointment[i].scaling[ts].description ||
               "";
             appointment.tooth_type =
-              this.editedItem.appointment[i].teeth_scaling[ts].tooth.type || "";
+              this.editedItem.appointment[i].scaling[ts].tooth.type || "";
             appointment.tooth_gum =
-              this.editedItem.appointment[i].teeth_scaling[ts].tooth.gum || "";
+              this.editedItem.appointment[i].scaling[ts].tooth.gum || "";
             appointment.fee_grand_total =
-              this.editedItem.appointment[i].teeth_scaling[ts].grand_total ||
+              this.editedItem.appointment[i].scaling[ts].grand_total ||
               0;
             appointment.stag = this.editedItem.appointment[i].stag;
             this.appointmentItem.push(appointment);
