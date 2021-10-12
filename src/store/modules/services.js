@@ -1,16 +1,17 @@
 export const namespaced = true;
 export const state = {
   services: {
-    one: { name: "پر کردن دندان", icon: "mdi-tooth-outline" },
-    two: { name: "عصب کشی دندان", icon: "mdi-tooth-outline" },
+    one: { name: "معاینه دهن", icon: "mdi-tooth-outline" },
+    two: { name: "کشیدن دندان", icon: "mdi-tooth-outline" },
     three: { name: "پوش کردن دندان", icon: "mdi-tooth-outline" },
-    four: { name: "معاینه دهن", icon: "mdi-tooth-outline" },
-    five: { name: "سفید کردن دندان", icon: "mdi-tooth-outline" },
-    six: { name: "ارتودانسی", icon: "mdi-tooth-outline" },
-    seven: { name: "جراحی دندان", icon: "mdi-tooth-outline" },
-    eight: { name: "پروتیز دندان", icon: "mdi-tooth-outline" },
-    nine: { name: "نصب نگین دندان", icon: "mdi-tooth-outline" },
-    ten: { name: "امپلنت دندان", icon: "mdi-tooth-outline" }
+    four: { name: "پر کردن دندان", icon: "mdi-tooth-outline" },
+    five: { name: "ارتودانسی", icon: "mdi-tooth-outline" },
+    six: { name: "جراحی لثه دندان", icon: "mdi-tooth-outline" },
+    seven: { name: "جراحی ریشه دندان", icon: "mdi-tooth-outline" },
+    eight: { name: "سفید کردن دندان", icon: "mdi-tooth-outline" },
+    ten: { name: "پروتیز دندان", icon: "mdi-tooth-outline" },
+    nine: { name: "جرم گیری دندان", icon: "mdi-tooth-outline" },
+    
   },
   services_form_item: {
     page_title: "ثبت کردن مریض",
