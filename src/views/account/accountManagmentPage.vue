@@ -19,140 +19,154 @@
         </v-col>
         <v-col cols="12"><v-divider></v-divider></v-col>
         <v-col class="mr-4" cols="12">
+          <v-row>
+            <v-col cols="6">
+              <v-text-field
+                label="اسم"
+                readonly
+                class="px-2"
+                v-model="employe.firstname"
+                :value="employe.firstname"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <v-text-field
+                label="تخلص"
+                readonly
+                class="px-2"
+                v-model="employe.lastname"
+                :value="employe.lastname"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-col>
+
+        <v-col class="mr-4 mt-n4" cols="12">
           <v-text-field
-          label="اسم"
-          readonly
-          class="px-2"
-          v-model="employe.firstname"
-          :value="employe.firstname"
+            label="اسم پدر"
+            readonly
+            class="px-2"
+            v-model="employe.fathername"
+            :value="employe.lastname"
           ></v-text-field>
         </v-col>
-        <v-col class="mr-4 mt-n6" cols="12">
+        <v-col class="mr-4 mt-n4" cols="12">
           <v-text-field
-          label="تخلص"
-          readonly
-          class="px-2"
-          v-model="employe.lastname"
-          :value="employe.lastname"
+            label="شماره تماس اولی"
+            readonly
+            class="px-2"
+            v-model="employe.phone1"
+            :value="employe.phone1"
           ></v-text-field>
         </v-col>
-        <v-col class="mr-4 mt-n6" cols="12">
+        <v-col v-if="employe.phone2" class="mr-4 mt-n4" cols="12">
           <v-text-field
-          label="اسم پدر"
-          readonly
-          class="px-2"
-          v-model="employe.fathername"
-          :value="employe.lastname"
+            label="شماره تماس دومی"
+            readonly
+            class="px-2"
+            v-model="employe.phone2"
+            :value="employe.phone2"
           ></v-text-field>
         </v-col>
-        <v-col class="mr-4 mt-n6" cols="12">
+        <v-col class="mr-4 mt-n4" cols="12">
           <v-text-field
-          label="شماره تماس اولی"
-          readonly
-          class="px-2"
-          v-model="employe.phone1"
-          :value="employe.phone1"
+            label="آدرس"
+            readonly
+            class="px-2"
+            v-model="employe.address"
+            :value="employe.address"
           ></v-text-field>
         </v-col>
-        <v-col v-if="employe.phone2" class="mr-4 mt-n6" cols="12">
+        <v-col class="mr-4 mt-n4" cols="12">
           <v-text-field
-          label="شماره تماس دومی"
-          readonly
-          class="px-2"
-          v-model="employe.phone2"
-          :value="employe.phone2"
+            label="شماره تذکره"
+            readonly
+            class="px-2"
+            v-model="employe.tazkira_id"
+            :value="employe.tazkira_id"
           ></v-text-field>
         </v-col>
-        <v-col class="mr-4 mt-n6" cols="12">
-          <v-text-field
-          label="آدرس"
-          readonly
-          class="px-2"
-          v-model="employe.address"
-          :value="employe.address"
-          ></v-text-field>
+        <v-col class="mr-4 mt-n4" cols="12">
+          <v-row>
+            <v-col cols="6">
+              <v-text-field
+                label="پوهنتون"
+                readonly
+                class="px-2"
+                v-model="employe.edu_university"
+                :value="employe.edu_university"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <v-text-field
+                label="درجه تحصیلی"
+                readonly
+                class="px-2"
+                v-model="employe.edu_level"
+                :value="employe.edu_level"
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </v-col>
-        <v-col class="mr-4 mt-n6" cols="12">
-          <v-text-field
-          label="شماره تذکره"
-          readonly
-          class="px-2"
-          v-model="employe.tazkira_id"
-          :value="employe.tazkira_id"
-          ></v-text-field>
-        </v-col>
-        <v-col class="mr-4 mt-n6" cols="12">
-          <v-text-field
-          label="درجه تحصیلی"
-          readonly
-          class="px-2"
-          v-model="employe.edu_level"
-          :value="employe.edu_level"
-          ></v-text-field>
-        </v-col>
-        <v-col class="mr-4 mt-n6" cols="12">
-          <v-text-field
-          label="پوهنتون"
-          readonly
-          class="px-2"
-          v-model="employe.edu_university"
-          :value="employe.edu_university"
-          ></v-text-field>
-        </v-col>
-        <v-col class="mr-6 mt-n3" cols="12">
+
+        <v-col class="mr-7 mt-n3" cols="12">
           <div>
-            <span class="gray--text"> تاریخ آغاز</span>
-            <br>
+            <span class="gray--text text-caption">تاریخ آغاز تحصیل</span>
+            <br />
             <span class="show_detial">
               {{ getRealDate(employe.edu_start_date) }}
             </span>
           </div>
         </v-col>
-        <v-col class="mr-4 mt-n5" cols="12">
-          <v-divider class="bold"></v-divider>
+        <v-col class="mr-7 mt-n5 ml-4" cols="12">
+          <v-divider  class="bold"></v-divider>
         </v-col>
-        <v-col class="mr-6 mt-n3" cols="12">
+        <v-col class="mr-7" cols="12">
           <div>
-            <span class=" gray--text">تاریخ ختم</span>
-            <br>
+            <span class="gray--text text-caption">تاریخ ختم تحصیل</span>
+            <br />
             <span class="show_detial">
               {{ getRealDate(employe.edu_end_date) }}
             </span>
           </div>
         </v-col>
-        <v-col class=" mt-n5" cols="12">
-          <v-divider class="bold"></v-divider>
+        <v-col class=" mt-n4 mr-7 ml-4" cols="12">
+          <v-divider  class="bold"></v-divider>
         </v-col>
-        <v-col class="mr-4 mt-n5" cols="12">
-          <v-text-field
-          label="مقام"
-          readonly
-          class="px-2"
-          v-model="employe.position"
-          :value="employe.position"
-          ></v-text-field>
+        <v-col class="mr-4" cols="12">
+          <v-row>
+            <v-col cols="6">
+              <v-text-field
+                label="مقام"
+                readonly
+                class="px-2"
+                v-model="employe.position"
+                :value="employe.position"
+              ></v-text-field>
+            </v-col>
+            <v-col  cols="6">
+              <v-text-field
+                label="معاش"
+                readonly
+                class="px-2"
+                v-model="employe.salary"
+                :value="employe.salary"
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </v-col>
-        <v-col class="mr-6 mt-n4" cols="12">
+        <v-col class="mr-7 mt-n4" cols="12">
           <div>
-            <span class=" gray--text"> تاریخ آغاز کار</span>
-            <br>
+            <span class=" gray--text text-caption"> تاریخ آغاز کار</span>
+            <br />
             <span class="show_detial">
               {{ getRealDate(employe.hired_at) }}
             </span>
           </div>
-          <v-col cols="12" class="mt-n3">
+        </v-col>
+         <v-col cols="12" class="mt-n4 mr-7 ml-4 mb-3">
             <v-divider></v-divider>
           </v-col>
-        </v-col>
-        <v-col class="mr-4 mt-n6" cols="12">
-          <v-text-field
-          label="معاش"
-          readonly
-          class="px-2"
-          v-model="employe.salary"
-          :value="employe.salary"
-          ></v-text-field>
-        </v-col>
       </v-row>
     </v-col>
     <v-col cols="12" md="9" lg="9" xl="9" sm="8">
