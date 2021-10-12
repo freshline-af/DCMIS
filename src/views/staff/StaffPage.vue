@@ -34,15 +34,9 @@ export default {
   await Store.dispatch("staff/getStaff");
   next();
   },
-  created(){
-    this.initialize();
-  },
   computed: {
     ...mapState(["staff"])
   },
-  methods:{
-   
-  }
 };
 </script>
 
