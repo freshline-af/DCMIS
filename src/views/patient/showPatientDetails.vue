@@ -2011,8 +2011,7 @@ export default {
     initionalizeAppointment() {
       let appointment = {};
       for (var i = 0; i < this.editedItem.appointment.length; i++) {
-        appointment.index_of_appoint = i;
-        appointment.stag = this.editedItem.appointment[i].stag;
+        
         if (this.editedItem.appointment[i].stag === 1) {
           for (
             var tf = 0;
@@ -2053,6 +2052,7 @@ export default {
               this.editedItem.appointment[i].teeth_filling[tf].grand_total ||
               0;
             appointment.stag = this.editedItem.appointment[i].stag
+            appointment.index_of_appoint = i;
             this.appointmentItem.push(appointment);
             appointment ={};
           }
@@ -2091,6 +2091,7 @@ export default {
               this.editedItem.appointment[i].teeth_cover[tc].grand_total ||
               0;
               appointment.stag = this.editedItem.appointment[i].stag
+              appointment.index_of_appoint = i;
             this.appointmentItem.push(appointment);
             appointment ={};
           }
@@ -2126,7 +2127,8 @@ export default {
               this.editedItem.appointment[i].orthodoncy[o].tooth.type || "";
             appointment.fee_grand_total =
               this.editedItem.appointment[i].orthodoncy[o].grand_total || 0;
-              appointment.stag = this.editedItem.appointment[i].stag
+              appointment.stag = this.editedItem.appointment[i].stag;
+              appointment.index_of_appoint = i;
             this.appointmentItem.push(appointment);
             appointment ={};
           }
@@ -2163,6 +2165,7 @@ export default {
               this.editedItem.appointment[i].teeth_remove[tr].grand_total ||
               0;
             appointment.stag = this.editedItem.appointment[i].stag
+            appointment.index_of_appoint = i;
             this.appointmentItem.push(appointment);
             appointment ={};
           }
@@ -2199,6 +2202,7 @@ export default {
               this.editedItem.appointment[i].gum_surgery[gs].grand_total ||
               0;
             appointment.stag = this.editedItem.appointment[i].stag
+            appointment.index_of_appoint = i;
             this.appointmentItem.push(appointment);
             appointment = {};
           }
@@ -2234,7 +2238,8 @@ export default {
             appointment.fee_grand_total =
               this.editedItem.appointment[i].root_surgery[rs].grand_total ||
               0;
-            appointment.stag = this.editedItem.appointment[i].stag
+            appointment.stag = this.editedItem.appointment[i].stag;
+            appointment.index_of_appoint = i;
             this.appointmentItem.push(appointment);
             appointment = {};
           }
@@ -2274,6 +2279,7 @@ export default {
             appointment.material =
               this.editedItem.appointment[i].teeth_protice[tp].material || "";
             appointment.stag = this.editedItem.appointment[i].stag;
+            appointment.index_of_appoint = i;
             this.appointmentItem.push(appointment);
             appointment = {};
           }
@@ -2309,7 +2315,8 @@ export default {
             appointment.fee_grand_total =
               this.editedItem.appointment[i].teeth_bleaching[tb]
                 .grand_total || 0;
-            appointment.stag = this.editedItem.appointment[i].stag
+            appointment.stag = this.editedItem.appointment[i].stag;
+            appointment.index_of_appoint = i;
             this.appointmentItem.push(appointment);
             appointment = {};
           }
@@ -2347,6 +2354,7 @@ export default {
               this.editedItem.appointment[i].scaling[ts].grand_total ||
               0;
             appointment.stag = this.editedItem.appointment[i].stag;
+            appointment.index_of_appoint = i;
             this.appointmentItem.push(appointment);
             appointment = {};
           }
@@ -2375,6 +2383,7 @@ export default {
               this.editedItem.appointment[i].mouth_testing[m_t].grand_total ||
               0;
             appointment.stag = this.editedItem.appointment[i].stag
+            appointment.index_of_appoint = i;
             this.appointmentItem.push(appointment);
             appointment = {};
           }
@@ -2419,7 +2428,6 @@ export default {
     openAppointmentEditDialog(item) {
       this.apointmentEditIndex = this.appointmentItem.indexOf(item);
       this.appointmentEditOb = Object.assign({}, item);
-      console.log(this.appointmentEditOb);
       this.appointmentEditDialog = true;
     },
     // To close appointment edit pop up
