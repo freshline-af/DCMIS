@@ -1,11 +1,10 @@
 <template>
-  <v-navigation-drawer temporary v-model="drawer" app dark>
+  <v-navigation-drawer temporary v-model="drawer" app>
     <v-date-picker
       year-icon="mdi-calendar-blank"
       full-width
       locale="fa-IR"
       first-day-of-week="6"
-      dark
       rtl
       readonly
       show-current=""

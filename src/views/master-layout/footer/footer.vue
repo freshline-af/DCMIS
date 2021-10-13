@@ -1,5 +1,5 @@
 <template>
-  <v-footer light inset elevation="2">
+  <v-footer inset elevation="2">
     <v-row justify="end">
       <v-col class="text-center" cols="12">
         {{ new Date().getFullYear() }} — <strong>DCMIS</strong>
