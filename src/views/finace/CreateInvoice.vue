@@ -140,12 +140,12 @@
                        <v-col cols="12">
                            <v-row>
                                <v-col cols="6" md="6" sm="6">
-                                  <v-btn color="warning" outlined  @click="dialog.value= false">
+                                  <v-btn color="red" large width="200" class="white--text"  @click="dialog.value= false">
                                        لغو کردن
                                   </v-btn>
                                </v-col>
                                <v-col align="left" cols="6" md="6" sm="6">
-                                   <v-btn  type="submit" color="primary" outlined >
+                                   <v-btn  type="submit" color="primary" large width="200" >
                                      ثبت کردن
                                    </v-btn>
                                </v-col>
@@ -196,8 +196,8 @@
                        <v-col cols="12">
                            <v-row justify="center">
                                <v-col justify="center" align="center" cols="12" md="12" lg="12" xl="12" sm="12">
-                                <v-btn :disabled="!invoce_form" elevation="4" type="submit" width="500" color="primary" outlined class="mr-6">
-                                     <span>ثبت کردن فورم</span>
+                                <v-btn :disabled="!invoce_form" elevation="4" type="submit" width="500" color="primary" large class="mr-6">
+                                     ثبت کردن
                                 </v-btn>
                                </v-col>
                            </v-row>
