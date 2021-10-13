@@ -34,7 +34,7 @@
         <v-img v-else :src="'http://localhost:3000/uploads/docs/photo/'+staff.photo"> </v-img>
       </v-avatar>
       <v-btn icon @click.stop="leftDrawer = !leftDrawer">
-        <v-icon>mdi-arrow-right</v-icon>
+        <v-icon>mdi-calendar-outline</v-icon>
       </v-btn>
     </v-app-bar>
   </div>
