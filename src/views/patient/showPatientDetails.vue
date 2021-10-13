@@ -1951,8 +1951,6 @@ export default {
         photo: this.editedItem.photo,
         case_history: this.editedItem.case_history,
       };
-      console.log(this.editedItem);
-      console.log(this.editePatient);
       this.edit_patient = true;
     },
     // To close edit information dialog

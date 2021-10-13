@@ -16,6 +16,8 @@ import Sitting from "../views/sitting/sittingPage.vue";
 import Staff from "../views/staff/StaffPage.vue";
 import Vue from "vue";
 import VueRouter from "vue-router";
+import selectedPatientService from "../views/service/ShowSelectedPatient.vue";
+import selectedService from "../views/service/ServiceSelected.vue";
 
 Vue.use(VueRouter);
 
@@ -34,6 +36,18 @@ const routes = [
     path: "/service",
     name: "service",
     component: Service,
+  },
+  {
+    path: "/selected_services",
+    name: "selectedService",
+    component: selectedService,
+    probs: true
+  },
+  {
+    path: "/selected_patient_services",
+    name: "selectedPatientService",
+    component: selectedPatientService,
+    probs: true
   },
   {
     path: "/patient",
