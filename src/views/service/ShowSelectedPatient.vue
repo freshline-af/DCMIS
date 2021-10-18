@@ -125,6 +125,7 @@
                   outlined
                   rounded
                   elevation="2"
+                  @click="openAddNewRoundDialog"
                   color="primary"
                   class=" mt-8"
                   >اضافه کردن جلسه</v-btn
@@ -137,12 +138,14 @@
             :headers="selectPatientServiceHeader"
             :search="search"
           >
-           <template v-slot:item.actions="{item}">
-            <v-btn @click="showAppointment(item)" icon><v-icon color="primary">mdi-eye</v-icon></v-btn>
-          </template>
-          <template v-slot:item.meet_at ="{item}">
-              {{getRealDate(item.meet_at)}}
-          </template>
+            <template v-slot:item.actions="{ item }">
+              <v-btn @click="showAppointment(item)" icon
+                ><v-icon color="primary">mdi-eye</v-icon></v-btn
+              >
+            </template>
+            <template v-slot:item.meet_at="{ item }">
+              {{ getRealDate(item.meet_at) }}
+            </template>
           </v-data-table>
         </v-card>
       </v-sheet>
@@ -187,20 +190,145 @@
         </v-card>
       </v-sheet>
     </v-col>
+    <!-- dialog for show appointment -->
+    <v-dialog persistent max-width="1000" v-model="apperppointment">
+      <v-card>
+        <v-card-title>
+          <strong>نشان دادن جزییات دفعه مراجعه شده</strong>
+          <v-spacer></v-spacer>
+          <v-btn @click="closeShowAppointment" elevation="2" icon>
+            <v-icon color="red">
+              mdi-close
+            </v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-divider class="my-6"></v-divider>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12" md="6" lg="6" xl="6" sm="12">
+              <v-row class="mt-3 px-12">
+                <v-col cols="12" align="center"><strong>جلسه</strong></v-col>
+                <v-col cols="12"><v-divider></v-divider></v-col>
+                <v-col class="px-10" cols="12">
+                  <v-row>
+                    <v-col cols="12" md="4" lg="4" xl="4" sm="4">
+                      <v-text-field
+                        label="جلسه"
+                        v-model="apointmentItem.round"
+                        :value="apointmentItem.round"
+                        readonly
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6" lg="6" xl="6" sm="6">
+                      <v-text-field
+                        label="تاریخ مراجعه"
+                        :value="getRealDate(apointmentItem.meet_at)"
+                        readonly
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col class="px-10" cols="12">
+                  <v-row>
+                    <v-col cols="12" md="4" lg="4" xl="4" sm="4">
+                      <v-text-field
+                        label="فک"
+                        v-model="apointmentItem.tooth_gum"
+                        :value="apointmentItem.round"
+                        readonly
+                      ></v-text-field>
+                    </v-col>
+                    <v-col  cols="12" md="6" lg="6" xl="6" sm="6">
+                      <v-text-field
+                        label="دندان"
+                        :value="apointmentItem.tooth_type"
+                        readonly
+                      ></v-text-field>
+                    </v-col>
+                   
+                  </v-row>
+                </v-col>
+                 <v-col v-if="apointmentItem.description" class="px-10" cols="12">
+                      <v-textarea
+                        label="توضیحات"
+                        v-model="apointmentItem.description"
+                        :value="apointmentItem.description"
+                        rows="2"
+                        no-resize
+                        readonly
+                      ></v-textarea>
+                    </v-col>
+                     
+              </v-row>
+            </v-col>
+            <v-col cols="12" md="6" lg="6" xl="6" sm="12">
+              <v-row class="mt-3 px-12">
+                <v-col cols="12" class="px-10" align="center">
+                  <strong>فیس</strong>
+                </v-col>
+                <v-col class="px-10" cols="12"><v-divider></v-divider></v-col>
+                <v-col class="px-10" cols="12">
+                  <v-text-field
+                    label="مجموعه کل"
+                    v-model="apointmentItem.fee_grand_total"
+                    :value="apointmentItem.fee_grand_total"
+                    suffix="افغانی"
+                    readonly
+                  ></v-text-field>
+                </v-col>
+                <v-col class="px-10" cols="12">
+                  <v-text-field
+                    label="مجموعه دریافت شده"
+                    v-model="apointmentItem.fee_amount_received"
+                    suffix="افغانی"
+                    :value="apointmentItem.fee_amount_received"
+                    readonly
+                  ></v-text-field>
+                </v-col>
+                <v-col class="px-10" cols="12">
+                  <v-text-field
+                    label="مجموعه باقی مانده"
+                    v-model="apointmentItem.fee_amount_due"
+                    suffix="افغانی"
+                    :value="apointmentItem.fee_amount_due"
+                    readonly
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <!-- dialog for add new rount----------------------------------------------------- -->
+    <v-dialog persistent max-width="1000" v-model="newRounddialog">
+      <v-card>
+        <v-card-title>
+          <strong>اضافه کردن جلسه جدید</strong>
+          <v-spacer></v-spacer>
+          <v-btn @click="closeAddNewRoundDialog" elevation="2" icon>
+            <v-icon color="red">
+              mdi-close
+            </v-icon>
+          </v-btn>
+        </v-card-title>
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 
 <script>
 export default {
   mounted() {
-   this.initializServices();
+    this.initializServices();
   },
   data: () => ({
     search: "",
+    apperppointment: false,
+    apointmentItem: {},
+    newRounddialog: false,
     selectPatient: {},
-    SelectServices: [
-      
-    ],
+    SelectServices: [],
     selectPatientServiceHeader: [
       {
         text: "تاریخ مراجعه",
@@ -241,11 +369,10 @@ export default {
     ],
   }),
   methods: {
-      initializServices(){
+    initializServices() {
       this.selectPatient = this.$route.params.selectPatient;
-        let appointment = {};
+      let appointment = {};
       for (var i = 0; i < this.selectPatient.appointment.length; i++) {
-        
         if (this.selectPatient.appointment[i].stag === 1) {
           for (
             var tf = 0;
@@ -255,20 +382,21 @@ export default {
             appointment.index_of_tf = tf;
             appointment.round =
               this.selectPatient.appointment[i].teeth_filling[tf].round || "";
-            appointment.meet_at = this.selectPatient.appointment[i].teeth_filling[
-              tf
-            ].meet_at;
+            appointment.meet_at = this.selectPatient.appointment[
+              i
+            ].teeth_filling[tf].meet_at;
             appointment.fee_amount_received =
               this.selectPatient.appointment[i].teeth_filling[tf].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
-              this.selectPatient.appointment[i].teeth_filling[tf].fee.amount_due ||
-              0;
+              this.selectPatient.appointment[i].teeth_filling[tf].fee
+                .amount_due || 0;
             appointment.installment = this.selectPatient.appointment[
               i
             ].teeth_filling[tf].fee.installment;
             appointment.dentist =
-              this.selectPatient.appointment[i].teeth_filling[tf].fee.dentist || 0;
+              this.selectPatient.appointment[i].teeth_filling[tf].fee.dentist ||
+              0;
             appointment.initial_swervices =
               this.selectPatient.appointment[i].teeth_filling[tf]
                 .initial_swervices || " ";
@@ -276,19 +404,21 @@ export default {
               this.selectPatient.appointment[i].teeth_filling[tf].description ||
               " ";
             appointment.material =
-              this.selectPatient.appointment[i].teeth_filling[tf].material || " ";
+              this.selectPatient.appointment[i].teeth_filling[tf].material ||
+              " ";
             appointment.tooth_gum =
-              this.selectPatient.appointment[i].teeth_filling[tf].tooth.gum || " ";
+              this.selectPatient.appointment[i].teeth_filling[tf].tooth.gum ||
+              " ";
             appointment.tooth_type =
               this.selectPatient.appointment[i].teeth_filling[tf].tooth.type ||
               " ";
             appointment.fee_grand_total =
               this.selectPatient.appointment[i].teeth_filling[tf].grand_total ||
               0;
-            appointment.stag = this.selectPatient.appointment[i].stag
+            appointment.stag = this.selectPatient.appointment[i].stag;
             appointment.index_of_appoint = i;
             this.SelectServices.push(appointment);
-            appointment ={};
+            appointment = {};
           }
         } else if (this.selectPatient.appointment[i].stag === 2) {
           for (
@@ -306,28 +436,32 @@ export default {
               this.selectPatient.appointment[i].teeth_cover[tc].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
-              this.selectPatient.appointment[i].teeth_cover[tc].fee.amount_due ||
-              0;
+              this.selectPatient.appointment[i].teeth_cover[tc].fee
+                .amount_due || 0;
             appointment.installment = this.selectPatient.appointment[
               i
             ].teeth_cover[tc].fee.installment;
             appointment.dentist =
-              this.selectPatient.appointment[i].teeth_cover[tc].fee.dentist || 0;
+              this.selectPatient.appointment[i].teeth_cover[tc].fee.dentist ||
+              0;
             appointment.material =
               this.selectPatient.appointment[i].teeth_cover[tc].material || " ";
             appointment.description =
-              this.selectPatient.appointment[i].teeth_cover[tc].description || " ";
+              this.selectPatient.appointment[i].teeth_cover[tc].description ||
+              " ";
             appointment.tooth_gum =
-              this.selectPatient.appointment[i].teeth_cover[tc].tooth.gum || " ";
+              this.selectPatient.appointment[i].teeth_cover[tc].tooth.gum ||
+              " ";
             appointment.tooth_type =
-              this.selectPatient.appointment[i].teeth_cover[tc].tooth.type || " ";
+              this.selectPatient.appointment[i].teeth_cover[tc].tooth.type ||
+              " ";
             appointment.fee_grand_total =
               this.selectPatient.appointment[i].teeth_cover[tc].grand_total ||
               0;
-              appointment.stag = this.selectPatient.appointment[i].stag
-              appointment.index_of_appoint = i;
+            appointment.stag = this.selectPatient.appointment[i].stag;
+            appointment.index_of_appoint = i;
             this.SelectServices.push(appointment);
-            appointment ={};
+            appointment = {};
           }
         } else if (this.selectPatient.appointment[i].stag === 3) {
           for (
@@ -345,14 +479,16 @@ export default {
               this.selectPatient.appointment[i].orthodoncy[o].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
-              this.selectPatient.appointment[i].orthodoncy[o].fee.amount_due || 0;
-            appointment.installment = this.selectPatient.appointment[i].orthodoncy[
-              o
-            ].fee.installment;
+              this.selectPatient.appointment[i].orthodoncy[o].fee.amount_due ||
+              0;
+            appointment.installment = this.selectPatient.appointment[
+              i
+            ].orthodoncy[o].fee.installment;
             appointment.dentist =
               this.selectPatient.appointment[i].orthodoncy[o].fee.dentist || 0;
             appointment.image =
-              this.selectPatient.appointment[i].orthodoncy[o].image || "default.png";
+              this.selectPatient.appointment[i].orthodoncy[o].image ||
+              "default.png";
             appointment.description =
               this.selectPatient.appointment[i].orthodoncy[o].description || "";
             appointment.tooth_gum =
@@ -361,10 +497,10 @@ export default {
               this.selectPatient.appointment[i].orthodoncy[o].tooth.type || "";
             appointment.fee_grand_total =
               this.selectPatient.appointment[i].orthodoncy[o].grand_total || 0;
-              appointment.stag = this.selectPatient.appointment[i].stag;
-              appointment.index_of_appoint = i;
+            appointment.stag = this.selectPatient.appointment[i].stag;
+            appointment.index_of_appoint = i;
             this.SelectServices.push(appointment);
-            appointment ={};
+            appointment = {};
           }
         } else if (this.selectPatient.appointment[i].stag === 4) {
           for (
@@ -375,33 +511,37 @@ export default {
             appointment.index_of_tr = tr;
             appointment.round =
               this.selectPatient.appointment[i].teeth_remove[tr].round || "";
-            appointment.meet_at = this.selectPatient.appointment[i].teeth_remove[
-              tr
-            ].meet_at;
+            appointment.meet_at = this.selectPatient.appointment[
+              i
+            ].teeth_remove[tr].meet_at;
             appointment.fee_amount_received =
               this.selectPatient.appointment[i].teeth_remove[tr].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
-              this.selectPatient.appointment[i].teeth_remove[tr].fee.amount_due ||
-              0;
+              this.selectPatient.appointment[i].teeth_remove[tr].fee
+                .amount_due || 0;
             appointment.installment = this.selectPatient.appointment[
               i
             ].teeth_remove[tr].fee.installment;
             appointment.dentist =
-              this.selectPatient.appointment[i].teeth_remove[tr].fee.dentist || 0;
+              this.selectPatient.appointment[i].teeth_remove[tr].fee.dentist ||
+              0;
             appointment.description =
-              this.selectPatient.appointment[i].teeth_remove[tr].description || "";
+              this.selectPatient.appointment[i].teeth_remove[tr].description ||
+              "";
             appointment.tooth_gum =
-              this.selectPatient.appointment[i].teeth_remove[tr].tooth.gum || "";
+              this.selectPatient.appointment[i].teeth_remove[tr].tooth.gum ||
+              "";
             appointment.tooth_type =
-              this.selectPatient.appointment[i].teeth_remove[tr].tooth.type || "";
+              this.selectPatient.appointment[i].teeth_remove[tr].tooth.type ||
+              "";
             appointment.fee_grand_total =
               this.selectPatient.appointment[i].teeth_remove[tr].grand_total ||
               0;
-            appointment.stag = this.selectPatient.appointment[i].stag
+            appointment.stag = this.selectPatient.appointment[i].stag;
             appointment.index_of_appoint = i;
             this.SelectServices.push(appointment);
-            appointment ={};
+            appointment = {};
           }
         } else if (this.selectPatient.appointment[i].stag === 5) {
           for (
@@ -419,23 +559,26 @@ export default {
               this.selectPatient.appointment[i].gum_surgery[gs].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
-              this.selectPatient.appointment[i].gum_surgery[gs].fee.amount_due ||
-              0;
+              this.selectPatient.appointment[i].gum_surgery[gs].fee
+                .amount_due || 0;
             appointment.installment =
-              this.selectPatient.appointment[i].gum_surgery[gs].fee.installment ||
-              0;
+              this.selectPatient.appointment[i].gum_surgery[gs].fee
+                .installment || 0;
             appointment.dentist =
-              this.selectPatient.appointment[i].gum_surgery[gs].fee.dentist || 0;
+              this.selectPatient.appointment[i].gum_surgery[gs].fee.dentist ||
+              0;
             appointment.description =
-              this.selectPatient.appointment[i].gum_surgery[gs].description || "";
+              this.selectPatient.appointment[i].gum_surgery[gs].description ||
+              "";
             appointment.tooth_gum =
               this.selectPatient.appointment[i].gum_surgery[gs].tooth.gum || "";
             appointment.tooth_type =
-              this.selectPatient.appointment[i].gum_surgery[gs].tooth.type || "";
+              this.selectPatient.appointment[i].gum_surgery[gs].tooth.type ||
+              "";
             appointment.fee_grand_total =
               this.selectPatient.appointment[i].gum_surgery[gs].grand_total ||
               0;
-            appointment.stag = this.selectPatient.appointment[i].stag
+            appointment.stag = this.selectPatient.appointment[i].stag;
             appointment.index_of_appoint = i;
             this.SelectServices.push(appointment);
             appointment = {};
@@ -449,26 +592,30 @@ export default {
             appointment.index_of_rs = rs;
             appointment.round =
               this.selectPatient.appointment[i].root_surgery[rs].round || "";
-            appointment.meet_at = this.selectPatient.appointment[i].root_surgery[
-              rs
-            ].meet_at;
+            appointment.meet_at = this.selectPatient.appointment[
+              i
+            ].root_surgery[rs].meet_at;
             appointment.fee_amount_received =
               this.selectPatient.appointment[i].root_surgery[rs].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
-              this.selectPatient.appointment[i].root_surgery[rs].fee.amount_due ||
-              0;
+              this.selectPatient.appointment[i].root_surgery[rs].fee
+                .amount_due || 0;
             appointment.installment =
-              this.selectPatient.appointment[i].root_surgery[rs].fee.installment ||
-              0;
+              this.selectPatient.appointment[i].root_surgery[rs].fee
+                .installment || 0;
             appointment.dentist =
-              this.selectPatient.appointment[i].root_surgery[rs].fee.dentist || 0;
+              this.selectPatient.appointment[i].root_surgery[rs].fee.dentist ||
+              0;
             appointment.description =
-              this.selectPatient.appointment[i].root_surgery[rs].description || "";
+              this.selectPatient.appointment[i].root_surgery[rs].description ||
+              "";
             appointment.tooth_gum =
-              this.selectPatient.appointment[i].root_surgery[rs].tooth.gum || "";
+              this.selectPatient.appointment[i].root_surgery[rs].tooth.gum ||
+              "";
             appointment.tooth_type =
-              this.selectPatient.appointment[i].root_surgery[rs].tooth.type || "";
+              this.selectPatient.appointment[i].root_surgery[rs].tooth.type ||
+              "";
             appointment.fee_grand_total =
               this.selectPatient.appointment[i].root_surgery[rs].grand_total ||
               0;
@@ -486,32 +633,36 @@ export default {
             appointment.index_of_tp = tp;
             appointment.round =
               this.selectPatient.appointment[i].teeth_protice[tp].round || 1;
-            appointment.meet_at = this.selectPatient.appointment[i].teeth_protice[
-              tp
-            ].meet_at;
+            appointment.meet_at = this.selectPatient.appointment[
+              i
+            ].teeth_protice[tp].meet_at;
             appointment.fee_amount_received =
               this.selectPatient.appointment[i].teeth_protice[tp].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
-              this.selectPatient.appointment[i].teeth_protice[tp].fee.amount_due ||
-              0;
+              this.selectPatient.appointment[i].teeth_protice[tp].fee
+                .amount_due || 0;
             appointment.installment =
               this.selectPatient.appointment[i].teeth_protice[tp].fee
                 .installment || 0;
             appointment.dentist =
-              this.selectPatient.appointment[i].teeth_protice[tp].fee.dentist || 0;
+              this.selectPatient.appointment[i].teeth_protice[tp].fee.dentist ||
+              0;
             appointment.description =
               this.selectPatient.appointment[i].teeth_protice[tp].description ||
               "";
             appointment.tooth_gum =
-              this.selectPatient.appointment[i].teeth_protice[tp].tooth.gum || "";
+              this.selectPatient.appointment[i].teeth_protice[tp].tooth.gum ||
+              "";
             appointment.tooth_type =
-              this.selectPatient.appointment[i].teeth_protice[tp].tooth.type || "";
+              this.selectPatient.appointment[i].teeth_protice[tp].tooth.type ||
+              "";
             appointment.fee_grand_total =
               this.selectPatient.appointment[i].teeth_protice[tp].grand_total ||
               0;
             appointment.material =
-              this.selectPatient.appointment[i].teeth_protice[tp].material || "";
+              this.selectPatient.appointment[i].teeth_protice[tp].material ||
+              "";
             appointment.stag = this.selectPatient.appointment[i].stag;
             appointment.index_of_appoint = i;
             this.SelectServices.push(appointment);
@@ -539,13 +690,14 @@ export default {
               i
             ].teeth_bleaching[tb].fee.installment;
             appointment.dentist =
-              this.selectPatient.appointment[i].teeth_bleaching[tb].fee.dentist ||
-              0;
+              this.selectPatient.appointment[i].teeth_bleaching[tb].fee
+                .dentist || 0;
             appointment.description =
-              this.selectPatient.appointment[i].teeth_bleaching[tb].description ||
-              "";
+              this.selectPatient.appointment[i].teeth_bleaching[tb]
+                .description || "";
             appointment.material =
-              this.selectPatient.appointment[i].teeth_bleaching[tb].material || "";
+              this.selectPatient.appointment[i].teeth_bleaching[tb].material ||
+              "";
             appointment.fee_grand_total =
               this.selectPatient.appointment[i].teeth_bleaching[tb]
                 .grand_total || 0;
@@ -570,67 +722,80 @@ export default {
               this.selectPatient.appointment[i].scaling[ts].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
-              this.selectPatient.appointment[i].scaling[ts].fee.amount_due ||
-              0;
+              this.selectPatient.appointment[i].scaling[ts].fee.amount_due || 0;
             appointment.installment =
-              this.selectPatient.appointment[i].scaling[ts].fee
-                .installment || 0;
+              this.selectPatient.appointment[i].scaling[ts].fee.installment ||
+              0;
             appointment.dentist =
               this.selectPatient.appointment[i].scaling[ts].fee.dentist || 0;
             appointment.description =
-              this.selectPatient.appointment[i].scaling[ts].description ||
-              "";
+              this.selectPatient.appointment[i].scaling[ts].description || "";
             appointment.tooth_type =
               this.selectPatient.appointment[i].scaling[ts].tooth.type || "";
             appointment.tooth_gum =
               this.selectPatient.appointment[i].scaling[ts].tooth.gum || "";
             appointment.fee_grand_total =
-              this.selectPatient.appointment[i].scaling[ts].grand_total ||
-              0;
+              this.selectPatient.appointment[i].scaling[ts].grand_total || 0;
             appointment.stag = this.selectPatient.appointment[i].stag;
             appointment.index_of_appoint = i;
             this.SelectServices.push(appointment);
             appointment = {};
           }
-        } else if (this.selectPatient.appointment[i].stag === 10){
-          for(var m_t = 0; m_t <this.selectPatient.appointment[i].mouth_testing.length; m_t++){
-          appointment.index_of_m_t = m_t;
-          appointment.round = this.selectPatient.appointment[i].mouth_testing[m_t].round || 1;
-           appointment.meet_at = this.selectPatient.appointment[i].mouth_testing[
-              m_t
-            ].meet_at;
+        } else if (this.selectPatient.appointment[i].stag === 10) {
+          for (
+            var m_t = 0;
+            m_t < this.selectPatient.appointment[i].mouth_testing.length;
+            m_t++
+          ) {
+            appointment.index_of_m_t = m_t;
+            appointment.round =
+              this.selectPatient.appointment[i].mouth_testing[m_t].round || 1;
+            appointment.meet_at = this.selectPatient.appointment[
+              i
+            ].mouth_testing[m_t].meet_at;
             appointment.fee_amount_received =
               this.selectPatient.appointment[i].mouth_testing[m_t].fee
                 .amount_received || 0;
             appointment.fee_amount_due =
-              this.selectPatient.appointment[i].mouth_testing[m_t].fee.amount_due ||
-              0;
+              this.selectPatient.appointment[i].mouth_testing[m_t].fee
+                .amount_due || 0;
             appointment.installment =
               this.selectPatient.appointment[i].mouth_testing[m_t].fee
                 .installment || 0;
             appointment.dentist =
-              this.selectPatient.appointment[i].mouth_testing[m_t].fee.dentist || 0;
+              this.selectPatient.appointment[i].mouth_testing[m_t].fee
+                .dentist || 0;
             appointment.description =
-              this.selectPatient.appointment[i].mouth_testing[m_t].description ||
-              "";
-              appointment.fee_grand_total =
-              this.selectPatient.appointment[i].mouth_testing[m_t].grand_total ||
-              0;
-            appointment.stag = this.selectPatient.appointment[i].stag
+              this.selectPatient.appointment[i].mouth_testing[m_t]
+                .description || "";
+            appointment.fee_grand_total =
+              this.selectPatient.appointment[i].mouth_testing[m_t]
+                .grand_total || 0;
+            appointment.stag = this.selectPatient.appointment[i].stag;
             appointment.index_of_appoint = i;
             this.SelectServices.push(appointment);
             appointment = {};
           }
         }
       }
-      },
-      showAppointment(data) {
-          console.log(data)
-         
-      },
-      // format the timestamp date;
-      getRealDate(date) {
-       const months = [
+    },
+    showAppointment(data) {
+      this.apointmentItem = data;
+      console.log(this.apointmentItem);
+      this.apperppointment = true;
+    },
+    closeShowAppointment() {
+      this.apperppointment = false;
+    },
+    openAddNewRoundDialog() {
+      this.newRounddialog = true;
+    },
+    closeAddNewRoundDialog() {
+      this.newRounddialog = false;
+    },
+    // format the timestamp date;
+    getRealDate(date) {
+      const months = [
         "Jan",
         "Feb",
         "Mar",
