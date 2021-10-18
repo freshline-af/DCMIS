@@ -193,25 +193,13 @@
 <script>
 export default {
   mounted() {
-    this.selectPatient = this.$route.params.selectPatient;
+   this.initializServices();
   },
   data: () => ({
     search: "",
     selectPatient: {},
     SelectServices: [
-      {
-        fee: {
-          amount_received: 300,
-          amount_due: 300,
-          installment: 2,
-          dentist: "61498e40f46f5d25b893fb0b",
-        },
-        round: 1,
-        grand_total: 600,
-        meet_at: "2021-10-11T02:33:40.226Z",
-        description:
-          "این یک دیتا امتحانی در بخش معاینه دهن می باشد. این دیتا برای تست کردن می باشد.",
-      },
+      
     ],
     selectPatientServiceHeader: [
       {
@@ -228,19 +216,19 @@ export default {
       },
       {
         text: "مجموعه پول",
-        value: "grand_total",
+        value: "fee_grand_total",
         sortable: true,
         align: "start",
       },
       {
         text: "محموعه دریافت شده",
-        value: "fee.amount_received",
+        value: "fee_amount_received",
         sortable: true,
         align: "start",
       },
       {
         text: "محموعه باقی مانده",
-        value: "fee.amount_due",
+        value: "fee_amount_due",
         sortable: true,
         align: "start",
       },
@@ -253,11 +241,396 @@ export default {
     ],
   }),
   methods: {
+      initializServices(){
+      this.selectPatient = this.$route.params.selectPatient;
+        let appointment = {};
+      for (var i = 0; i < this.selectPatient.appointment.length; i++) {
+        
+        if (this.selectPatient.appointment[i].stag === 1) {
+          for (
+            var tf = 0;
+            tf < this.selectPatient.appointment[i].teeth_filling.length;
+            tf++
+          ) {
+            appointment.index_of_tf = tf;
+            appointment.round =
+              this.selectPatient.appointment[i].teeth_filling[tf].round || "";
+            appointment.meet_at = this.selectPatient.appointment[i].teeth_filling[
+              tf
+            ].meet_at;
+            appointment.fee_amount_received =
+              this.selectPatient.appointment[i].teeth_filling[tf].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.selectPatient.appointment[i].teeth_filling[tf].fee.amount_due ||
+              0;
+            appointment.installment = this.selectPatient.appointment[
+              i
+            ].teeth_filling[tf].fee.installment;
+            appointment.dentist =
+              this.selectPatient.appointment[i].teeth_filling[tf].fee.dentist || 0;
+            appointment.initial_swervices =
+              this.selectPatient.appointment[i].teeth_filling[tf]
+                .initial_swervices || " ";
+            appointment.description =
+              this.selectPatient.appointment[i].teeth_filling[tf].description ||
+              " ";
+            appointment.material =
+              this.selectPatient.appointment[i].teeth_filling[tf].material || " ";
+            appointment.tooth_gum =
+              this.selectPatient.appointment[i].teeth_filling[tf].tooth.gum || " ";
+            appointment.tooth_type =
+              this.selectPatient.appointment[i].teeth_filling[tf].tooth.type ||
+              " ";
+            appointment.fee_grand_total =
+              this.selectPatient.appointment[i].teeth_filling[tf].grand_total ||
+              0;
+            appointment.stag = this.selectPatient.appointment[i].stag
+            appointment.index_of_appoint = i;
+            this.SelectServices.push(appointment);
+            appointment ={};
+          }
+        } else if (this.selectPatient.appointment[i].stag === 2) {
+          for (
+            var tc = 0;
+            tc < this.selectPatient.appointment[i].teeth_cover.length;
+            tc++
+          ) {
+            appointment.index_of_tc = tc;
+            appointment.round =
+              this.selectPatient.appointment[i].teeth_cover[tc].round || "";
+            appointment.meet_at = this.selectPatient.appointment[i].teeth_cover[
+              tc
+            ].meet_at;
+            appointment.fee_amount_received =
+              this.selectPatient.appointment[i].teeth_cover[tc].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.selectPatient.appointment[i].teeth_cover[tc].fee.amount_due ||
+              0;
+            appointment.installment = this.selectPatient.appointment[
+              i
+            ].teeth_cover[tc].fee.installment;
+            appointment.dentist =
+              this.selectPatient.appointment[i].teeth_cover[tc].fee.dentist || 0;
+            appointment.material =
+              this.selectPatient.appointment[i].teeth_cover[tc].material || " ";
+            appointment.description =
+              this.selectPatient.appointment[i].teeth_cover[tc].description || " ";
+            appointment.tooth_gum =
+              this.selectPatient.appointment[i].teeth_cover[tc].tooth.gum || " ";
+            appointment.tooth_type =
+              this.selectPatient.appointment[i].teeth_cover[tc].tooth.type || " ";
+            appointment.fee_grand_total =
+              this.selectPatient.appointment[i].teeth_cover[tc].grand_total ||
+              0;
+              appointment.stag = this.selectPatient.appointment[i].stag
+              appointment.index_of_appoint = i;
+            this.SelectServices.push(appointment);
+            appointment ={};
+          }
+        } else if (this.selectPatient.appointment[i].stag === 3) {
+          for (
+            var o = 0;
+            o < this.selectPatient.appointment[i].orthodoncy.length;
+            o++
+          ) {
+            appointment.index_of_o = o;
+            appointment.round =
+              this.selectPatient.appointment[i].orthodoncy[o].round || "";
+            appointment.meet_at = this.selectPatient.appointment[i].orthodoncy[
+              o
+            ].meet_at;
+            appointment.fee_amount_received =
+              this.selectPatient.appointment[i].orthodoncy[o].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.selectPatient.appointment[i].orthodoncy[o].fee.amount_due || 0;
+            appointment.installment = this.selectPatient.appointment[i].orthodoncy[
+              o
+            ].fee.installment;
+            appointment.dentist =
+              this.selectPatient.appointment[i].orthodoncy[o].fee.dentist || 0;
+            appointment.image =
+              this.selectPatient.appointment[i].orthodoncy[o].image || "default.png";
+            appointment.description =
+              this.selectPatient.appointment[i].orthodoncy[o].description || "";
+            appointment.tooth_gum =
+              this.selectPatient.appointment[i].orthodoncy[o].tooth.gum || "";
+            appointment.tooth_type =
+              this.selectPatient.appointment[i].orthodoncy[o].tooth.type || "";
+            appointment.fee_grand_total =
+              this.selectPatient.appointment[i].orthodoncy[o].grand_total || 0;
+              appointment.stag = this.selectPatient.appointment[i].stag;
+              appointment.index_of_appoint = i;
+            this.SelectServices.push(appointment);
+            appointment ={};
+          }
+        } else if (this.selectPatient.appointment[i].stag === 4) {
+          for (
+            var tr = 0;
+            tr < this.selectPatient.appointment[i].teeth_remove.length;
+            tr++
+          ) {
+            appointment.index_of_tr = tr;
+            appointment.round =
+              this.selectPatient.appointment[i].teeth_remove[tr].round || "";
+            appointment.meet_at = this.selectPatient.appointment[i].teeth_remove[
+              tr
+            ].meet_at;
+            appointment.fee_amount_received =
+              this.selectPatient.appointment[i].teeth_remove[tr].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.selectPatient.appointment[i].teeth_remove[tr].fee.amount_due ||
+              0;
+            appointment.installment = this.selectPatient.appointment[
+              i
+            ].teeth_remove[tr].fee.installment;
+            appointment.dentist =
+              this.selectPatient.appointment[i].teeth_remove[tr].fee.dentist || 0;
+            appointment.description =
+              this.selectPatient.appointment[i].teeth_remove[tr].description || "";
+            appointment.tooth_gum =
+              this.selectPatient.appointment[i].teeth_remove[tr].tooth.gum || "";
+            appointment.tooth_type =
+              this.selectPatient.appointment[i].teeth_remove[tr].tooth.type || "";
+            appointment.fee_grand_total =
+              this.selectPatient.appointment[i].teeth_remove[tr].grand_total ||
+              0;
+            appointment.stag = this.selectPatient.appointment[i].stag
+            appointment.index_of_appoint = i;
+            this.SelectServices.push(appointment);
+            appointment ={};
+          }
+        } else if (this.selectPatient.appointment[i].stag === 5) {
+          for (
+            var gs = 0;
+            gs < this.selectPatient.appointment[i].gum_surgery.length;
+            gs++
+          ) {
+            appointment.index_of_gs = gs;
+            appointment.round =
+              this.selectPatient.appointment[i].gum_surgery[gs].round || "";
+            appointment.meet_at = this.selectPatient.appointment[i].gum_surgery[
+              gs
+            ].meet_at;
+            appointment.fee_amount_received =
+              this.selectPatient.appointment[i].gum_surgery[gs].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.selectPatient.appointment[i].gum_surgery[gs].fee.amount_due ||
+              0;
+            appointment.installment =
+              this.selectPatient.appointment[i].gum_surgery[gs].fee.installment ||
+              0;
+            appointment.dentist =
+              this.selectPatient.appointment[i].gum_surgery[gs].fee.dentist || 0;
+            appointment.description =
+              this.selectPatient.appointment[i].gum_surgery[gs].description || "";
+            appointment.tooth_gum =
+              this.selectPatient.appointment[i].gum_surgery[gs].tooth.gum || "";
+            appointment.tooth_type =
+              this.selectPatient.appointment[i].gum_surgery[gs].tooth.type || "";
+            appointment.fee_grand_total =
+              this.selectPatient.appointment[i].gum_surgery[gs].grand_total ||
+              0;
+            appointment.stag = this.selectPatient.appointment[i].stag
+            appointment.index_of_appoint = i;
+            this.SelectServices.push(appointment);
+            appointment = {};
+          }
+        } else if (this.selectPatient.appointment[i].stag === 6) {
+          for (
+            var rs = 0;
+            rs < this.selectPatient.appointment[i].root_surgery.length;
+            rs++
+          ) {
+            appointment.index_of_rs = rs;
+            appointment.round =
+              this.selectPatient.appointment[i].root_surgery[rs].round || "";
+            appointment.meet_at = this.selectPatient.appointment[i].root_surgery[
+              rs
+            ].meet_at;
+            appointment.fee_amount_received =
+              this.selectPatient.appointment[i].root_surgery[rs].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.selectPatient.appointment[i].root_surgery[rs].fee.amount_due ||
+              0;
+            appointment.installment =
+              this.selectPatient.appointment[i].root_surgery[rs].fee.installment ||
+              0;
+            appointment.dentist =
+              this.selectPatient.appointment[i].root_surgery[rs].fee.dentist || 0;
+            appointment.description =
+              this.selectPatient.appointment[i].root_surgery[rs].description || "";
+            appointment.tooth_gum =
+              this.selectPatient.appointment[i].root_surgery[rs].tooth.gum || "";
+            appointment.tooth_type =
+              this.selectPatient.appointment[i].root_surgery[rs].tooth.type || "";
+            appointment.fee_grand_total =
+              this.selectPatient.appointment[i].root_surgery[rs].grand_total ||
+              0;
+            appointment.stag = this.selectPatient.appointment[i].stag;
+            appointment.index_of_appoint = i;
+            this.SelectServices.push(appointment);
+            appointment = {};
+          }
+        } else if (this.selectPatient.appointment[i].stag === 7) {
+          for (
+            var tp = 0;
+            tp < this.selectPatient.appointment[i].teeth_protice.length;
+            tp++
+          ) {
+            appointment.index_of_tp = tp;
+            appointment.round =
+              this.selectPatient.appointment[i].teeth_protice[tp].round || 1;
+            appointment.meet_at = this.selectPatient.appointment[i].teeth_protice[
+              tp
+            ].meet_at;
+            appointment.fee_amount_received =
+              this.selectPatient.appointment[i].teeth_protice[tp].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.selectPatient.appointment[i].teeth_protice[tp].fee.amount_due ||
+              0;
+            appointment.installment =
+              this.selectPatient.appointment[i].teeth_protice[tp].fee
+                .installment || 0;
+            appointment.dentist =
+              this.selectPatient.appointment[i].teeth_protice[tp].fee.dentist || 0;
+            appointment.description =
+              this.selectPatient.appointment[i].teeth_protice[tp].description ||
+              "";
+            appointment.tooth_gum =
+              this.selectPatient.appointment[i].teeth_protice[tp].tooth.gum || "";
+            appointment.tooth_type =
+              this.selectPatient.appointment[i].teeth_protice[tp].tooth.type || "";
+            appointment.fee_grand_total =
+              this.selectPatient.appointment[i].teeth_protice[tp].grand_total ||
+              0;
+            appointment.material =
+              this.selectPatient.appointment[i].teeth_protice[tp].material || "";
+            appointment.stag = this.selectPatient.appointment[i].stag;
+            appointment.index_of_appoint = i;
+            this.SelectServices.push(appointment);
+            appointment = {};
+          }
+        } else if (this.selectPatient.appointment[i].stag === 8) {
+          for (
+            var tb = 0;
+            tb < this.selectPatient.appointment[i].teeth_bleaching.length;
+            tb++
+          ) {
+            appointment.index_of_tb = tb;
+            appointment.round =
+              this.selectPatient.appointment[i].teeth_bleaching[tb].round || 1;
+            appointment.meet_at = this.selectPatient.appointment[
+              i
+            ].teeth_bleaching[tb].meet_at;
+            appointment.fee_amount_received =
+              this.selectPatient.appointment[i].teeth_bleaching[tb].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.selectPatient.appointment[i].teeth_bleaching[tb].fee
+                .amount_due || 0;
+            appointment.installment = this.selectPatient.appointment[
+              i
+            ].teeth_bleaching[tb].fee.installment;
+            appointment.dentist =
+              this.selectPatient.appointment[i].teeth_bleaching[tb].fee.dentist ||
+              0;
+            appointment.description =
+              this.selectPatient.appointment[i].teeth_bleaching[tb].description ||
+              "";
+            appointment.material =
+              this.selectPatient.appointment[i].teeth_bleaching[tb].material || "";
+            appointment.fee_grand_total =
+              this.selectPatient.appointment[i].teeth_bleaching[tb]
+                .grand_total || 0;
+            appointment.stag = this.selectPatient.appointment[i].stag;
+            appointment.index_of_appoint = i;
+            this.SelectServices.push(appointment);
+            appointment = {};
+          }
+        } else if (this.selectPatient.appointment[i].stag === 9) {
+          for (
+            var ts = 0;
+            ts < this.selectPatient.appointment[i].scaling.length;
+            ts++
+          ) {
+            appointment.index_of_ts = ts;
+            appointment.round =
+              this.selectPatient.appointment[i].scaling[ts].round || 1;
+            appointment.meet_at = this.selectPatient.appointment[i].scaling[
+              ts
+            ].meet_at;
+            appointment.fee_amount_received =
+              this.selectPatient.appointment[i].scaling[ts].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.selectPatient.appointment[i].scaling[ts].fee.amount_due ||
+              0;
+            appointment.installment =
+              this.selectPatient.appointment[i].scaling[ts].fee
+                .installment || 0;
+            appointment.dentist =
+              this.selectPatient.appointment[i].scaling[ts].fee.dentist || 0;
+            appointment.description =
+              this.selectPatient.appointment[i].scaling[ts].description ||
+              "";
+            appointment.tooth_type =
+              this.selectPatient.appointment[i].scaling[ts].tooth.type || "";
+            appointment.tooth_gum =
+              this.selectPatient.appointment[i].scaling[ts].tooth.gum || "";
+            appointment.fee_grand_total =
+              this.selectPatient.appointment[i].scaling[ts].grand_total ||
+              0;
+            appointment.stag = this.selectPatient.appointment[i].stag;
+            appointment.index_of_appoint = i;
+            this.SelectServices.push(appointment);
+            appointment = {};
+          }
+        } else if (this.selectPatient.appointment[i].stag === 10){
+          for(var m_t = 0; m_t <this.selectPatient.appointment[i].mouth_testing.length; m_t++){
+          appointment.index_of_m_t = m_t;
+          appointment.round = this.selectPatient.appointment[i].mouth_testing[m_t].round || 1;
+           appointment.meet_at = this.selectPatient.appointment[i].mouth_testing[
+              m_t
+            ].meet_at;
+            appointment.fee_amount_received =
+              this.selectPatient.appointment[i].mouth_testing[m_t].fee
+                .amount_received || 0;
+            appointment.fee_amount_due =
+              this.selectPatient.appointment[i].mouth_testing[m_t].fee.amount_due ||
+              0;
+            appointment.installment =
+              this.selectPatient.appointment[i].mouth_testing[m_t].fee
+                .installment || 0;
+            appointment.dentist =
+              this.selectPatient.appointment[i].mouth_testing[m_t].fee.dentist || 0;
+            appointment.description =
+              this.selectPatient.appointment[i].mouth_testing[m_t].description ||
+              "";
+              appointment.fee_grand_total =
+              this.selectPatient.appointment[i].mouth_testing[m_t].grand_total ||
+              0;
+            appointment.stag = this.selectPatient.appointment[i].stag
+            appointment.index_of_appoint = i;
+            this.SelectServices.push(appointment);
+            appointment = {};
+          }
+        }
+      }
+      },
       showAppointment(data) {
           console.log(data)
+         
       },
-       getRealDate(date) {
-      const months = [
+      // format the timestamp date;
+      getRealDate(date) {
+       const months = [
         "Jan",
         "Feb",
         "Mar",
