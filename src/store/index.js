@@ -27,7 +27,6 @@ export default new Vuex.Store({
       commit("ADD_USER", data);
     },
     login_staff({ dispatch, commit }, data) {
-      console.log(data);
       axios
         .post("http://localhost:3000/staff/login", data)
         .then((response) => {

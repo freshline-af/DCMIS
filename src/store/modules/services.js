@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const namespaced = true;
 export const state = {
   services: {
@@ -36,11 +38,39 @@ export const state = {
     total_amount: "مبلغ قابل برداخت",
     received: "مبلغ برداخت شده",
     receiveable_amount: "مبلغ باقی مانده"
+  },
+  selectedServices:[]
+};
+
+export const mutations = {
+  SET_SELECTED_SERVICES(state,data){
+    state.selectedServices = data;
   }
 };
 
-export const mutations = {};
-
-export const actions = {};
+export const actions = {
+async  getSelectService({commit,dispatch},services){
+ await axios.post("http://localhost:3000/patient/service/"+services.stag).then((response)=>{
+    if(response.data === "Sorry, this service is not available."){
+      commit("SET_SELECTED_SERVICES",[]);
+       let notification = {
+        type: "warning",
+        message: response.data
+      };
+      dispatch("notification/add",notification,{root: true});
+    
+    }else if(response.status == 200){
+      commit("SET_SELECTED_SERVICES",response.data);
+    }
+    
+  }).catch((error)=>{
+     let notification={
+       type: "warning",
+       message:error
+     };
+     dispatch("notification/add",notification,{root: true});
+  });
+  }
+};
 
 export const getters = {};

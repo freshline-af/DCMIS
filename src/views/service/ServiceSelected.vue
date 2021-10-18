@@ -37,66 +37,22 @@
 </template>
 
 <script>
+import Store from "../../store/index"
 export default {
-  mounted() {
-    let selectService = this.$route.params.selectedServices;
-    console.log(selectService);
+ mounted() {
+  
+  },
+ async beforeRouteEnter(routeTo,routeFrom,next){
+     let data ={
+      stag:localStorage.getItem("selectedServices")
+    }
+  await Store.dispatch("services/getSelectService",data);
+    next();
   },
   data() {
     return {
       search: "",
-      patients: [
-        {
-          _id: "6163a284d16f2f1108faeb1b",
-          registered_at: "2021-10-11T01:54:48.443Z",
-          firstname: "یونس",
-          lastname: "ابراهیمی",
-          fathername: "ابراهیم",
-          tazkira_id: "0773-4343-65454",
-          occupation: "آزاد",
-          age: 45,
-          marital_status: "مجرد",
-          blood_group: "O+",
-          phone: "045-454-5454",
-          sex: "مذکر",
-          case_history: [
-            {
-              disease: "آیا مرض قلبی دارد ؟",
-              result: true,
-            },
-            {
-              disease: "آیا  فشار خون بلند دارد؟",
-              result: false,
-            },
-            {
-              disease: "آیا قند خون دارد؟",
-              result: true,
-            },
-          ],
-          appointment: [
-            {
-              stag: 10,
-              mouth_testing: [
-                {
-                  fee: {
-                    amount_received: 300,
-                    amount_due: 300,
-                    installment: 2,
-                    dentist: "61498e40f46f5d25b893fb0b",
-                  },
-                  round: 1,
-                  grand_total: 600,
-                  meet_at: "2021-10-11T02:33:40.226Z",
-                  description:
-                    "این یک دیتا امتحانی در بخش معاینه دهن می باشد. این دیتا برای تست کردن می باشد.",
-                },
-              ],
-            },
-          ],
-          __v: 0,
-          address: "کابل، افغانستان",
-        },
-      ],
+      patients:Store.state.services.selectedServices,
       patientsHeader: [
         {
           text: "اسم",
@@ -163,6 +119,7 @@ export default {
     };
   },
   methods: {
+
     showDeatils(data) {
       this.$router.push({
         name: "selectedPatientService",

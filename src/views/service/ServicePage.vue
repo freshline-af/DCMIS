@@ -80,6 +80,7 @@ export default {
   },
   methods: {
     selectService(data) {
+      localStorage.setItem("selectedServices",data);
      this.$router.push({name:"selectedService",params:{selectedServices: data}});
     },
   },
