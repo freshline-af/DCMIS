@@ -327,7 +327,7 @@
     <v-dialog persistent max-width="1000" v-model="newRounddialog">
       <v-card>
         <v-card-title>
-          <strong>اضافه کردن جلسه جدید</strong>
+          <strong>ثبت کردن جلسه جدید</strong>
           <v-spacer></v-spacer>
           <v-btn @click="closeAddNewRoundDialog" elevation="2" icon>
             <v-icon color="red">
@@ -335,6 +335,27 @@
             </v-icon>
           </v-btn>
         </v-card-title>
+        <v-card-text class="mt-3">
+          <v-stepper v-model="newRountStepper">
+            <v-stepper-header>
+              <v-stepper-step step="1" :complete="newRountStepper > 1">
+                جلسه جدید
+              </v-stepper-step>
+              <v-stepper-step step="2" :complete="newRountStepper > 2">
+                  حساب مالی
+              </v-stepper-step>
+            </v-stepper-header>
+            <v-stepper-items>
+              <v-form
+                v-model="newRountForm"
+                ref="newRountRef"
+                @submit.prevent="submitNewRount"
+              >
+               
+              </v-form>
+            </v-stepper-items>
+          </v-stepper>
+        </v-card-text>
       </v-card>
     </v-dialog>
   </v-row>
@@ -346,6 +367,8 @@ export default {
     this.initializServices();
   },
   data: () => ({
+    newRountStepper:1,
+    newRountForm:null,
     search: "",
     apperppointment: false,
     apointmentItem: {},
