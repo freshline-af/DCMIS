@@ -228,9 +228,17 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col class="px-10" cols="12">
+                <v-col class="px-10 mt-n3" cols="12">
                   <v-row>
-                    <v-col cols="12" md="4" lg="4" xl="4" sm="4">
+                    <v-col v-if="apointmentItem.stag ===5" cols="12" md="4" lg="4" xl="4" sm="4">
+                      <v-text-field
+                        label="کواردینات"
+                        v-model="apointmentItem.tooth_gum"
+                        :value="apointmentItem.round"
+                        readonly
+                      ></v-text-field>
+                    </v-col>
+                    <v-col v-else cols="12" md="4" lg="4" xl="4" sm="4">
                       <v-text-field
                         label="فک"
                         v-model="apointmentItem.tooth_gum"
@@ -238,17 +246,24 @@
                         readonly
                       ></v-text-field>
                     </v-col>
-                    <v-col  cols="12" md="6" lg="6" xl="6" sm="6">
+                    <v-col v-if="apointmentItem.tooth_type"  cols="12" md="6" lg="6" xl="6" sm="6">
                       <v-text-field
                         label="دندان"
                         :value="apointmentItem.tooth_type"
                         readonly
                       ></v-text-field>
                     </v-col>
+                    <v-col v-if="apointmentItem.material"  cols="12" md="6" lg="6" xl="6" sm="6">
+                      <v-text-field
+                        label="مواد استفاده شده"
+                        :value="apointmentItem.material"
+                        readonly
+                      ></v-text-field>
+                    </v-col>
                    
                   </v-row>
                 </v-col>
-                 <v-col v-if="apointmentItem.description" class="px-10" cols="12">
+                 <v-col  v-if="apointmentItem.description" class="px-10 mt-n3" cols="12">
                       <v-textarea
                         label="توضیحات"
                         v-model="apointmentItem.description"
@@ -258,7 +273,15 @@
                         readonly
                       ></v-textarea>
                     </v-col>
-                     
+                     <v-col v-if="apointmentItem.image" class="px-10" cols="12">
+                      <v-img
+                        label="عکس"
+                        class="mt-n3"
+                        width="300"
+                        height="150"
+                        :src="`http://localhost:3000/uploads/docs/teeth/`+apointmentItem.image"
+                      ></v-img>
+                    </v-col>
               </v-row>
             </v-col>
             <v-col cols="12" md="6" lg="6" xl="6" sm="12">
