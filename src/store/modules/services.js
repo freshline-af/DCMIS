@@ -55,11 +55,19 @@ async  getSelectService({commit,dispatch},services){
       commit("SET_SELECTED_SERVICES",[]);
        let notification = {
         type: "warning",
-        message: response.data
+        message: "معذرت میخواهیم،این سرویس فعلا موجود نمی باشد."
       };
       dispatch("notification/add",notification,{root: true});
     
-    }else if(response.status == 200){
+    }else if(response.data === "No data found."){
+      commit("SET_SELECTED_SERVICES",[]);
+      let notification = {
+       type: "warning",
+       message: "هیچ معلومات در به این سرویس موجود نمی باشد."
+     };
+     dispatch("notification/add",notification,{root: true});
+    }
+    else if(response.status == 200){
       commit("SET_SELECTED_SERVICES",response.data);
     }
     
