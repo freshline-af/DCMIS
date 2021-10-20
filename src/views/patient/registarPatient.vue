@@ -1059,7 +1059,7 @@ export default {
       dieabet: "false",
       blood: "false",
       type_pull_out_theeth: ["ساده", "عقلی", "امپکت"],
-      type_surgary: ["کشیدن دندان ها", "جراحی لثه", "جراحی ریشه"],
+      type_surgary: ["کشیدن دندان", "جراحی لثه", "جراحی ریشه"],
       type_quardinat: ["1", "2", "3", "4"],
       teeths: ["1", "2", "3", "4", "5", "6", "7", "8"],
       fee: [
@@ -1094,13 +1094,13 @@ export default {
         "نمی دانم",
       ],
       services: [
-        { text: "معاینه دندان", value: 10 },
+        { text: "معاینه کردن دهن", value: 10 },
         {
           text: "پر کاری دندان",
           value: 1,
         },
         {
-          text: "پوش کردن دندان ها",
+          text: "پوش کردن دندان ",
           value: 2,
         },
         {
@@ -1108,15 +1108,15 @@ export default {
           value: 3,
         },
         {
-          text: "کشیدن دندان ها",
+          text: "کشیدن دندان ",
           value: 4,
         },
         {
-          text: "جراحی ریشه دندان ها",
+          text: "جراحی ریشه دندان ",
           value: 6,
         },
         {
-          text: "حراحی لثه",
+          text: "جراحی لثه",
           value: 5,
         },
         { text: "پروتیز دندان", value: 7 },
@@ -1125,7 +1125,7 @@ export default {
           value: 8,
         },
         {
-          text: "جرم گیری دندان ها",
+          text: "جرم گیری دندان ",
           value: 9,
         },
       ],
