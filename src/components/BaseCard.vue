@@ -8,8 +8,8 @@
     shaped
     v-on="$listeners"
   >
-    <v-row class="text-center" align-center justify-center>
-      <v-col class="mt-7" align-center justify-center>
+    <v-row justify="center">
+      <v-col align="center" class="mt-7">
         <slot name="Content"> </slot>
         <slot name="icon"></slot>
       </v-col>
