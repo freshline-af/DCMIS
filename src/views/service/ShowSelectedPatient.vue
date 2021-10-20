@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12" sm="2">
+    <v-col class=""  cols="12" md="2" lg="2" xl="2" sm="12">
       <v-sheet rounded="lg" min-height="268">
         <v-card>
           <v-card-text>
@@ -9,16 +9,14 @@
                 <strong>معلومات شخصی</strong>
               </v-col>
               <v-col cols="12">
-                <v-row>
-                  <v-col cols="6">
                     <v-text-field
                       label="اسم"
                       v-model="selectPatient.firstname"
                       :value="selectPatient.firstname"
                       readonly
                     ></v-text-field>
-                  </v-col>
-                  <v-col cols="6">
+              </v-col>
+              <v-col cols="12" class="mt-n5">
                     <v-text-field
                       label="تخلص"
                       v-model="selectPatient.lastname"
@@ -26,8 +24,6 @@
                       readonly
                     ></v-text-field>
                   </v-col>
-                </v-row>
-              </v-col>
               <v-col cols="12" class="mt-n5">
                 <v-text-field
                   label="اسم پدر"
@@ -98,8 +94,8 @@
       </v-sheet>
     </v-col>
 
-    <v-col cols="12" sm="7">
-      <v-sheet min-height="70vh" rounded="lg">
+    <v-col  cols="12" md="7" lg="7" xl="7"  sm="12">
+      <v-sheet  rounded="lg">
         <v-card>
           <v-card-title>
             <v-row>
@@ -151,7 +147,7 @@
       </v-sheet>
     </v-col>
 
-    <v-col cols="12" sm="3">
+    <v-col  cols="12" md="3" lg="3" xl="3" sm="12">
       <v-sheet rounded="lg" min-height="249">
         <v-card>
           <v-card-text>
