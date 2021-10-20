@@ -37,7 +37,14 @@ export default new Vuex.Store({
               };
               dispatch("notification/add", notification, { root: true });
 
-          } else {
+          }else if (response.status == 200 && response.data === "Please first sign up into the system and then try again."){
+            const notification = {
+              type: "red",
+              message:"لطفا در قدم اول در سیستم خود را راجستر نمایید.",
+            };
+            dispatch("notification/add", notification, { root: true });
+          }
+           else {
           const notification = {
             type: "success",
             message:"به سیستم خوش آمدید.",
