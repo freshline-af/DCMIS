@@ -110,7 +110,7 @@ export default {
           align: "start",
         },
         {
-          text: "عملیه",
+          text: "مشاهده کردن",
           value: "actions",
           sortable: false,
           align: "start",
