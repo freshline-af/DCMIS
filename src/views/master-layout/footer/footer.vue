@@ -1,10 +1,8 @@
 <template>
   <v-footer inset elevation="2">
-    <v-row justify="end">
-      <v-col class="text-center" cols="12">
-        {{ new Date().getFullYear() }} — <strong>DCMIS</strong>
-      </v-col>
-    </v-row>
+       <v-col align="center">
+         <strong>{{ new Date().getFullYear() }}</strong> — <strong>DCMIS</strong>
+       </v-col>
   </v-footer>
 </template>
 
