@@ -320,7 +320,7 @@
       </v-card>
     </v-dialog>
     <!-- dialog for add new rount----------------------------------------------------- -->
-    <v-dialog persistent max-width="1000" v-model="newRounddialog">
+    <v-dialog scrollable persistent max-width="1000" v-model="newRounddialog">
       <v-card>
         <v-card-title>
           <strong>ثبت کردن جلسه جدید</strong>
@@ -347,7 +347,646 @@
                 ref="newRountRef"
                 @submit.prevent="submitNewRount"
               >
-               
+               <v-stepper-content step="1">
+                  <v-row justify="center">
+                    <v-col cols="12">
+                      <v-row justify="center">
+                        <v-col cols="6" md="6" class="mt-5" sm="12" xs="12">
+                          <v-autocomplete
+                            label="نوعیت مریضی"
+                            :items="services"
+                            item-value="value"
+                            disabled
+                            item-text="text"
+                            v-model="patientData.stag"
+                            :value="patientData.stag"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <!-- teeth filling services 1 -->
+                    <v-col
+                      v-if="patientData.stag === 1"
+                      cols="6"
+                      md="6"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-row justify="center">
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label=" نوعیت مواد"
+                            :items="theet_filling_matieral"
+                            v-model="patientData.material"
+                            :value="patientData.material"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="فک"
+                            :items="type_fack"
+                            v-model="patientData.tooth_gum"
+                            :value="patientData.tooth_gum"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="دندان"
+                            :items="teeths"
+                            v-model="patientData.tooth_type"
+                            :value="patientData.tooth_type"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-textarea
+                            label="نوت"
+                            v-model="newRoundData.description"
+                            :value="newRoundData.description"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <!-- teeth cover services 2 -->
+                    <v-col
+                      v-if="patientData.stag === 2"
+                      cols="6"
+                      md="6"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-row justify="center">
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label=" نوعیت مواد"
+                            :items="theet_cover_matieral"
+                            v-model="patientData.material"
+                            :value="patientData.material"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="فک"
+                            :items="type_fack"
+                            v-model="patientData.tooth_gum"
+                            :value="patientData.tooth_gum"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="دندان"
+                            :items="teeths"
+                            v-model="patientData.tooth_type"
+                            :value="patientData.tooth_type"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-textarea
+                            label="نوت"
+                            v-model="newRoundData.description"
+                            :value="newRoundData.description"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <!-- teeth orthodoncy services 3  -->
+                    <v-col
+                      v-if="patientData.stag === 3"
+                      cols="6"
+                      md="6"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-row justify="center">
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="فک"
+                            :items="type_fack_orthodoncy"
+                            v-model="patientData.tooth_gum"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-textarea
+                            label="نوت"
+                            v-model="newRoundData.description"
+                            :value="newRoundData.description"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <!-- Teeth remove services 4 -->
+                    <v-col
+                      v-if="patientData.stag === 4"
+                      cols="6"
+                      md="6"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-row justify="center">
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="فک"
+                            :items="type_fack"
+                            v-model="patientData.tooth_gum"
+                            :value="patientData.tooth_gum"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="دندان"
+                            :items="type_pull_out_theeth"
+                            v-model="patientData.tooth_type"
+                            :value="patientData.tooth_type"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-textarea
+                            label="نوت"
+                            v-model="newRoundData.description"
+                            :value="newRoundData.description"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <!-- Teeth Gum Surgery services 5---------- -->
+                    <v-col
+                      v-if="patientData.stag === 5"
+                      cols="6"
+                      md="6"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-row justify="center">
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="گواردینات"
+                            :items="type_quardinat"
+                            v-model="patientData.tooth_gum"
+                            :value="patientData.tooth_gum"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-textarea
+                            label="نوت"
+                            v-model="newRoundData.description"
+                            :value="newRoundData.description"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <!-- Teeth Root Surgery services 6 -->
+                    <v-col
+                      v-if="patientData.stag === 6"
+                      cols="6"
+                      md="6"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-row justify="center">
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="فک"
+                            :items="type_fack"
+                            v-model="patientData.tooth_gum"
+                            :value="patientData.tooth_gum"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="دندان"
+                            :items="teeths"
+                            v-model="patientData.tooth_type"
+                            :value="patientData.tooth_type"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-textarea
+                            label="نوت"
+                            v-model="newRoundData.description"
+                            :value="newRoundData.description"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <!-- Teeth protices services 7 -->
+                    <v-col
+                      v-if="patientData.stag === 7"
+                      cols="6"
+                      md="6"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-row justify="center">
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="نوعیت پروتیز"
+                            :items="type_protis"
+                            v-model="patientData.initail_services"
+                            :value="patientData.initail_services"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="فک"
+                            :items="type_fack"
+                            v-model="patientData.tooth_gum"
+                            :value="patientData.tooth_gum"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+
+                        <v-col
+                          v-if="
+                            patientData.initail_services === 'پروتیز قسمی'
+                          "
+                          cols="12"
+                          md="12"
+                          sm="12"
+                          xs="12"
+                        >
+                          <v-autocomplete
+                            label="دندان"
+                            :items="teeths"
+                            v-model="patientData.tooth_type"
+                            :value="patientData.tooth_type"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-textarea
+                            label="نوت"
+                            v-model="newRoundData.description"
+                            :value="newRoundData.description"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <!-- ،Teeth bleaching services 8--- -->
+                    <v-col
+                      v-if="patientData.stag === 8"
+                      cols="6"
+                      md="6"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-row justify="center">
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="نوعیت سفید کردن دندان ها"
+                            :items="type_teeth_bleaching"
+                            v-model="patientData.material"
+                            :value="patientData.material"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-textarea
+                            label="نوت"
+                            v-model="newRoundData.description"
+                            :value="newRoundData.description"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col
+                      v-if="patientData.stag === 9"
+                      cols="6"
+                      md="6"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-row justify="center">
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-autocomplete
+                            label="فک"
+                            :items="type_fack_orthodoncy"
+                            v-model="patientData.tooth_gum"
+                            :value="patientData.tooth_gum"
+                            :rules="rule.rules.select"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-textarea
+                            label="نوت"
+                            v-model="newRoundData.description"
+                            :value="newRoundData.description"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col
+                      v-if="patientData.stag === 10"
+                      cols="6"
+                      md="6"
+                      sm="12"
+                      xs="12"
+                    >
+                      <v-row justify="center">
+                        <v-col cols="12" md="12" sm="12" xs="12">
+                          <v-textarea
+                            label="نوت"
+                            v-model="newRoundData.description"
+                            :value="newRoundData.description"
+                            outlined
+                            rounded
+                            required
+                          >
+                          </v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      md="12"
+                      sm="12"
+                      lg="12"
+                      xl="12"
+                      class="mb-3"
+                    >
+                      <v-row>
+                        <v-col cols="12" md="6" lg="6" xl="6" sm="12">
+                          <v-btn
+                            width="200"
+                            color="red"
+                            class="white--text"
+                            large
+                            @click="closeAddNewRoundDialog"
+                          >
+                            لغو کردن
+                          </v-btn>
+                        </v-col>
+                        <v-col
+                          class="text-end"
+                          cols="12"
+                          md="6"
+                          lg="6"
+                          xl="6"
+                          sm="12"
+                          ><v-btn
+                            elevation="3"
+                            large
+                            width="200"
+                            color="primary"
+                            @click="newRountStepper=2"
+                            
+                          >
+                            بعدی
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                </v-stepper-content>
+                <v-stepper-content step="2">
+                  <v-row justify="center">
+                    <v-col cols="12">
+                      <v-row justify="center">
+                        <v-col align="start" cols="12" md="6" sm="12" lg="6">
+                          <h2>هزینه</h2>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-row justify="center">
+                        <v-col cols="12" md="6" lg="6" sm="12">
+                          <v-divider></v-divider>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-row justify="center">
+                        <v-col cols="6" md="6" sm="12" xs="12">
+                          <BaseEdittext
+                            label="مصارف کل"
+                            readonly
+                            v-model="patientData.grand_total"
+                            :values="patientData.grand_total"
+                            :rules="rule.rules.required_number"
+                            type="number"
+                            hint="وارد کردن مصرف الزامی می باشد"
+                          />
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12" class="mt-n2">
+                      <v-row justify="center">
+                        <v-col cols="6" md="6" sm="12" xs="12">
+                          <v-select
+                            label="اقساط"
+                            v-model="patientData.installment"
+                            :value="patientData.installment"
+                            readonly
+                            :items="installments"
+                            :rules="rule.rules.select"
+                            item-text="text"
+                            item-value="value"
+                            outlined
+                            rounded
+                          >
+                          </v-select>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="12" class="mt-n2">
+                      <v-row
+                        justify="center"
+                        v-if="patientData.installment != 1"
+                      >
+                        <v-col cols="12" md="6">
+                          <BaseEdittext
+                            label="مبلغ قابل پرداخت"
+                            v-model="newRoundData.amount_received"
+                            :values="newRoundData.amount_received"
+                            type="number"
+                            :rules="rule.rules.number"
+                            placeholder="مقدرا قابل پرداخت را وارد کنید"
+                          />
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                     <v-col cols="12" class="mt-n5">
+                      <v-row
+                        justify="center"
+                        v-if="patientData.installment != 1"
+                      >
+                        <v-col cols="12" md="6">
+                         <span class="primary--text text-h6"> مجموعه کل مصارف <span class="red--text">{{patientData.grand_total}}</span> افغانی می باشد، که از این جمله <span class="red--text">{{patientData.amount_received}}</span> افغانی دریافت گردیده است و مبلغ <span class="red--text">{{patientData.amount_due}}</span> افغانی باقی می باشد.</span>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                    
+                    <v-col
+                      cols="12"
+                      md="12"
+                      sm="12"
+                      lg="12"
+                      xl="12"
+                      class="mb-3"
+                    >
+                      <v-row>
+                        <v-col cols="12" md="6" lg="6" xl="6" sm="12">
+                          <v-btn
+                            width="200"
+                            large
+                            @click="newRountStepper=1"
+                            color="red"
+                            class="white--text"
+                            
+                          >
+                            برگشت
+                          </v-btn>
+                        </v-col>
+                        <v-col
+                          class="text-end"
+                          cols="12"
+                          md="6"
+                          lg="6"
+                          xl="6"
+                          sm="12"
+                          ><v-btn
+                            :disabled="!newRountForm"
+                            elevation="3"
+                            large
+                            type="submit"
+                            width="200"
+                            color="primary"
+                          >
+                            ثبت کردن
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                </v-stepper-content>
               </v-form>
             </v-stepper-items>
           </v-stepper>
@@ -358,13 +997,90 @@
 </template>
 
 <script>
+import rules from "../../validation/validationRules.js";
 export default {
   mounted() {
     this.initializServices();
   },
   data: () => ({
+    rule: rules,
     newRountStepper:1,
     newRountForm:null,
+    newRoundData:{
+       fee:{},
+      tooth:{
+        gum:"",
+        type:""
+      }
+    },
+    patientData:{
+     
+    },
+    type_pull_out_theeth: ["ساده", "عقلی", "امپکت"],
+    type_surgary: ["کشیدن دندان", "جراحی لثه", "جراحی ریشه"],
+    type_quardinat: ["1", "2", "3", "4"],
+    teeths: ["1", "2", "3", "4", "5", "6", "7", "8"],
+    theet_filling_matieral: ["کامپوزیت", "املگم", "سایر مواد"],
+    theet_cover_matieral: ["پورسلن", "میتل", "زرگونیم", "گیگم"],
+    services: [
+        { text: "معاینه کردن دهن", value: 10 },
+        {
+          text: "پر کاری دندان",
+          value: 1,
+        },
+        {
+          text: "پوش کردن دندان ",
+          value: 2,
+        },
+        {
+          text: "ارتودانسی",
+          value: 3,
+        },
+        {
+          text: "کشیدن دندان ",
+          value: 4,
+        },
+        {
+          text: "جراحی ریشه دندان ",
+          value: 6,
+        },
+        {
+          text: "جراحی لثه",
+          value: 5,
+        },
+        { text: "پروتیز دندان", value: 7 },
+        {
+          text: "سفید کردن دندان",
+          value: 8,
+        },
+        {
+          text: "جرم گیری دندان ",
+          value: 9,
+        },
+      ],
+    type_protis: ["پروتیز قسمی", "پروتیز کامل"],
+    type_fack: [
+        "بالا - راست",
+        "بالا - چپ",
+        "پایین - راست",
+        "پایین - چپ",
+        "هردو",
+      ],
+    type_teeth_bleaching: [
+        "یک مرحله یی",
+        "دو مرحله یی",
+        "سه مرحله یی",
+        "چهار مرحله یی",
+      ],
+    type_fack_orthodoncy: ["بالا", "پایین", "هردو"],
+    installments: [
+        { text: "تکمیل", value: 1 },
+        {
+          text: "دو قسط",
+          value: 2,
+        },
+        { text: "سه فسط", value: 3 },
+      ],
     search: "",
     apperppointment: false,
     apointmentItem: {},
@@ -831,8 +1547,14 @@ export default {
     },
     openAddNewRoundDialog() {
       this.newRounddialog = true;
+      this.patientData._id = this.selectPatient._id;
+      this.patientData.stag = parseInt(localStorage.getItem("selectedServices"));
+      this.showServices(this.patientData.stag);
+      
+      console.log(this.patientData);
     },
     closeAddNewRoundDialog() {
+      this.patientData = {};
       this.newRounddialog = false;
     },
     // format the timestamp date;
@@ -858,6 +1580,148 @@ export default {
       let newDate = day + " " + months[month] + " " + year;
       return newDate;
     },
+    showServices(stag){
+        let round ={};
+        switch (stag) {
+        case 1:
+          round = this.selectPatient.appointment[this.selectPatient.appointment.length-1].
+          teeth_filling[this.selectPatient.appointment[this.selectPatient.appointment.length-1].teeth_filling.length-1]
+          this.patientData.grand_total = round.grand_total;
+          this.patientData.amount_due = round.fee.amount_due;
+          this.patientData.amount_received = round.fee.amount_received;
+          this.patientData.installment = round.fee.installment
+          this.patientData.tooth_gum = round.tooth.gum;
+          this.patientData. tooth_type = round.tooth.type;
+          this.patientData.description = round.description;
+          this.patientData.material = round.material;
+          this.patientData.round = round.round;
+          return "teeth_filling";
+        case 2:
+          round = this.selectPatient.appointment[this.selectPatient.appointment.length-1].
+          teeth_cover[this.selectPatient.appointment[this.selectPatient.appointment.length-1].teeth_cover.length-1]
+          this.patientData.grand_total = round.grand_total;
+          this.patientData.amount_due = round.fee.amount_due;
+          this.patientData.amount_received = round.fee.amount_received;
+          this.patientData.installment = round.fee.installment;
+          this.patientData.tooth_gum = round.tooth.gum;
+          this.patientData. tooth_type = round.tooth.type;
+          this.patientData.description = round.description;
+          this.patientData.material = round.material;
+          this.patientData.round = round.round;
+          return "teeth_cover";
+        case 3:
+          round = this.selectPatient.appointment[this.selectPatient.appointment.length-1].
+          orthodoncy[this.selectPatient.appointment[this.selectPatient.appointment.length-1].orthodoncy.length-1]
+          this.patientData.grand_total = round.grand_total;
+          this.patientData.amount_due = round.fee.amount_due;
+          this.patientData.amount_received = round.fee.amount_received;
+          this.patientData.installment = round.fee.installment;
+          this.patientData.tooth_gum = round.tooth.gum;
+          this.patientData. tooth_type = round.tooth.type;
+          this.patientData.image = round.image;
+          this.patientData.description = round.description;
+          this.patientData.round = round.round;
+          return "orthodoncy";
+        case 4:
+          round = this.selectPatient.appointment[this.selectPatient.appointment.length-1].
+          teeth_remove[this.selectPatient.appointment[this.selectPatient.appointment.length-1].teeth_remove.length-1]
+          this.patientData.grand_total = round.grand_total;
+          this.patientData.amount_due = round.fee.amount_due;
+          this.patientData.amount_received = round.fee.amount_received;
+          this.patientData.installment = round.fee.installment;
+          this.patientData.tooth_gum = round.tooth.gum;
+          this.patientData. tooth_type = round.tooth.type;
+          this.patientData.description = round.description;
+          this.patientData.round = round.round;
+          return "teeth_remove";
+        case 5:
+          round = this.selectPatient.appointment[this.selectPatient.appointment.length-1].
+          gum_surgery[this.selectPatient.appointment[this.selectPatient.appointment.length-1].gum_surgery.length-1]
+          this.patientData.grand_total = round.grand_total;
+          this.patientData.amount_due = round.fee.amount_due;
+          this.patientData.amount_received = round.fee.amount_received;
+          this.patientData.installment = round.fee.installment;
+          this.patientData.tooth_gum = round.tooth.gum;
+          this.patientData. tooth_type = round.tooth.type;
+          this.patientData.description = round.description;
+          this.patientData.round = round.round;
+          return "gum_surgery";
+        case 6:
+          round = this.selectPatient.appointment[this.selectPatient.appointment.length-1].
+          root_surgery[this.selectPatient.appointment[this.selectPatient.appointment.length-1].root_surgery.length-1]
+          this.patientData.grand_total = round.grand_total;
+          this.patientData.amount_due = round.fee.amount_due;
+          this.patientData.amount_received = round.fee.amount_received;
+          this.patientData.installment = round.fee.installment;
+          this.patientData.tooth_gum = round.tooth.gum;
+          this.patientData. tooth_type = round.tooth.type;
+          this.patientData.description = round.description;
+          this.patientData.round = round.round;
+          return "root_surgery";
+        case 7:
+          round = this.selectPatient.appointment[this.selectPatient.appointment.length-1].
+         teeth_protice[this.selectPatient.appointment[this.selectPatient.appointment.length-1].teeth_protice.length-1]
+          this.patientData.grand_total = round.grand_total;
+          this.patientData.amount_due = round.fee.amount_due;
+          this.patientData.amount_received = round.fee.amount_received;
+          this.patientData.installment = round.fee.installment;
+          this.patientData.tooth_gum = round.tooth.gum;
+          this.patientData. tooth_type = round.tooth.type;
+          this.patientData.description = round.description;
+          this.patientData.material = round.material;
+          this.patientData.round = round.round;
+          return "teeth_protice";
+        case 8:
+          round = this.selectPatient.appointment[this.selectPatient.appointment.length-1].
+          teeth_bleaching[this.selectPatient.appointment[this.selectPatient.appointment.length-1].teeth_bleaching.length-1]
+          this.patientData.grand_total = round.grand_total;
+          this.patientData.amount_due = round.fee.amount_due;
+          this.patientData.amount_received = round.fee.amount_received;
+          this.patientData.installment = round.fee.installment;
+          this.patientData.description = round.description;
+          this.patientData.step = round.step;
+          this.patientData.material = round.material;
+          this.patientData.round = round.round;
+          return "teeth_bleaching";
+        case 9:
+           round = this.selectPatient.appointment[this.selectPatient.appointment.length-1].
+          scaling[this.selectPatient.appointment[this.selectPatient.appointment.length-1].scaling.length-1]
+          this.patientData.grand_total = round.grand_total;
+          this.patientData.amount_due = round.fee.amount_due;
+          this.patientData.amount_received = round.fee.amount_received;
+          this.patientData.installment = round.fee.installment;
+          this.patientData.tooth_gum = round.tooth.gum;
+          this.patientData. tooth_type = round.tooth.type;
+          this.patientData.description = round.description;
+          this.patientData.round = round.round;
+          return "teeth_scaling";
+        case 10 :
+           round = this.selectPatient.appointment[this.selectPatient.appointment.length-1].
+          mouth_testing[this.selectPatient.appointment[this.selectPatient.appointment.length-1].mouth_testing.length-1]
+          this.patientData.grand_total = round.grand_total;
+          this.patientData.amount_due = round.fee.amount_due;
+          this.patientData.amount_received = round.fee.amount_received; 
+          this.patientData.installment = round.fee.installment;
+          this.patientData.description = round.description;
+          this.patientData.round = round.round;
+          return "mouth_testing"
+      }
+    },
+    submitNewRount(){
+      if(this.$refs.newRountRef.validate()){
+        this.newRoundData._id = this.patientData._id
+        this.newRoundData.stag = this.patientData.stag;
+        this.newRoundData.material = this.patientData.material;
+        this.newRoundData.initial_swervices = this.patientData.initial_swervices;
+        this.newRoundData.tooth.gum = this.patientData.tooth_gum;
+        this.newRoundData.tooth.type = this.patientData.tooth_type;
+        this.newRoundData.grand_total = this.patientData.grand_total;
+        this.newRoundData.fee.installment = this.patientData.installment;
+        this.newRoundData.fee.amount_received = this.newRoundData.amount_received;
+        this.newRoundData.fee.amount_due = this.patientData.amount_due;
+        console.log(this.newRoundData);
+      }
+    }
   },
 };
 </script>
