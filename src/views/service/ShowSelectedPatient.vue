@@ -833,7 +833,7 @@
                       class="mb-3"
                     >
                       <v-row>
-                        <v-col cols="12" md="6" lg="6" xl="6" sm="12">
+                        <v-col cols="12" md="6" lg="6" xl="6" sm="6">
                           <v-btn
                             width="200"
                             color="red"
@@ -850,7 +850,7 @@
                           md="6"
                           lg="6"
                           xl="6"
-                          sm="12"
+                          sm="6"
                           ><v-btn
                             elevation="3"
                             large
@@ -953,7 +953,7 @@
                       class="mb-3"
                     >
                       <v-row>
-                        <v-col cols="12" md="6" lg="6" xl="6" sm="12">
+                        <v-col cols="12" md="6" lg="6" xl="6" sm="6">
                           <v-btn
                             width="200"
                             large
@@ -971,7 +971,7 @@
                           md="6"
                           lg="6"
                           xl="6"
-                          sm="12"
+                          sm="6"
                           ><v-btn
                             :disabled="!newRountForm"
                             elevation="3"
@@ -1550,8 +1550,6 @@ export default {
       this.patientData._id = this.selectPatient._id;
       this.patientData.stag = parseInt(localStorage.getItem("selectedServices"));
       this.showServices(this.patientData.stag);
-      
-      console.log(this.patientData);
     },
     closeAddNewRoundDialog() {
       this.patientData = {};
@@ -1719,7 +1717,6 @@ export default {
         this.newRoundData.fee.installment = this.patientData.installment;
         this.newRoundData.fee.amount_received = this.newRoundData.amount_received;
         this.newRoundData.fee.amount_due = this.patientData.amount_due;
-        console.log(this.newRoundData);
       }
     }
   },
