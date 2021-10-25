@@ -63,7 +63,7 @@ async  getSelectService({commit,dispatch},services){
       commit("SET_SELECTED_SERVICES",[]);
       let notification = {
        type: "warning",
-       message: "هیچ معلومات در به این سرویس موجود نمی باشد."
+       message: "معذرت میخواهیم،این سرویس فعلا موجود نمی باشد."
      };
      dispatch("notification/add",notification,{root: true});
     }
