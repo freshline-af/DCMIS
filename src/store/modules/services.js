@@ -78,6 +78,29 @@ async  getSelectService({commit,dispatch},services){
      };
      dispatch("notification/add",notification,{root: true});
   });
+  },
+async addNewRound({dispatch},data){
+   await axios.put("http://localhost:3000/patient/service/round/"+data._id+"/"+data.stag,data).then((response)=>{
+      if(response.status == 200 && response.data ==="New round added."){
+        let notification ={
+          type:"success",
+          message: "جلسه جدید موفقانه اضافه گردید."
+        };
+        dispatch("notification/add",notification,{root:true})
+      }else {
+        let notification ={
+          type:"warning",
+          message: "در قسمت ایجاد کردن جلسه جدید مشکل وجود دارد."
+        };
+        dispatch("notification/add",notification,{root:true})
+      }
+    }).catch((error)=>{
+      let notification ={
+        type:"warning",
+        message: error
+      };
+      dispatch("notification/add",notification,{root:true})
+    });
   }
 };
 

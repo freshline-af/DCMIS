@@ -939,7 +939,7 @@
                         v-if="patientData.installment != 1"
                       >
                         <v-col cols="12" md="6">
-                         <span class="primary--text text-h6"> مجموعه کل مصارف <span class="red--text">{{patientData.grand_total}}</span> افغانی می باشد، که از این جمله <span class="red--text">{{patientData.amount_received}}</span> افغانی دریافت گردیده است و مبلغ <span class="red--text">{{patientData.amount_due}}</span> افغانی باقی می باشد.</span>
+                         <span class="text-h6"> مجموعه کل مصارف <span>{{patientData.grand_total}}</span> افغانی می باشد، که از این جمله <span>{{patientData.amount_received}}</span> افغانی دریافت گردیده است و مبلغ <span>{{patientData.amount_due}}</span> افغانی باقی می باشد.</span>
                         </v-col>
                       </v-row>
                     </v-col>
@@ -998,6 +998,7 @@
 
 <script>
 import rules from "../../validation/validationRules.js";
+import Store from "../../store/index"
 export default {
   mounted() {
     this.initializServices();
@@ -1013,9 +1014,7 @@ export default {
         type:""
       }
     },
-    patientData:{
-     
-    },
+    patientData:{},
     type_pull_out_theeth: ["ساده", "عقلی", "امپکت"],
     type_surgary: ["کشیدن دندان", "جراحی لثه", "جراحی ریشه"],
     type_quardinat: ["1", "2", "3", "4"],
@@ -1552,7 +1551,8 @@ export default {
       this.showServices(this.patientData.stag);
     },
     closeAddNewRoundDialog() {
-      this.patientData = {};
+      this.newRoundData ={};
+      this.patientData ={},
       this.newRounddialog = false;
     },
     // format the timestamp date;
@@ -1715,8 +1715,28 @@ export default {
         this.newRoundData.tooth.type = this.patientData.tooth_type;
         this.newRoundData.grand_total = this.patientData.grand_total;
         this.newRoundData.fee.installment = this.patientData.installment;
-        this.newRoundData.fee.amount_received = this.newRoundData.amount_received;
-        this.newRoundData.fee.amount_due = this.patientData.amount_due;
+        this.newRoundData.round = this.patientData.round +1;
+        this.newRoundData.fee.amount_received = this.newRoundData.amount_received||0,
+        this.newRoundData.fee.amount_due = this.patientData.amount_due === 0?0: this.patientData.amount_due - this.newRoundData.amount_received||0
+        Store.dispatch("services/addNewRound",this.newRoundData);
+        let appointmentNew ={
+        _id : this.patientData._id,
+        stag : this.patientData.stag,
+        material : this.patientData.material,
+        initial_swervices:this.patientData.initial_swervices,
+        tooth_gum : this.patientData.tooth_gum,
+        tooth_type: this.patientData.tooth_type,
+        fee_grand_total : this.patientData.grand_total,
+        fee_installment : this.patientData.installment,
+        description:this.newRoundData.description,
+        meet_at: new Date(),
+        round : this.patientData.round +1,
+        fee_amount_received : this.newRoundData.amount_received||0,
+        fee_amount_due : this.patientData.amount_due === 0?0: this.patientData.amount_due - this.newRoundData.amount_received||0
+        };
+        this.SelectServices.push(appointmentNew);
+        this.newRountStepper = 1;
+        this.closeAddNewRoundDialog();
       }
     }
   },
