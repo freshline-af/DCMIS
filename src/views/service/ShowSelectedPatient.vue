@@ -1,6 +1,13 @@
 <template>
   <v-row>
-    <v-col class=""  cols="12" md="2" lg="2" xl="2" sm="12">
+    <v-col cols="12">
+     <v-card class="" elevation="3">
+       <v-card-title>
+         <strong>{{ showServicesName()}}</strong>
+       </v-card-title>
+     </v-card>
+    </v-col>
+    <v-col class="mt-n4"  cols="12" md="2" lg="2" xl="2" sm="12">
       <v-sheet rounded="lg" min-height="268">
         <v-card>
           <v-card-text>
@@ -94,7 +101,7 @@
       </v-sheet>
     </v-col>
 
-    <v-col  cols="12" md="7" lg="7" xl="7"  sm="12">
+    <v-col class="mt-n5"  cols="12" md="7" lg="7" xl="7"  sm="12">
       <v-sheet  rounded="lg">
         <v-card>
           <v-card-title>
@@ -147,7 +154,7 @@
       </v-sheet>
     </v-col>
 
-    <v-col  cols="12" md="3" lg="3" xl="3" sm="12">
+    <v-col class="mt-n5" cols="12" md="3" lg="3" xl="3" sm="12">
       <v-sheet rounded="lg" min-height="249">
         <v-card>
           <v-card-text>
@@ -939,7 +946,7 @@
                         v-if="patientData.installment != 1"
                       >
                         <v-col cols="12" md="6">
-                         <span class="text-h6"> مجموعه کل مصارف <span>{{patientData.grand_total}}</span> افغانی می باشد، که از این جمله <span>{{patientData.amount_received}}</span> افغانی دریافت گردیده است و مبلغ <span>{{patientData.amount_due}}</span> افغانی باقی می باشد.</span>
+                         <span class="text-h6"> مجموعه کل مصارف <span>{{patientData.grand_total}}</span> افغانی می باشد، که از این جمله <span>{{patientData.amount_received}}</span> افغانی در آخرین جلسه دریافت گردیده است و مبلغ <span>{{patientData.amount_due}}</span> افغانی باقی می باشد.</span>
                         </v-col>
                       </v-row>
                     </v-col>
@@ -1738,7 +1745,32 @@ export default {
         this.newRountStepper = 1;
         this.closeAddNewRoundDialog();
       }
-    }
+    },
+     showServicesName() {
+      let services = parseInt(localStorage.getItem("selectedServices"));
+      switch (services) {
+        case 1:
+          return "پرکردن دندان";
+        case 2:
+          return "پوش کردن دندان";
+        case 3:
+          return "ارتودانسی";
+        case 4:
+          return "کشیدن دندان";
+        case 5:
+          return "جراحی لثه دندان";
+        case 6:
+          return "جراحی ریشه دندان";
+        case 7:
+          return "پروتیز دندان";
+        case 8:
+          return "سفید کردن دندان";
+        case 9:
+          return "جرم گیری دندان";
+        case 10 :
+          return "معاینه دهن"
+      }
+    },
   },
 };
 </script>

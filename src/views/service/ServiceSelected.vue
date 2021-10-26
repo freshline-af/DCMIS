@@ -18,6 +18,9 @@
             rounded
           ></v-text-field>
         </v-col>
+        <v-col class="text-center" align-content="center" align-self="center">
+          <span>{{showServicesName()}}</span>
+        </v-col>
       </v-row>
     </v-card-title>
     <v-card-text>
@@ -125,6 +128,31 @@ export default {
         name: "selectedPatientService",
         params: { selectPatient: data },
       });
+    },
+     showServicesName() {
+      let services = parseInt(localStorage.getItem("selectedServices"));
+      switch (services) {
+        case 1:
+          return "پرکردن دندان";
+        case 2:
+          return "پوش کردن دندان";
+        case 3:
+          return "ارتودانسی";
+        case 4:
+          return "کشیدن دندان";
+        case 5:
+          return "جراحی لثه دندان";
+        case 6:
+          return "جراحی ریشه دندان";
+        case 7:
+          return "پروتیز دندان";
+        case 8:
+          return "سفید کردن دندان";
+        case 9:
+          return "جرم گیری دندان";
+        case 10 :
+          return "معاینه دهن"
+      }
     },
   },
 };
