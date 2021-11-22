@@ -48,7 +48,7 @@
                   <div
                     class="text-right text-h6 card-dark-grey font-weight-regular"
                   >
-                    3.25%
+                    20
                   </div>
                 </v-col>
               </v-row>
