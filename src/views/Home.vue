@@ -109,24 +109,11 @@
         <v-col lg="3" sm="6" md="7" cols="12">
           <v-card class="mx-1 mb-1" style="min-height: 228px">
             <v-card-title class="pa-6 pb-3">
-              <p>Server Overview</p>
+              <p>تعداد متخصص</p>
               <v-spacer></v-spacer>
-              <v-menu>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon v-bind="attrs" v-on="on">
+               <v-btn icon v-bind="attrs" v-on="on">
                     <v-icon color="textColor">mdi-dots-vertical</v-icon>
                   </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(item, i) in mock.menu"
-                    :key="i"
-                    @click="() => {}"
-                  >
-                    <v-list-item-title>{{ item }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
             </v-card-title>
             <v-card-text class="pa-6 pt-0">
               <v-row no-gutters>
@@ -218,7 +205,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="12">
+        <v-col cols="12" md="12" sm="12" lg="12" xl="12">
           <v-card class="mx-1 mb-1">
             <v-card-title class="pa-6 pb-0">
               <v-row no-gutters>
@@ -226,7 +213,7 @@
                   cols="7"
                   sm="4"
                   md="4"
-                  lg="5"
+                  lg="3"
                   class="d-flex align-center"
                 >
                   <p>راپور روزانه</p>
@@ -241,22 +228,28 @@
                   ><span
                     class="card-dark-grey font-weight-regular mr-3"
                     style="font-size: 18px"
-                    >تبلیت</span
+                    >بیمار</span
                   >
                   <v-icon size="18" color="primary">mdi-circle-medium</v-icon
                   ><span
                     class="card-dark-grey font-weight-regular mr-3"
                     style="font-size: 18px"
-                    >موبایل</span
+                    >مواد غذایی</span
                   >
                   <v-icon size="18" color="#B1BCFF">mdi-circle-medium</v-icon
                   ><span
                     class="card-dark-grey font-weight-regular"
                     style="font-size: 18px"
-                    >دیسکتاب</span
+                    >دارو</span
+                  >
+                  <v-icon size="18" color="#B1BCFF">mdi-circle-medium</v-icon
+                  ><span
+                    class="card-dark-grey font-weight-regular"
+                    style="font-size: 18px"
+                    >تجهیزات</span
                   >
                 </v-col>
-                <v-col cols="5" sm="2" md="2" lg="1" offset-lg="1">
+                <v-col cols="5" sm="2" md="3" lg="2" offset-lg="1">
                   <v-menu>
                     <template v-slot:activator="{ on, attrs }">
                       <v-select
@@ -301,24 +294,11 @@
         <v-col lg="4" sm="6" cols="12">
           <v-card class="mx-1 mb-1">
             <v-card-title class="pa-6 pb-3">
-              <p>Light Blue</p>
+              <p>تعداد بیماران</p>
               <v-spacer></v-spacer>
-              <v-menu>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon v-bind="attrs" v-on="on">
+              <v-btn icon v-bind="attrs" v-on="on">
                     <v-icon color="textColor">mdi-dots-vertical</v-icon>
                   </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(item, i) in mock.menu"
-                    :key="i"
-                    @click="() => {}"
-                  >
-                    <v-list-item-title>{{ item }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
             </v-card-title>
             <v-card-text class="pa-6 pt-0">
               <v-row no-gutters>
@@ -364,24 +344,11 @@
         <v-col lg="4" sm="6" cols="12">
           <v-card class="mx-1 mb-1">
             <v-card-title class="pa-6 pb-3">
-              <p>Sing App</p>
+              <p>تعداد تجهیزات</p>
               <v-spacer></v-spacer>
-              <v-menu>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon v-bind="attrs" v-on="on">
+               <v-btn icon v-bind="attrs" v-on="on">
                     <v-icon color="textColor">mdi-dots-vertical</v-icon>
                   </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(item, i) in mock.menu"
-                    :key="i"
-                    @click="() => {}"
-                  >
-                    <v-list-item-title>{{ item }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
             </v-card-title>
             <v-card-text class="pa-6 pt-0">
               <v-row no-gutters>
@@ -427,24 +394,11 @@
         <v-col lg="4" sm="6" cols="12">
           <v-card class="mx-1 mb-1">
             <v-card-title class="pa-6 pb-3">
-              <p>RNS</p>
+              <p>دارو ها</p>
               <v-spacer></v-spacer>
-              <v-menu>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon v-bind="attrs" v-on="on">
+               <v-btn icon v-bind="attrs" v-on="on">
                     <v-icon color="textColor">mdi-dots-vertical</v-icon>
                   </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(item, i) in mock.menu"
-                    :key="i"
-                    @click="() => {}"
-                  >
-                    <v-list-item-title>{{ item }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
             </v-card-title>
             <v-card-text class="pa-6 pt-0">
               <v-row no-gutters>
@@ -490,66 +444,19 @@
         <v-col cols="12">
           <v-card class="support-requests mx-1 mb-1">
             <v-card-title class="pa-6 pb-0">
-              <p>Support Requests</p>
+              <p>مراجعه شده ها</p>
               <v-spacer></v-spacer>
-              <v-menu>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon v-bind="attrs" v-on="on">
+              <v-btn icon v-bind="attrs" v-on="on">
                     <v-icon color="textColor">mdi-dots-vertical</v-icon>
                   </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(item, i) in mock.menu"
-                    :key="i"
-                    @click="() => {}"
-                  >
-                    <v-list-item-title>{{ item }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
             </v-card-title>
             <v-card-text class="pa-0">
-              <v-simple-table>
-                <template v-slot:default>
-                  <thead class="pl-2">
-                    <tr>
-                      <th class="text-left pa-6">NAME</th>
-                      <th class="text-left">EMAIL</th>
-                      <th class="text-left">PRODUCT</th>
-                      <th class="text-left">PRICE</th>
-                      <th class="text-left">DATE</th>
-                      <th class="text-left">CITY</th>
-                      <th class="text-left">STATUS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in mock.table" :key="item.name">
-                      <td class="pa-6">{{ item.name }}</td>
-                      <td>{{ item.email }}</td>
-                      <td>{{ item.product }}</td>
-                      <td>{{ item.price }}</td>
-                      <td>{{ item.date }}</td>
-                      <td>{{ item.city }}</td>
-                      <td v-if="item.status === 'Sent'">
-                        <v-chip link color="success" class="ma-2 ml-0">
-                          Sent
-                        </v-chip>
-                      </td>
-                      <td v-else-if="item.status === 'Pending'">
-                        <v-chip link color="warning" class="ma-2 ml-0">
-                          Pending
-                        </v-chip>
-                      </td>
-                      <td v-else-if="item.status === 'Declined'">
-                        <v-chip link color="secondary" class="ma-2 ml-0">
-                          Declined
-                        </v-chip>
-                      </td>
-                    </tr>
-                  </tbody>
-                </template>
-              </v-simple-table>
+              <v-data-table
+              :items="reports"
+              :headers="reportsHeader"
+              >
+                
+              </v-data-table>
             </v-card-text>
           </v-card>
         </v-col>
@@ -576,6 +483,64 @@ export default {
       value: this.getRandomInt(10, 90),
       value2: this.getRandomInt(10, 90),
       mainApexAreaSelect: "روزانه",
+      reports:[
+      {
+        name:"علی",
+        lastname:"محمدی",
+        phone:"0789343433",
+        address:"کابل- افغانستان",
+        service:"پور کردن دندان",
+        hour:"10:30"
+      },
+      {
+        name:"محمد",
+        lastname:"علی زاده",
+        phone:"077932243",
+        address:"وردک- افغانستان",
+        service:" جراحی ریشه دندان",
+        hour:"11:40"
+      },
+      {
+        name:"محمد باقر",
+        lastname:"امینی",
+        phone:"0749343433",
+        address:"وردک- افغانستان",
+        service:"سفید کردن دندان",
+        hour:"1:00"
+      },
+      ],
+      reportsHeader:[
+        {
+          text:"اسم",
+          value:"name",
+          srotable:"true"
+        },
+        {
+          text:"تخلص",
+          value:"lastname",
+          srotable:"true"
+        },
+        {
+          text:"شماره تماس",
+          value:"phone",
+          srotable:"true"
+        },
+        {
+          text:"آدرس",
+          value:"address",
+          srotable:"true"
+        },
+        {
+          text:"سرویس",
+          value:"service",
+          srotable:"true"
+        },
+        {
+          text:"ساعت مراجعه",
+          value:"hour",
+          srotable:"true"
+        },
+      ]
     };
   },
   methods: {
